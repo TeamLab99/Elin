@@ -287,6 +287,10 @@ MonoBehaviour:
     health: 0
     sprite: {fileID: 0}
     percent: 0
+  originPRS:
+    pos: {x: 0, y: 0, z: 0}
+    rot: {x: 0, y: 0, z: 0, w: 0}
+    scale: {x: 0, y: 0, z: 0}
 --- !u!114 &4060142598591651217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,7 +384,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 59510d55e18d85f4b9d0e4c5613d61b7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eae31c6afadd2d749b5d126ccbd3deda, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
