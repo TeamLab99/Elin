@@ -54,16 +54,18 @@ public class CardManager : MonoBehaviour
 
     private void Start()
     {
-        SetupItemBuffer(); 
+        SetupItemBuffer();
+        TurnManager.OnAddCard += AddCard;
+    }
+
+    private void OnDestroy()
+    {
+        TurnManager.OnAddCard -= AddCard;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
-            AddCard(true);
 
-        if (Input.GetKeyDown(KeyCode.X))
-            AddCard(false);
     }
 
     void AddCard(bool isMine)
