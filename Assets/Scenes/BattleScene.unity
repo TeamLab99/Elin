@@ -510,6 +510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 779833547}
   - component: {fileID: 779833546}
+  - component: {fileID: 779833549}
   - component: {fileID: 779833548}
   m_Layer: 0
   m_Name: Card
@@ -609,6 +610,31 @@ MonoBehaviour:
   - {fileID: 620959282}
   - {fileID: 1356124179}
   sortingLayerName: Card
+--- !u!114 &779833549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779833545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd4a2a896e98e548ae8cff8fb4f1665, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card: {fileID: 779833546}
+  character: {fileID: 961595419}
+  nameTMP: {fileID: 1306076277}
+  attackTMP: {fileID: 620959281}
+  healthTMP: {fileID: 1356124178}
+  cardFront: {fileID: 6604637, guid: 05b28c91da0e9574681dbcae058dd181, type: 3}
+  cardBack: {fileID: 1711432255, guid: 05b28c91da0e9574681dbcae058dd181, type: 3}
+  item:
+    name: 
+    attack: 0
+    health: 0
+    sprite: {fileID: 0}
+    percent: 0
 --- !u!1 &951272304
 GameObject:
   m_ObjectHideFlags: 0
