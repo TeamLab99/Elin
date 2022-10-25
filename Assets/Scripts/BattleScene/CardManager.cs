@@ -139,4 +139,30 @@ public class CardManager : MonoBehaviour
         }
         return results;
     }
+
+    #region MyCard
+
+    public void CardMouseOver(Card card)
+    {
+        EnlargeCard(true, card);
+    }
+
+    public void CardMouseExit(Card card)
+    {
+        EnlargeCard(false, card);
+    }
+    #endregion
+
+    void EnlargeCard(bool isEnlarge, Card card)
+    {
+        if (isEnlarge)
+        {
+            Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -8.0f, -10f); //Ä«µå °ãÃÄ¼­ ¼±ÅÃµÉ±îºÁ zÀ§Ä¡µµ -10À¸·Î ¶¯°ÜÁÜ
+            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 2.5f), false);
+        }
+        else
+            card.MoveTransform(card.originPRS, false);
+
+        card.GetComponent<Order>().SetMostFrontOrder(isEnlarge);
+    }
 }

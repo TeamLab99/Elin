@@ -61,9 +61,20 @@ public class TurnManager : MonoBehaviour
     {
         isLoading = true;
 
+        if (myTurn)
+            BPGameManager.Inst.Notification("나의 턴",myTurn);
+        else
+            BPGameManager.Inst.Notification("상대 턴",myTurn);
+
         yield return delay07;
         OnAddCard?.Invoke(myTurn);
         yield return delay07;
         isLoading = false;
+    }
+
+    public void EndTurn()
+    {
+        myTurn = !myTurn;
+        StartCoroutine(StartTurnCo());
     }
 }
