@@ -8,14 +8,14 @@
 /[Bb]uild/
 /[Bb]uilds/
 /[Ll]ogs/
-/[Mm]emoryCaptures/
-/MentalCare_CNU/[Ll]ibrary/
-/MentalCare_CNU/[Tt]emp/
-/MentalCare_CNU/[Ll]og/
-/MentalCare_CNU/[Bb]uild/
-/MentalCare_CNU/[Bb]uilds/
-/MentalCare_CNU/[Oo]bj/
+/[Uu]ser[Ss]ettings/
 
+# MemoryCaptures can get excessive in size.
+# They also could contain extremely sensitive data
+/[Mm]emoryCaptures/
+
+# Recordings can get excessive in size
+/[Rr]ecordings/
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
@@ -63,7 +63,16 @@ sysinfo.txt
 
 # Builds
 *.apk
+*.aab
 *.unitypackage
+*.app
+
+# Packed Addressables
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+
+# Temporary auto-generated Android Assets
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Crashlytics generated file
 crashlytics-build.properties
