@@ -8,16 +8,9 @@
 /[Bb]uild/
 /[Bb]uilds/
 /[Ll]ogs/
-/[Uu]ser[Ss]ettings/
-
-# MemoryCaptures can get excessive in size.
-# They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
 
-# Recordings can get excessive in size
-/[Rr]ecordings/
-
-# Never ignore Asset meta data
+# Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
@@ -49,9 +42,6 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
-*.txt
-*.pdf
-
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -63,102 +53,9 @@ sysinfo.txt
 
 # Builds
 *.apk
-*.aab
 *.unitypackage
-*.app
-
-# Packed Addressables
-/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
-
-# Temporary auto-generated Android Assets
-/[Aa]ssets/[Ss]treamingAssets/aa.meta
-/[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Crashlytics generated file
 crashlytics-build.properties
 
-*.meta
-*.wav
-*.mp3
-*.jpg
-*.FBX
-*.controller
-*.png
-*.jpeg
-*.mat
-*.physicMaterial
-*.lighting
-*.asset
-*.hdr
-*.mp4
-*.renderTexture
-*.terrainlayer
-*.bin
-*.exr
-*.cginc
-*.asmdef
-*.tga
-*.shader
-*.bmp
-*.obj
-*.tif
-*.ptx
-*.dll
-*.exe
-*.pso
-*.lz4
-*.vso
-*.gso
-*.tiff
-*.tiff
-*.psd
-*.flare
-*.compute
-*.guiskin
-*.preset
-*.mask
-*.raw
-*.ttf
-*.anim
-*.properties
-*.jar
-*.so
-*.zip
-*.xml
-*.mixer
-*.mixer
-*.otf
-*.db
-*.spm
-*.json
-*.dat
-*.graph
-*.info
-*.log
-*.resource
-*.resS
-*.sharedAssets
-*.bundle
-*.prefs
-*.dwlt
-*.13f1 (d4ddf0d95db9)
-*.o
-*.buildreport
-*.md
-*.uss
-*.yml
-*.a
-*.hlsl
-*.cube
-*.aar
-*.config
-*.unity3d
-*.yaml
-*.assets
-*.stamp
-*.catalog
-*.cache
-*.force
-*.CopyComplete
-*.pref
-*.pref
+ProjectSettings/GvhProjectSettings.xml
