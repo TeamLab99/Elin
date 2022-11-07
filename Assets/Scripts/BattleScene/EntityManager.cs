@@ -33,7 +33,7 @@ public class EntityManager : MonoBehaviour
             var targetEntity = targetEntities[i];
             targetEntity.originPos = new Vector3(targetX, targetY, 0);
             targetEntity.MoveTransform(targetEntity.originPos, true, 0.5f);
-            targetEntity.GetComponent<Order>().SetOriginOrder(i);
+            targetEntity.GetComponent<Order>()?.SetOriginOrder(i);
         }
     }
 
@@ -64,4 +64,32 @@ public class EntityManager : MonoBehaviour
         EntityAlignment(true);
     }
 
+
+    public bool SpawnEntity(bool isMine, Item item, Vector3 spawnPos)
+    {
+        if (isMine)
+        {
+            if (IsFullMyEntities || !ExistMyEmptyEntity)
+                return false;
+        }
+        else
+        {
+            if (IsFullOtherEntities)
+                return false;
+        }
+
+        var entityObject = Instantiate(entityPrefab, spawnPos, Utils.QI);
+        var entity = entityObject.GetComponent<Entity>();
+
+        if (isMine)
+            myEntities[MyEmptyEntityIndex] = entity;
+        else
+            otherEntities.Insert(Random.Range(0, otherEntities.Count), entity);
+
+        entity.isMine = isMine;
+        entity.Setup(item);
+        EntityAlignment(isMine);
+
+        return true;
+    }
 }

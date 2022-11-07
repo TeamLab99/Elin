@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using DG.Tweening;
 
 public class CardManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] List<Card> myCards;
     [SerializeField] List<Card> otherCards;
     [SerializeField] Transform cardSpawnPoint;
+    [SerializeField] Transform otherCardSpawnPoint;
     [SerializeField] Transform myCardLeft;
     [SerializeField] Transform myCardRight;
     [SerializeField] Transform otherCardLeft;
@@ -28,8 +30,9 @@ public class CardManager : MonoBehaviour
     Card selectCard;
     bool isMyCardDrag;
     bool onMyCardArea;
+    int myPutCount;
     enum ECardState { Nothing, CanMouseOver, CanMouseDrag}
-
+    
     public Item PopItem()
     {
         if (itemBuffer.Count == 0)
@@ -63,11 +66,20 @@ public class CardManager : MonoBehaviour
     {
         SetupItemBuffer();
         TurnManager.OnAddCard += AddCard;
+        TurnManager.OnTurnStarted += OnTurnStarted;
     }
 
     private void OnDestroy()
     {
         TurnManager.OnAddCard -= AddCard;
+        TurnManager.OnTurnStarted -= OnTurnStarted;
+
+    }
+
+    void OnTurnStarted(bool myTurn)
+    {
+        if (myTurn)
+            myPutCount = 0;
     }
 
     private void Update()
@@ -128,8 +140,8 @@ public class CardManager : MonoBehaviour
         switch (objCount)
         {
             case 1: objLerps = new float[] { 0.5f }; break;
-            case 2: objLerps = new float[] { 0.27f, 0.73f}; break;
-            case 3: objLerps = new float[] { 0.1f, 0.5f, 0.9f}; break;
+            case 2: objLerps = new float[] { 0.27f, 0.73f }; break;
+            case 3: objLerps = new float[] { 0.1f, 0.5f, 0.9f }; break;
             default:
                 float interval = 1f / (objCount - 1);
                 for (int i = 0; i < objCount; i++)
@@ -151,6 +163,40 @@ public class CardManager : MonoBehaviour
             results.Add(new PRS(targetPos, targetRot, scale));
         }
         return results;
+    }
+
+    public bool TryPutCard(bool isMine)
+    {
+        if (isMine && myPutCount >= 1)
+            return false;
+
+        if (!isMine && otherCards.Count <= 0)
+            return false;
+
+
+        Card card = isMine ? selectCard : otherCards[Random.Range(0, otherCards.Count)];
+        var spawnPos = isMine ? Utils.MousePos : otherCardSpawnPoint.position;
+        var targetCards = isMine ? myCards : otherCards;
+
+        if (EntityManager.Inst.SpawnEntity(isMine, card.item, spawnPos))
+        {
+            targetCards.Remove(card);
+            card.transform.DOKill();
+            DestroyImmediate(card.gameObject);
+            if (isMine)
+            {
+                selectCard = null;
+                myPutCount++;
+            }
+            CardAlignment(isMine);
+            return true;
+        }
+        else
+        {
+            targetCards.ForEach(x => x.GetComponent<Order>().SetMostFrontOrder(false));
+            CardAlignment(isMine);
+            return false;
+        }
     }
 
     #region MyCard
@@ -186,6 +232,8 @@ public class CardManager : MonoBehaviour
 
         if (onMyCardArea)
             EntityManager.Inst.RemoveMyEmptyEntity();
+        else
+            TryPutCard(true);
     }
     void CardDrag()
     {
@@ -224,10 +272,10 @@ public class CardManager : MonoBehaviour
         if (TurnManager.Inst.isLoading)
             eCardState = ECardState.Nothing;
 
-        else if (!TurnManager.Inst.myTurn)
+        else if (!TurnManager.Inst.myTurn || myPutCount==1 || EntityManager.Inst.IsFullMyEntities)
             eCardState = ECardState.CanMouseOver;
 
-        else if (TurnManager.Inst.myTurn)
+        else if (TurnManager.Inst.myTurn && myPutCount == 0)
             eCardState = ECardState.CanMouseDrag;
     }
 

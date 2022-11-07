@@ -37,6 +37,9 @@ public class BPGameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C))
             TurnManager.Inst.EndTurn();
+
+        if (Input.GetKeyDown(KeyCode.V))
+            CardManager.Inst.TryPutCard(false);
     }
 
     public void StartGame()
