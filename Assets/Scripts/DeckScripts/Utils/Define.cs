@@ -7,9 +7,7 @@ public class Define
     public enum Scene
     {
         Unknown,
-        Login,
-        Lobby,
-        Game,
+        DeckCreator
     }
 
     public enum Sound
@@ -33,6 +31,6 @@ public class Define
 
     public enum CameraMode
     {
-        QuarterView,
+        QuarterView
     }
 }
