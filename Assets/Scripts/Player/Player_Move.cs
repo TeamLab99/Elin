@@ -34,7 +34,6 @@ public class Player_Move : MonoBehaviour
         isRight = 1;
     }
 
-    
     void Update()
     {
         moveDir = Input.GetAxisRaw("Horizontal");
@@ -55,12 +54,16 @@ public class Player_Move : MonoBehaviour
                 anim.SetBool("isRun", false);
             if (rb.velocity.y > 0.1f)
                 anim.SetBool("isFall", false);
-            else if (rb.velocity.y < -0.1f)
+            else 
                 anim.SetBool("isFall", true);
             if (isGround)
                 anim.SetBool("isGround", true);
             else
                 anim.SetBool("isGround", false);
+            if (isWall)
+                anim.SetBool("isWall", true);
+            else
+                anim.SetBool("isWall", false);
         } //애니메이션 표기
     }
 
@@ -92,8 +95,11 @@ public class Player_Move : MonoBehaviour
         }
     } //벽타기 + 벽점프
     private void Walk()
-    {
-        rb.velocity = new Vector2(moveDir * 10, rb.velocity.y);
+    {   
+        if(isGround)
+            rb.velocity = new Vector2(moveDir * 10, 0);
+        else
+            rb.velocity = new Vector2(moveDir * 10, rb.velocity.y);
     } //걷기
     private void Jump()
     {
