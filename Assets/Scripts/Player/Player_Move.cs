@@ -39,23 +39,22 @@ public class Player_Move : MonoBehaviour
 
     void Update()
     {
-        moveDir = Input.GetAxisRaw("Horizontal");
         jumpDir = Input.GetAxis("Jump");
         isGround = Physics2D.Raycast(groundChk.position, Vector2.down, groundDist, groundLayer);
         isWall = Physics2D.Raycast(wallChk.position, Vector2.right*isRight, wallDist, wallLayer);
-        {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if(!isWallJump){
+            moveDir = Input.GetAxisRaw("Horizontal");
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
                 isRight = -1;
                 FlipX();
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKey(KeyCode.RightArrow))
             {
                 isRight = 1;
                 FlipX();
             }
-        } //좌우 표기
-
+        } //좌우 전환 + 좌우 움직임
         {
             if (Mathf.Abs(moveDir) > 0.1f)
                 anim.SetBool("isRun", true);
@@ -124,6 +123,7 @@ public class Player_Move : MonoBehaviour
     private void FreezX()
     {
         isWallJump = false;
+        FlipX();
     } //움직임 제어 풀기
     private void OnDrawGizmos()
     {
