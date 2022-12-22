@@ -132,4 +132,11 @@ public class Player_Move : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawRay(wallChk.position, Vector2.right * wallDist*isRight);
     } //∞À√‚º±
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "JumpBox")
+            rb.AddForce(new Vector2(0, 20), ForceMode2D.Impulse);
+        
+    }
 }
