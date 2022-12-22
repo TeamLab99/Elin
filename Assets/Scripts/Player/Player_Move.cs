@@ -7,12 +7,15 @@ public class Player_Move : MonoBehaviour
     Animator anim;
     Rigidbody2D rb;
     SpriteRenderer spr;
+    [SerializeField]
     public Transform groundChk;
     public Transform wallChk;
     public LayerMask groundLayer;
     public LayerMask wallLayer;
     public float groundDist;
     public float wallDist;
+    public float jumpPower;
+    public float walkSpeed;
 
     float moveDir;
     float jumpDir;
@@ -42,9 +45,15 @@ public class Player_Move : MonoBehaviour
         isWall = Physics2D.Raycast(wallChk.position, Vector2.right*isRight, wallDist, wallLayer);
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
                 isRight = -1;
+                FlipX();
+            }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
                 isRight = 1;
+                FlipX();
+            }
         } //좌우 표기
 
         {
@@ -72,7 +81,6 @@ public class Player_Move : MonoBehaviour
         if (!isWallJump)
         {
             Walk();
-            FlipX();
             Jump();
             WallSlide();
         }
@@ -90,21 +98,21 @@ public class Player_Move : MonoBehaviour
                 Invoke("FreezX", 0.3f);
                 isRight *= -1;
                 FlipX();
-                rb.velocity = new Vector2(10*isRight, 8);
+                rb.velocity = new Vector2(walkSpeed*isRight, jumpPower*0.8f);
             }
         }
     } //벽타기 + 벽점프
     private void Walk()
     {   
         if(isGround)
-            rb.velocity = new Vector2(moveDir * 10, 0);
+            rb.velocity = new Vector2(moveDir * walkSpeed, 0);
         else
-            rb.velocity = new Vector2(moveDir * 10, rb.velocity.y);
+            rb.velocity = new Vector2(moveDir * walkSpeed, rb.velocity.y);
     } //걷기
     private void Jump()
     {
         if (isGround)
-            rb.velocity = new Vector2(rb.velocity.x, jumpDir * 10);
+            rb.velocity = new Vector2(rb.velocity.x, jumpDir * jumpPower);
     } //점프
     private void FlipX()
     {
