@@ -16,6 +16,7 @@ public class Player_Move : MonoBehaviour
     public float wallDist;
     public float jumpPower;
     public float walkSpeed;
+    public GameObject box;
 
     float moveDir;
     float jumpDir;
@@ -23,7 +24,7 @@ public class Player_Move : MonoBehaviour
     bool isGround;
     bool isWall;
     bool isWallJump;
-
+    bool boxOpen;
     private void Awake()
     {
       
@@ -35,6 +36,7 @@ public class Player_Move : MonoBehaviour
     void Start() //초기 변수 제어
     {
         isRight = 1;
+        boxOpen = false;
     }
 
     void Update()
@@ -54,6 +56,9 @@ public class Player_Move : MonoBehaviour
                 isRight = 1;
                 FlipX();
             }
+            else if (Input.GetKeyDown(KeyCode.X))
+                if (boxOpen)
+                    box.SetActive(false);
         } //좌우 전환 + 좌우 움직임
         {
             if (Mathf.Abs(moveDir) > 0.1f)
@@ -137,6 +142,11 @@ public class Player_Move : MonoBehaviour
     {
         if (collision.gameObject.tag == "JumpBox")
             rb.AddForce(new Vector2(0, 20), ForceMode2D.Impulse);
-        
+        if (collision.gameObject.tag == "Spike")
+            rb.AddForce(new Vector2(10*isRight, 5), ForceMode2D.Impulse);
+        //Debug.Log("가시에 찔림");
+        if (collision.gameObject.tag == "Box")
+            boxOpen = true;
+                
     }
 }
