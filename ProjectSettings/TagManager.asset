@@ -8,6 +8,7 @@ TagManager:
   - Ladder
   - JumpBox
   - Spike
+  - Crank
   layers:
   - Default
   - TransparentFX
