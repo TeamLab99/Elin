@@ -18,6 +18,7 @@ public class Player_Move : MonoBehaviour
     public float walkSpeed;
     public GameObject box;
 
+    float defaultGravity;
     float moveDir;
     float jumpDir;
     float isRight;
@@ -25,6 +26,7 @@ public class Player_Move : MonoBehaviour
     bool isWall;
     bool isWallJump;
     bool boxOpen;
+    bool isLadder;
     private void Awake()
     {
       
@@ -37,6 +39,7 @@ public class Player_Move : MonoBehaviour
     {
         isRight = 1;
         boxOpen = false;
+        defaultGravity = rb.gravityScale;
     }
 
     void Update()
@@ -87,6 +90,16 @@ public class Player_Move : MonoBehaviour
             Walk();
             Jump();
             WallSlide();
+        }
+        if (isLadder)
+        {
+            float ver = Input.GetAxis("Vertical");
+            rb.velocity = new Vector2(rb.velocity.x, ver * jumpPower);
+            rb.gravityScale = 0f;
+        }
+        else
+        {
+            rb.gravityScale = defaultGravity;
         }
     }
    
@@ -146,7 +159,22 @@ public class Player_Move : MonoBehaviour
             rb.AddForce(new Vector2(10*isRight, 5), ForceMode2D.Impulse);
         //Debug.Log("°¡½Ã¿¡ Âñ¸²");
         if (collision.gameObject.tag == "Box")
-            boxOpen = true;
-                
+            boxOpen = true;               
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ladder"))
+        {
+            isLadder = true;
+
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ladder"))
+        {
+            isLadder = false;
+
+        }
     }
 }
