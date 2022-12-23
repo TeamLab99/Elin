@@ -19,7 +19,7 @@ public class TurnManager : MonoBehaviour
     public bool isLoading; // 게임 끝나고 true 하면 카드, 엔티티 클릭 방지
 
     enum ETurnMode { Random, My, Other}
-    WaitForSeconds delay05 = new WaitForSeconds(0.5f);
+    WaitForSeconds delay05 = new WaitForSeconds(0.1f);
     WaitForSeconds delay07 = new WaitForSeconds(0.7f);
 
     public static Action<bool> OnAddCard;
@@ -51,9 +51,9 @@ public class TurnManager : MonoBehaviour
         for (int i = 0; i < startCardCount; i++)
         {
             yield return delay05;
-            OnAddCard?.Invoke(false);
-            yield return delay05;
             OnAddCard?.Invoke(true);
+            yield return new WaitForSeconds(0.2f);
+            
         }
         StartCoroutine(StartTurnCo());
     }
@@ -68,7 +68,7 @@ public class TurnManager : MonoBehaviour
             BPGameManager.Inst.Notification("상대 턴",myTurn);
 
         yield return delay07;
-        OnAddCard?.Invoke(myTurn);
+        //OnAddCard?.Invoke(myTurn);
         yield return delay07;
         isLoading = false;
         OnTurnStarted?.Invoke(myTurn);

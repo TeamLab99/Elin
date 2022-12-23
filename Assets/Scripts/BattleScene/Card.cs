@@ -29,14 +29,6 @@ public class Card : MonoBehaviour
             nameTMP.text = this.item.name;
             attackTMP.text = this.item.attack.ToString();
             healthTMP.text = this.item.health.ToString();
-
-        }
-        else
-        {
-            card.sprite = cardBack;
-            nameTMP.text = "";
-            attackTMP.text = "";
-            healthTMP.text = "";
         }
     }
 
