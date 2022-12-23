@@ -18,15 +18,16 @@ public class Player_Move : MonoBehaviour
     public float walkSpeed;
     public GameObject box;
 
-    float defaultGravity;
-    float moveDir;
-    float jumpDir;
-    float isRight;
-    bool isGround;
-    bool isWall;
-    bool isWallJump;
-    bool boxOpen;
-    bool isLadder;
+    float defaultGravity; //기본 중력
+    float moveDir; //Horizontal
+    float jumpDir; //Jump
+    float isRight; //1:오른쪽, -1:왼쪽
+    bool isGround; //땅에 붙어있는가?
+    bool isWall; //벽에 붙어있는가?
+    bool isWallJump; //벽
+    bool boxOpen; 
+    bool ladderCollide; //사다리와 붙어있는가?
+    bool isLadder; //사다리에 메달려있는가?
     private void Awake()
     {
       
@@ -39,6 +40,7 @@ public class Player_Move : MonoBehaviour
     {
         isRight = 1;
         boxOpen = false;
+        isLadder = false;
         defaultGravity = rb.gravityScale;
     }
 
@@ -62,7 +64,13 @@ public class Player_Move : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.X))
                 if (boxOpen)
                     box.SetActive(false);
+            
         } //좌우 전환 + 좌우 움직임
+
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+                isLadder = true;
+        }
         {
             if (Mathf.Abs(moveDir) > 0.1f)
                 anim.SetBool("isRun", true);
@@ -91,18 +99,24 @@ public class Player_Move : MonoBehaviour
             Jump();
             WallSlide();
         }
-        if (isLadder)
+        OnLadder();
+    }
+    private void OnLadder()
+    {
+        if (ladderCollide)
         {
-            float ver = Input.GetAxis("Vertical");
-            rb.velocity = new Vector2(rb.velocity.x, ver * jumpPower);
-            rb.gravityScale = 0f;
+            if (isLadder)
+            {
+                float ver = Input.GetAxis("Vertical");
+                rb.velocity = new Vector2(rb.velocity.x, ver * jumpPower);
+                rb.gravityScale = 0f;
+            }
         }
         else
         {
             rb.gravityScale = defaultGravity;
         }
     }
-   
     private void WallSlide()
     {
         if (isWall)
@@ -165,7 +179,7 @@ public class Player_Move : MonoBehaviour
     {
         if (collision.CompareTag("Ladder"))
         {
-            isLadder = true;
+            ladderCollide = true;
 
         }
     }
@@ -173,8 +187,8 @@ public class Player_Move : MonoBehaviour
     {
         if (collision.CompareTag("Ladder"))
         {
+            ladderCollide = false;
             isLadder = false;
-
         }
     }
 }
