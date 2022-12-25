@@ -1,0 +1,46 @@
+{
+  "deckCards": [
+    {
+      "id": "0",
+      "cardName": "Fireball",
+      "cost": "2",
+      "description": "This is Description of Fireball"
+    },
+    {
+      "id": "1",
+      "cardName": "CureBubble",
+      "cost": "2",
+      "description": "This is Description of HealingBubble"
+    },
+    {
+      "id": "2",
+      "cardName": "Swift",
+      "cost": "2",
+      "description": "This is Description of Swift"
+    },
+    {
+      "id": "3",
+      "cardName": "PhantomDance",
+      "cost": "5",
+      "description": "This is Description of PhantomDance"
+    },
+    {
+      "id": "4",
+      "cardName": "Meteor",
+      "cost": "6",
+      "description": "This is Description of Meteor"
+    },
+    {
+      "id": "5",
+      "cardName": "RoyalFrame",
+      "cost": "7",
+      "description": "This is Description of RoyalFrame"
+    },
+    {
+      "id": "6",
+      "cardName": "MoonSlash",
+      "cost": "4",
+      "description": "This is Description of MoonSlash"
+    }
+  ]
+} 
