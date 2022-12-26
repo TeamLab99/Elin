@@ -2344,14 +2344,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundChk: {fileID: 322950559}
   wallChk: {fileID: 1916980411}
+  jumpBoxChk: {fileID: 1761155925}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
   wallLayer:
     serializedVersion: 2
     m_Bits: 384
+  jumpBoxLayer:
+    serializedVersion: 2
+    m_Bits: 512
   groundDist: 0.6
   wallDist: 0.35
+  jumpBoxDist: 0.6
   jumpPower: 10
   walkSpeed: 10
   box: {fileID: 167136949}
@@ -2422,6 +2427,7 @@ Transform:
   - {fileID: 322950559}
   - {fileID: 1916980411}
   - {fileID: 1828482981}
+  - {fileID: 1761155925}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2786,7 +2792,7 @@ GameObject:
   - component: {fileID: 1384861981}
   - component: {fileID: 1384861983}
   - component: {fileID: 1384861982}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: JumpBox
   m_TagString: JumpBox
   m_Icon: {fileID: 0}
@@ -2821,7 +2827,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.07148883}
+  m_Offset: {x: 0, y: 0.059627302}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2832,7 +2838,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.017022349}
+  m_Size: {x: 0.16, y: 0.040745396}
   m_EdgeRadius: 0
 --- !u!212 &1384861983
 SpriteRenderer:
@@ -3208,6 +3214,37 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1761155924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1761155925}
+  m_Layer: 0
+  m_Name: JumpBoxCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1761155925
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761155924}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.05, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 592909570}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1828482978
 GameObject:
   m_ObjectHideFlags: 0

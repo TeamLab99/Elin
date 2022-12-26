@@ -10,10 +10,13 @@ public class Player_Move : MonoBehaviour
     [SerializeField]
     public Transform groundChk;
     public Transform wallChk;
+    public Transform jumpBoxChk;
     public LayerMask groundLayer;
     public LayerMask wallLayer;
+    public LayerMask jumpBoxLayer;
     public float groundDist;
     public float wallDist;
+    public float jumpBoxDist;
     public float jumpPower;
     public float walkSpeed;
     public GameObject box;
@@ -24,6 +27,7 @@ public class Player_Move : MonoBehaviour
     float isRight; //1:오른쪽, -1:왼쪽
     bool isGround; //땅에 붙어있는가?
     bool isWall; //벽에 붙어있는가?
+    bool isJumpBox; //점프 박스가 밑에 있는가?
     bool isWallJump; //벽
     bool boxOpen; 
     bool ladderCollide; //사다리와 붙어있는가?
@@ -51,7 +55,8 @@ public class Player_Move : MonoBehaviour
         jumpDir = Input.GetAxis("Jump");
         isGround = Physics2D.Raycast(groundChk.position, Vector2.down, groundDist, groundLayer);
         isWall = Physics2D.Raycast(wallChk.position, Vector2.right*isRight, wallDist, wallLayer);
-        if(!isWallJump){
+        isJumpBox = Physics2D.Raycast(jumpBoxChk.position, Vector2.down, jumpBoxDist, jumpBoxLayer);
+        if (!isWallJump){
             moveDir = Input.GetAxisRaw("Horizontal");
             if (Input.GetKey(KeyCode.LeftArrow))
             {
@@ -186,7 +191,7 @@ public class Player_Move : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "JumpBox")
+        if (collision.gameObject.tag == "JumpBox" &&isJumpBox)
             rb.AddForce(new Vector2(0, 20), ForceMode2D.Impulse);
         if (collision.gameObject.tag == "Spike")
             rb.AddForce(new Vector2(10*isRight, 5), ForceMode2D.Impulse);  
