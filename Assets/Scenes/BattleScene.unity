@@ -387,6 +387,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notificationPanel: {fileID: 1308848303}
+  isCardMoving: 0
+  isDraw: 0
 --- !u!4 &194827598
 Transform:
   m_ObjectHideFlags: 0
@@ -1603,6 +1605,8 @@ MonoBehaviour:
   otherCardLeft: {fileID: 135898216}
   otherCardRight: {fileID: 230439363}
   eCardState: 0
+  myCardsCount: 0
+  alreadyEnlarge: 0
 --- !u!4 &1332864517
 Transform:
   m_ObjectHideFlags: 0

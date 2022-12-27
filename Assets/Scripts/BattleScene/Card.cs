@@ -17,6 +17,7 @@ public class Card : MonoBehaviour
     public Item item;
     bool isFront;
     public PRS originPRS;
+    Sequence mySequence;
 
     public void Setup(Item item, bool isFront)
     {
@@ -34,21 +35,27 @@ public class Card : MonoBehaviour
 
     public void MoveTransform(PRS prs, bool useDotween, float dotweenTime = 0)
     {
+        //BPGameManager.Inst.isCardMoving = true;
         if (useDotween)
         {
-            transform.DOMove(prs.pos, dotweenTime);
-            transform.DORotateQuaternion(prs.rot, dotweenTime);
-            transform.DOScale(prs.scale, dotweenTime);
+            mySequence = DOTween.Sequence();
+            mySequence.Append(transform.DOMove(prs.pos, dotweenTime))
+            .Join(transform.DORotateQuaternion(prs.rot, dotweenTime))
+            .Join(transform.DOScale(prs.scale, dotweenTime));
+/*            .OnComplete(() => {
+                BPGameManager.Inst.isCardMoving = false;
+            });*/
         }
         else
         {
             transform.position = prs.pos;
             transform.rotation = prs.rot;
             transform.localScale = prs.scale;
+            //BPGameManager.Inst.isCardMoving = false;
         }
     }
 
-    void OnMouseOver()
+/*    void OnMouseOver()
     {
         if (isFront)
             CardManager.Inst.CardMouseOver(this);
@@ -70,5 +77,5 @@ public class Card : MonoBehaviour
     {
         if (isFront)
             CardManager.Inst.CardMouseUp();
-    }
+    }*/
 }

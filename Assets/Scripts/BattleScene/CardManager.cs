@@ -24,6 +24,9 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform otherCardRight;
     [SerializeField] ECardState eCardState;
 
+    public int myCardsCount=0;
+    public bool alreadyEnlarge = false;
+
     #endregion
 
     List<Item> itemBuffer;
@@ -84,8 +87,8 @@ public class CardManager : MonoBehaviour
 
     private void Update()
     {
-        if (isMyCardDrag)
-            CardDrag();
+/*        if (isMyCardDrag)
+            CardDrag();*/
 
         DetectCardArea();
         SetECardState();
@@ -100,6 +103,9 @@ public class CardManager : MonoBehaviour
         card.Setup(PopItem(), true);
         myCards.Add(card);
 
+        myCardsCount++;
+
+        Debug.Log("카드 개수:"+myCardsCount);
         SetOriginOrder(true);
         CardAlignment(true);
     }
@@ -182,7 +188,15 @@ public class CardManager : MonoBehaviour
                     targetPos.y -= 0.5f;
                 }
             }
+            else if (objCount > 5)
+            {
+                float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(objLerps[i] - 0.5f, 2));
+                curve = height >= 0 ? curve : -curve; //위에서 높이에 제곱을 해버리면 무조건 양수기 때문에 높이가 음수라면 커브도 음수로 변경
+                targetPos.y += curve;
+                targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]); //구형을 그리면서 Lerp
+            }
             results.Add(new PRS(targetPos, targetRot, scale));
+
         }
         return results;
     }
@@ -223,7 +237,7 @@ public class CardManager : MonoBehaviour
 
     #region MyCard
 
-    public void CardMouseOver(Card card)
+/*    public void CardMouseOver(Card card)
     {
         if (eCardState == ECardState.Nothing)
             return;
@@ -267,7 +281,7 @@ public class CardManager : MonoBehaviour
             selectCard.MoveTransform(new PRS(Utils.MousePos, Utils.QI, selectCard.originPRS.scale), false);
             EntityManager.Inst.InsertMyEmptyEntity(Utils.MousePos.x);
         }
-    }
+    }*/
     
     void DetectCardArea()
     {
@@ -276,18 +290,35 @@ public class CardManager : MonoBehaviour
         onMyCardArea = Array.Exists(hits, x => x.collider.gameObject.layer == layer);
     }
 
-    void EnlargeCard(bool isEnlarge, Card card)
+    public void EnlargeCard(bool isEnlarge, int cardNum)
     {
         if (isEnlarge)
         {
-            Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -8.0f, -15f); //카드 겹쳐서 선택될까봐 z위치도 -10으로 땡겨줌
-            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 2.5f), false);
+            Vector3 enlargePos = new Vector3(myCards[cardNum].originPRS.pos.x, -9.65f, -15f); //카드 겹쳐서 선택될까봐 z위치도 -10으로 땡겨줌
+            myCards[cardNum].MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 2.5f), false);
+            alreadyEnlarge = true;
         }
         else
-            card.MoveTransform(card.originPRS, true,0.2f);
+        {
+            myCards[cardNum].MoveTransform(myCards[cardNum].originPRS, true, 0.15f);
+            alreadyEnlarge = false;
+        }
 
-        card.GetComponent<Order>().SetMostFrontOrder(isEnlarge);
+        myCards[cardNum].GetComponent<Order>().SetMostFrontOrder(isEnlarge);
     }
+
+    /*    void EnlargeCard(bool isEnlarge, Card card)
+        {
+            if (isEnlarge)
+            {
+                Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -9.65f, -15f); //카드 겹쳐서 선택될까봐 z위치도 -10으로 땡겨줌
+                card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 2.5f), false);
+            }
+            else
+                card.MoveTransform(card.originPRS, true,0.2f);
+
+            card.GetComponent<Order>().SetMostFrontOrder(isEnlarge);
+        }*/
 
     private void SetECardState()
     {
