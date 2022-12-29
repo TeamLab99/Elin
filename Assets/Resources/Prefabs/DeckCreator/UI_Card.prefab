@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name
+  m_text: "\uC774 \uB984"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b0e202b7fd2045448b8c5fee0b250812, type: 2}
   m_sharedMaterial: {fileID: -356490133005657226, guid: b0e202b7fd2045448b8c5fee0b250812, type: 2}

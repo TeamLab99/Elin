@@ -11,7 +11,7 @@ public interface ILoader<Key, Value>
 
 public class DataManager
 {
-    //Áö±İÀº Å°·Î ·¹º§À» ¹°°í ÀÖÁö¸¸ ³ªÁß¿¡´Â ID·Î °ü¸®ÇÏ¿© ´õ ÀÏ¹İÀûÀÌ°Ô ºü¸£°Ô Ã£¾ÆÁÙ ¼ö ÀÖ´Ù.
+    //ì§€ê¸ˆì€ í‚¤ë¡œ ë ˆë²¨ì„ ë¬¼ê³  ìˆì§€ë§Œ ë‚˜ì¤‘ì—ëŠ” IDë¡œ ê´€ë¦¬í•˜ì—¬ ë” ì¼ë°˜ì ì´ê²Œ ë¹ ë¥´ê²Œ ì°¾ì•„ì¤„ ìˆ˜ ìˆë‹¤.
     public Dictionary<int, DeckCard> CardDict { get; private set; } = new Dictionary<int, DeckCard>();
 
     public void Init()

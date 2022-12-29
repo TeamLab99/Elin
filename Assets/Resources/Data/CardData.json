@@ -2,43 +2,43 @@
   "deckCards": [
     {
       "id": "0",
-      "cardName": "Fireball",
+      "cardName": "파이어볼",
       "cost": "2",
       "description": "This is Description of Fireball"
     },
     {
       "id": "1",
-      "cardName": "CureBubble",
+      "cardName": "치유방울",
       "cost": "2",
       "description": "This is Description of HealingBubble"
     },
     {
       "id": "2",
-      "cardName": "Swift",
+      "cardName": "순보",
       "cost": "2",
       "description": "This is Description of Swift"
     },
     {
       "id": "3",
-      "cardName": "PhantomDance",
+      "cardName": "유령무희",
       "cost": "5",
       "description": "This is Description of PhantomDance"
     },
     {
       "id": "4",
-      "cardName": "Meteor",
+      "cardName": "유성우",
       "cost": "6",
       "description": "This is Description of Meteor"
     },
     {
       "id": "5",
-      "cardName": "RoyalFrame",
+      "cardName": "염제",
       "cost": "7",
       "description": "This is Description of RoyalFrame"
     },
     {
       "id": "6",
-      "cardName": "MoonSlash",
+      "cardName": "달빛베기",
       "cost": "4",
       "description": "This is Description of MoonSlash"
     }

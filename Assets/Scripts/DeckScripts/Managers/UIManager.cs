@@ -51,6 +51,7 @@ public class UIManager
         return Util.GetOrAddComponent<T>(go);
     }
 
+    #region userOrNot
     public T ShowSceneUI<T>(string name = null) where T : UI_Scene
     {
         if (string.IsNullOrEmpty(name))
@@ -110,6 +111,7 @@ public class UIManager
         while (_popupStack.Count > 0)
             ClosePopupUI();
     }
+    #endregion
 
     public void Clear()
     {
