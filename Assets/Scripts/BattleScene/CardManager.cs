@@ -10,13 +10,14 @@ public class CardManager : MonoBehaviour
     public static CardManager Inst { get; private set; }
     void Awake() => Inst = this;
 
-    #region ÀÎ½ºÆåÅÍ
+    #region ì¸ìŠ¤í™í„°
 
     [SerializeField] ItemSO itemSO;
     [SerializeField] GameObject cardPrefab;
     [SerializeField] List<Card> myCards;
     [SerializeField] List<Card> otherCards;
     [SerializeField] Transform cardSpawnPoint;
+    [SerializeField] Transform cardUsePoint;
     [SerializeField] Transform otherCardSpawnPoint;
     [SerializeField] Transform myCardLeft;
     [SerializeField] Transform myCardRight;
@@ -24,7 +25,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform otherCardRight;
     [SerializeField] ECardState eCardState;
 
-    public int myCardsCount=0;
+    public int myCardsCount = 0;
     public bool alreadyEnlarge = false;
 
     #endregion
@@ -34,8 +35,8 @@ public class CardManager : MonoBehaviour
     bool isMyCardDrag;
     bool onMyCardArea;
     int myPutCount;
-    enum ECardState { Nothing, CanMouseOver, CanMouseDrag}
-    
+    enum ECardState { Nothing, CanMouseOver, CanMouseDrag }
+
     public Item PopItem()
     {
         if (itemBuffer.Count == 0)
@@ -48,7 +49,7 @@ public class CardManager : MonoBehaviour
 
     private void SetupItemBuffer()
     {
-        itemBuffer = new List<Item>(100); // ¹Ì¸® Ä³ÆÛ½ÃÆ¼ 100À¸·Î ¿ë·® ¼³Á¤ÇØÁÖ¸é ¸Ş¸ğ¸® È¿À²ÀûÀ¸·Î »ç¿ë
+        itemBuffer = new List<Item>(100); // ë¯¸ë¦¬ ìºí¼ì‹œí‹° 100ìœ¼ë¡œ ìš©ëŸ‰ ì„¤ì •í•´ì£¼ë©´ ë©”ëª¨ë¦¬ íš¨ìœ¨ì ìœ¼ë¡œ ì‚¬ìš©
         for (int i = 0; i < itemSO.items.Length; i++)
         {
             Item item = itemSO.items[i];
@@ -87,14 +88,12 @@ public class CardManager : MonoBehaviour
 
     private void Update()
     {
-/*        if (isMyCardDrag)
-            CardDrag();*/
+        /*        if (isMyCardDrag)
+                    CardDrag();*/
 
         DetectCardArea();
         SetECardState();
     }
-
-
 
     void AddCard(bool isMine)
     {
@@ -105,7 +104,7 @@ public class CardManager : MonoBehaviour
 
         myCardsCount++;
 
-        Debug.Log("Ä«µå °³¼ö:"+myCardsCount);
+        Debug.Log("ì¹´ë“œ ê°œìˆ˜:" + myCardsCount);
         SetOriginOrder(true);
         CardAlignment(true);
     }
@@ -157,14 +156,14 @@ public class CardManager : MonoBehaviour
 
         for (int i = 0; i < objCount; i++)
         {
-            var targetPos = Vector3.Lerp(leftTr.position, rightTr.position, objLerps[i]); //Áß°£ °ª
+            var targetPos = Vector3.Lerp(leftTr.position, rightTr.position, objLerps[i]); //ì¤‘ê°„ ê°’
             var targetRot = Utils.QI;
             if (objCount == 4)
             {
                 float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(objLerps[i] - 0.5f, 2));
-                curve = height >= 0 ? curve : -curve; //À§¿¡¼­ ³ôÀÌ¿¡ Á¦°öÀ» ÇØ¹ö¸®¸é ¹«Á¶°Ç ¾ç¼ö±â ¶§¹®¿¡ ³ôÀÌ°¡ À½¼ö¶ó¸é Ä¿ºêµµ À½¼ö·Î º¯°æ
+                curve = height >= 0 ? curve : -curve; //ìœ„ì—ì„œ ë†’ì´ì— ì œê³±ì„ í•´ë²„ë¦¬ë©´ ë¬´ì¡°ê±´ ì–‘ìˆ˜ê¸° ë•Œë¬¸ì— ë†’ì´ê°€ ìŒìˆ˜ë¼ë©´ ì»¤ë¸Œë„ ìŒìˆ˜ë¡œ ë³€ê²½
                 targetPos.y += curve;
-                targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]); //±¸ÇüÀ» ±×¸®¸é¼­ Lerp
+                targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]); //êµ¬í˜•ì„ ê·¸ë¦¬ë©´ì„œ Lerp
 
                 if (i == 0 || i == 3)
                 {
@@ -174,9 +173,9 @@ public class CardManager : MonoBehaviour
             else if (objCount == 5)
             {
                 float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(objLerps[i] - 0.5f, 2));
-                curve = height >= 0 ? curve : -curve; //À§¿¡¼­ ³ôÀÌ¿¡ Á¦°öÀ» ÇØ¹ö¸®¸é ¹«Á¶°Ç ¾ç¼ö±â ¶§¹®¿¡ ³ôÀÌ°¡ À½¼ö¶ó¸é Ä¿ºêµµ À½¼ö·Î º¯°æ
+                curve = height >= 0 ? curve : -curve; //ìœ„ì—ì„œ ë†’ì´ì— ì œê³±ì„ í•´ë²„ë¦¬ë©´ ë¬´ì¡°ê±´ ì–‘ìˆ˜ê¸° ë•Œë¬¸ì— ë†’ì´ê°€ ìŒìˆ˜ë¼ë©´ ì»¤ë¸Œë„ ìŒìˆ˜ë¡œ ë³€ê²½
                 targetPos.y += curve;
-                targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]); //±¸ÇüÀ» ±×¸®¸é¼­ Lerp
+                targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]); //êµ¬í˜•ì„ ê·¸ë¦¬ë©´ì„œ Lerp
 
                 if (i == 0 || i == 4)
                 {
@@ -191,9 +190,9 @@ public class CardManager : MonoBehaviour
             else if (objCount > 5)
             {
                 float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(objLerps[i] - 0.5f, 2));
-                curve = height >= 0 ? curve : -curve; //À§¿¡¼­ ³ôÀÌ¿¡ Á¦°öÀ» ÇØ¹ö¸®¸é ¹«Á¶°Ç ¾ç¼ö±â ¶§¹®¿¡ ³ôÀÌ°¡ À½¼ö¶ó¸é Ä¿ºêµµ À½¼ö·Î º¯°æ
+                curve = height >= 0 ? curve : -curve; //ìœ„ì—ì„œ ë†’ì´ì— ì œê³±ì„ í•´ë²„ë¦¬ë©´ ë¬´ì¡°ê±´ ì–‘ìˆ˜ê¸° ë•Œë¬¸ì— ë†’ì´ê°€ ìŒìˆ˜ë¼ë©´ ì»¤ë¸Œë„ ìŒìˆ˜ë¡œ ë³€ê²½
                 targetPos.y += curve;
-                targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]); //±¸ÇüÀ» ±×¸®¸é¼­ Lerp
+                targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]); //êµ¬í˜•ì„ ê·¸ë¦¬ë©´ì„œ Lerp
             }
             results.Add(new PRS(targetPos, targetRot, scale));
 
@@ -201,88 +200,30 @@ public class CardManager : MonoBehaviour
         return results;
     }
 
-    public bool TryPutCard(bool isMine)
+    public void TryPutCard()
     {
-        if (isMine && myPutCount >= 1)
-            return false;
+        BPGameManager.Inst.isDelay = true;
 
-        if (!isMine && otherCards.Count <= 0)
-            return false;
+        selectCard.MoveTransform(new PRS(cardUsePoint.position, Utils.QI, Vector3.one * 2.5f),true,0.5f);
+        selectCard.FadeInOut(0.4f);
 
-
-        Card card = isMine ? selectCard : otherCards[Random.Range(0, otherCards.Count)];
-        var spawnPos = isMine ? Utils.MousePos : otherCardSpawnPoint.position;
-        var targetCards = isMine ? myCards : otherCards;
-
-        if (EntityManager.Inst.SpawnEntity(isMine, card.item, spawnPos))
-        {
-            targetCards.Remove(card);
-            card.transform.DOKill();
-            DestroyImmediate(card.gameObject);
-            if (isMine)
-            {
-                selectCard = null;
-                myPutCount++;
-            }
-            CardAlignment(isMine);
-            return true;
-        }
-        else
-        {
-            targetCards.ForEach(x => x.GetComponent<Order>().SetMostFrontOrder(false));
-            CardAlignment(isMine);
-            return false;
-        }
+        Invoke("PutCardTimer", 1f);
     }
+
+    public void PutCardTimer()
+    {
+        BPGameManager.Inst.isDelay = false;
+
+        myCards.Remove(selectCard);
+        selectCard.transform.DOKill();
+        DestroyImmediate(selectCard.gameObject);
+        selectCard = null;
+        CardAlignment(true);
+
+    }
+
 
     #region MyCard
-
-/*    public void CardMouseOver(Card card)
-    {
-        if (eCardState == ECardState.Nothing)
-            return;
-
-        selectCard = card;
-        EnlargeCard(true, card);
-    }
-
-    public void CardMouseExit(Card card)
-    {
-        EnlargeCard(false, card);
-    }
-
-    public void CardMouseDown()
-    {
-        if (eCardState != ECardState.CanMouseDrag)
-            return;
-
-        isMyCardDrag = true;
-    }
-
-    public void CardMouseUp()
-    {
-        isMyCardDrag = false;
-
-        if (eCardState != ECardState.CanMouseDrag)
-            return;
-
-        if (onMyCardArea)
-            EntityManager.Inst.RemoveMyEmptyEntity();
-        else
-            TryPutCard(true);
-    }
-    void CardDrag()
-    {
-        if (eCardState != ECardState.CanMouseDrag)
-            return;
-
-        if (!onMyCardArea)
-        {
-            selectCard.MoveTransform(new PRS(Utils.MousePos, Utils.QI, selectCard.originPRS.scale), false);
-            EntityManager.Inst.InsertMyEmptyEntity(Utils.MousePos.x);
-        }
-    }*/
-    
     void DetectCardArea()
     {
         RaycastHit2D[] hits = Physics2D.RaycastAll(Utils.MousePos, Vector3.forward);
@@ -294,38 +235,27 @@ public class CardManager : MonoBehaviour
     {
         if (isEnlarge)
         {
-            Vector3 enlargePos = new Vector3(myCards[cardNum].originPRS.pos.x, -9.65f, -15f); //Ä«µå °ãÃÄ¼­ ¼±ÅÃµÉ±îºÁ zÀ§Ä¡µµ -10À¸·Î ¶¯°ÜÁÜ
+            Vector3 enlargePos = new Vector3(myCards[cardNum].originPRS.pos.x, -9.65f, -15f); //ì¹´ë“œ ê²¹ì³ì„œ ì„ íƒë ê¹Œë´ zìœ„ì¹˜ë„ -10ìœ¼ë¡œ ë•¡ê²¨ì¤Œ
             myCards[cardNum].MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 2.5f), false);
             alreadyEnlarge = true;
+            selectCard = myCards[cardNum];
         }
         else
         {
             myCards[cardNum].MoveTransform(myCards[cardNum].originPRS, true, 0.15f);
             alreadyEnlarge = false;
+            selectCard = null;
         }
 
         myCards[cardNum].GetComponent<Order>().SetMostFrontOrder(isEnlarge);
+
     }
-
-    /*    void EnlargeCard(bool isEnlarge, Card card)
-        {
-            if (isEnlarge)
-            {
-                Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -9.65f, -15f); //Ä«µå °ãÃÄ¼­ ¼±ÅÃµÉ±îºÁ zÀ§Ä¡µµ -10À¸·Î ¶¯°ÜÁÜ
-                card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 2.5f), false);
-            }
-            else
-                card.MoveTransform(card.originPRS, true,0.2f);
-
-            card.GetComponent<Order>().SetMostFrontOrder(isEnlarge);
-        }*/
-
     private void SetECardState()
     {
         if (TurnManager.Inst.isLoading)
             eCardState = ECardState.Nothing;
 
-        else if (!TurnManager.Inst.myTurn || myPutCount==1 || EntityManager.Inst.IsFullMyEntities)
+        else if (!TurnManager.Inst.myTurn || myPutCount == 1 || EntityManager.Inst.IsFullMyEntities)
             eCardState = ECardState.CanMouseOver;
 
         else if (TurnManager.Inst.myTurn && myPutCount == 0)

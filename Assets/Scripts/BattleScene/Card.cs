@@ -35,47 +35,31 @@ public class Card : MonoBehaviour
 
     public void MoveTransform(PRS prs, bool useDotween, float dotweenTime = 0)
     {
-        //BPGameManager.Inst.isCardMoving = true;
         if (useDotween)
         {
             mySequence = DOTween.Sequence();
             mySequence.Append(transform.DOMove(prs.pos, dotweenTime))
             .Join(transform.DORotateQuaternion(prs.rot, dotweenTime))
             .Join(transform.DOScale(prs.scale, dotweenTime));
-/*            .OnComplete(() => {
-                BPGameManager.Inst.isCardMoving = false;
-            });*/
         }
         else
         {
             transform.position = prs.pos;
             transform.rotation = prs.rot;
             transform.localScale = prs.scale;
-            //BPGameManager.Inst.isCardMoving = false;
         }
     }
 
-/*    void OnMouseOver()
+    public void FadeInOut(float dotweenTime = 0)
     {
-        if (isFront)
-            CardManager.Inst.CardMouseOver(this);
+        mySequence = DOTween.Sequence();
+        mySequence.PrependInterval(0.4f)
+            .Append(transform.GetComponent<SpriteRenderer>().DOFade(0, dotweenTime))
+            .Join(character.GetComponent<SpriteRenderer>().DOFade(0, dotweenTime))
+            .Join(nameTMP.DOFade(0, dotweenTime))
+            .Join(healthTMP.DOFade(0, dotweenTime))
+            .Join(attackTMP.DOFade(0, dotweenTime));
+
     }
 
-    void OnMouseExit()
-    {
-        if (isFront)
-            CardManager.Inst.CardMouseExit(this);
-    }
-
-    void OnMouseDown()
-    {
-        if (isFront)
-            CardManager.Inst.CardMouseDown();
-    }
-
-    void OnMouseUp()
-    {
-        if (isFront)
-            CardManager.Inst.CardMouseUp();
-    }*/
 }

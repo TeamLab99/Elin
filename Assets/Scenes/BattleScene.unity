@@ -389,6 +389,7 @@ MonoBehaviour:
   notificationPanel: {fileID: 1308848303}
   isCardMoving: 0
   isDraw: 0
+  isDelay: 0
 --- !u!4 &194827598
 Transform:
   m_ObjectHideFlags: 0
@@ -1599,6 +1600,7 @@ MonoBehaviour:
   myCards: []
   otherCards: []
   cardSpawnPoint: {fileID: 1265711942}
+  cardUsePoint: {fileID: 1777569287}
   otherCardSpawnPoint: {fileID: 257728661}
   myCardLeft: {fileID: 666521043}
   myCardRight: {fileID: 82024978}
@@ -2154,7 +2156,7 @@ MonoBehaviour:
   otherEntities: []
   myEmptyEntity: {fileID: 1170847231}
   myBossEntity: {fileID: 999374978}
-  otherBossEntity: {fileID: 0}
+  otherBossEntity: {fileID: 2093984645}
 --- !u!4 &2025269037
 Transform:
   m_ObjectHideFlags: 0

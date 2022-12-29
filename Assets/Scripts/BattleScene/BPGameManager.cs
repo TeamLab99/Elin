@@ -5,7 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 
 
-//Ä¡Æ®, UI, ·©Å·, °ÔÀÓ¿À¹ö
+//ì¹˜íŠ¸, UI, ëž­í‚¹, ê²Œìž„ì˜¤ë²„
 public class BPGameManager : MonoBehaviour
 {
     [SerializeField] NotificationPanel notificationPanel;
@@ -17,6 +17,9 @@ public class BPGameManager : MonoBehaviour
 
     public bool isCardMoving = false;
     public bool isDraw = false;
+    public bool isDelay = false;
+
+    Card selectedCard;
 
     public static BPGameManager Inst { get; private set; }
     void Awake() => Inst = this;
@@ -44,34 +47,38 @@ public class BPGameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
             TurnManager.Inst.EndTurn();
 
-        if (Input.GetKeyDown(KeyCode.V))
-            CardManager.Inst.TryPutCard(false);
-
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.Space) && CardManager.Inst.alreadyEnlarge && !isDelay)
         {
-            if (!isCardMoving)
+            Debug.Log("ì¹´ë“œ ì‚¬ìš©");
+            CardManager.Inst.TryPutCard();
+            CardManager.Inst.myCardsCount -= 1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightArrow)&& CardManager.Inst.myCardsCount != 0 &&!isDelay)
+        {
+            if (!isCardMoving && CardManager.Inst.myCardsCount != 0)
                 StartCoroutine(MoveRight());
         }
 
-        if (Input.GetKeyUp(KeyCode.RightArrow))
+        if (Input.GetKeyUp(KeyCode.RightArrow) && CardManager.Inst.myCardsCount != 0 && !isDelay)
         {
             StopAllCoroutines();
             isCardMoving = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && CardManager.Inst.myCardsCount != 0 && !isDelay)
         {
-            if(!isCardMoving)
+            if(!isCardMoving&&CardManager.Inst.myCardsCount!=0)
                 StartCoroutine(MoveLeft());
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftArrow))
+        if (Input.GetKeyUp(KeyCode.LeftArrow) && CardManager.Inst.myCardsCount != 0 && !isDelay)
         {
             StopAllCoroutines();
             isCardMoving = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !isDelay)
         {
             if (!isCardMoving)
             {
@@ -116,11 +123,13 @@ public class BPGameManager : MonoBehaviour
         else if (cardNum <= CardManager.Inst.myCardsCount-1)
             cardNum = 0;
 
-        Debug.Log("¼±ÅÃÇÑ Ä«µå ¹øÈ£:" + cardNum);
+        Debug.Log("ì„ íƒí•œ ì¹´ë“œ ë²ˆí˜¸:" + cardNum);
 
         CardManager.Inst.EnlargeCard(true, cardNum);
 
+
         yield return new WaitForSeconds(0.2f);
+
 
         isCardMoving = false;
         StartCoroutine(MoveRight());
