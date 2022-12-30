@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Enemy_Move : MonoBehaviour
 {
     Rigidbody2D rb;
     public int nextMove;
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -28,5 +30,5 @@ public class Enemy_Move : MonoBehaviour
         nextMove = Random.Range(-1, 2);
         Invoke("Think", 5f);
     }
-   
+    
 }
