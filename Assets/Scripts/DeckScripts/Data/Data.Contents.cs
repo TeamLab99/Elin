@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #region Card
-
 [Serializable]
 public class DeckCard
 {
-    //serializedField ³ÖÀ¸¸é public ¾ø¾îµµ °¡´É, º¯¼öÀÇ ÀÌ¸§°ú Çü½ÄÀÌ ÆÄÀÏ°ú ÀÏÄ¡ÇØ¾ßÇÔ
+    //serializedField ë„£ìœ¼ë©´ public ì—†ì–´ë„ ê°€ëŠ¥, ë³€ìˆ˜ì˜ ì´ë¦„ê³¼ í˜•ì‹ì´ íŒŒì¼ê³¼ ì¼ì¹˜í•´ì•¼í•¨
     public int id;
     public string cardName;
+    public string element;
     public int cost;
     public string description;
 }
@@ -18,17 +18,39 @@ public class DeckCard
 [Serializable]
 public class CardData : ILoader<int, DeckCard>
 {
-    public List<DeckCard> deckCards = new List<DeckCard>();
+    public List<DeckCard> Cards = new List<DeckCard>();
 
     public Dictionary<int, DeckCard> MakeDict()
     {
         Dictionary<int, DeckCard> dict = new Dictionary<int, DeckCard>();
-        foreach (DeckCard card in deckCards)
+        foreach (DeckCard card in Cards)
         {
             dict.Add(card.id, card);         
         }
         return dict;
     }
 }
+#endregion
 
+#region Deck
+[Serializable]
+public class UnlockCard
+{
+    public int id;
+}
+
+public class DeckData : ILoader<int, UnlockCard>
+{
+    public List<UnlockCard> deckCards = new List<UnlockCard>();
+
+    public Dictionary<int, UnlockCard> MakeDict()
+    {
+        Dictionary<int, UnlockCard> dict = new Dictionary<int, UnlockCard>();
+        foreach (UnlockCard card in deckCards)
+        {
+            dict.Add(card.id, card);
+        }
+        return dict;
+    }
+}
 #endregion

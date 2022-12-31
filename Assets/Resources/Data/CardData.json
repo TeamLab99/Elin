@@ -1,46 +1,81 @@
 {
-  "deckCards": [
+  "Cards": [
     {
       "id": "0",
       "cardName": "파이어볼",
+      "element": "fire",
       "cost": "2",
       "description": "This is Description of Fireball"
     },
     {
       "id": "1",
       "cardName": "치유방울",
+      "element": "water",
       "cost": "2",
       "description": "This is Description of HealingBubble"
     },
     {
       "id": "2",
       "cardName": "순보",
+      "element": "wind",
       "cost": "2",
       "description": "This is Description of Swift"
     },
     {
       "id": "3",
       "cardName": "유령무희",
+      "element": "wind",
       "cost": "5",
       "description": "This is Description of PhantomDance"
     },
     {
       "id": "4",
       "cardName": "유성우",
+      "element": "earth",
       "cost": "6",
       "description": "This is Description of Meteor"
     },
     {
       "id": "5",
       "cardName": "염제",
+      "element": "fire",
       "cost": "7",
       "description": "This is Description of RoyalFrame"
     },
     {
       "id": "6",
       "cardName": "달빛베기",
+      "element": "wind",
       "cost": "4",
       "description": "This is Description of MoonSlash"
+    },
+    {
+      "id": "7",
+      "cardName": "잔잔한 물결",
+      "element": "water",
+      "cost": "3",
+      "description": "This is Description of Calm Wave"
+    },
+    {
+      "id": "8",
+      "cardName": "단비",
+      "element": "water",
+      "cost": "4",
+      "description": "This is Description of Sweet Rain"
+    },
+    {
+      "id": "9",
+      "cardName": "예열",
+      "element": "fire",
+      "cost": "2",
+      "description": "This is Description of Preheat"
+    },
+    {
+      "id": "10",
+      "cardName": "붕괴",
+      "element": "earth",
+      "cost": "6",
+      "description": "This is Description of Collapse"
     }
   ]
 } 
