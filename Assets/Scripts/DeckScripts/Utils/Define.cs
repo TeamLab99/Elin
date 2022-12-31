@@ -33,4 +33,13 @@ public class Define
     {
         QuarterView
     }
+
+    public enum Sorting
+    {
+        Default,
+        Fire,
+        Water,
+        Wind,
+        Earth
+    }
 }
