@@ -9,6 +9,7 @@ TagManager:
   - JumpBox
   - Spike
   - Crank
+  - Enemy
   layers:
   - Default
   - TransparentFX
