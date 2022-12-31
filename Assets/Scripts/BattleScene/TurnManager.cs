@@ -10,13 +10,13 @@ public class TurnManager : MonoBehaviour
     void Awake() => Inst = this;
 
     [Header("Developer")]
-    [SerializeField] [Tooltip("½ÃÀÛ ÅÏ ¸ğµå¸¦ Á¤ÇÕ´Ï´Ù")] ETurnMode eTurnMode;
-    [SerializeField] [Tooltip("Ä«µå ¹èºĞÀÌ ¸Å¿ì »¡¶óÁı´Ï´Ù")] bool fastMode;
-    [SerializeField] [Tooltip("½ÃÀÛ Ä«µå °³¼ö¸¦ Á¤ÇÕ´Ï´Ù")] int startCardCount;
+    [SerializeField] [Tooltip("ì‹œì‘ í„´ ëª¨ë“œë¥¼ ì •í•©ë‹ˆë‹¤")] ETurnMode eTurnMode;
+    [SerializeField] [Tooltip("ì¹´ë“œ ë°°ë¶„ì´ ë§¤ìš° ë¹¨ë¼ì§‘ë‹ˆë‹¤")] bool fastMode;
+    [SerializeField] [Tooltip("ì‹œì‘ ì¹´ë“œ ê°œìˆ˜ë¥¼ ì •í•©ë‹ˆë‹¤")] int startCardCount;
 
     [Header("Properties")]
     public bool myTurn;
-    public bool isLoading; // °ÔÀÓ ³¡³ª°í true ÇÏ¸é Ä«µå, ¿£Æ¼Æ¼ Å¬¸¯ ¹æÁö
+    public bool isLoading; // ê²Œì„ ëë‚˜ê³  true í•˜ë©´ ì¹´ë“œ, ì—”í‹°í‹° í´ë¦­ ë°©ì§€
 
     enum ETurnMode { Random, My, Other}
     WaitForSeconds delay05 = new WaitForSeconds(0.1f);
@@ -55,6 +55,10 @@ public class TurnManager : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
             
         }
+        yield return new WaitForSeconds(0.4f);
+
+        BPGameManager.Inst.isDelay = false;
+
         StartCoroutine(StartTurnCo());
     }
 
@@ -63,15 +67,17 @@ public class TurnManager : MonoBehaviour
         isLoading = true;
 
         if (myTurn)
-            BPGameManager.Inst.Notification("³ªÀÇ ÅÏ",myTurn);
+            BPGameManager.Inst.Notification("ë‚˜ì˜ í„´",myTurn);
         else
-            BPGameManager.Inst.Notification("»ó´ë ÅÏ",myTurn);
+            BPGameManager.Inst.Notification("ìƒëŒ€ í„´",myTurn);
 
         yield return delay07;
         //OnAddCard?.Invoke(myTurn);
         yield return delay07;
         isLoading = false;
         OnTurnStarted?.Invoke(myTurn);
+
+        //BPGameManager.Inst.isDelay = false;
     }
 
     public void EndTurn()

@@ -18,6 +18,7 @@ public class Card : MonoBehaviour
     bool isFront;
     public PRS originPRS;
     Sequence mySequence;
+    Sequence mySequence2;
 
     public void Setup(Item item, bool isFront)
     {
@@ -52,14 +53,25 @@ public class Card : MonoBehaviour
 
     public void FadeInOut(float dotweenTime = 0)
     {
-        mySequence = DOTween.Sequence();
-        mySequence.PrependInterval(0.4f)
+        mySequence2 = DOTween.Sequence();
+        mySequence2
             .Append(transform.GetComponent<SpriteRenderer>().DOFade(0, dotweenTime))
             .Join(character.GetComponent<SpriteRenderer>().DOFade(0, dotweenTime))
             .Join(nameTMP.DOFade(0, dotweenTime))
             .Join(healthTMP.DOFade(0, dotweenTime))
-            .Join(attackTMP.DOFade(0, dotweenTime));
-
+            .Join(attackTMP.DOFade(0, dotweenTime))
+            .OnComplete(() =>
+            {
+                BPGameManager.Inst.isDelay = false;
+                BPGameManager.Inst.isFirstSelect = false;
+                DestroyImmediate(gameObject);
+            });
     }
 
+
+    public void OnDestroy()
+    {
+        transform.DOKill();
+        character.DOKill();
+    }
 }

@@ -23,7 +23,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform myCardRight;
     [SerializeField] Transform otherCardLeft;
     [SerializeField] Transform otherCardRight;
-    [SerializeField] ECardState eCardState;
+    //[SerializeField] ECardState eCardState;
 
     public int myCardsCount = 0;
     public bool alreadyEnlarge = false;
@@ -34,8 +34,8 @@ public class CardManager : MonoBehaviour
     Card selectCard;
     bool isMyCardDrag;
     bool onMyCardArea;
-    int myPutCount;
-    enum ECardState { Nothing, CanMouseOver, CanMouseDrag }
+    //int myPutCount;
+    //enum ECardState { Nothing, CanMouseOver, CanMouseDrag }
 
     public Item PopItem()
     {
@@ -82,8 +82,8 @@ public class CardManager : MonoBehaviour
 
     void OnTurnStarted(bool myTurn)
     {
-        if (myTurn)
-            myPutCount = 0;
+        //if (myTurn)
+            //myPutCount = 0;
     }
 
     private void Update()
@@ -92,7 +92,7 @@ public class CardManager : MonoBehaviour
                     CardDrag();*/
 
         DetectCardArea();
-        SetECardState();
+        //SetECardState();
     }
 
     void AddCard(bool isMine)
@@ -104,7 +104,7 @@ public class CardManager : MonoBehaviour
 
         myCardsCount++;
 
-        Debug.Log("카드 개수:" + myCardsCount);
+        //Debug.Log("카드 개수:" + myCardsCount);
         SetOriginOrder(true);
         CardAlignment(true);
     }
@@ -202,23 +202,34 @@ public class CardManager : MonoBehaviour
 
     public void TryPutCard()
     {
-        BPGameManager.Inst.isDelay = true;
+        StartCoroutine(TryPutCardCorutine());
+    }
 
-        selectCard.MoveTransform(new PRS(cardUsePoint.position, Utils.QI, Vector3.one * 2.5f),true,0.5f);
-        selectCard.FadeInOut(0.4f);
+    IEnumerator TryPutCardCorutine()
+    {
+        Card card = selectCard;
+        card.MoveTransform(new PRS(cardUsePoint.position, Utils.QI, Vector3.one * 2.5f),true,0.4f);
 
-        Invoke("PutCardTimer", 1f);
+        yield return new WaitForSeconds(0.2f);
+        card.FadeInOut(0.4f);
+
+        yield return new WaitForSeconds(0.2f);
+        card.transform.DOKill();
+        myCards.Remove(selectCard);
+        CardAlignment(true);
+        selectCard = null;
+        alreadyEnlarge = false;
     }
 
     public void PutCardTimer()
     {
-        BPGameManager.Inst.isDelay = false;
-
         myCards.Remove(selectCard);
         selectCard.transform.DOKill();
         DestroyImmediate(selectCard.gameObject);
         selectCard = null;
         CardAlignment(true);
+
+        alreadyEnlarge = false;
 
     }
 
@@ -250,7 +261,7 @@ public class CardManager : MonoBehaviour
         myCards[cardNum].GetComponent<Order>().SetMostFrontOrder(isEnlarge);
 
     }
-    private void SetECardState()
+/*    private void SetECardState()
     {
         if (TurnManager.Inst.isLoading)
             eCardState = ECardState.Nothing;
@@ -260,7 +271,7 @@ public class CardManager : MonoBehaviour
 
         else if (TurnManager.Inst.myTurn && myPutCount == 0)
             eCardState = ECardState.CanMouseDrag;
-    }
+    }*/
 
     #endregion
 }
