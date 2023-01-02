@@ -10,7 +10,6 @@ public class Inventory_Slot : MonoBehaviour
     public Text itemName_Text;
     public Text itemCount_Text;
     
-
     public void AddItem(Item_Data _item)
     {
         itemName_Text.text = _item.itemName;
