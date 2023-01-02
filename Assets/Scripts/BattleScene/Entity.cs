@@ -6,11 +6,11 @@ using DG.Tweening;
 
 public class Entity : MonoBehaviour
 {
-    [SerializeField] Item item;
+/*    [SerializeField] Item item;
     [SerializeField] SpriteRenderer entity;
     [SerializeField] SpriteRenderer character;
     [SerializeField] TMP_Text nameTMP;
-    [SerializeField] TMP_Text attackTMP;
+    [SerializeField] TMP_Text attackTMP;*/
     [SerializeField] TMP_Text healthTMP;
 
     public int attack;
@@ -20,13 +20,23 @@ public class Entity : MonoBehaviour
     public Vector3 originPos;
     public void Setup(Item item)
     {
-        attack = item.attack;
+/*        attack = item.attack;
         health = item.health;
 
         this.item = item;
         character.sprite = this.item.sprite;
         nameTMP.text = this.item.name;
-        attackTMP.text = attack.ToString();
+        attackTMP.text = attack.ToString();*/
+        healthTMP.text = health.ToString();
+    }
+
+    void Start()
+    {
+        SetHealth();
+    }
+
+    public void SetHealth()
+    {
         healthTMP.text = health.ToString();
     }
 

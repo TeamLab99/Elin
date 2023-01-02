@@ -11,7 +11,6 @@ public class CardManager : MonoBehaviour
     void Awake() => Inst = this;
 
     #region 인스펙터
-
     [SerializeField] ItemSO itemSO;
     [SerializeField] GameObject cardPrefab;
     [SerializeField] List<Card> myCards;
@@ -27,11 +26,11 @@ public class CardManager : MonoBehaviour
 
     public int myCardsCount = 0;
     public bool alreadyEnlarge = false;
-
     #endregion
 
     List<Item> itemBuffer;
     Card selectCard;
+    List<Card> selectCards;
     bool isMyCardDrag;
     bool onMyCardArea;
     //int myPutCount;
@@ -106,7 +105,33 @@ public class CardManager : MonoBehaviour
 
         //Debug.Log("카드 개수:" + myCardsCount);
         SetOriginOrder(true);
-        CardAlignment(true);
+        CardAlignment(true,0.7f);
+        SetKeyName();
+    }
+
+    void SetKeyName()
+    {
+        for (int i = 0; i < myCardsCount; i++)
+        {
+            switch (i)
+            {
+                case 0:
+                    myCards[i].SetKey("A");
+                    break;
+                case 1:
+                    myCards[i].SetKey("S");
+                    break;
+                case 2:
+                    myCards[i].SetKey("D");
+                    break;
+                case 3:
+                    myCards[i].SetKey("F");
+                    break;
+                case 4:
+                    myCards[i].SetKey("G");
+                    break;
+            }
+        }
     }
 
     private void SetOriginOrder(bool isMine)
@@ -119,7 +144,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    void CardAlignment(bool isMine)
+    void CardAlignment(bool isMine, float time)
     {
         List<PRS> originCardPRSs = new List<PRS>();
         if (isMine)
@@ -133,7 +158,7 @@ public class CardManager : MonoBehaviour
             var targetCard = targetCards[i];
 
             targetCard.originPRS = originCardPRSs[i];
-            targetCard.MoveTransform(targetCard.originPRS, true, 0.7f);
+            targetCard.MoveTransform(targetCard.originPRS, true, time);
         }
     }
 
@@ -202,23 +227,35 @@ public class CardManager : MonoBehaviour
 
     public void TryPutCard()
     {
+        myCardsCount -= 1;
+
         StartCoroutine(TryPutCardCorutine());
     }
 
     IEnumerator TryPutCardCorutine()
     {
         Card card = selectCard;
-        card.MoveTransform(new PRS(cardUsePoint.position, Utils.QI, Vector3.one * 2.5f),true,0.4f);
 
+        //CardUse(card.SendType());
+
+        myCards.Remove(selectCard);
+        SetKeyName();
+        CardAlignment(true, 0.5f);
+        selectCard = null;
+        alreadyEnlarge = false;
+        BPGameManager.Inst.isCardMoving = false;
+        BPGameManager.Inst.isFirstSelect = false;
+
+        card.MoveTransform(new PRS(cardUsePoint.position, Utils.QI, Vector3.one * 2.5f), true, 0.4f);
         yield return new WaitForSeconds(0.2f);
         card.FadeInOut(0.4f);
 
-        yield return new WaitForSeconds(0.2f);
-        card.transform.DOKill();
-        myCards.Remove(selectCard);
-        CardAlignment(true);
-        selectCard = null;
-        alreadyEnlarge = false;
+
+
+/*        yield return new WaitForSeconds(0.2f);
+        card.transform.DOKill();*/
+
+
     }
 
     public void PutCardTimer()
@@ -227,11 +264,12 @@ public class CardManager : MonoBehaviour
         selectCard.transform.DOKill();
         DestroyImmediate(selectCard.gameObject);
         selectCard = null;
-        CardAlignment(true);
+        //CardAlignment(true);
 
         alreadyEnlarge = false;
 
     }
+
 
 
     #region MyCard
@@ -272,6 +310,5 @@ public class CardManager : MonoBehaviour
         else if (TurnManager.Inst.myTurn && myPutCount == 0)
             eCardState = ECardState.CanMouseDrag;
     }*/
-
     #endregion
 }

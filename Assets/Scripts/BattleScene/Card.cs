@@ -11,6 +11,8 @@ public class Card : MonoBehaviour
     [SerializeField] TMP_Text nameTMP;
     [SerializeField] TMP_Text attackTMP;
     [SerializeField] TMP_Text healthTMP;
+    [SerializeField] TMP_Text keyTMP;
+    [SerializeField] TMP_Text typeTMP;
     [SerializeField] Sprite cardFront;
     [SerializeField] Sprite cardBack;
 
@@ -31,6 +33,12 @@ public class Card : MonoBehaviour
             nameTMP.text = this.item.name;
             attackTMP.text = this.item.attack.ToString();
             healthTMP.text = this.item.health.ToString();
+            typeTMP.text = this.item.type;
+
+            if (this.item.type == "회복")
+            {
+                typeTMP.color = new Color32(0, 255, 0,255);
+            }
         }
     }
 
@@ -60,10 +68,11 @@ public class Card : MonoBehaviour
             .Join(nameTMP.DOFade(0, dotweenTime))
             .Join(healthTMP.DOFade(0, dotweenTime))
             .Join(attackTMP.DOFade(0, dotweenTime))
+            .Join(keyTMP.DOFade(0, dotweenTime))
+            .Join(typeTMP.DOFade(0, dotweenTime))
             .OnComplete(() =>
             {
-                BPGameManager.Inst.isDelay = false;
-                BPGameManager.Inst.isFirstSelect = false;
+                CardUse();
                 DestroyImmediate(gameObject);
             });
     }
@@ -73,5 +82,29 @@ public class Card : MonoBehaviour
     {
         transform.DOKill();
         character.DOKill();
+    }
+
+    public void SetKey(string str)
+    {
+        keyTMP.text = str;
+    }
+
+    public string SendType()
+    {
+        return this.item.type;
+    }
+
+    public void CardUse()
+    {
+        if (this.item.type == "공격")
+        {
+            // 적 체력 감소
+            Battle.Inst.Attack(5, false);
+        }
+        else if (this.item.type == "회복")
+        {
+            // 자신 체력 회복
+            Battle.Inst.Heal(5, true);
+        }
     }
 }

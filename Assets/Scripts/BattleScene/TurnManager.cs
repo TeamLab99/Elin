@@ -55,9 +55,9 @@ public class TurnManager : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
             
         }
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(1f);
 
-        BPGameManager.Inst.isDelay = false;
+        BPGameManager.Inst.isCardMoving = false;
 
         StartCoroutine(StartTurnCo());
     }

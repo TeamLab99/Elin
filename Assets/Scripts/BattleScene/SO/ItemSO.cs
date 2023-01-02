@@ -10,6 +10,7 @@ public class Item
     public int health;
     public Sprite sprite;
     public float percent;
+    public string type;
 }
 
 

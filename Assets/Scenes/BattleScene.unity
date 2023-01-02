@@ -243,7 +243,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b0e202b7fd2045448b8c5fee0b250812, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e858b54befbb1fc47a556fb740fafab1, type: 2}
@@ -388,8 +388,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notificationPanel: {fileID: 1308848303}
   isCardMoving: 0
-  isDraw: 0
-  isDelay: 0
   isFirstSelect: 0
 --- !u!4 &194827598
 Transform:
@@ -563,7 +561,7 @@ RectTransform:
   - {fileID: 1308848300}
   - {fileID: 900723785}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -634,9 +632,8 @@ Transform:
   - {fileID: 666521043}
   - {fileID: 82024978}
   - {fileID: 1917165351}
-  - {fileID: 1170847230}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &825444708
 GameObject:
@@ -1150,19 +1147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81ffd836043790844ac55ef3e705a088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    name: 
-    attack: 0
-    health: 0
-    sprite: {fileID: 0}
-    percent: 0
-  entity: {fileID: 0}
-  character: {fileID: 0}
-  nameTMP: {fileID: 0}
-  attackTMP: {fileID: 0}
-  healthTMP: {fileID: 0}
+  healthTMP: {fileID: 194595811}
   attack: 0
-  health: 0
+  health: 50
   isMine: 1
   isBossOrEmpty: 0
   originPos: {x: 0, y: 0, z: 0}
@@ -1250,66 +1237,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1170847229
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1170847230}
-  - component: {fileID: 1170847231}
-  m_Layer: 0
-  m_Name: MyEmptyEntity
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1170847230
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170847229}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 730327359}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1170847231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170847229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81ffd836043790844ac55ef3e705a088, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item:
-    name: 
-    attack: 0
-    health: 0
-    sprite: {fileID: 0}
-    percent: 0
-  entity: {fileID: 0}
-  character: {fileID: 0}
-  nameTMP: {fileID: 0}
-  attackTMP: {fileID: 0}
-  healthTMP: {fileID: 0}
-  attack: 0
-  health: 0
-  isMine: 1
-  isBossOrEmpty: 1
-  originPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1265711941
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,7 +1266,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1270108016
 GameObject:
@@ -1689,7 +1616,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1503794132
 GameObject:
@@ -1725,7 +1652,7 @@ Transform:
   - {fileID: 230439363}
   - {fileID: 257728661}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1730776431
 GameObject:
@@ -1785,7 +1712,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b0e202b7fd2045448b8c5fee0b250812, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e858b54befbb1fc47a556fb740fafab1, type: 2}
@@ -1928,7 +1855,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1902976425
 GameObject:
@@ -2013,7 +1940,7 @@ Transform:
   m_Children:
   - {fileID: 1036965546}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1917165350
 GameObject:
@@ -2122,6 +2049,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2006439471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2006439473}
+  - component: {fileID: 2006439472}
+  m_Layer: 0
+  m_Name: BattleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2006439472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006439471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa6ef23a901dde340be9f3b803c140e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 999374978}
+  monster: {fileID: 2093984645}
+--- !u!4 &2006439473
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006439471}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2025269035
 GameObject:
   m_ObjectHideFlags: 0
@@ -2138,7 +2111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2025269036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2154,7 +2127,7 @@ MonoBehaviour:
   entityPrefab: {fileID: 4814986489529467525, guid: b7c685c561bb4104f84f90174bac99ff, type: 3}
   myEntities: []
   otherEntities: []
-  myEmptyEntity: {fileID: 1170847231}
+  myEmptyEntity: {fileID: 0}
   myBossEntity: {fileID: 999374978}
   otherBossEntity: {fileID: 2093984645}
 --- !u!4 &2025269037
@@ -2269,19 +2242,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81ffd836043790844ac55ef3e705a088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    name: 
-    attack: 0
-    health: 0
-    sprite: {fileID: 0}
-    percent: 0
-  entity: {fileID: 0}
-  character: {fileID: 0}
-  nameTMP: {fileID: 0}
-  attackTMP: {fileID: 0}
-  healthTMP: {fileID: 0}
-  attack: 0
-  health: 0
+  healthTMP: {fileID: 1730776433}
+  attack: 5
+  health: 50
   isMine: 0
   isBossOrEmpty: 1
   originPos: {x: 0, y: 0, z: 0}
