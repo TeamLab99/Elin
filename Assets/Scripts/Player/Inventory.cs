@@ -64,7 +64,7 @@ public class Inventory : MonoBehaviour
             selectedTabImages[i].GetComponent<Image>().color = color;
         }
         description_Text.text = tabDescription[selectedTab];
-        StartCoroutine(SelectedItemEffectCoroutine());
+        StartCoroutine(SelectedTabEffectCoroutine());
     } // 선택된 탭을 제외하고 다른 모든 탭의 컬러 알파값 0
     IEnumerator SelectedTabEffectCoroutine()
     {
