@@ -2289,8 +2289,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 969341352}
   - {fileID: 1458444995}
+  - {fileID: 969341352}
   - {fileID: 1993192445}
   - {fileID: 760447899}
   m_Father: {fileID: 1619684372}
@@ -3371,8 +3371,8 @@ MonoBehaviour:
   tf: {fileID: 1942526160}
   go: {fileID: 1619684371}
   selectedTabImages:
-  - {fileID: 969341351}
   - {fileID: 1458444994}
+  - {fileID: 969341351}
   - {fileID: 1993192444}
   - {fileID: 760447898}
 --- !u!224 &694068011 stripped
@@ -3706,12 +3706,12 @@ RectTransform:
   m_Children:
   - {fileID: 479829216}
   m_Father: {fileID: 291216775}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -761, y: 140}
-  m_SizeDelta: {x: -290.86987, y: 100}
+  m_AnchoredPosition: {x: -457.5, y: 140}
+  m_SizeDelta: {x: -291, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &969341353
 MonoBehaviour:
@@ -4998,12 +4998,12 @@ RectTransform:
   m_Children:
   - {fileID: 1729104618}
   m_Father: {fileID: 291216775}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -458, y: 140}
-  m_SizeDelta: {x: -290.86987, y: 100}
+  m_AnchoredPosition: {x: -760.5, y: 140}
+  m_SizeDelta: {x: -291, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1458444996
 MonoBehaviour:
