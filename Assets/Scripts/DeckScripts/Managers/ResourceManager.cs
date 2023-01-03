@@ -6,7 +6,7 @@ public class ResourceManager
 {
     public T Load<T>(string path) where T : Object
     {
-        // 1. originalµµ ÀÌ¹Ì µé°í ÀÖÀ¸¸é ¹Ù·Î »ç¿ë
+        // 1. originalë„ ì´ë¯¸ ë“¤ê³  ìˆìœ¼ë©´ ë°”ë¡œ ì‚¬ìš©
         if (typeof(T) == typeof(GameObject))
         {
             string name = path;
@@ -22,6 +22,15 @@ public class ResourceManager
         return Resources.Load<T>(path);
     }
 
+    public void saveData()
+    {
+        //ì¡°ê¸ˆ ë” ë²”ìš©ì ì¸ ë°ì´í„° ì„¸ì´ë¸Œ í•¨ìˆ˜
+        //ì•„ì§ R&Dê°€ ì¡°ê¸ˆ í•„ìš”í•˜ë‹¤
+        //ì¼ë‹¨ì€ ë± ì„¸ì´ë¸Œì— ì´ˆì ì„ ë§ì¶¤
+        string ToJsonData = JsonUtility.ToJson(Managers.Data.DeckDict);
+        string filePath = Application.persistentDataPath + "Data/DeckData";
+    }
+
     public GameObject Instantiate(string path, Transform parent = null)
     {
 
@@ -32,7 +41,7 @@ public class ResourceManager
             return null;
         }
 
-        // 2. Ç®¸µµÈ ¾Ö°¡ ÀÖÀ»±î?
+        // 2. í’€ë§ëœ ì• ê°€ ìˆì„ê¹Œ?
         if (original.GetComponent<Poolable>() != null)
             return Managers.Pool.Pop(original, parent).gameObject;
 
@@ -46,7 +55,7 @@ public class ResourceManager
         if (go == null)
             return;
 
-        // ¸¸¾à¿¡ Ç®¸µÀÌ ÇÊ¿äÇÑ ¾ÆÀÌ¶ó¸é -> Ç®¸µ ¸Å´ÏÀú¿¡°Ô À§Å¹
+        // ë§Œì•½ì— í’€ë§ì´ í•„ìš”í•œ ì•„ì´ë¼ë©´ -> í’€ë§ ë§¤ë‹ˆì €ì—ê²Œ ìœ„íƒ
         Poolable poolable = go.GetComponent<Poolable>();
         if (poolable != null)
         {

@@ -232,6 +232,7 @@ public class UI_Collection : UI_Scene
     }
     public void SetDefault()
     {
+        //Managers.Data.getNewCard(10);
         sorting = Define.Sorting.Default;
         drawCard();
     }

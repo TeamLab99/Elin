@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 
 public interface ILoader<Key, Value>
@@ -25,5 +26,14 @@ public class DataManager
     {
         TextAsset textAsset = Managers.Resource.Load<TextAsset>($"Data/{path}");
         return JsonUtility.FromJson<Loader>(textAsset.text);
+    }
+
+    public void getNewCard(int _id)
+    {
+        UnlockCard _card = new UnlockCard();
+        _card.id = _id;
+
+        //내가 들고 있는 덱 딕셔너리에 추가하는 함수
+        DeckDict.Add(_id, _card);
     }
 }
