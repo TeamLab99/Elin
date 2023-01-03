@@ -13,12 +13,12 @@ public class Battle : MonoBehaviour
     [SerializeField] Entity monster;
 
     [Header("UI")]
-    public Image scroll;
+    //public Image scroll;
     float time=1f;
 
     private void Start()
     {
-        scroll.fillAmount = time;
+        //scroll.fillAmount = time;
         //scroll.fillAmount = stamina*0.01f;
         //scroll.fillAmount = 1;
         StartCoroutine(MonsterAttack());
