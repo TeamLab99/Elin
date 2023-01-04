@@ -53,3 +53,6 @@ TagManager:
   - name: Card
     uniqueID: 3402974849
     locked: 0
+  - name: Object
+    uniqueID: 903770491
+    locked: 0
