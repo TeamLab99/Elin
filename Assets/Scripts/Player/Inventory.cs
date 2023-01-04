@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    
+    public static Inventory instance;
+    private DataBase_Manager theDatabase;
     private Inventory_Slot[] slots; // 인벤토리 슬롯들
     private List<Item_Data> inventoryItemList; //플레이어가 소지한 아이템 리스트
     private List<Item_Data> inventoryTabList; // 선택한 템에 따라 다르게 보여질 아이템 리스트
@@ -28,6 +29,8 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
+        instance = this;
+        theDatabase = FindObjectOfType<DataBase_Manager>(); // 한번 접근이 아니라 여러번 접근이므로 find사용
         inventoryItemList = new List<Item_Data>();
         inventoryTabList = new List<Item_Data>();
         slots = tf.GetComponentsInChildren<Inventory_Slot>();
@@ -46,6 +49,30 @@ public class Inventory : MonoBehaviour
         RemoveSlot();
         SelectedTab();
     } // 탭 활성화
+
+    public void GetAnItem(int _itemID, int _count=1)
+    {
+        for(int i=0; i<theDatabase.itemList.Count; i++) // 데이터베이스 아이템 검색
+        {
+            if (_itemID == theDatabase.itemList[i].itemID) // 아이템 찾음
+            {
+                for(int j=0; j<inventoryItemList.Count; j++) // 소지품에 같은 아이템이 있다 -> 갯수 증감 
+                {
+                    if (inventoryItemList[j].itemID == _itemID)
+                    {
+                        if (inventoryItemList[i].itemType != Item_Data.ItemType.Equipment)
+                            inventoryItemList[j].itemCount += _count;
+                        else
+                            inventoryItemList.Add(theDatabase.itemList[i]);
+                        return;
+                    }
+                }
+                inventoryItemList.Add(theDatabase.itemList[i]); // 없으면 소지품 해당 아이템 추가
+                return;
+            }
+        }
+        Debug.Log("데이터베이스의 해당 id 값이 존재하지 않습니다 : Error");
+    }
     public void RemoveSlot()
     {
         for(int i=0; i < slots.Length; i++)
@@ -64,7 +91,7 @@ public class Inventory : MonoBehaviour
             selectedTabImages[i].GetComponent<Image>().color = color;
         }
         description_Text.text = tabDescription[selectedTab];
-        StartCoroutine(SelectedItemEffectCoroutine());
+        StartCoroutine(SelectedTabEffectCoroutine());
     } // 선택된 탭을 제외하고 다른 모든 탭의 컬러 알파값 0
     IEnumerator SelectedTabEffectCoroutine()
     {
