@@ -34,14 +34,14 @@ public class Inventory : MonoBehaviour
         inventoryItemList = new List<Item_Data>();
         inventoryTabList = new List<Item_Data>();
         slots = tf.GetComponentsInChildren<Inventory_Slot>();
-        inventoryItemList.Add(new Item_Data(10001, "cherry", "체력을 10 증가", Item_Data.ItemType.Consumer));
+        /*inventoryItemList.Add(new Item_Data(10001, "cherry", "체력을 10 증가", Item_Data.ItemType.Consumer));
         inventoryItemList.Add(new Item_Data(10002, "gem", "체력을 30 증가", Item_Data.ItemType.Consumer));
         inventoryItemList.Add(new Item_Data(20001, "bag", "방어력 10 증가", Item_Data.ItemType.Equipment));
         inventoryItemList.Add(new Item_Data(20002, "belt", "방어력 30 증가", Item_Data.ItemType.Equipment));
         inventoryItemList.Add(new Item_Data(30001, "bone", "해골몬스터의 뼈조각", Item_Data.ItemType.Quest));
         inventoryItemList.Add(new Item_Data(30002, "egg", "닭 몬스터의 알", Item_Data.ItemType.Quest));
         inventoryItemList.Add(new Item_Data(40001, "silk", "방어구의 재료", Item_Data.ItemType.Etc));
-        inventoryItemList.Add(new Item_Data(40010, "diamond", "무기의 재료", Item_Data.ItemType.Etc));
+        inventoryItemList.Add(new Item_Data(40010, "diamond", "무기의 재료", Item_Data.ItemType.Etc));*/
     }
 
    public void ShowTab()
@@ -68,6 +68,7 @@ public class Inventory : MonoBehaviour
                     }
                 }
                 inventoryItemList.Add(theDatabase.itemList[i]); // 없으면 소지품 해당 아이템 추가
+                inventoryItemList[inventoryItemList.Count - 1].itemCount = _count;
                 return;
             }
         }
@@ -113,6 +114,21 @@ public class Inventory : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
         }
     } // 선택된 탭 반짝임 효과
+    public void UseItem()
+    {
+        for(int i=0; i<inventoryItemList.Count; i++)
+        {
+            if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
+            {
+                if (inventoryItemList[i].itemCount > 1)
+                    inventoryItemList[i].itemCount--;
+                else
+                    inventoryItemList.RemoveAt(i);
+                ShowItem();
+                break;
+            }
+        }
+    }
     public void ShowItem()
     {
         inventoryTabList.Clear(); //기존에 있던 슬롯들 초기화
@@ -289,9 +305,10 @@ public class Inventory : MonoBehaviour
                         {
                             if (selectedTab == 0) // 소모품
                             {
-                                stopKeyInput = true;
+                                //stopKeyInput = true;  
+                                //아이템 소모 시 yes or no 선택창을 안쓰므로 필요없음
                                 // 물약을 마실거냐 혹은 같은 선택지 호출
-
+                                UseItem();
                             }
                             else if (selectedTab == 1)
                             {
