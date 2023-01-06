@@ -62,6 +62,23 @@ public class TurnManager : MonoBehaviour
         StartCoroutine(StartTurnCo());
     }
 
+    public IEnumerator StartDraw()
+    {
+        BPGameManager.Inst.isCardMoving = true;
+        isLoading = true;
+        for (int i = 0; i < startCardCount; i++)
+        {
+            yield return delay05;
+            OnAddCard?.Invoke(true);
+            yield return new WaitForSeconds(0.2f);
+
+        }
+        yield return new WaitForSeconds(1f);
+
+        BPGameManager.Inst.isCardMoving = false;
+        isLoading = false;
+    }
+
     IEnumerator StartTurnCo()
     {
         isLoading = true;

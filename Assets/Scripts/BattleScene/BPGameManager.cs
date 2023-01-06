@@ -89,7 +89,7 @@ public class BPGameManager : MonoBehaviour
         #endregion
 
         // esc, ` 키로 카드 선택 취소
-        if ((Input.GetKeyDown(KeyCode.Escape) || (Input.GetKeyDown(KeyCode.Tab)) && !isCardMoving))
+        if ((Input.GetKeyDown(KeyCode.Escape) || (Input.GetKeyDown(KeyCode.LeftShift)) && !isCardMoving))
             EnlargeCancle();
 
         // 카드 내기, 카드 선택 후 스페이스 바로 실행
@@ -100,10 +100,6 @@ public class BPGameManager : MonoBehaviour
             CardManager.Inst.TryPutCard();
             // 카드 정보를 넘긴 뒤 행동 실행
         }
-
-        // 카드 드로우
-        if (Input.GetKeyDown(KeyCode.Z))
-            TurnManager.OnAddCard?.Invoke(true);
     }
     public void EnlargeCancle()
     {

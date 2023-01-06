@@ -91,6 +91,11 @@ public class CardManager : MonoBehaviour
                     CardDrag();*/
 
         DetectCardArea();
+
+        if (!TurnManager.Inst.isLoading && myCardsCount <= 0)
+        {
+            StartCoroutine(TurnManager.Inst.StartDraw());
+        }
         //SetECardState();
     }
 

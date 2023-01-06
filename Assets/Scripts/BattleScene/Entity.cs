@@ -18,6 +18,7 @@ public class Entity : MonoBehaviour
     public bool isMine;
     public bool isBossOrEmpty;
     public Vector3 originPos;
+    public PRS originPRS;
     public void Setup(Item item)
     {
 /*        attack = item.attack;
