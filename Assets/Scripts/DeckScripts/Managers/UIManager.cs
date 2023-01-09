@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class UIManager
 {
-    int _order = 10;
-
-    Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
-    UI_Scene _sceneUI = null;
-
+    //UI들도 어떤 루트에 모아둘 예정이었다.
+    //하지만 카드는 content의 자식으로 들어가야하므로 현재 사용 중이지는 않다.
     public GameObject Root
     {
         get
@@ -20,29 +17,14 @@ public class UIManager
         }
     }
 
-    public void SetCanvas(GameObject go, bool sort = true)
-    {
-        Canvas canvas = Util.GetOrAddComponent<Canvas>(go);
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.overrideSorting = true;
-
-        if (sort)
-        {
-            canvas.sortingOrder = _order;
-            _order++;
-        }
-        else
-        {
-            canvas.sortingOrder = 0;
-        }
-
-    }
-
+    //화면 상에 띄울 카드를 만드는 함수
+    //UIManager라고는 하지만 사실상 사용하는 건 이 함수 밖에 없다.
     public T MakeCard<T>(Transform parent = null, string name = null) where T : UI_Base
     {
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
+        //Resources/Prefabs/DeckCreator 산하에서 해당하는 이름의 프리팹을 찾아서 인스턴시에트한다. 
         GameObject go = Managers.Resource.Instantiate($"DeckCreator/{name}");
 
         if (parent != null)
@@ -51,71 +33,8 @@ public class UIManager
         return Util.GetOrAddComponent<T>(go);
     }
 
-    #region userOrNot
-    public T ShowSceneUI<T>(string name = null) where T : UI_Scene
-    {
-        if (string.IsNullOrEmpty(name))
-            name = typeof(T).Name;
-
-        GameObject go = Managers.Resource.Instantiate($"UI/Scene/{name}");
-        T sceneUI = Util.GetOrAddComponent<T>(go);
-        _sceneUI = sceneUI;
-
-        go.transform.SetParent(Root.transform);
-
-        return sceneUI;
-    }
-
-
-    public T ShowPopupUI<T>(string name = null) where T : UI_Popup
-    {
-        if (string.IsNullOrEmpty(name))
-            name = typeof(T).Name;
-
-        GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}");
-        T popup = Util.GetOrAddComponent<T>(go);
-        _popupStack.Push(popup);
-
-        go.transform.SetParent(Root.transform);
-
-        return popup;
-    }
-    public void ClosePopupUI(UI_Popup popup)
-    {
-        if (_popupStack.Count == 0)
-            return;
-
-        if (_popupStack.Peek() != popup)
-        {
-            Debug.Log("Close Popup Failed!");
-            return;
-        }
-
-        ClosePopupUI();
-    }
-
-    public void ClosePopupUI()
-    {
-        if (_popupStack.Count == 0)
-            return;
-
-        UI_Popup popup = _popupStack.Pop();
-        Managers.Resource.Destroy(popup.gameObject);
-        popup = null;
-
-
-    }
-
-    public void CloseAllPopupUI()
-    {
-        while (_popupStack.Count > 0)
-            ClosePopupUI();
-    }
-    #endregion
-
     public void Clear()
     {
-        CloseAllPopupUI();
-        _sceneUI = null;
+
     }
 }

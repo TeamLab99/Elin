@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//다양한 enum들을 선언한 파일
 public class Define
 {
     public enum Scene
