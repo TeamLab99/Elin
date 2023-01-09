@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player_Move : MonoBehaviour
 {
+    public static Player_Move instance; 
+
     Animator anim;
     Rigidbody2D rb;
     SpriteRenderer spr;
@@ -21,29 +23,29 @@ public class Player_Move : MonoBehaviour
     public float walkSpeed;
     public GameObject box;
 
-    float defaultGravity; //±âº» Áß·Â
+    float defaultGravity; //ê¸°ë³¸ ì¤‘ë ¥
     float moveDir; //Horizontal
     float jumpDir; //Jump
-    float isRight; //1:¿À¸¥ÂÊ, -1:¿ŞÂÊ
-    bool isGround; //¶¥¿¡ ºÙ¾îÀÖ´Â°¡?
-    bool isWall; //º®¿¡ ºÙ¾îÀÖ´Â°¡?
-    bool isJumpBox; //Á¡ÇÁ ¹Ú½º°¡ ¹Ø¿¡ ÀÖ´Â°¡?
-    bool isWallJump; //º®
+    float isRight; //1:ì˜¤ë¥¸ìª½, -1:ì™¼ìª½
+    bool isGround; //ë•…ì— ë¶™ì–´ìˆëŠ”ê°€?
+    bool isWall; //ë²½ì— ë¶™ì–´ìˆëŠ”ê°€?
+    bool isJumpBox; //ì í”„ ë°•ìŠ¤ê°€ ë°‘ì— ìˆëŠ”ê°€?
+    bool isWallJump; //ë²½
     bool boxOpen; 
-    bool ladderCollide; //»ç´Ù¸®¿Í ºÙ¾îÀÖ´Â°¡?
-    bool isLadder; //»ç´Ù¸®¿¡ ¸Ş´Ş·ÁÀÖ´Â°¡?
-    bool isLadderJump; //»ç´Ù¸®¿¡¼­ Á¡ÇÁÇÏ´Â°¡?
+    bool ladderCollide; //ì‚¬ë‹¤ë¦¬ì™€ ë¶™ì–´ìˆëŠ”ê°€?
+    bool isLadder; //ì‚¬ë‹¤ë¦¬ì— ë©”ë‹¬ë ¤ìˆëŠ”ê°€?
+    bool isLadderJump; //ì‚¬ë‹¤ë¦¬ì—ì„œ ì í”„í•˜ëŠ”ê°€?
 
     private void Awake()
     {
-      
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
     }
 
-    void Start() //ÃÊ±â º¯¼ö Á¦¾î
+    void Start() //ì´ˆê¸° ë³€ìˆ˜ ì œì–´
     {
+        instance = this;
         isRight = 1;
         boxOpen = false;
         isLadder = false;
@@ -70,7 +72,7 @@ public class Player_Move : MonoBehaviour
             }
             
             
-        } //ÁÂ¿ì ÀüÈ¯ + ÁÂ¿ì ¿òÁ÷ÀÓ
+        } //ì¢Œìš° ì „í™˜ + ì¢Œìš° ì›€ì§ì„
 
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -78,7 +80,7 @@ public class Player_Move : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.X))
                 if (boxOpen)
                     box.SetActive(false);
-        } // Å° ÀÔ·Â
+        } // í‚¤ ì…ë ¥
 
         {
             if (Mathf.Abs(moveDir) > 0.1f)
@@ -97,7 +99,7 @@ public class Player_Move : MonoBehaviour
                 anim.SetBool("isWall", true);
             else
                 anim.SetBool("isWall", false);
-        } //¾Ö´Ï¸ŞÀÌ¼Ç Ç¥±â
+        } //ì• ë‹ˆë©”ì´ì…˜ í‘œê¸°
     }
     void FixedUpdate()
     {
@@ -146,31 +148,31 @@ public class Player_Move : MonoBehaviour
                 rb.velocity = new Vector2(walkSpeed * isRight, jumpPower * 0.8f);
             }
         }
-    } //º®Å¸±â + º®Á¡ÇÁ
+    } //ë²½íƒ€ê¸° + ë²½ì í”„
     private void Walk()
     {   
         if(isGround)
             rb.velocity = new Vector2(moveDir * walkSpeed, 0);
         else
             rb.velocity = new Vector2(moveDir * walkSpeed, rb.velocity.y);
-    } //°È±â
+    } //ê±·ê¸°
     private void Jump()
     {
         if (isGround)
             rb.velocity = new Vector2(rb.velocity.x, jumpDir * jumpPower);
-    } //Á¡ÇÁ
+    } //ì í”„
     private void FlipX()
     {
         if (isRight == -1)
             spr.flipX = true;
         else if(isRight== 1)
             spr.flipX = false;
-    } //ÁÂ¿ìÀüÈ¯
+    } //ì¢Œìš°ì „í™˜
     private void FreezX()
     {
         isWallJump = false;
         FlipX();
-    } //¿òÁ÷ÀÓ Á¦¾î Ç®±â
+    } //ì›€ì§ì„ ì œì–´ í’€ê¸°
     private void FreezLadderJump()
     {
         isLadderJump = false;
@@ -187,7 +189,7 @@ public class Player_Move : MonoBehaviour
         Gizmos.DrawRay(groundChk.position,Vector2.down*groundDist);
         Gizmos.color = Color.red;
         Gizmos.DrawRay(wallChk.position, Vector2.right * wallDist*isRight);
-    } //°ËÃâ¼±
+    } //ê²€ì¶œì„ 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

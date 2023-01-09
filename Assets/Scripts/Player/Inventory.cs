@@ -16,6 +16,7 @@ public class Inventory : MonoBehaviour
 
     public GameObject go; //인벤토리 활성화 비활성하
     public GameObject[] selectedTabImages;
+    public GameObject floatingText;
     //public GameObject selectionWindow;
     private int selectedItem; //선택된 아이템
     private int selectedTab; //선택된 탭
@@ -34,15 +35,7 @@ public class Inventory : MonoBehaviour
         inventoryItemList = new List<Item_Data>();
         inventoryTabList = new List<Item_Data>();
         slots = tf.GetComponentsInChildren<Inventory_Slot>();
-        /*inventoryItemList.Add(new Item_Data(10001, "cherry", "체력을 10 증가", Item_Data.ItemType.Consumer));
-        inventoryItemList.Add(new Item_Data(10002, "gem", "체력을 30 증가", Item_Data.ItemType.Consumer));
-        inventoryItemList.Add(new Item_Data(20001, "bag", "방어력 10 증가", Item_Data.ItemType.Equipment));
-        inventoryItemList.Add(new Item_Data(20002, "belt", "방어력 30 증가", Item_Data.ItemType.Equipment));
-        inventoryItemList.Add(new Item_Data(30001, "bone", "해골몬스터의 뼈조각", Item_Data.ItemType.Quest));
-        inventoryItemList.Add(new Item_Data(30002, "egg", "닭 몬스터의 알", Item_Data.ItemType.Quest));
-        inventoryItemList.Add(new Item_Data(40001, "silk", "방어구의 재료", Item_Data.ItemType.Etc));
-        inventoryItemList.Add(new Item_Data(40010, "diamond", "무기의 재료", Item_Data.ItemType.Etc));*/
-    }
+     }
 
    public void ShowTab()
     {
@@ -56,6 +49,9 @@ public class Inventory : MonoBehaviour
         {
             if (_itemID == theDatabase.itemList[i].itemID) // 아이템 찾음
             {
+                var clone = Instantiate(floatingText, Player_Move.instance.transform.position,Quaternion.Euler(Vector3.zero));
+                clone.GetComponent<FloatingText>().text.text = theDatabase.itemList[i].itemName + " " + _count + "개 획득";
+                clone.transform.SetParent(this.transform); // 인벤토리 안에 생성된다. (Canvas 밖에 생성되면 출력이 안되기 때문에 인벤토리 안에 생성시킴)
                 for(int j=0; j<inventoryItemList.Count; j++) // 소지품에 같은 아이템이 있다 -> 갯수 증감 
                 {
                     if (inventoryItemList[j].itemID == _itemID)
