@@ -10,7 +10,7 @@ public class Inventory_Slot : MonoBehaviour
     public Text itemName_Text;
     public Text itemCount_Text;
     
-    public void AddItem(Item_Data _item)
+    public void AddItem(Item_Data _item) 
     {
         itemName_Text.text = _item.itemName;
         icon.sprite = _item.itemIcon;
@@ -21,11 +21,11 @@ public class Inventory_Slot : MonoBehaviour
             else
                 itemCount_Text.text = " "; 
         } 
-    }
+    } // Item_Data 스크립트에서 item 정보를 받아오고 비교하여 슬롯에 추가
     public void RemoveItem()
     {
         itemCount_Text.text = " ";
         itemName_Text.text = " ";
         icon.sprite = null;
-    }
+    } // 아이템을 소모하면 삭제 
 }

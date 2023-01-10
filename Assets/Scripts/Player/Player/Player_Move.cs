@@ -70,9 +70,7 @@ public class Player_Move : MonoBehaviour
                 isRight = 1;
                 FlipX();
             }
-            
-            
-        } //좌우 전환 + 좌우 움직임
+        } //좌우 전환 + 좌우 움직임 (벽 점프중이 아닐 시에만)
 
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -103,13 +101,13 @@ public class Player_Move : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (!isWallJump)
+        if (!isWallJump) 
         {
             Walk();
             Jump();
             WallSlide();
-        }
-        if(!isLadderJump)
+        } // 벽 점프중이 아닐 시 움직임
+        if(!isLadderJump) 
             OnLadder();
     }
     private void OnLadder()
@@ -132,7 +130,7 @@ public class Player_Move : MonoBehaviour
         {
             rb.gravityScale = defaultGravity;
         }
-    }
+    } // 줄에 붙어 있을 때
     private void WallSlide()
     {
         if (isWall)
@@ -176,13 +174,13 @@ public class Player_Move : MonoBehaviour
     private void FreezLadderJump()
     {
         isLadderJump = false;
-    }
+    } // 사다리 타는 중 움직임 제어
     private void HangingLadder()
     {
         float ver = Input.GetAxis("Vertical");
         rb.velocity = new Vector2(0, ver * jumpPower);
         rb.gravityScale = 0f;
-    }
+    } // 사다리에 메달려있을 때
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -197,8 +195,8 @@ public class Player_Move : MonoBehaviour
             rb.AddForce(new Vector2(0, 20), ForceMode2D.Impulse);
         if (collision.gameObject.tag == "Spike")
             rb.AddForce(new Vector2(10*isRight, 5), ForceMode2D.Impulse);  
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
+    } // 충돌
+    private void OnTriggerEnter2D(Collider2D collision) // 트리거 충돌
     {
         if (collision.CompareTag("Ladder"))
             ladderCollide = true;
@@ -214,5 +212,5 @@ public class Player_Move : MonoBehaviour
         }
         if (collision.CompareTag("Box"))
             boxOpen = false;
-    }
+    } // 트리거와 떨어졌을 때
 }

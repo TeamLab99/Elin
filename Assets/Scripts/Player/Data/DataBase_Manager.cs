@@ -17,9 +17,9 @@ public class DataBase_Manager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             instance = this;
         }
-    }
+    } // 아이템 데이터 매니저는 항상 존재
 
-    void Start()
+    void Start() 
     {
         itemList.Add(new Item_Data(10001, "cherry", "체력을 10 증가", Item_Data.ItemType.Consumer));
         itemList.Add(new Item_Data(10002, "gem", "체력을 30 증가", Item_Data.ItemType.Consumer));
@@ -29,7 +29,7 @@ public class DataBase_Manager : MonoBehaviour
         itemList.Add(new Item_Data(30002, "egg", "닭 몬스터의 알", Item_Data.ItemType.Quest));
         itemList.Add(new Item_Data(40001, "silk", "방어구의 재료", Item_Data.ItemType.Etc));
         itemList.Add(new Item_Data(40010, "diamond", "무기의 재료", Item_Data.ItemType.Etc));
-    }
+    } // 아이템 정보를 입력
 
   
     void Update()
