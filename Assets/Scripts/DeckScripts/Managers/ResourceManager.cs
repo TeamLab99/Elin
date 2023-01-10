@@ -34,20 +34,25 @@ public class ResourceManager
         //아직 R&D가 조금 필요하다
         //일단은 덱 세이브에 초점을 맞춤
         List<UnlockCard> deckCardsList = new List<UnlockCard>();
+
+        //덱에 세이브하기 위한 하나의 클래스 -> 여러 개의 데이터들을 다 담고 있는 역할
         DeckSaveData _decksave = new DeckSaveData();
 
+        //반복문을 통해 딕셔너리에서 인스턴스들만 가져옴
         foreach (KeyValuePair<int, UnlockCard> cards in Managers.Data.DeckDict)
         {
             deckCardsList.Add(cards.Value);
         }
 
+        //리스트를 배열로 바꿔 저장
         _decksave.deckCards = deckCardsList.ToArray();
 
+        //인스턴스를 저장할 데이터로 변환
         string ToJsonData = JsonUtility.ToJson(_decksave, true);
-        Debug.Log(ToJsonData);
 
-        //저장되는 파잃의 주소 -> 나중에 로컬로 바꾸면 이렇게까지는 안 써줘도 됨
-        string filePath = "D:/Elin/Assets/Resources/Data/DeckData2.json";
+        //저장되는 파일의 주소 -> Application.datPath를 이용하면 프로젝트의 Asset폴더 위치를 찾아줌
+        //다른 사람의 컴퓨터 환경에서도 잘 작동함
+        string filePath = Application.dataPath + "/Resources/Data/DeckData2.json";
 
         File.WriteAllText(filePath, ToJsonData);
     }

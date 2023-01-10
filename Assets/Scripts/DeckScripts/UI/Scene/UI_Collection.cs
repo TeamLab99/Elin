@@ -31,7 +31,7 @@ public class UI_Collection : UI_Base
     }
 
     public override void Init()
-    { 
+    {
         //이 위치에 전체 카드 데이터를 담을 딕셔너리를 선언
         _dict = Managers.Data.CardDict;
 

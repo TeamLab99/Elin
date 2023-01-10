@@ -62,6 +62,61 @@ public class DeckData : ILoader<int, UnlockCard>
 }
 #endregion
 
+//전체 아이템에 대한 정보를 받아옴
+#region Item
+[Serializable]
+public class Items
+{
+    public int id;
+    public string itemName;
+    public string itemDescription;
+    public int itemCount;
+    public int itemSpriteId;
+    //enum을 그냥 0, 1, 2, 3 이렇게 해도 되지만 직관적이지 않다.
+    //enum을 string으로 바꿔주는 converter가 있는 거 같은데 사용법은 잘 모르겠다.
+    //public Define.ItemType itemType;
+}
+
+public class ItemData : ILoader<int, Items>
+{
+    public List<Items> items = new List<Items>();
+
+    public Dictionary<int, Items> MakeDict()
+    {
+        Dictionary<int, Items> dict = new Dictionary<int, Items>();
+        foreach (Items item in items)
+        {
+            dict.Add(item.id, item);
+        }
+        return dict;
+    }
+}
+#endregion
+
+//캐릭터의 인벤 정보를 받아오는 내용
+#region InvenItem
+[Serializable]
+public class InvenItem
+{
+    public int id;
+}
+
+public class InvenData : ILoader<int, InvenItem>
+{
+    public List<InvenItem> inven = new List<InvenItem>();
+
+    public Dictionary<int, InvenItem> MakeDict()
+    {
+        Dictionary<int, InvenItem> dict = new Dictionary<int, InvenItem>();
+        foreach (InvenItem item in inven)
+        {
+            dict.Add(item.id, item);
+        }
+        return dict;
+    }
+}
+#endregion
+
 //덱을 세이브 할 때 사용할 클래스
 #region DeckSaveData
 [Serializable]

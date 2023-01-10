@@ -43,4 +43,12 @@ public class Define
         Wind,
         Earth
     }
+
+    public enum ItemType
+    {
+        Consumer,
+        Equipment,
+        Quest,
+        Etc
+    }
 }
