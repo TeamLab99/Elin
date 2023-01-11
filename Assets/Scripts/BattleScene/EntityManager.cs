@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 이거 안 쓰는 스크립트임
+/// 하스스톤에서 몬스터를 필드에 내는 기능을 담은 스크립트
+/// </summary>
 public class EntityManager : MonoBehaviour
 {
     public static EntityManager Inst { get; private set; }
@@ -32,7 +36,7 @@ public class EntityManager : MonoBehaviour
 
             var targetEntity = targetEntities[i];
             targetEntity.originPos = new Vector3(targetX, targetY, 0);
-            targetEntity.MoveTransform(targetEntity.originPos, true, 0.5f);
+            //targetEntity.MoveTransform(targetEntity.originPos, true, 0.5f);
             targetEntity.GetComponent<Order>()?.SetOriginOrder(i);
         }
     }
@@ -86,8 +90,7 @@ public class EntityManager : MonoBehaviour
         else
             otherEntities.Insert(Random.Range(0, otherEntities.Count), entity);
 
-        entity.isMine = isMine;
-        entity.Setup(item);
+        //entity.Setup(item);
         EntityAlignment(isMine);
 
         return true;

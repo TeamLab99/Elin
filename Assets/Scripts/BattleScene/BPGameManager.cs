@@ -3,212 +3,100 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-//치트, UI, 랭킹, 게임오버
+
+/// <summary>
+/// 게임의 전체적인 상황을 관리하는 게임 매니저
+/// 주로 턴, 키 입력 이벤트, 게임 오버, 치트, UI들을 관리한다.
+/// </summary>
 public class BPGameManager : MonoBehaviour
 {
-    [SerializeField] NotificationPanel notificationPanel;
-    Color32 red = new Color32(255, 0, 0, 255);
-    Color32 yellow = new Color32(255, 244, 0, 255);
-    int cardNum = 0;
-    int prevNum = 0;
-    bool isNumpad = false;
-    public bool isCardMoving = false;
-    public bool isFirstSelect = false;
-    public static BPGameManager Inst { get; private set; }
+    public static BPGameManager Inst { get; private set; } // 싱글턴
     void Awake() => Inst = this;
+
+    /*    [SerializeField] NotificationPanel notificationPanel;
+    Color32 red = new Color32(255, 0, 0, 255);
+    Color32 yellow = new Color32(255, 244, 0, 255);*/
+
     private void Start()
     {
-        StartGame();
+        StartGame(); // TurnManager에게 시작을 알림.
     }
     private void Update()
     {
+        // 키 입력 검사
+        InputKey();
+
 #if UNITY_EDITOR
-        InputCheatkey();
+        // 치트키
 #endif
     }
-    private void InputCheatkey()
-    {
-        // 키 입력 판단
 
+    // 키 입력 검사
+    private void InputKey()
+    {
         #region 키패드 선택
-        if (Input.GetKeyDown(KeyCode.A) && !isCardMoving && CardManager.Inst.myCardsCount > 0)
-            NumpadExecution(0);
-        if (Input.GetKeyDown(KeyCode.S) && !isCardMoving && CardManager.Inst.myCardsCount > 1)
-            NumpadExecution(1);
-        if (Input.GetKeyDown(KeyCode.D) && !isCardMoving && CardManager.Inst.myCardsCount > 2)
-            NumpadExecution(2);
-        if (Input.GetKeyDown(KeyCode.F) && !isCardMoving && CardManager.Inst.myCardsCount > 3)
-            NumpadExecution(3);
-        if (Input.GetKeyDown(KeyCode.G) && !isCardMoving && CardManager.Inst.myCardsCount > 4)
-            NumpadExecution(4);
+        // 키 입력 판단 && 카드가 움직이고 있지 않을 때 && 카드 개수 검사
+        if (Input.GetKeyDown(KeyCode.A))
+            StartCoroutine(CardManager.Inst.MoveToChoiceNum(0));
+        if (Input.GetKeyDown(KeyCode.S))
+            StartCoroutine(CardManager.Inst.MoveToChoiceNum(1));
+        if (Input.GetKeyDown(KeyCode.D))
+            StartCoroutine(CardManager.Inst.MoveToChoiceNum(2));
+        if (Input.GetKeyDown(KeyCode.F))
+            StartCoroutine(CardManager.Inst.MoveToChoiceNum(3));
+        if (Input.GetKeyDown(KeyCode.G))
+            StartCoroutine(CardManager.Inst.MoveToChoiceNum(4));
         #endregion
 
         #region 방향키 선택
         // 오른쪽 방향키
-        if (Input.GetKeyDown(KeyCode.RightArrow) && CardManager.Inst.myCardsCount > 0 && !isCardMoving)
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (!isCardMoving)
-            {
-                NumpadCheck();
-                StartCoroutine(MoveRight());
-            }
-            else
-            {
-                StopAllCoroutines();
-                NumpadCheck();
-                StartCoroutine(MoveRight());
-            }
-
+            StartCoroutine(CardManager.Inst.MoveToArrow(true));
         }
-        if (Input.GetKeyUp(KeyCode.RightArrow) && CardManager.Inst.myCardsCount > 0 && isCardMoving)
+        if (Input.GetKeyUp(KeyCode.RightArrow))
         {
             StopAllCoroutines();
-            isCardMoving = false;
+            CardManager.Inst.StopCo();
         }
 
         //왼쪽 방향키
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && CardManager.Inst.myCardsCount > 0 && !isCardMoving)
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (!isCardMoving)
-            {
-                NumpadCheck();
-                StartCoroutine(MoveLeft());
-            }
-            else
-            {
-                StopAllCoroutines();
-                NumpadCheck();
-                StartCoroutine(MoveLeft());
-            }
+            StartCoroutine(CardManager.Inst.MoveToArrow(false));
         }
-        if (Input.GetKeyUp(KeyCode.LeftArrow) && CardManager.Inst.myCardsCount > 0 && isCardMoving)
+        if (Input.GetKeyUp(KeyCode.LeftArrow))
         {
             StopAllCoroutines();
-            isCardMoving = false;
+            CardManager.Inst.StopCo();
         }
         #endregion
 
-        // esc, ` 키로 카드 선택 취소
-        if ((Input.GetKeyDown(KeyCode.Escape) || (Input.GetKeyDown(KeyCode.LeftShift)) && !isCardMoving))
-            EnlargeCancle();
+        #region 그 외
+        // esc, 왼쪽 Shift 키로 카드 선택 취소
+        if ((Input.GetKeyDown(KeyCode.Escape) || (Input.GetKeyDown(KeyCode.LeftShift))))
+            CardManager.Inst.AllEnlargeCancle();
 
         // 카드 내기, 카드 선택 후 스페이스 바로 실행
-        if (Input.GetKeyDown(KeyCode.Space) && CardManager.Inst.alreadyEnlarge && !isCardMoving)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            isCardMoving = true;
-            isFirstSelect = false;
-            CardManager.Inst.TryPutCard();
-            // 카드 정보를 넘긴 뒤 행동 실행
+            StartCoroutine(CardManager.Inst.TryPutCardCorutine());
         }
+        #endregion
     }
-    public void EnlargeCancle()
-    {
-        // 선택 취소
-        if (!isCardMoving && CardManager.Inst.alreadyEnlarge)
-        {
-            for (int i = 0; i < CardManager.Inst.myCardsCount; i++)
-                CardManager.Inst.EnlargeCard(false, i);
-        }
-    }
-    IEnumerator ChoiceNum(int num)
-    {
-        // 키패드 선택
-        if (!isCardMoving)
-        {
-            if (!isFirstSelect)
-            {
-                isFirstSelect = true;
-            }
 
-            isCardMoving = true;
-            if (CardManager.Inst.alreadyEnlarge && CardManager.Inst.myCardsCount != 1 && prevNum != num)
-                CardManager.Inst.EnlargeCard(false, prevNum);
-            CardManager.Inst.EnlargeCard(true, num);
-            prevNum = num;
-            yield return new WaitForSeconds(0.15f);
-            isCardMoving = false;
-            isNumpad = true;
-
-        }
-    }
-    IEnumerator MoveLeft()
-    {
-        // 왼쪽 이동
-        isCardMoving = true;
-        //DOTween.KillAll();
-        if (CardManager.Inst.alreadyEnlarge && CardManager.Inst.myCardsCount != 1)
-            CardManager.Inst.EnlargeCard(false, cardNum);
-        if (!isFirstSelect)
-        {
-            cardNum = 0;
-            isFirstSelect = true;
-        }
-        else
-        {
-            if (cardNum > 0)
-                cardNum--;
-            else if (cardNum <= 0)
-                cardNum = CardManager.Inst.myCardsCount - 1;
-        }
-        CardManager.Inst.EnlargeCard(true, cardNum);
-        prevNum = cardNum;
-        yield return new WaitForSeconds(0.15f);
-        isCardMoving = false;
-        isNumpad = false;
-        StartCoroutine(MoveLeft());
-    }
-    IEnumerator MoveRight()
-    {
-        // 오른쪽 이동
-        isCardMoving = true;
-        //DOTween.KillAll();
-        if (CardManager.Inst.alreadyEnlarge && CardManager.Inst.myCardsCount != 1)
-            CardManager.Inst.EnlargeCard(false, cardNum);
-        if (cardNum < CardManager.Inst.myCardsCount - 1)
-            cardNum++;
-        else if (cardNum <= CardManager.Inst.myCardsCount - 1)
-            cardNum = 0;
-        if (!isFirstSelect)
-        {
-            cardNum = 0;
-            isFirstSelect = true;
-        }
-        //Debug.Log("선택한 카드 번호:" + cardNum);
-        CardManager.Inst.EnlargeCard(true, cardNum);
-        prevNum = cardNum;
-        yield return new WaitForSeconds(0.15f);
-        isCardMoving = false;
-        isNumpad = false;
-        StartCoroutine(MoveRight());
-    }
-    public void NumpadCheck()
-    {
-        // 숫자패드, 방향키 중복 입력 방지 체크
-        if (!isNumpad)
-        {
-            prevNum = cardNum;
-        }
-        else
-        {
-            cardNum = prevNum;
-        }
-    }
-    public void NumpadExecution(int num)
-    {
-        // 반복되는 코드 줄이기 위해 함수화
-        NumpadCheck();
-        StartCoroutine(ChoiceNum(num));
-    }
+    // 카드 선택을 막고 TurnManager에게 게임 시작을 알려줌
     public void StartGame()
     {
-        isCardMoving = true;
         StartCoroutine(TurnManager.Inst.StartGameCo());
     }
-    public void Notification(string message, bool myTurn)
-    {
-        if (!myTurn)
-            notificationPanel.Show(message, red);
-        else
-            notificationPanel.Show(message, yellow);
-    }
+
+    /*    // 턴 알림 팝업 텍스트 색 변경.
+        public void Notification(string message, bool myTurn)
+        {
+            if (!myTurn)
+                notificationPanel.Show(message, red);
+            else
+                notificationPanel.Show(message, yellow);
+        }*/
 }

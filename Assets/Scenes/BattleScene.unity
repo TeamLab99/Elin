@@ -462,9 +462,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 877ec5a0c90094d429f0e8b057413c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notificationPanel: {fileID: 1308848303}
-  isCardMoving: 0
-  isFirstSelect: 0
 --- !u!4 &194827598
 Transform:
   m_ObjectHideFlags: 0
@@ -1228,13 +1225,11 @@ MonoBehaviour:
   healthTMP: {fileID: 194595811}
   attack: 0
   health: 50
-  isMine: 1
-  isBossOrEmpty: 0
-  originPos: {x: 0, y: 0, z: 0}
   originPRS:
     pos: {x: 0, y: 0, z: 0}
     rot: {x: 0, y: 0, z: 0, w: 0}
     scale: {x: 0, y: 0, z: 0}
+  originPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1036965545
 GameObject:
   m_ObjectHideFlags: 0
@@ -1645,16 +1640,10 @@ MonoBehaviour:
   itemSO: {fileID: 11400000, guid: 2de3b28510b393e49a5e7a0a809f2a8e, type: 2}
   cardPrefab: {fileID: 4060142598591651220, guid: 733d77402ff4785479c69ac971f217fb, type: 3}
   myCards: []
-  otherCards: []
   cardSpawnPoint: {fileID: 1265711942}
   cardUsePoint: {fileID: 1777569287}
-  otherCardSpawnPoint: {fileID: 257728661}
   myCardLeft: {fileID: 666521043}
   myCardRight: {fileID: 82024978}
-  otherCardLeft: {fileID: 135898216}
-  otherCardRight: {fileID: 230439363}
-  myCardsCount: 0
-  alreadyEnlarge: 0
 --- !u!4 &1332864517
 Transform:
   m_ObjectHideFlags: 0
@@ -2485,6 +2474,7 @@ MonoBehaviour:
   player: {fileID: 999374978}
   monster: {fileID: 2093984645}
   scroll: {fileID: 1805571351}
+  isDie: 1
 --- !u!4 &2006439473
 Transform:
   m_ObjectHideFlags: 0
@@ -2650,10 +2640,8 @@ MonoBehaviour:
   healthTMP: {fileID: 1730776433}
   attack: 5
   health: 50
-  isMine: 0
-  isBossOrEmpty: 1
-  originPos: {x: 0, y: 0, z: 0}
   originPRS:
     pos: {x: 0, y: 0, z: 0}
     rot: {x: 0, y: 0, z: 0, w: 0}
     scale: {x: 0, y: 0, z: 0}
+  originPos: {x: 0, y: 0, z: 0}

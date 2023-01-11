@@ -4,6 +4,10 @@ using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// 이것도 첫 턴 드로우 기능을 제외하고는 현재 안쓰고있는 스크립트
+/// 기존 하스스톤 예제에서 상대턴 내턴 구분하려고 만든건데 나중에 손을 좀 봐서 우리 게임 입맛대로 고칠 예정
+/// </summary>
 public class TurnManager : MonoBehaviour
 {
     public static TurnManager Inst { get; private set; }
@@ -44,10 +48,13 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    // 첫 턴 카드 드로우
     public IEnumerator StartGameCo()
     {
         GameSetup();
         isLoading = true;
+        CardManager.Inst.SetIsCardMoving(true);
+
         for (int i = 0; i < startCardCount; i++)
         {
             yield return delay05;
@@ -55,16 +62,17 @@ public class TurnManager : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
             
         }
-        yield return new WaitForSeconds(1f);
+        yield return delay07;
 
-        BPGameManager.Inst.isCardMoving = false;
+        CardManager.Inst.SetIsCardMoving(false);
 
         StartCoroutine(StartTurnCo());
     }
 
-    public IEnumerator StartDraw()
+    // 카드 다 사용했을 시, 재 드로우
+    public IEnumerator CardDraw()
     {
-        BPGameManager.Inst.isCardMoving = true;
+        CardManager.Inst.SetIsCardMoving(true);
         isLoading = true;
         for (int i = 0; i < startCardCount; i++)
         {
@@ -73,9 +81,10 @@ public class TurnManager : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
 
         }
-        yield return new WaitForSeconds(1f);
+        yield return delay07;
 
-        BPGameManager.Inst.isCardMoving = false;
+        CardManager.Inst.SetIsCardMoving(false);
+
         isLoading = false;
     }
 
@@ -83,10 +92,10 @@ public class TurnManager : MonoBehaviour
     {
         isLoading = true;
 
-        if (myTurn)
+/*        if (myTurn)
             BPGameManager.Inst.Notification("나의 턴",myTurn);
         else
-            BPGameManager.Inst.Notification("상대 턴",myTurn);
+            BPGameManager.Inst.Notification("상대 턴",myTurn);*/
 
         yield return delay07;
         //OnAddCard?.Invoke(myTurn);

@@ -3,87 +3,108 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 배틀 과정을 관리하는 스크립트.
+/// 공격, 방어, 힐 같은 전투 관련 행동들을 작성할 예정이다.
+/// </summary>
+
 public class Battle : MonoBehaviour
 {
-    public static Battle Inst { get; private set; }
-
+    // 싱글턴 선언
+    public static Battle Inst { get; private set; } 
     void Awake() => Inst = this;
 
+    // 인스펙터 창에서 Entity 받아오기
+    [Header("Entity")]
     [SerializeField] Entity player;
     [SerializeField] Entity monster;
 
+    // 행동 게이지 수치 관련
     [Header("UI")]
     public Image scroll;
-    static float time;
     float maxTime = 3f;
+    static float curTime;
 
-
-    bool isPlayerDie;
+    // 배틀 종료 판단
+    public bool isDie;
 
     private void Start()
     {
-        //StartCoroutine(MonsterAttack());
-
-        time = maxTime;
-        //StartCoroutine(MonsterNormalAttack());
+        // 게이지 최대시간 입력
+        curTime = maxTime;
     }
-
-    IEnumerator MonsterNormalAttack()
+    private void Update()
     {
-        if (player.health <= 0)
+        // 게이지의 상태 계속 업데이트
+        scroll.fillAmount = curTime / maxTime;
+
+        // 누군가 죽지 않았다면 계속 검사
+        if (!isDie)
         {
-            StopCoroutine(MonsterNormalAttack());
-            yield return null;
+            // Time.DeltaTime을 이용하여 curTime이 0초가 될 때 마다 몬스터의 공격 함수 호출
+            curTime -= Time.deltaTime;
+            if (curTime <= 0)
+            {
+                // 게이지 재충전, 어택 애니메이션, 공격 함수
+                curTime = maxTime;
+                EffectManager.Inst.MoveTransform(monster.gameObject, 
+                    new PRS(monster.transform.position + Vector3.left * 25, Utils.QI, Vector3.one * 1.2f), true, 0.6f);
+                Attack(10, true);
+            }
         }
-        //StartCoroutine(MonsterAttack());
 
-        yield return new WaitForSeconds(3f);
-        Attack(2, true);
-
-        StartCoroutine(MonsterNormalAttack());
     }
 
-    public void Attack(int num, bool isMine)
+    // 공격 함수(데미지량, 데미지를 받을 대상)
+    public void Attack(int damageNum, bool isPlayer) 
     {
-        Entity entity = isMine ? player : monster;
+        // true면 플레이어, false 면 적의 Entity 정보를 가져옴
+        Entity entity = isPlayer ? player : monster;
+        entity.health -= damageNum;
 
-        entity.health -= num;
-
-        if (entity.health <= 0)
+        if (entity.health <= 0) 
         {
+            // 턴 및 카드선택 정지
+            TurnManager.Inst.isLoading = true;
+            CardManager.Inst.SetIsCardMoving(true);
+            CardManager.Inst.AllEnlargeCancle();
+            isDie = true;
+
+            // 게임 오버 알림
             entity.health = 0;
             Debug.Log("게임 오버!");
-            isPlayerDie = true;
-            BPGameManager.Inst.isCardMoving = true;
-            TurnManager.Inst.isLoading = true;
             return;
         }
 
-        entity.SetHealth();
+        // 체력 text 업데이트
+        entity.SetHealth(); 
     }
-    public void Heal(int num, bool isMine)
+
+    // 회복 함수
+    public void Heal(int num, bool isMine) 
     {
         Entity entity = isMine ? player : monster;
         entity.health += num;
         entity.SetHealth();
     }
 
-    private void Update()
+    // 몬스터 기본 공격 코루틴(현재 미사용)
+    IEnumerator MonsterNormalAttack()
     {
-
-        scroll.fillAmount = time / maxTime;
-
-        if (!isPlayerDie)
+        // 플레이어의 체력 0 이면, 코루틴 정지
+        if (player.health <= 0)
         {
-            time -= Time.deltaTime;
-
-            if (time <= 0)
-            {
-                time = maxTime;
-                EffectManager.Inst.MoveTransform(monster.gameObject, new PRS(monster.transform.position+ Vector3.left *25, Utils.QI, Vector3.one * 1.2f), true, 0.6f);
-                Attack(10, true);
-            }
+            StopCoroutine(MonsterNormalAttack());
+            yield return null;
         }
 
+        // 3초 딜레이 이후 Attack 함수 실행
+        yield return new WaitForSeconds(3f);
+        Attack(2, true);
+
+        // 재귀 실행
+        StartCoroutine(MonsterNormalAttack());
     }
+
+
 }
