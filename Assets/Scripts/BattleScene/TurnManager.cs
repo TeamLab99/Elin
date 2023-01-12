@@ -25,6 +25,7 @@ public class TurnManager : MonoBehaviour
     enum ETurnMode { Random, My, Other}
     WaitForSeconds delay05 = new WaitForSeconds(0.1f);
     WaitForSeconds delay07 = new WaitForSeconds(0.7f);
+    WaitForSeconds delay02 = new WaitForSeconds(0.2f);
 
     public static Action<bool> OnAddCard;
     public static event Action<bool> OnTurnStarted;
@@ -59,8 +60,9 @@ public class TurnManager : MonoBehaviour
         {
             yield return delay05;
             OnAddCard?.Invoke(true);
-            yield return new WaitForSeconds(0.2f);
-            
+            yield return delay02;
+
+
         }
         yield return delay07;
 
@@ -78,7 +80,7 @@ public class TurnManager : MonoBehaviour
         {
             yield return delay05;
             OnAddCard?.Invoke(true);
-            yield return new WaitForSeconds(0.2f);
+            yield return delay02;
 
         }
         yield return delay07;
@@ -92,18 +94,16 @@ public class TurnManager : MonoBehaviour
     {
         isLoading = true;
 
-/*        if (myTurn)
-            BPGameManager.Inst.Notification("나의 턴",myTurn);
-        else
-            BPGameManager.Inst.Notification("상대 턴",myTurn);*/
+        /*        if (myTurn)
+                    BPGameManager.Inst.Notification("나의 턴",myTurn);
+                else
+                    BPGameManager.Inst.Notification("상대 턴",myTurn);
+                yield return delay07;
+                OnAddCard?.Invoke(myTurn);*/
 
-        yield return delay07;
-        //OnAddCard?.Invoke(myTurn);
         yield return delay07;
         isLoading = false;
         OnTurnStarted?.Invoke(myTurn);
-
-        //BPGameManager.Inst.isDelay = false;
     }
 
     public void EndTurn()

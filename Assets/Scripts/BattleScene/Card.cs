@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class Card : MonoBehaviour
 {
-
+    #region 인스펙터
     // 카드 프리팹에 담긴 Object들 가져오기
     [SerializeField] SpriteRenderer card;
     [SerializeField] SpriteRenderer character;
@@ -15,6 +15,7 @@ public class Card : MonoBehaviour
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text keyTMP;
     [SerializeField] TMP_Text typeTMP;
+    #endregion
 
     // 카드에 담긴 정보, 초기 위치
     public Item item;

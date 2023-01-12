@@ -39,7 +39,9 @@ public class CardManager : MonoBehaviour
     bool isNumpad = false;
     int curCardNum = 0;
     int prevCardNum = 0;
+    WaitForSeconds delay02 = new WaitForSeconds(0.2f);
 
+    //WaitForSeconds delay015 = new WaitForSeconds(0.15f);
     //enum ECardState { Loading, CanSelectCard, CanUseCard }
 
     // 모든 카드의 정보를 itemBuffer에 입력하고 랜덤으로 섞기
@@ -221,7 +223,7 @@ public class CardManager : MonoBehaviour
 
             // 카드 애니메이션
             card.MoveTransform(new PRS(cardUsePoint.position, Utils.QI, Vector3.one * 2.5f), true, 0.4f);
-            yield return new WaitForSeconds(0.2f);
+            yield return delay02;
             card.FadeOut(0.4f);
         }
         else
@@ -359,7 +361,7 @@ public class CardManager : MonoBehaviour
             // 카드 확대
             yield return StartCoroutine(EnlargeCard(true, curCardNum));
 
-            yield return new WaitForSeconds(0.15f);
+            yield return delay02;
 
             prevCardNum = curCardNum;
             isNumpad = false;

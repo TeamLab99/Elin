@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Position, Rotation, Scale 코드 간소화,
+/// 접근 및 호출을 편하게 하기 위해 만든 스크립트.
+/// </summary>
 [System.Serializable]
 public class PRS
 {
@@ -19,6 +23,7 @@ public class PRS
 
 public class Utils
 {
+    // 회전량이 0인 상태 (0,0,0,1)
     public static Quaternion QI => Quaternion.identity;
 
 }

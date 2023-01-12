@@ -64,15 +64,9 @@ public class Battle : MonoBehaviour
 
         if (entity.health <= 0) 
         {
-            // 턴 및 카드선택 정지
-            TurnManager.Inst.isLoading = true;
-            CardManager.Inst.SetIsCardMoving(true);
-            CardManager.Inst.AllEnlargeCancle();
-            isDie = true;
-
-            // 게임 오버 알림
             entity.health = 0;
-            Debug.Log("게임 오버!");
+            entity.SetHealth();
+            GameOver();
             return;
         }
 
@@ -86,6 +80,19 @@ public class Battle : MonoBehaviour
         Entity entity = isMine ? player : monster;
         entity.health += num;
         entity.SetHealth();
+    }
+
+    public void GameOver()
+    {
+        // 턴 및 카드선택 정지
+        TurnManager.Inst.isLoading = true;
+        CardManager.Inst.SetIsCardMoving(true);
+        CardManager.Inst.AllEnlargeCancle();
+        isDie = true;
+
+        // 게임 오버 알림
+        Debug.Log("게임 오버!");
+
     }
 
     // 몬스터 기본 공격 코루틴(현재 미사용)
