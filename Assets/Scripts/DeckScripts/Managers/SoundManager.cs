@@ -15,10 +15,10 @@ public class SoundManager
     public void Init()
     {
         //@Managers를 생성했던 것과 같다.
-        GameObject root = GameObject.Find("@Sound");
+        GameObject root = GameObject.FindWithTag("Sound");
         if (root == null)
         {
-            root = new GameObject { name = "@Sound" };
+            root = new GameObject { name = "@Sound", tag = "Sound" };
             Object.DontDestroyOnLoad(root);
 
             //현재 사운드의 종류는 BGM. Effects뿐이다. MaxCount는 마지막임을 나타낼 뿐

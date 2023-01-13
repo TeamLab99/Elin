@@ -40,18 +40,22 @@ public class Managers : MonoBehaviour
         //@Managers라는 오브젝트가 없다면 자동으로 생성해준다.
         if(s_instance == null)
         {
-            GameObject go = GameObject.Find("@Managers");
+            //Find를 FindWithTag로 변경 -> 이 경우에는 유용할 거 같은데 모든 경우에 그럴지는 모르겠다.
+            GameObject go = GameObject.FindWithTag("Manager");
 
             if (go == null)
             {
-                go = new GameObject { name = "@Managers" };
+                go = new GameObject { name = "@Managers", tag = "Manager" };
                 go.AddComponent<Managers>();
             }
 
             //DontDestroyOnLoad로 생성해줌
             DontDestroyOnLoad(go);
-            s_instance = go.GetComponent<Managers>();
-
+            //s_instance = go.GetComponent<Managers>();
+            //가비지 발생 안 시키는 방법으로 getComponent 변경
+            go.TryGetComponent(out s_instance);
+            
+            
             //Init을 호출해야하는 스크립트들의 Init 호출
             s_instance._data.Init();
             s_instance._pool.Init();

@@ -8,7 +8,8 @@ public class Util
     //없으면 get 있다면 add하는 작업을 한 번에 할 수 있도록 함수로 묶은 것
     public static T GetOrAddComponent<T>(GameObject go) where T : UnityEngine.Component
     {
-        T component = go.GetComponent<T>();
+        go.TryGetComponent(out T component);
+
         if (component == null)
             component = go.AddComponent<T>();
         return component;
@@ -38,7 +39,8 @@ public class Util
                 Transform transform = go.transform.GetChild(i);
                 if (string.IsNullOrEmpty(name) || transform.name == name)
                 {
-                    T component = transform.GetComponent<T>();
+                    transform.TryGetComponent(out T component);
+
                     if (component != null)
                         return component;
                 }

@@ -10,9 +10,9 @@ public class UIManager
     {
         get
         {
-            GameObject root = GameObject.Find("@UI_Root");
+            GameObject root = GameObject.FindWithTag("UIRoot");
             if (root == null)
-                root = new GameObject { name = "@UI_Root" };
+                root = new GameObject { name = "@UI_Root", tag = "UIRoot" };
             return root;
         }
     }

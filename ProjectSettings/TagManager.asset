@@ -10,6 +10,10 @@ TagManager:
   - Spike
   - Crank
   - Enemy
+  - Manager
+  - PoolRoot
+  - Sound
+  - UIRoot
   layers:
   - Default
   - TransparentFX
