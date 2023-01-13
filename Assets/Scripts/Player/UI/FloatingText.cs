@@ -10,9 +10,8 @@ public class FloatingText : MonoBehaviour
     public Text text;
     private Vector3 vector;
 
-    void Start()
-    {
-    }
+
+
     void Update()
     {
         vector.Set(text.transform.position.x, text.transform.position.y + (moveSpeed * Time.deltaTime), text.transform.position.z);

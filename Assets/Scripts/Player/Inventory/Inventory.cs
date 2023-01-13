@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour
     public Text description_Text; // 부연설명
     public string[] tabDescription; // 탭 부연설명
     public Transform tf; // 슬롯의 부모객체
+    private RectTransform rectTransform;
 
     public GameObject go; //인벤토리 활성화 비활성하
     public GameObject[] selectedTabImages;
@@ -35,7 +36,8 @@ public class Inventory : MonoBehaviour
         inventoryItemList = new List<Item_Data>();
         inventoryTabList = new List<Item_Data>();
         slots = tf.GetComponentsInChildren<Inventory_Slot>();
-     }
+        rectTransform = GetComponent<RectTransform>();
+    }
 
    public void ShowTab()
     {
@@ -49,7 +51,8 @@ public class Inventory : MonoBehaviour
         {
             if (_itemID == theDatabase.itemList[i].itemID) // 아이템 찾음
             {
-                var clone = Instantiate(floatingText, Player_Move.instance.transform.position,Quaternion.Euler(Vector3.zero));
+                rectTransform.anchoredPosition= Player_Move.instance.transform.position;
+                var clone = Instantiate(floatingText, rectTransform.anchoredPosition, Quaternion.Euler(Vector3.zero));
                 clone.GetComponent<FloatingText>().text.text = theDatabase.itemList[i].itemName + " " + _count + "개 획득";
                 clone.transform.SetParent(this.transform); // 인벤토리 안에 생성된다. (Canvas 밖에 생성되면 출력이 안되기 때문에 인벤토리 안에 생성시킴)
                 for(int j=0; j<inventoryItemList.Count; j++) // 소지품에 같은 아이템이 있다 -> 갯수 증감 
