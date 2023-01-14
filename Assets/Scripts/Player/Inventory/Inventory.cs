@@ -28,6 +28,8 @@ public class Inventory : MonoBehaviour
     private bool preventExec; //중복 실행 제한
 
     private WaitForSeconds waitTime = new WaitForSeconds(0.01f);
+    private Equipment theEquip;
+
 
     void Start()
     {
@@ -37,9 +39,14 @@ public class Inventory : MonoBehaviour
         inventoryTabList = new List<Item_Data>();
         slots = tf.GetComponentsInChildren<Inventory_Slot>();
         rectTransform = GetComponent<RectTransform>();
+        theEquip = FindObjectOfType<Equipment>();
+    }
+    public void EquipToInventory(Item_Data _item)
+    {
+        inventoryItemList.Add(_item);
     }
 
-   public void ShowTab()
+    public void ShowTab()
     {
         RemoveSlot();
         SelectedTab();
@@ -51,8 +58,8 @@ public class Inventory : MonoBehaviour
         {
             if (_itemID == theDatabase.itemList[i].itemID) // 아이템 찾음
             {
-                rectTransform.anchoredPosition= Player_Move.instance.transform.position;
-                var clone = Instantiate(floatingText, rectTransform.anchoredPosition, Quaternion.Euler(Vector3.zero));
+               // rectTransform.anchoredPosition= new Vector3(Player_Move.instance.transform.position.x, Player_Move.instance.transform.position.y, Player_Move.instance.transform.position.z);
+                var clone = Instantiate(floatingText, Player_Move.instance.transform.position, Quaternion.Euler(Vector3.zero));
                 clone.GetComponent<FloatingText>().text.text = theDatabase.itemList[i].itemName + " " + _count + "개 획득";
                 clone.transform.SetParent(this.transform); // 인벤토리 안에 생성된다. (Canvas 밖에 생성되면 출력이 안되기 때문에 인벤토리 안에 생성시킴)
                 for(int j=0; j<inventoryItemList.Count; j++) // 소지품에 같은 아이템이 있다 -> 갯수 증감 
@@ -312,6 +319,9 @@ public class Inventory : MonoBehaviour
                             else if (selectedTab == 1)
                             {
                                 // 장비 장착
+                                theEquip.EquipItem(inventoryItemList[selectedItem]);
+                                inventoryItemList.RemoveAt(selectedItem);
+                                ShowItem();
                             }
                             else
                             {
