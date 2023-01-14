@@ -452,7 +452,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 169231459}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1197669631}
+        m_TargetAssemblyTypeName: UI_Gems, Assembly-CSharp
+        m_MethodName: setFireGem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &169231459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1293,7 +1305,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 662868176}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1197669631}
+        m_TargetAssemblyTypeName: UI_Gems, Assembly-CSharp
+        m_MethodName: setWindGem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &662868176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1566,7 +1590,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 843051233}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1197669631}
+        m_TargetAssemblyTypeName: UI_Gems, Assembly-CSharp
+        m_MethodName: setEarthGem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &843051233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2283,6 +2319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1197669629}
   - component: {fileID: 1197669630}
+  - component: {fileID: 1197669631}
   m_Layer: 5
   m_Name: Gems
   m_TagString: Untagged
@@ -2338,6 +2375,18 @@ MonoBehaviour:
   m_Spacing: {x: 200, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
+--- !u!114 &1197669631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197669628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1078deed74f3f94bb30d697d7709518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1253365570
 GameObject:
   m_ObjectHideFlags: 0
@@ -2645,7 +2694,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1692093487}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1197669631}
+        m_TargetAssemblyTypeName: UI_Gems, Assembly-CSharp
+        m_MethodName: setWaterGem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1692093487
 MonoBehaviour:
   m_ObjectHideFlags: 0

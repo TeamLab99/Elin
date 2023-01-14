@@ -51,4 +51,14 @@ public class Define
         Quest,
         Etc
     }
+
+    public enum Gems
+    {
+        none,
+        FireGem,
+        WaterGem,
+        WindGem,
+        EarthGem
+    }
+
 }

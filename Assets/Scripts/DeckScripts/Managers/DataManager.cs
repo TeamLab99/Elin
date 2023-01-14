@@ -18,6 +18,9 @@ public class DataManager
     // 새로운 카드를 얻는다면 그 클래스는 UnlockCard로 해서 DeckDict에 id를 키로 해서 Add해주면 됨
     public Dictionary<int, DeckCard> CardDict { get; private set; } = new Dictionary<int, DeckCard>();
     public Dictionary<int, UnlockCard> DeckDict { get; private set; } = new Dictionary<int, UnlockCard>();
+    
+    //착용한 보석에 대해 가지고 있는 변수
+    public Define.Gems equipGem = Define.Gems.none;
 
     public void Init()
     {
