@@ -19,7 +19,7 @@ public class Player_Move : MonoBehaviour
     public float groundDist;
     public float wallDist;
     public float jumpBoxDist;
-    public float jumpPower;
+    
     public float walkSpeed;
     public GameObject box;
 
@@ -35,6 +35,12 @@ public class Player_Move : MonoBehaviour
     bool ladderCollide; //사다리와 붙어있는가?
     bool isLadder; //사다리에 메달려있는가?
     bool isLadderJump; //사다리에서 점프하는가?
+
+    // 점프 관련 변수들 
+    public float jumpPower; // 점프 강도
+    private bool isJumping; // 점프 하는 중인가?
+    private float jumpTime=0; // 점프 시간
+    public float maxJumpPower; // 최고 점프 강도
 
     private void Awake()
     {
@@ -156,8 +162,20 @@ public class Player_Move : MonoBehaviour
     } //걷기
     private void Jump()
     {
-        if (isGround)
-            rb.velocity = new Vector2(rb.velocity.x, jumpDir * jumpPower);
+       
+        //rb.AddForce(Vector2.up *jumpDir, ForceMode2D.Impulse);
+        if (Input.GetButtonDown("Jump"))
+        {
+            jumpTime += Time.deltaTime;
+        }
+        else if (Input.GetButtonUp("Jump"))
+        {
+            if (jumpTime > 20)
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y*20) ;
+            else
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * jumpTime);
+        }
+ 
     } //점프
     private void FlipX()
     {
