@@ -35,6 +35,7 @@ public class Player_Move : MonoBehaviour
     public float jumpTime;
     private float jumpTimeCounter;
     private bool isSuperJump;
+    private bool isChargeJump;
 
     private void Awake()
     {
@@ -56,7 +57,7 @@ public class Player_Move : MonoBehaviour
         moveDir = Input.GetAxisRaw("Horizontal");
         isGround = Physics2D.Raycast(groundCheck.position, Vector2.down, groundDist, groundLayer);
         isWall = Physics2D.Raycast(wallChk.position, Vector2.right * isRight, wallDist, wallLayer);
-        SuperJump();
+        InputSuperJump();
         if (!isWallJump) {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
@@ -96,6 +97,7 @@ public class Player_Move : MonoBehaviour
         {
             Walk();
             Jump();
+            SuperJump();
             WallSlide();
         } // 벽 점프중이 아닐 시 움직임
     }
@@ -133,13 +135,24 @@ public class Player_Move : MonoBehaviour
 
     public void SuperJump()
     {
-        if (isGround && Input.GetKeyDown(KeyCode.C))
+        if (isChargeJump)
         {
+            rb.velocity = new Vector2(0, yMaxSpeed*0.2f);
+            yMaxSpeed = 5;
+            isChargeJump = false;
+        }
+       
+    }
+    public void InputSuperJump()
+    {
+        if ( Input.GetKeyDown(KeyCode.C)&& isGround)
+        {
+            isWallJump = true;
             Debug.Log("작동합니다1.");
             isSuperJump = true;
             yMaxSpeed += superSpeed;
             jumpTimeCounter = jumpTime;
-            //rb.velocity = Vector2.up * spuerSpeed;
+           // rb.velocity = Vector2.up * 10;
         }
         if (Input.GetKey(KeyCode.C) && isSuperJump)
         {
@@ -149,19 +162,21 @@ public class Player_Move : MonoBehaviour
                 //rb.velocity = Vector2.up * spuerSpeed;
                 jumpTimeCounter -= Time.deltaTime;
                 Debug.Log("작동합니다.2");
+                if (yMaxSpeed > 100)
+                    yMaxSpeed = 100;
             }
             else
             {
                 isSuperJump = false;
             }
         }
-        if (Input.GetKeyUp(KeyCode.C) && isGround)
+        if (Input.GetKeyUp(KeyCode.C) &&isGround )
         {
             Debug.Log("작동합니다3.");
-            rb.velocity = Vector2.up * yMaxSpeed;
+            isChargeJump = true;
             Debug.Log(yMaxSpeed);
+            isWallJump = false;
             isSuperJump = false;
-            yMaxSpeed = 5;
         }
     }
 
