@@ -20,7 +20,6 @@ public class PlayerMove : MonoBehaviour
 
     // 점프 관련 변수
     public float ySpeed;
-    private float yInput;
 
     // 슈퍼점프 관련 변수
     public float spuerSpeed; 
@@ -55,7 +54,6 @@ public class PlayerMove : MonoBehaviour
 
     public void Jump()
     {
-        //yInput = Input.GetAxisRaw("Vertical"); // Y축 이동을 입력 받는다.
         if(Input.GetKeyDown(KeyCode.Space))
             rb.velocity = new Vector2(rb.velocity.x, ySpeed); // 입력받은 X축 이동에 따른 속도 변화
     }
@@ -64,7 +62,7 @@ public class PlayerMove : MonoBehaviour
     {
         isGround = Physics2D.OverlapCircle(groundCheck.position, groundDist, groundLayer);
         SuperJump();
-                Jump();
+        Jump();
         //isGround = Physics2D.Raycast(groundCheck.position, Vector2.down, groundDist, groundLayer);
     }
 
@@ -91,19 +89,12 @@ public class PlayerMove : MonoBehaviour
                 isSuperJump = false;
             }
         }
-        if (Input.GetKeyUp(KeyCode.C))
+        if (Input.GetKeyUp(KeyCode.C)&&isGround)
         {
             rb.velocity = Vector2.up * yMaxSpeed;
             isSuperJump = false;
             yMaxSpeed = 5;
         }
-
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(groundCheck.position, Vector2.down * groundDist);
     }
 }
 

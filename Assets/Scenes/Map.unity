@@ -428,7 +428,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147540271}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.153, z: 0}
+  m_LocalPosition: {x: 0, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6976,11 +6976,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 592909570}
+  - component: {fileID: 592909575}
+  - component: {fileID: 592909576}
   - component: {fileID: 592909569}
   - component: {fileID: 592909572}
   - component: {fileID: 592909573}
   - component: {fileID: 592909574}
-  - component: {fileID: 592909575}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -7124,13 +7125,39 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 592909567}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2553cf87bb5de594287d86de9d170476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundCheck: {fileID: 322950559}
+  wallChk: {fileID: 1916980411}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 384
+  groundDist: 0.55
+  wallDist: 0.55
+  xSpeed: 5
+  ySpeed: 10
+  superSpeed: 1
+  jumpTime: 0.5
+--- !u!114 &592909576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592909567}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14db77f43eefa794692ad43b91220770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   xSpeed: 5
-  groundDist: 0.2
+  groundDist: 0.3
   groundCheck: {fileID: 147540272}
   groundLayer:
     serializedVersion: 2
