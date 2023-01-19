@@ -20,9 +20,14 @@ public class PlayerMove : MonoBehaviour
 
     // 점프 관련 변수
     public float ySpeed;
+    private float yInput;
+
+    // 슈퍼점프 관련 변수
+    public float spuerSpeed; 
+    private float yMaxSpeed;
     public float jumpTime;
     private float jumpTimeCounter;
-    private bool isJumping;
+    private bool isSuperJump;
 
     private void Awake()
     {
@@ -33,57 +38,66 @@ public class PlayerMove : MonoBehaviour
 
     private void Start()
     {
-        
+        yMaxSpeed = 5;
     }
 
     private void FixedUpdate()
     {
-        xInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(xInput * xSpeed, rb.velocity.y);
+        Walk();
+
+    }
+
+    public void Walk()
+    {
+        xInput = Input.GetAxisRaw("Horizontal"); // X축 이동을 입력 받는다. (좌,우를 나타낸다)
+        rb.velocity = new Vector2(xInput * xSpeed, rb.velocity.y); // 입력받은 X축 이동에 따른 속도 변화
+    }
+
+    public void Jump()
+    {
+        //yInput = Input.GetAxisRaw("Vertical"); // Y축 이동을 입력 받는다.
+        if(Input.GetKeyDown(KeyCode.Space))
+            rb.velocity = new Vector2(rb.velocity.x, ySpeed); // 입력받은 X축 이동에 따른 속도 변화
     }
 
     private void Update()
     {
         isGround = Physics2D.OverlapCircle(groundCheck.position, groundDist, groundLayer);
-
-        if (xInput > 0)
-        {
-            transform.eulerAngles = new Vector3(0, 0, 0);
-        }
-        else if (xInput < 0)
-        {
-            transform.eulerAngles = new Vector3(0, 180, 0);
-        }
-        
-        if(isGround && Input.GetKeyDown(KeyCode.Space))
-        {
-            isJumping = true;
-            jumpTimeCounter = jumpTime;
-            rb.velocity = Vector2.up * ySpeed;
-        }
-        if (Input.GetKey(KeyCode.Space) && isJumping)
-        {
-            if (jumpTimeCounter > 0)
-            {
-                rb.velocity = Vector2.up * ySpeed;
-                jumpTimeCounter -= Time.deltaTime;
-            }
-            else
-            {
-                isJumping = false;
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            isJumping = false;
-        }
-            
+        SuperJump();
+                Jump();
         //isGround = Physics2D.Raycast(groundCheck.position, Vector2.down, groundDist, groundLayer);
     }
 
 
-    public void Jump()
+    public void SuperJump()
     {
+        if (isGround && Input.GetKeyDown(KeyCode.C))
+        {
+            isSuperJump = true;
+            yMaxSpeed += spuerSpeed;
+            jumpTimeCounter = jumpTime;
+            //rb.velocity = Vector2.up * spuerSpeed;
+        }
+        if (Input.GetKey(KeyCode.C) && isSuperJump)
+        {
+            if (jumpTimeCounter > 0)
+            {
+                yMaxSpeed += spuerSpeed;
+                //rb.velocity = Vector2.up * spuerSpeed;
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            {
+                isSuperJump = false;
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.C))
+        {
+            rb.velocity = Vector2.up * yMaxSpeed;
+            isSuperJump = false;
+            yMaxSpeed = 5;
+        }
+
     }
 
     private void OnDrawGizmos()
