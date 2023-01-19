@@ -31,16 +31,13 @@ public class Player_Move : MonoBehaviour
     bool isWall; //벽에 붙어있는가?
     bool isJumpBox; //점프 박스가 밑에 있는가?
     bool isWallJump; //벽
-    bool boxOpen; 
-    bool ladderCollide; //사다리와 붙어있는가?
-    bool isLadder; //사다리에 메달려있는가?
-    bool isLadderJump; //사다리에서 점프하는가?
+    bool boxOpen;
 
     // 점프 관련 변수들 
-    public float jumpPower; // 점프 강도
-    private bool isJumping; // 점프 하는 중인가?
-    private float jumpTime=0; // 점프 시간
-    public float maxJumpPower; // 최고 점프 강도
+    public float jumpPower;
+    public float jumpStartTime;
+    private float jumpTime;
+    private bool isJumping;
 
     private void Awake()
     {
@@ -54,7 +51,6 @@ public class Player_Move : MonoBehaviour
         instance = this;
         isRight = 1;
         boxOpen = false;
-        isLadder = false;
         defaultGravity = rb.gravityScale;
     }
 
@@ -64,6 +60,7 @@ public class Player_Move : MonoBehaviour
         isGround = Physics2D.Raycast(groundChk.position, Vector2.down, groundDist, groundLayer);
         isWall = Physics2D.Raycast(wallChk.position, Vector2.right*isRight, wallDist, wallLayer);
         isJumpBox = Physics2D.Raycast(jumpBoxChk.position, Vector2.down, jumpBoxDist, jumpBoxLayer);
+        Jump();
         if (!isWallJump){
             moveDir = Input.GetAxisRaw("Horizontal");
             if (Input.GetKey(KeyCode.LeftArrow))
@@ -79,8 +76,6 @@ public class Player_Move : MonoBehaviour
         } //좌우 전환 + 좌우 움직임 (벽 점프중이 아닐 시에만)
 
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-                isLadder = true;
             if (Input.GetKeyDown(KeyCode.X))
                 if (boxOpen)
                     box.SetActive(false);
@@ -110,33 +105,11 @@ public class Player_Move : MonoBehaviour
         if (!isWallJump) 
         {
             Walk();
-            Jump();
+          
             WallSlide();
         } // 벽 점프중이 아닐 시 움직임
-        if(!isLadderJump) 
-            OnLadder();
     }
-    private void OnLadder()
-    {
-        if (ladderCollide)
-        {
-            isLadderJump = false;
-            if (isLadder)
-            {
-                HangingLadder();
-                if (Input.GetAxis("Jump") != 0)
-                {
-                    isLadderJump = true;
-                    Invoke("FreezLadderJump", 0.3f);
-                    rb.velocity = new Vector2(isRight * walkSpeed, jumpDir * jumpPower);
-                }
-            }
-        }
-        else
-        {
-            rb.gravityScale = defaultGravity;
-        }
-    } // 줄에 붙어 있을 때
+   
     private void WallSlide()
     {
         if (isWall)
@@ -162,19 +135,27 @@ public class Player_Move : MonoBehaviour
     } //걷기
     private void Jump()
     {
-       
-        //rb.AddForce(Vector2.up *jumpDir, ForceMode2D.Impulse);
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump")) 
         {
-            jumpTime += Time.deltaTime;
+            isJumping = true;
+            jumpTime = jumpStartTime;
+            rb.velocity = Vector2.up * jumpPower;
         }
-        else if (Input.GetButtonUp("Jump"))
+        if (Input.GetButton("Jump")&&isJumping)
         {
-            if (jumpTime > 20)
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y*20) ;
+            if (jumpTime > 0)
+            {
+                rb.velocity = Vector2.up * jumpPower;
+                jumpTime -= Time.deltaTime;
+            }
             else
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * jumpTime);
+            {
+                isJumping = false;
+            }
+            if (Input.GetButtonUp("Jump"))
+                isJumping = false;
         }
+       
  
     } //점프
     private void FlipX()
@@ -189,16 +170,7 @@ public class Player_Move : MonoBehaviour
         isWallJump = false;
         FlipX();
     } //움직임 제어 풀기
-    private void FreezLadderJump()
-    {
-        isLadderJump = false;
-    } // 사다리 타는 중 움직임 제어
-    private void HangingLadder()
-    {
-        float ver = Input.GetAxis("Vertical");
-        rb.velocity = new Vector2(0, ver * jumpPower);
-        rb.gravityScale = 0f;
-    } // 사다리에 메달려있을 때
+  
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -216,18 +188,11 @@ public class Player_Move : MonoBehaviour
     } // 충돌
     private void OnTriggerEnter2D(Collider2D collision) // 트리거 충돌
     {
-        if (collision.CompareTag("Ladder"))
-            ladderCollide = true;
         if (collision.CompareTag("Box"))
             boxOpen = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Ladder"))
-        {
-            ladderCollide = false;
-            isLadder = false;
-        }
         if (collision.CompareTag("Box"))
             boxOpen = false;
     } // 트리거와 떨어졌을 때
