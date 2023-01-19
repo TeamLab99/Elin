@@ -70,9 +70,7 @@ public class ResourceManager
         }
 
         //풀링이 되어 있다면 풀에서 pop해준다. Load를 하지 않고
-        //이 부분의 GetComponent를 어떻게 할 수는 없을까?
-        //out으로 반드시 어딘가에 넣어줘야 하는데 얘는 그럴 필요가 없어서 ...
-        if (original.GetComponent<Poolable>() != null)
+        if (original.TryGetComponent(out Poolable _))
             return Managers.Pool.Pop(original, parent).gameObject;
 
         GameObject go = Object.Instantiate(original, parent);
