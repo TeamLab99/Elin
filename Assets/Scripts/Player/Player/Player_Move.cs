@@ -9,8 +9,8 @@ public class Player_Move : MonoBehaviour
     Animator anim;
     Rigidbody2D rb;
     SpriteRenderer spr;
-    [SerializeField]
-    public Transform groundCheck;
+    public Transform groundFrontCheck;
+    public Transform groundBackCheck;
     public Transform wallChk;
     public LayerMask groundLayer;
     public LayerMask wallLayer;
@@ -20,18 +20,20 @@ public class Player_Move : MonoBehaviour
 
     float defaultGravity; //기본 중력
     bool isGround; //땅에 붙어있는가?
+    bool isFrontGruond;
+    bool isBackGruond;
     bool isWall; //벽에 붙어있는가?
-    bool isWallJump; //벽
+    bool isControlPlayer; //벽
 
     // 걷기 관련 변수들
     public float xSpeed;
     private float moveDir;
-    private float isRight;
+    private float isRight=1;
 
     // 점프와  슈퍼점프 관련 변수들 
     public float ySpeed;
     public float superSpeed;
-    private float yMaxSpeed;
+    private float yMaxSpeed=0;
     public float jumpTime;
     private float jumpTimeCounter;
     private bool isSuperJump;
@@ -47,18 +49,28 @@ public class Player_Move : MonoBehaviour
     void Start() //초기 변수 제어
     {
         instance = this;
-        isRight = 1;
         defaultGravity = rb.gravityScale;
-        yMaxSpeed = 5;
+    }
+
+    public void CheckingMap()
+    {
+        isWall = Physics2D.Raycast(wallChk.position, Vector2.right * isRight, wallDist, wallLayer);
+        isFrontGruond = Physics2D.Raycast(groundFrontCheck.position, Vector2.down, groundDist, groundLayer);
+        isBackGruond = Physics2D.Raycast(groundBackCheck.position, Vector2.down, groundDist, groundLayer);
+        if (isFrontGruond || isBackGruond)
+            isGround = true;
+        else
+            isGround = false;
     }
 
     void Update()
     {
-        moveDir = Input.GetAxisRaw("Horizontal");
-        isGround = Physics2D.Raycast(groundCheck.position, Vector2.down, groundDist, groundLayer);
-        isWall = Physics2D.Raycast(wallChk.position, Vector2.right * isRight, wallDist, wallLayer);
+        Animation();
+        CheckingMap();
         InputSuperJump();
-        if (!isWallJump) {
+       
+       
+        if (!isControlPlayer) {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 isRight = -1;
@@ -69,101 +81,101 @@ public class Player_Move : MonoBehaviour
                 isRight = 1;
                 FlipX();
             }
-        } //좌우 전환 + 좌우 움직임 (벽 점프중이 아닐 시에만)
+        } 
 
-
-        {
-            if (Mathf.Abs(moveDir) > 0.1f)
-                anim.SetBool("isRun", true);
-            else
-                anim.SetBool("isRun", false);
-            if (rb.velocity.y > 0.1f)
-                anim.SetBool("isFall", false);
-            else
-                anim.SetBool("isFall", true);
-            if (isGround)
-                anim.SetBool("isGround", true);
-            else
-                anim.SetBool("isGround", false);
-            if (isWall)
-                anim.SetBool("isWall", true);
-            else
-                anim.SetBool("isWall", false);
-        } //애니메이션 표기
+        
     }
     void FixedUpdate()
     {
-        if (!isWallJump)
+        if (!isControlPlayer)
         {
             Walk();
             Jump();
-            SuperJump();
             WallSlide();
-        } // 벽 점프중이 아닐 시 움직임
+            SuperJump();
+        }
     }
-
-    private void WallSlide()
+    public void WallJump()
     {
-        if (isWall)
+        if (Input.GetAxis("Jump") != 0)
         {
-            isWallJump = false;
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.6f);
-            if (Input.GetAxis("Jump") != 0)
+            if (!isGround)
             {
-                isWallJump = true;
+                isControlPlayer = true;
                 Invoke("FreezX", 0.3f);
                 isRight *= -1;
                 FlipX();
                 rb.velocity = new Vector2(xSpeed * isRight, ySpeed * 0.8f);
             }
         }
-    } //벽타기 + 벽점프
+    }
+    private void WallSlide()
+    {
+        if (isWall)
+        {
+            isControlPlayer = false;
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.6f);
+            WallJump();
+        }
+    } 
     private void Walk()
     {
-        if (isGround)
-            rb.velocity = new Vector2(moveDir * xSpeed, 0);
-        else
-            rb.velocity = new Vector2(moveDir * xSpeed, rb.velocity.y);
-    } //걷기
+        moveDir = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(moveDir * xSpeed, rb.velocity.y);    
+    }
     private void Jump()
     {
-        if (Input.GetAxis("Jump")!=0 && isGround)
+        if (Input.GetAxis("Jump")!=0 && isGround && !isWall)
         {
             rb.velocity = new Vector2(rb.velocity.x, ySpeed);
         }
+    }
+
+    public void Animation()
+    {
+        if (Mathf.Abs(rb.velocity.x) > 0.1f)
+            anim.SetBool("isRun", true);
+        else
+            anim.SetBool("isRun", false);
+        if (rb.velocity.y > 0.1f)
+            anim.SetBool("isFall", false);
+        else
+            anim.SetBool("isFall", true);
+        if (isGround)
+            anim.SetBool("isGround", true);
+        else
+            anim.SetBool("isGround", false);
+        if (isWall)
+            anim.SetBool("isWall", true);
+        else
+            anim.SetBool("isWall", false);
     }
 
     public void SuperJump()
     {
         if (isChargeJump)
         {
-            rb.velocity = new Vector2(0, yMaxSpeed*0.2f);
-            yMaxSpeed = 5;
+            rb.velocity = new Vector2(0, 10+yMaxSpeed*0.1f);
+            yMaxSpeed = 0;
             isChargeJump = false;
         }
-       
     }
     public void InputSuperJump()
     {
         if ( Input.GetKeyDown(KeyCode.C)&& isGround)
         {
-            isWallJump = true;
-            Debug.Log("작동합니다1.");
+            isControlPlayer = true;
+            rb.velocity = Vector2.zero;
             isSuperJump = true;
             yMaxSpeed += superSpeed;
             jumpTimeCounter = jumpTime;
-           // rb.velocity = Vector2.up * 10;
         }
         if (Input.GetKey(KeyCode.C) && isSuperJump)
         {
             if (jumpTimeCounter > 0)
             {
                 yMaxSpeed += superSpeed;
-                //rb.velocity = Vector2.up * spuerSpeed;
                 jumpTimeCounter -= Time.deltaTime;
-                Debug.Log("작동합니다.2");
-                if (yMaxSpeed > 100)
-                    yMaxSpeed = 100;
             }
             else
             {
@@ -172,10 +184,10 @@ public class Player_Move : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.C) &&isGround )
         {
-            Debug.Log("작동합니다3.");
+            if (yMaxSpeed > 100)
+                yMaxSpeed = 100;
+            isControlPlayer = false;
             isChargeJump = true;
-            Debug.Log(yMaxSpeed);
-            isWallJump = false;
             isSuperJump = false;
         }
     }
@@ -189,17 +201,18 @@ public class Player_Move : MonoBehaviour
     } //좌우전환
     private void FreezX()
     {
-        isWallJump = false;
+        isControlPlayer = false;
         FlipX();
     } //움직임 제어 풀기
   
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(groundCheck.position,Vector2.down*groundDist);
+        Gizmos.DrawRay(groundFrontCheck.position,Vector2.down*groundDist);
+        Gizmos.DrawRay(groundBackCheck.position, Vector2.down * groundDist);
         Gizmos.color = Color.red;
         Gizmos.DrawRay(wallChk.position, Vector2.right * wallDist*isRight);
-    } //검출선
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
