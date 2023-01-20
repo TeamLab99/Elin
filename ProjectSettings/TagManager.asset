@@ -7,7 +7,6 @@ TagManager:
   - Box
   - Ladder
   - JumpBox
-  - Spike
   - Crank
   - Enemy
   - Manager
