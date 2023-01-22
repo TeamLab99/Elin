@@ -14,7 +14,7 @@ public class Player_Move : MonoBehaviour
     // 검출 관련 변수 
     public Transform groundFrontCheck; // 앞 다리 위치
     public Transform groundBackCheck; // 뒷 다리 위치
-    public Transform wallChk; // 벽 체크 위치
+    public Transform wallCheck; // 벽 체크 위치
     public LayerMask groundLayer; // 땅 레이어
     public LayerMask wallLayer; // 벽 레이어
     public float groundDist; // 땅과의 거리
@@ -83,7 +83,7 @@ public class Player_Move : MonoBehaviour
     // 땅과 벽을 검출한다.
     private void CheckingMap()
     {
-        isWall = Physics2D.Raycast(wallChk.position, Vector2.right * isRight, wallDist, wallLayer); // 바라보는 방향에 벽이 있는지 확인
+        isWall = Physics2D.Raycast(wallCheck.position, Vector2.right * isRight, wallDist, wallLayer); // 바라보는 방향에 벽이 있는지 확인
         isFrontGruond = Physics2D.Raycast(groundFrontCheck.position, Vector2.down, groundDist, groundLayer); // 앞 다리가 땅에 있는지 확인
         isBackGruond = Physics2D.Raycast(groundBackCheck.position, Vector2.down, groundDist, groundLayer); // 뒷 다리가 땅에 있는지 확인
         if (isFrontGruond || isBackGruond) // 두 다리 중 하나라도 걸쳐 있다면 땅위에 있음
@@ -240,7 +240,7 @@ public class Player_Move : MonoBehaviour
         Gizmos.DrawRay(groundFrontCheck.position,Vector2.down*groundDist);
         Gizmos.DrawRay(groundBackCheck.position, Vector2.down * groundDist);
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(wallChk.position, Vector2.right * wallDist*isRight);
+        Gizmos.DrawRay(wallCheck.position, Vector2.right * wallDist*isRight);
     }
 
    /* private void OnCollisionEnter2D(Collision2D collision)

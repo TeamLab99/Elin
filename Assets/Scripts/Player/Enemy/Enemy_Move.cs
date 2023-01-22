@@ -10,12 +10,16 @@ public class Enemy_Move : MonoBehaviour
     SpriteRenderer spr;
     public int nextMove;
     public GameObject exclamation;
-
+    public Transform cliffCheck;
     private bool findPlayer;
     public float speed;
     public float distance;
+
+    public float isRight;
+    public LayerMask cliffLayer;
     public Transform player;
-    
+    public float cliffDist;
+    public bool isCliff;
     
     private void Awake()
     {
@@ -27,8 +31,22 @@ public class Enemy_Move : MonoBehaviour
     {
         Think(); 
     }
+
+    private void Reverse()
+    {
+        isCliff = Physics2D.Raycast(cliffCheck.position, Vector2.down * isRight, cliffDist, cliffLayer);
+        if (!isCliff)
+        {
+            nextMove *= -1;
+            CancelInvoke();
+            Invoke("Think", 1f);
+        }
+            
+    }
     private void Update()
     {
+        FlipX();
+        Reverse();
     }
     private void FixedUpdate()
     {
@@ -40,7 +58,6 @@ public class Enemy_Move : MonoBehaviour
         {
             rb.velocity = new Vector2(0, 0);
             TowardPlayer();
-            FlipDir();
         } // 플레이어를 발견했을 때
         // Vector2 frontVec = new Vector2(rb.position.x + nextMove, rb.velocity.y);
         //RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Platform"));
@@ -61,19 +78,21 @@ public class Enemy_Move : MonoBehaviour
             transform.Translate(new Vector2(-1, 0) * Time.deltaTime * speed);
         }
     } // 플레이어를 향해 움직이는 것 구현
-    
-    void FlipDir()
-    {
-        if (transform.position.x - player.position.x < 0)
-        {
-            transform.eulerAngles = new Vector3(0, 180, 0);
-        }
-        else
-        {
-            transform.eulerAngles = new Vector3(0, 0, 0);
-        }
-    } // 적 스프라이트 반대로 뒤집기
+   
 
+
+    void FlipX()
+    {
+        if (rb.velocity.x > 0)
+            isRight = 1;
+        else
+            isRight = -1;
+
+        if(isRight==1)
+            spr.flipX = true;
+        if (isRight == -1)
+            spr.flipX = false;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -90,4 +109,10 @@ public class Enemy_Move : MonoBehaviour
             findPlayer = false;
         }
     } // 플레이어가 범위 밖으로 나갔을 시
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(cliffCheck.position, Vector2.down * cliffDist);
+    }
 }
