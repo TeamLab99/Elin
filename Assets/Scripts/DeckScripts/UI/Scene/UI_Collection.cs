@@ -57,6 +57,8 @@ public class UI_Collection : UI_Base
         //위에서 언급한 가변성과 관련 있음
         Dictionary<int, UnlockCard> _deck = Managers.Data.DeckDict;
 
+        content.TryGetComponent<RectTransform>(out RectTransform rectTransform);
+
         //drawCard가 호출될 때마다 기존에 존재하던 UI들을 다 파괴하고 다시 그리기 때문에 이와 같이 코딩함
         //이게 비효율적인지는 모르겠음, 노트북에서도 렉이 걸리진 않았기 때문
         foreach (Transform child in content.transform)
@@ -76,8 +78,7 @@ public class UI_Collection : UI_Base
                     {
                         if (cardinfo.Value.id == deckinfo.Value.id)
                         {
-                            
-                            GameObject card = Managers.UI.MakeCard<UI_Card>(content.transform, "UI_Card").gameObject;
+                            GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
                             UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
                             cardInDeck.SetInfo(cardinfo.Value);
                             cardNum++;
@@ -96,13 +97,13 @@ public class UI_Collection : UI_Base
                         {
                             if (cardinfo.Value.element == "fire")
                             {
-                                GameObject card = Managers.UI.MakeCard<UI_Card>(content.transform, "UI_Card").gameObject;
+                                GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
                                 UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
                                 cardInDeck.SetInfo(cardinfo.Value);
                                 cardNum++;
                             }
                         }
-                    }                   
+                    }                  
                 }
                 break;
 
@@ -115,7 +116,7 @@ public class UI_Collection : UI_Base
                         {
                             if (cardinfo.Value.element == "water")
                             {
-                                GameObject card = Managers.UI.MakeCard<UI_Card>(content.transform, "UI_Card").gameObject;
+                                GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
                                 UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
                                 cardInDeck.SetInfo(cardinfo.Value);
                                 cardNum++;
@@ -134,7 +135,7 @@ public class UI_Collection : UI_Base
                         {
                             if (cardinfo.Value.element == "wind")
                             {
-                                GameObject card = Managers.UI.MakeCard<UI_Card>(content.transform, "UI_Card").gameObject;
+                                GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
                                 UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
                                 cardInDeck.SetInfo(cardinfo.Value);
                                 cardNum++;
@@ -153,14 +154,13 @@ public class UI_Collection : UI_Base
                         {
                             if (cardinfo.Value.element == "earth")
                             {
-                                GameObject card = Managers.UI.MakeCard<UI_Card>(content.transform, "UI_Card").gameObject;
+                                GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
                                 UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
                                 cardInDeck.SetInfo(cardinfo.Value);
                                 cardNum++;
                             }
                         }
-                    }
-                    
+                    } 
                 }
                 break;
 
@@ -199,8 +199,8 @@ public class UI_Collection : UI_Base
     public void SetDefault()
     {
         //이 부분은 카드를 새로 추가해본 부분으로 잘 되었다.
-        Managers.Data.getNewCard(10);
-        Managers.Resource.saveData();
+        //Managers.Data.getNewCard(10);
+        //Managers.Resource.saveData();
         sorting = Define.Sorting.Default;
         drawCard();
     }

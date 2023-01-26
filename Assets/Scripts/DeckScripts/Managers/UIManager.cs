@@ -19,7 +19,7 @@ public class UIManager
 
     //화면 상에 띄울 카드를 만드는 함수
     //UIManager라고는 하지만 사실상 사용하는 건 이 함수 밖에 없다.
-    public T MakeCard<T>(Transform parent = null, string name = null) where T : UI_Base
+    public T MakeCard<T>(RectTransform parent = null, string name = null) where T : UI_Base
     {
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;

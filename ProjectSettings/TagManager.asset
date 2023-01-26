@@ -13,6 +13,7 @@ TagManager:
   - PoolRoot
   - Sound
   - UIRoot
+  - UI
   layers:
   - Default
   - TransparentFX

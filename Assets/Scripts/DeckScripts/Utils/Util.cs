@@ -38,10 +38,8 @@ public class Util
             {
                 Transform transform = go.transform.GetChild(i);
                 if (string.IsNullOrEmpty(name) || transform.name == name)
-                {
-                    transform.TryGetComponent(out T component);
-
-                    if (component != null)
+                { 
+                    if (transform.TryGetComponent(out T component))
                         return component;
                 }
             }

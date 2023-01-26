@@ -85,9 +85,8 @@ public class ResourceManager
 
         //만약에 풀링이 필요하다면 -> 풀링 매니저에게 위탁
         //삭제하는 것이 아니라 오브젝트 풀로 이동시키는 것이라 생각하면 된다.
-        go.TryGetComponent(out Poolable poolable);
 
-        if (poolable != null)
+        if (go.TryGetComponent(out Poolable poolable))
         {
             Managers.Pool.Push(poolable);
             return;
