@@ -61,8 +61,28 @@ public class UI_Collection : UI_Base
 
         //drawCard가 호출될 때마다 기존에 존재하던 UI들을 다 파괴하고 다시 그리기 때문에 이와 같이 코딩함
         //이게 비효율적인지는 모르겠음, 노트북에서도 렉이 걸리진 않았기 때문
-        foreach (Transform child in content.transform)
+        Transform child = null;
+        int childCount = content.transform.childCount;
+
+        //foreach문 대신 for문을 사용하기 위해 딕셔너리의 항목 수와
+        //키를 저장하는 배열을 만들어서 이것을 통해 foreach문의 역할을 수행함
+        //for문이 더 빠르다 해서 바꿨는데 검색 때문에 별 차이가 없을까 걱정임
+        int cardCount = _dict.Count;
+        int deckCount = _deck.Count;
+
+        int[] cardKeys = new int[cardCount];
+        int[] deckKeys = new int[deckCount];
+
+        _dict.Keys.CopyTo(cardKeys, 0);
+        _deck.Keys.CopyTo(deckKeys, 0);
+
+        //자식들을 전부 풀 루트로 보냄
+        for (int i= 0; i < childCount; i++)
+        {
+            child = content.transform.GetChild(0);
             Managers.Resource.Destroy(child.gameObject);
+        }
+           
 
         //sorting에 따라 조금씩 다른 작업을 함
         //기본값은 전체 카드를 다 보여주고
@@ -72,95 +92,104 @@ public class UI_Collection : UI_Base
         switch(sorting)
         {
             case Define.Sorting.Default:
-                foreach (KeyValuePair<int, DeckCard> cardinfo in _dict)
-                {                 
-                    foreach (KeyValuePair<int, UnlockCard> deckinfo in _deck)
+                for(int i=0; i<cardCount; i++)
+                {
+                    DeckCard cardinfo = _dict[cardKeys[i]];
+                    for(int j=0; j<deckCount; j++)
                     {
-                        if (cardinfo.Value.id == deckinfo.Value.id)
+                        UnlockCard deckinfo = _deck[deckKeys[j]];
+                        if (cardinfo.id == deckinfo.id)
                         {
                             GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
-                            UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
-                            cardInDeck.SetInfo(cardinfo.Value);
+                            card.TryGetComponent<UI_Card>(out UI_Card cardInDeck);
+                            cardInDeck.SetInfo(cardinfo);
                             cardNum++;
-                            
                         }
-                    }                    
+                    }
                 }
                 break;
 
             case Define.Sorting.Fire:
-                foreach (KeyValuePair<int, DeckCard> cardinfo in _dict)
+                for (int i = 0; i < cardCount; i++)
                 {
-                    foreach (KeyValuePair<int, UnlockCard> deckinfo in _deck)
+                    DeckCard cardinfo = _dict[cardKeys[i]];
+                    for (int j = 0; j < deckCount; j++)
                     {
-                        if (cardinfo.Value.id == deckinfo.Value.id)
+                        UnlockCard deckinfo = _deck[deckKeys[j]];
+                        if (cardinfo.id == deckinfo.id)
                         {
-                            if (cardinfo.Value.element == "fire")
+                            if (cardinfo.element == "fire")
                             {
                                 GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
                                 UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
-                                cardInDeck.SetInfo(cardinfo.Value);
+                                cardInDeck.SetInfo(cardinfo);
                                 cardNum++;
                             }
                         }
-                    }                  
+                    }
                 }
                 break;
 
             case Define.Sorting.Water:
-                foreach (KeyValuePair<int, DeckCard> cardinfo in _dict)
+                for (int i = 0; i < cardCount; i++)
                 {
-                    foreach (KeyValuePair<int, UnlockCard> deckinfo in _deck)
+                    DeckCard cardinfo = _dict[cardKeys[i]];
+                    for (int j = 0; j < deckCount; j++)
                     {
-                        if (cardinfo.Value.id == deckinfo.Value.id)
+                        UnlockCard deckinfo = _deck[deckKeys[j]];
+                        if (cardinfo.id == deckinfo.id)
                         {
-                            if (cardinfo.Value.element == "water")
+                            if (cardinfo.element == "water")
                             {
                                 GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
                                 UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
-                                cardInDeck.SetInfo(cardinfo.Value);
+                                cardInDeck.SetInfo(cardinfo);
                                 cardNum++;
                             }
                         }
-                    }                    
+                    }
                 }
                 break;
 
             case Define.Sorting.Wind:
-                foreach (KeyValuePair<int, DeckCard> cardinfo in _dict)
+                for (int i = 0; i < cardCount; i++)
                 {
-                    foreach (KeyValuePair<int, UnlockCard> deckinfo in _deck)
+                    DeckCard cardinfo = _dict[cardKeys[i]];
+                    for (int j = 0; j < deckCount; j++)
                     {
-                        if (cardinfo.Value.id == deckinfo.Value.id)
+                        UnlockCard deckinfo = _deck[deckKeys[j]];
+                        if (cardinfo.id == deckinfo.id)
                         {
-                            if (cardinfo.Value.element == "wind")
+                            if (cardinfo.element == "wind")
                             {
                                 GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
                                 UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
-                                cardInDeck.SetInfo(cardinfo.Value);
+                                cardInDeck.SetInfo(cardinfo);
                                 cardNum++;
                             }
                         }
-                    }                   
+                    }
                 }
                 break;
 
             case Define.Sorting.Earth:
-                foreach (KeyValuePair<int, DeckCard> cardinfo in _dict)
+                for (int i = 0; i < cardCount; i++)
                 {
-                    foreach (KeyValuePair<int, UnlockCard> deckinfo in _deck)
+                    DeckCard cardinfo = _dict[cardKeys[i]];
+                    for (int j = 0; j < deckCount; j++)
                     {
-                        if (cardinfo.Value.id == deckinfo.Value.id)
+                        UnlockCard deckinfo = _deck[deckKeys[j]];
+                        if (cardinfo.id == deckinfo.id)
                         {
-                            if (cardinfo.Value.element == "earth")
+                            if (cardinfo.element == "earth")
                             {
                                 GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
                                 UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
-                                cardInDeck.SetInfo(cardinfo.Value);
+                                cardInDeck.SetInfo(cardinfo);
                                 cardNum++;
                             }
                         }
-                    } 
+                    }
                 }
                 break;
 

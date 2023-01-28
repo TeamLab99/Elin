@@ -135,10 +135,10 @@ public class PoolManager
 
             //DontDestroyOnLoad 해제 용도
             if (parent == null)
-                poolable.transform.parent = Managers.Scene.CurrentScene.transform;
+                poolable.transform.SetParent(Managers.Scene.CurrentScene.transform);
 
             poolable.gameObject.TryGetComponent<RectTransform>(out RectTransform rectTransform);
-            rectTransform.parent = parent;
+            rectTransform.SetParent(parent);
             poolable.IsUsing = true;
 
             return poolable;

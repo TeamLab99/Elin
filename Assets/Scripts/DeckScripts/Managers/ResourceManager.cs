@@ -78,10 +78,32 @@ public class ResourceManager
         return go;
     }
 
+    public GameObject InstantiateUI(string path, RectTransform parent = null)
+    {
+        //Resources 산하의 Prefabs 폴더에서 해당 이름에 해당하는 컨텐츠를 찾는다.
+        //Resources.Load를 사용해서 가능한 방법
+        GameObject original = Load<GameObject>($"Prefabs/{path}");
+        if (original == null)
+        {
+            Debug.Log($"Failed to load prefab : {path}");
+            return null;
+        }
+
+        //풀링이 되어 있다면 풀에서 pop해준다. Load를 하지 않고
+        if (original.TryGetComponent(out Poolable _))
+            return Managers.Pool.Pop(original, parent).gameObject;
+
+        GameObject go = Object.Instantiate(original, parent);
+        go.name = original.name;
+        return go;
+    }
+
     public void Destroy(GameObject go)
     {
         if (go == null)
             return;
+        
+            
 
         //만약에 풀링이 필요하다면 -> 풀링 매니저에게 위탁
         //삭제하는 것이 아니라 오브젝트 풀로 이동시키는 것이라 생각하면 된다.
@@ -93,6 +115,5 @@ public class ResourceManager
         }
 
         Object.Destroy(go);
-
     }
 }

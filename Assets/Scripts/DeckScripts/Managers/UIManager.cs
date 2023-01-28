@@ -25,7 +25,7 @@ public class UIManager
             name = typeof(T).Name;
 
         //Resources/Prefabs/DeckCreator 산하에서 해당하는 이름의 프리팹을 찾아서 인스턴시에트한다. 
-        GameObject go = Managers.Resource.Instantiate($"DeckCreator/{name}");
+        GameObject go = Managers.Resource.InstantiateUI($"DeckCreator/{name}");
 
         if (parent != null)
             go.transform.SetParent(parent);
