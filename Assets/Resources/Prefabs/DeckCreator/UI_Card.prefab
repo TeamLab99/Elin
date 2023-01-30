@@ -282,6 +282,7 @@ GameObject:
   - component: {fileID: 7105724999039814650}
   - component: {fileID: 7105724999039814651}
   - component: {fileID: 1872593656836505997}
+  - component: {fileID: -5583962372216741529}
   m_Layer: 5
   m_Name: UI_Card
   m_TagString: UI
@@ -362,6 +363,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0652ce4e46c6540b993fa9f1f6c6e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _name: {fileID: 0}
+  _cost: {fileID: 0}
+  _description: {fileID: 0}
+--- !u!114 &-5583962372216741529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7105724999039814645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67ee56730ef41e341ae553a308103e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
 --- !u!1 &7686844211532686830
 GameObject:
   m_ObjectHideFlags: 0

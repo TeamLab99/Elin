@@ -16,17 +16,22 @@ public class UI_Card : UI_Base
         Description
     }
 
-    string _name;
-    string _cost;
-    string _description;
-    public override void Init()
+    public TextMeshProUGUI _name;
+    public TextMeshProUGUI _cost;
+    public TextMeshProUGUI _description;
+
+    public void Awake()
     {
-        //텍스트매쉬프로의 형태로 각각 텍스트를 바인딩해준다.
         Bind<TextMeshProUGUI>(typeof(Texts));
 
-        GetText((int)Texts.NameText).text = _name;
-        GetText((int)Texts.CostText).text = _cost;
-        GetText((int)Texts.Description).text = _description;
+        _name = GetText((int)Texts.NameText);
+        _cost = GetText((int)Texts.CostText);
+        _description = GetText((int)Texts.Description);
+    }
+
+    public override void Init()
+    {
+        
     }
 
     void Start()
@@ -37,9 +42,8 @@ public class UI_Card : UI_Base
     //카드의 정보를 수정해주는 함수
     public void SetInfo(DeckCard deckCard)
     {
-        _name = deckCard.cardName;
-        _cost = deckCard.cost.ToString();
-        _description = deckCard.description;
+        _name.text = deckCard.cardName;
+        _cost.text = deckCard.cost.ToString();
+        _description.text = deckCard.description;  
     }
-
 }
