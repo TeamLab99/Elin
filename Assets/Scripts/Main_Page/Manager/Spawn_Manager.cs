@@ -15,16 +15,20 @@ public class Spawn_Manager : MonoBehaviour
         spawnPoint = GetComponentsInChildren<Transform>();    
     }
     
-    void Update()
-    {
-        timer += Time.deltaTime;
+    void Update() 
+    { 
         if (cnt < maxCnt)
         {
+            timer += Time.deltaTime;
             if (timer > spawnData[Random.Range(0, 2)].spawnTime)
             {
                 timer = 0;
                 Spawn();
             }
+        }
+        else
+        {
+            timer = 0;
         }
     }
 
@@ -34,6 +38,11 @@ public class Spawn_Manager : MonoBehaviour
         GameObject enemy = DataBase_Manager.instance.pool.Get(0);
         enemy.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].position;
         enemy.GetComponent<Enemy_Move>().Init(spawnData[Random.Range(0,2)]);
+    }
+
+    public void CountDown()
+    {
+        cnt -= 1;
     }
 }
 

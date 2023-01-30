@@ -11,6 +11,7 @@ public class Player_Move : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer spr;
 
+    
     // 검출 관련 변수 
     public Transform groundFrontCheck; // 앞 다리 위치
     public Transform groundBackCheck; // 뒷 다리 위치
@@ -24,7 +25,7 @@ public class Player_Move : MonoBehaviour
     private bool isFrontGruond; // 앞 다리가 땅에 붙어 있는가?
     private bool isBackGruond; // 뒷 다리가 땅에 붙어 있는가?
     private bool isControlPlayer; // 플레이어의 움직임을 제어하는가?
-    private bool isInteraction=false; // 상호작용 하는가?
+    //private bool isInteraction=false; // 상호작용 하는가?
 
     // 걷기 관련 변수들
     public float xSpeed; // 좌우 이동 속도
@@ -54,7 +55,7 @@ public class Player_Move : MonoBehaviour
     }
     void Update()
     {
-        InputKey();
+       // InputKey();
         Animation();
         CheckingMap();
         ReverseSprite();
@@ -73,13 +74,13 @@ public class Player_Move : MonoBehaviour
     }
 
     // 상호작용을 위해 키를 눌렀는가?
-    private void InputKey()
+    /*private void InputKey()
     {
         if (Input.GetKey(KeyCode.X))
             isInteraction = true;
         if (Input.GetKeyUp(KeyCode.X))
             isInteraction = false;
-    }
+    }*/
     // 땅과 벽을 검출한다.
     private void CheckingMap()
     {
@@ -251,9 +252,9 @@ public class Player_Move : MonoBehaviour
    */
     private void OnTriggerEnter2D(Collider2D collision) // 트리거 충돌
     {
-        if (collision.CompareTag("Box") && isInteraction)
+        if (collision.CompareTag("Enemy"))
         {
-            Debug.Log("상자를 열었습니다.");
+            
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
