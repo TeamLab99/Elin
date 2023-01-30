@@ -55,4 +55,12 @@ public class Enemy_Move : MonoBehaviour
         maxHealth = data.health;
         health = data.health;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision) // 트리거 충돌
+    {
+        if (collision.CompareTag("Player"))
+        {
+            gameObject.SetActive(false);
+        }
+    }
 }
