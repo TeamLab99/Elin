@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Inventory : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class Inventory : MonoBehaviour
 
     public GameObject go; //인벤토리 활성화 비활성하
     public GameObject[] selectedTabImages;
+    //public Button[] selectedButton;
     public GameObject floatingText;
     //public GameObject selectionWindow;
     private int selectedItem; //선택된 아이템
@@ -39,11 +41,6 @@ public class Inventory : MonoBehaviour
         inventoryTabList = new List<Item_Data>();
         slots = tf.GetComponentsInChildren<Inventory_Slot>();
         rectTransform = GetComponent<RectTransform>();
-        theEquip = FindObjectOfType<Equipment>();
-    }
-    public void EquipToInventory(Item_Data _item)
-    {
-        inventoryItemList.Add(_item);
     }
 
     public void ShowTab()
@@ -342,5 +339,21 @@ public class Inventory : MonoBehaviour
                     preventExec = false;
             }
         }
+    }
+    public void ConsumerTab()
+    {
+        selectedTab = 0;
+    }
+    public void EquipTab()
+    {
+        selectedTab = 1;
+    }
+    public void QuestTab()
+    {
+        selectedTab = 2;
+    }
+    public void EctTab()
+    {
+        selectedTab = 3;
     }
 }

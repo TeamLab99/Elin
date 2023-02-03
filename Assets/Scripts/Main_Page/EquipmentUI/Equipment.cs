@@ -53,7 +53,7 @@ public class Equipment : MonoBehaviour
     }
     public void TakeOffEquip()
     {
-        theInven.EquipToInventory(equipItemList[selectedSlot]);
+       // theInven.EquipToInventory(equipItemList[selectedSlot]);
         equipItemList[selectedSlot] = new Item_Data(0, "", "", Item_Data.ItemType.Equipment);
         ClearEquipment();
         ShowEquipment();
@@ -87,7 +87,7 @@ public class Equipment : MonoBehaviour
         }
         else
         {
-            theInven.EquipToInventory(equipItemList[_count]);
+          //  theInven.EquipToInventory(equipItemList[_count]);
             equipItemList[_count] = _item;
         }
     }

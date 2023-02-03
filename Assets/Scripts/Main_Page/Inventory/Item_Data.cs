@@ -25,7 +25,7 @@ public class Item_Data
         itemName = _itemName;
         itemDescription = _itemDescription;
         itemType = _itemType;
-        itemIcon = Resources.Load("Map_Character/Sprites/Items/" + itemID.ToString(), typeof(Sprite)) as Sprite; //Sprite로 가져왔지만 변환이 안되서 as Sprite를 붙어야 한다.
+        itemIcon = Resources.Load("Main_Page/Sprites/Items/" + itemID.ToString(), typeof(Sprite)) as Sprite; //Sprite로 가져왔지만 변환이 안되서 as Sprite를 붙어야 한다.
     } // 아이템 정보
     
 }
