@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class InventoryUI : MonoBehaviour
     bool activeInventory=false;
     void Start()
     {
+  
         inventoryPanel.SetActive(activeInventory);    
     }
     void Update()
@@ -18,4 +20,5 @@ public class InventoryUI : MonoBehaviour
             inventoryPanel.SetActive(activeInventory);
         }   
     }
+   
 }
