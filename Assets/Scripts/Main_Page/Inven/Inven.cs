@@ -4,21 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Inven : MonoBehaviour
 {
-    Button btn;
-    public void BtnUse()
-    {
-        Debug.Log("사용");
-    }
+    public Button[] btn;
+   
     // Start is called before the first frame update
     void Start()
     {
-        btn = GetComponent<Button>();
-        btn.onClick.AddListener(BtnUse);
+        for(int i=0; i<btn.Length; i++)
+        {
+            int temp = i;
+            //btn[i] = GetComponent<Button>();
+            btn[i].onClick.AddListener(()=>BtnUse(temp));
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void BtnUse(int num)
     {
-        
+        Debug.Log(num);
     }
+    
 }

@@ -15,19 +15,18 @@ public class Inventory : MonoBehaviour
     public string[] tabDescription; // 탭 부연설명
     public Transform tf; // 슬롯의 부모객체
     private RectTransform rectTransform;
+    public Button[] btn;
 
     public GameObject go; //인벤토리 활성화 비활성하
     public GameObject[] selectedTabImages;
-    //public Button[] selectedButton;
-    public GameObject floatingText;
+    
     //public GameObject selectionWindow;
     private int selectedItem; //선택된 아이템
     private int selectedTab; //선택된 탭
     private bool activated; //인벤토리 활성화시 true
-    private bool tabActivated; //탭 활성화 시 true
+    
     private bool itemActivated; //아이템 활성화 시 true
     private bool stopKeyInput; // 키 입력 제한 (소비할 때 나오는 질의 중에)
-    private bool preventExec; //중복 실행 제한
 
     private WaitForSeconds waitTime = new WaitForSeconds(0.01f);
     private Equipment theEquip;
@@ -41,6 +40,16 @@ public class Inventory : MonoBehaviour
         inventoryTabList = new List<Item_Data>();
         slots = tf.GetComponentsInChildren<Inventory_Slot>();
         rectTransform = GetComponent<RectTransform>();
+
+        for(int i=0; i<btn.Length; i++)
+        {
+            int temp = i;
+            btn[i].onClick.AddListener(() => OnSelectedItem(temp));
+        }
+    }
+    void OnSelectedItem(int num)
+    {
+        selectedItem = num;
     }
 
     public void ShowTab()
@@ -55,11 +64,7 @@ public class Inventory : MonoBehaviour
         {
             if (_itemID == theDatabase.itemList[i].itemID) // 아이템 찾음
             {
-               // rectTransform.anchoredPosition= new Vector3(Player_Move.instance.transform.position.x, Player_Move.instance.transform.position.y, Player_Move.instance.transform.position.z);
-                var clone = Instantiate(floatingText, Player_Move.instance.transform.position, Quaternion.Euler(Vector3.zero));
-                clone.GetComponent<FloatingText>().text.text = theDatabase.itemList[i].itemName + " " + _count + "개 획득";
-                clone.transform.SetParent(this.transform); // 인벤토리 안에 생성된다. (Canvas 밖에 생성되면 출력이 안되기 때문에 인벤토리 안에 생성시킴)
-                for(int j=0; j<inventoryItemList.Count; j++) // 소지품에 같은 아이템이 있다 -> 갯수 증감 
+               for(int j=0; j<inventoryItemList.Count; j++) // 소지품에 같은 아이템이 있다 -> 갯수 증감 
                 {
                     if (inventoryItemList[j].itemID == _itemID)
                     {
@@ -90,16 +95,20 @@ public class Inventory : MonoBehaviour
         StopAllCoroutines();
         Color color = selectedTabImages[selectedTab].GetComponent<Image>().color;
         color.a = 0f;
+        Color colora = color;
+        colora.a = 0.5f;
         for(int i=0; i < selectedTabImages.Length; i++)
         {
             selectedTabImages[i].GetComponent<Image>().color = color;
         }
         description_Text.text = tabDescription[selectedTab];
-        StartCoroutine(SelectedTabEffectCoroutine());
+        selectedTabImages[selectedTab].GetComponent<Image>().color = colora;
+       // StartCoroutine(SelectedTabEffectCoroutine());
     } // 선택된 탭을 제외하고 다른 모든 탭의 컬러 알파값 0
+    
     IEnumerator SelectedTabEffectCoroutine()
     {
-        while (tabActivated)
+        while (true)
         {
             Color color = selectedTabImages[0].GetComponent<Image>().color;
             while (color.a < 0.5f)
@@ -114,9 +123,11 @@ public class Inventory : MonoBehaviour
                 selectedTabImages[selectedTab].GetComponent<Image>().color = color;
                 yield return waitTime;
             }
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(5f);
         }
     } // 선택된 탭 반짝임 효과
+    
+
     public void UseItem()
     {
         for(int i=0; i<inventoryItemList.Count; i++)
@@ -127,6 +138,7 @@ public class Inventory : MonoBehaviour
                     inventoryItemList[i].itemCount--;
                 else
                     inventoryItemList.RemoveAt(i);
+                selectedItem = 0;
                 ShowItem();
                 break;
             }
@@ -136,7 +148,7 @@ public class Inventory : MonoBehaviour
     {
         inventoryTabList.Clear(); //기존에 있던 슬롯들 초기화
         RemoveSlot();
-        selectedItem = 0;
+        //selectedItem = 0;
         switch (selectedTab) //탭에 따른 분류, 그에 따른 아이템 리스트에 추가
         {
             case 0:
@@ -182,12 +194,16 @@ public class Inventory : MonoBehaviour
         {
             Color color = slots[0].selected_Item.GetComponent<Image>().color;
             color.a = 0f;
-            for(int i=0; i<inventoryTabList.Count; i++)
+            Color colora = color;
+            colora.a = 0.5f;
+            slots[selectedItem].selected_Item.GetComponent<Image>().color = colora;
+            for (int i=0; i<inventoryTabList.Count; i++)
             {
                 slots[i].selected_Item.GetComponent<Image>().color = color;
             }
             description_Text.text = inventoryTabList[selectedItem].itemDescription;
-            StartCoroutine(SelectedItemEffectCoroutine());        
+            
+            //StartCoroutine(SelectedItemEffectCoroutine());        
         }
         else
         {
@@ -216,144 +232,107 @@ public class Inventory : MonoBehaviour
     } // 선택된 아이템 반짝임 효과
     void Update()
     {
-        if (!stopKeyInput)
+        if (Input.GetKeyDown(KeyCode.I))
         {
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                activated = !activated;
-                if (activated)
-                {
-                    go.SetActive(true);
-                    selectedTab = 0;
-                    tabActivated = true;
-                    itemActivated = false;
-                    ShowTab();
-                }
-                else
-                {
-                    go.SetActive(false);
-                    StopAllCoroutines();
-                    tabActivated = false;
-                    itemActivated = false;
-                }
-            }
+            activated = !activated;
             if (activated)
             {
-                if (tabActivated)
+                go.SetActive(true);
+                //itemActivated = false;
+                ShowTab();
+            }
+            else
+            {
+                go.SetActive(false);
+                StopAllCoroutines();
+                //itemActivated = false;
+            }
+        }
+        if (activated)
+        {
+            itemActivated = true;
+            
+
+            if (inventoryTabList.Count > 0)
+            {
+                if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
-                    if (Input.GetKeyDown(KeyCode.RightArrow))
+                    if (selectedItem < inventoryTabList.Count - 2)
+                        selectedItem += 2;
+                    else
+                        selectedItem %= 2;
+                    SelectedItem();
+                }
+                else if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    if (selectedItem > 1)
+                        selectedItem -= 2;
+                    else
+                        selectedItem = inventoryTabList.Count - 1 - selectedItem;
+                    SelectedItem();
+                }
+                else if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    if (selectedItem < inventoryTabList.Count - 1)
+                        selectedItem++;
+                    else
+                        selectedItem = 0;
+                    SelectedItem();
+                }
+                else if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    if (selectedItem > 0)
+                        selectedItem--;
+                    else
+                        selectedItem = inventoryTabList.Count - 1;
+                    SelectedItem();
+                }
+                else if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    if (selectedTab == 0) // 소모품
                     {
-                        if (selectedTab < selectedTabImages.Length - 1)
-                            selectedTab++;
-                        else
-                            selectedTab = 0;
-                        SelectedTab();
+                        //stopKeyInput = true;  
+                        //아이템 소모 시 yes or no 선택창을 안쓰므로 필요없음
+                        // 물약을 마실거냐 혹은 같은 선택지 호출
+                        UseItem();
                     }
-                    else if (Input.GetKeyDown(KeyCode.LeftArrow))
+                    else if (selectedTab == 1)
                     {
-                        if (selectedTab >0)
-                            selectedTab--;
-                        else
-                            selectedTab = selectedTabImages.Length-1;
-                        SelectedTab();
-                    }
-                    else if (Input.GetKeyDown(KeyCode.Z))
-                    {
-                        Color color = selectedTabImages[selectedTab].GetComponent<Image>().color;
-                        color.a = 0.25f;
-                        selectedTabImages[selectedTab].GetComponent<Image>().color = color;
-                        itemActivated = true;
-                        tabActivated = false;
-                        preventExec = true;
+                        // 장비 장착
+                        theEquip.EquipItem(inventoryItemList[selectedItem]);
+                        inventoryItemList.RemoveAt(selectedItem);
                         ShowItem();
                     }
-                } // 템 활성화 시 키 입력 처리
-                else if (itemActivated) // 아이템 활성화시 키입력 처리
-                {
-                    if (inventoryTabList.Count > 0)
+                    else
                     {
-                        if (Input.GetKeyDown(KeyCode.DownArrow))
-                        {
-                            if (selectedItem < inventoryTabList.Count - 2)
-                                selectedItem += 2;
-                            else
-                                selectedItem %= 2;
-                            SelectedItem();
-                        }
-                        else if (Input.GetKeyDown(KeyCode.UpArrow))
-                        {
-                            if (selectedItem > 1)
-                                selectedItem -= 2;
-                            else
-                                selectedItem = inventoryTabList.Count - 1 - selectedItem;
-                            SelectedItem();
-                        }
-                        else if (Input.GetKeyDown(KeyCode.RightArrow))
-                        {
-                            if (selectedItem < inventoryTabList.Count - 1)
-                                selectedItem++;
-                            else
-                                selectedItem = 0;
-                            SelectedItem();
-                        }
-                        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-                        {
-                            if (selectedItem > 0)
-                                selectedItem--;
-                            else
-                                selectedItem = inventoryTabList.Count - 1;
-                            SelectedItem();
-                        }
-                        else if (Input.GetKeyDown(KeyCode.Z) && !preventExec)
-                        {
-                            if (selectedTab == 0) // 소모품
-                            {
-                                //stopKeyInput = true;  
-                                //아이템 소모 시 yes or no 선택창을 안쓰므로 필요없음
-                                // 물약을 마실거냐 혹은 같은 선택지 호출
-                                UseItem();
-                            }
-                            else if (selectedTab == 1)
-                            {
-                                // 장비 장착
-                                theEquip.EquipItem(inventoryItemList[selectedItem]);
-                                inventoryItemList.RemoveAt(selectedItem);
-                                ShowItem();
-                            }
-                            else
-                            {
-                                //비프음 출력
-                            }
-                        }
-
-                    }
-                    if (Input.GetKeyDown(KeyCode.X))
-                    {
-                        StopAllCoroutines();
-                        itemActivated = false;
-                        tabActivated = true;
-                        ShowTab();
+                        //비프음 출력
                     }
                 }
-                if (Input.GetKeyUp(KeyCode.Z)) /// 중복처리 방지
-                    preventExec = false;
             }
         }
     }
     public void ConsumerTab()
     {
         selectedTab = 0;
+        SelectedTab();
+        ShowItem();
     }
     public void EquipTab()
     {
         selectedTab = 1;
+        SelectedTab();
+        ShowItem();
     }
     public void QuestTab()
     {
         selectedTab = 2;
+        SelectedTab();
+        ShowItem();
     }
     public void EctTab()
     {
         selectedTab = 3;
+        SelectedTab();
+        ShowItem();
     }
 }
