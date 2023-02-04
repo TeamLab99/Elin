@@ -50,6 +50,8 @@ public class Inventory : MonoBehaviour
     void OnSelectedItem(int num)
     {
         selectedItem = num;
+        Debug.Log(selectedItem);
+        UseItem();
     }
 
     public void ShowTab()
@@ -138,7 +140,6 @@ public class Inventory : MonoBehaviour
                     inventoryItemList[i].itemCount--;
                 else
                     inventoryItemList.RemoveAt(i);
-                selectedItem = 0;
                 ShowItem();
                 break;
             }
@@ -148,7 +149,7 @@ public class Inventory : MonoBehaviour
     {
         inventoryTabList.Clear(); //기존에 있던 슬롯들 초기화
         RemoveSlot();
-        //selectedItem = 0;
+        selectedItem = 0;
         switch (selectedTab) //탭에 따른 분류, 그에 따른 아이템 리스트에 추가
         {
             case 0:
