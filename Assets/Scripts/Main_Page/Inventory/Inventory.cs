@@ -9,8 +9,10 @@ public class Inventory : MonoBehaviour
     public static Inventory instance;
     private DataBase_Manager theDatabase;
     private Inventory_Slot[] slots; // 인벤토리 슬롯들
+    private Equipment_Slot[] eslots;
     private List<Item_Data> inventoryItemList; //플레이어가 소지한 아이템 리스트
     private List<Item_Data> inventoryTabList; // 선택한 템에 따라 다르게 보여질 아이템 리스트
+    private List<Item_Data> equipmentTakeOnList; // 착용한 장비템 리스트 
     public Text description_Text; // 부연설명
     public string[] tabDescription; // 탭 부연설명
     public Transform tf; // 슬롯의 부모객체
@@ -38,7 +40,9 @@ public class Inventory : MonoBehaviour
         theDatabase = FindObjectOfType<DataBase_Manager>(); // 한번 접근이 아니라 여러번 접근이므로 find사용
         inventoryItemList = new List<Item_Data>();
         inventoryTabList = new List<Item_Data>();
+        equipmentTakeOnList = new List<Item_Data>();
         slots = tf.GetComponentsInChildren<Inventory_Slot>();
+        eslots = tf.GetComponentsInChildren<Equipment_Slot>();
         rectTransform = GetComponent<RectTransform>();
 
         for(int i=0; i<btn.Length; i++)
@@ -132,17 +136,50 @@ public class Inventory : MonoBehaviour
 
     public void UseItem()
     {
-        for(int i=0; i<inventoryItemList.Count; i++)
+        if (selectedTab == 0) // 소모품
         {
-            if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
+            for (int i = 0; i < inventoryItemList.Count; i++)
             {
-                if (inventoryItemList[i].itemCount > 1)
-                    inventoryItemList[i].itemCount--;
-                else
-                    inventoryItemList.RemoveAt(i);
-                ShowItem();
-                break;
+                if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
+                {
+                    if (inventoryItemList[i].itemCount > 1)
+                        inventoryItemList[i].itemCount--;
+                    else
+                        inventoryItemList.RemoveAt(i);
+                    equipmentTakeOnList.Add(inventoryTabList[selectedItem]);
+                    //inventoryItemList.RemoveAt(i);
+                    ShowEquipment();
+                    ShowItem();
+                    break;
+                }
             }
+        }
+        else if (selectedTab == 1)
+        {
+            for (int i = 0; i < inventoryItemList.Count; i++)
+            {
+                if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
+                {
+                    equipmentTakeOnList.Add(inventoryTabList[selectedItem]);
+                    inventoryItemList.RemoveAt(i);
+                    ShowEquipment();
+                    ShowItem();
+                    break;
+                }
+            }
+        }
+    }
+
+    public void ShowEquipment()
+    {
+        for (int i = 0; i < eslots.Length; i++)
+        {
+            eslots[i].RemoveItem();
+        }
+        selectedItem = 0;
+        for (int i = 0; i < eslots.Length; i++)
+        {
+            eslots[i].AddItem(equipmentTakeOnList[i]);
         }
     }
     public void ShowItem()
@@ -241,6 +278,7 @@ public class Inventory : MonoBehaviour
                 go.SetActive(true);
                 //itemActivated = false;
                 ShowTab();
+                ShowItem();
             }
             else
             {
