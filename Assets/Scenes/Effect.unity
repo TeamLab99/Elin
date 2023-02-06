@@ -628,6 +628,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Headbutt
       objectReference: {fileID: 0}
+    - target: {fileID: 6333585334283665191, guid: ed346a4bc749169429a2d6d4a18fe847, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6333585334682688207, guid: ed346a4bc749169429a2d6d4a18fe847, type: 3}
       propertyPath: m_IsActive
       value: 0
