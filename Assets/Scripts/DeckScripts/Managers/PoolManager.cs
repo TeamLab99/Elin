@@ -155,7 +155,7 @@ public class PoolManager
         if (_root == null)
         {
             _root = new GameObject { name = "@Pool_Root", tag = "PoolRoot" }.transform;
-            Object.DontDestroyOnLoad(_root);
+            
         }
 
         if(_ui_root == null)
@@ -166,8 +166,6 @@ public class PoolManager
 
             _ui_root.name = "@UI_Pool_Root";
             _ui_root.tag = "UIRoot";
-
-            Object.DontDestroyOnLoad(_ui_root);
         }
     }
 
