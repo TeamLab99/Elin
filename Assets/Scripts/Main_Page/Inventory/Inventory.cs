@@ -18,7 +18,9 @@ public class Inventory : MonoBehaviour
     public Transform tf; // 슬롯의 부모객체
     public Transform etf;
     private RectTransform rectTransform;
-    public Button[] btn;
+    public Button[] invenBtn;
+    public Button[] tabBtn;
+    public Button[] equipBtn;
 
     public GameObject go; //인벤토리 활성화 비활성하
     public GameObject[] selectedTabImages;
@@ -26,6 +28,7 @@ public class Inventory : MonoBehaviour
     //public GameObject selectionWindow;
     private int selectedItem; //선택된 아이템
     private int selectedTab; //선택된 탭
+    private int selectedEquip;
     private bool activated; //인벤토리 활성화시 true
     
     private bool itemActivated; //아이템 활성화 시 true
@@ -45,11 +48,25 @@ public class Inventory : MonoBehaviour
         slots = tf.GetComponentsInChildren<Inventory_Slot>();
         eslots = etf.GetComponentsInChildren<Equipment_Slot>();
         rectTransform = GetComponent<RectTransform>();
+        OnClickButton();
+    }
 
-        for(int i=0; i<btn.Length; i++)
+    void OnClickButton()
+    {
+        for (int i = 0; i < invenBtn.Length; i++)
         {
             int temp = i;
-            btn[i].onClick.AddListener(() => OnSelectedItem(temp));
+            invenBtn[i].onClick.AddListener(() => OnSelectedItem(temp));
+        }
+        for (int i = 0; i < tabBtn.Length; i++)
+        {
+            int temp = i;
+            tabBtn[i].onClick.AddListener(() => OnSelectedTab(temp));
+        }
+        for (int i = 0; i < equipBtn.Length; i++)
+        {
+            int temp = i;
+            equipBtn[i].onClick.AddListener(() => OnSelectedEquip(temp));
         }
     }
     void OnSelectedItem(int num)
@@ -57,6 +74,29 @@ public class Inventory : MonoBehaviour
         selectedItem = num;
         Debug.Log(selectedItem);
         UseItem();
+    }
+
+    void OnSelectedTab(int num)
+    {
+        selectedTab = num;
+        Debug.Log(selectedTab);
+        SelectedTab();
+        ShowItem();
+    }
+
+    void OnSelectedEquip(int num)
+    {
+        selectedEquip = num;
+        TakeOffEquip(selectedEquip);
+        Debug.Log(selectedEquip);
+    }
+
+    void TakeOffEquip(int num)
+    {
+        inventoryItemList.Add(equipmentTakeOnList[num]);
+        equipmentTakeOnList.RemoveAt(num);
+        ShowItem();
+        ShowEquipment();
     }
 
     public void ShowTab()
@@ -75,7 +115,7 @@ public class Inventory : MonoBehaviour
                 {
                     if (inventoryItemList[j].itemID == _itemID)
                     {
-                        if (inventoryItemList[i].itemType != Item_Data.ItemType.Equipment)
+                        if (inventoryItemList[j].itemType != Item_Data.ItemType.Equipment)
                             inventoryItemList[j].itemCount += _count;
                         else
                             inventoryItemList.Add(theDatabase.itemList[i]);
@@ -170,15 +210,17 @@ public class Inventory : MonoBehaviour
 
     public void ShowEquipment()
     {
-        //int a, b;
-        
+        int eslotSize=eslots.Length;
+        int equipSize= equipmentTakeOnList.Count;
+        int showSize=(eslotSize>equipSize)?equipSize:eslotSize;
+
         for (int i = 0; i < eslots.Length; i++)
         {
             eslots[i].RemoveItem();
             //eslots[i].gameObject.SetActive(false);
         }
         selectedItem = 0;
-        for (int i = 0; i < eslots.Length; i++)
+        for (int i = 0; i < showSize; i++)
         {
             eslots[i].AddItem(equipmentTakeOnList[i]);
             //eslots[i].gameObject.SetActive(true);
@@ -351,29 +393,5 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
-    }
-    public void ConsumerTab()
-    {
-        selectedTab = 0;
-        SelectedTab();
-        ShowItem();
-    }
-    public void EquipTab()
-    {
-        selectedTab = 1;
-        SelectedTab();
-        ShowItem();
-    }
-    public void QuestTab()
-    {
-        selectedTab = 2;
-        SelectedTab();
-        ShowItem();
-    }
-    public void EctTab()
-    {
-        selectedTab = 3;
-        SelectedTab();
-        ShowItem();
     }
 }

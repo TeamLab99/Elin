@@ -27,6 +27,9 @@ public class Player_Move : MonoBehaviour
     private bool isControlPlayer; // 플레이어의 움직임을 제어하는가?
     //private bool isInteraction=false; // 상호작용 하는가?
 
+    public Transform particleEffect;
+    public GameObject particle;
+
     // 걷기 관련 변수들
     public float xSpeed; // 좌우 이동 속도
     private float moveDir; // 방향키를 입력 받는 
@@ -130,7 +133,11 @@ public class Player_Move : MonoBehaviour
     private void Jump()
     {
         if (Input.GetAxis("Jump") != 0 && isGround && !isWall)
+        {
             rb.velocity = new Vector2(rb.velocity.x, ySpeed);
+            //Instantiate(particle, particleEffect.transform.position, transform.rotation);
+        }
+            
     }
     // 애니메이션 
     private void Animation()
