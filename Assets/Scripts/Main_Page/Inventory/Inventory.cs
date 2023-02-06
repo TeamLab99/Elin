@@ -16,6 +16,7 @@ public class Inventory : MonoBehaviour
     public Text description_Text; // 부연설명
     public string[] tabDescription; // 탭 부연설명
     public Transform tf; // 슬롯의 부모객체
+    public Transform etf;
     private RectTransform rectTransform;
     public Button[] btn;
 
@@ -42,7 +43,7 @@ public class Inventory : MonoBehaviour
         inventoryTabList = new List<Item_Data>();
         equipmentTakeOnList = new List<Item_Data>();
         slots = tf.GetComponentsInChildren<Inventory_Slot>();
-        eslots = tf.GetComponentsInChildren<Equipment_Slot>();
+        eslots = etf.GetComponentsInChildren<Equipment_Slot>();
         rectTransform = GetComponent<RectTransform>();
 
         for(int i=0; i<btn.Length; i++)
@@ -146,9 +147,6 @@ public class Inventory : MonoBehaviour
                         inventoryItemList[i].itemCount--;
                     else
                         inventoryItemList.RemoveAt(i);
-                    equipmentTakeOnList.Add(inventoryTabList[selectedItem]);
-                    //inventoryItemList.RemoveAt(i);
-                    ShowEquipment();
                     ShowItem();
                     break;
                 }
@@ -172,14 +170,18 @@ public class Inventory : MonoBehaviour
 
     public void ShowEquipment()
     {
+        //int a, b;
+        
         for (int i = 0; i < eslots.Length; i++)
         {
             eslots[i].RemoveItem();
+            //eslots[i].gameObject.SetActive(false);
         }
         selectedItem = 0;
         for (int i = 0; i < eslots.Length; i++)
         {
             eslots[i].AddItem(equipmentTakeOnList[i]);
+            //eslots[i].gameObject.SetActive(true);
         }
     }
     public void ShowItem()
