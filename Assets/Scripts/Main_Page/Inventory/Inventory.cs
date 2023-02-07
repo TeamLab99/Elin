@@ -14,13 +14,18 @@ public class Inventory : MonoBehaviour
     private List<Item_Data> inventoryTabList; // 선택한 템에 따라 다르게 보여질 아이템 리스트
     private List<Item_Data> equipmentTakeOnList; // 착용한 장비템 리스트 
     public Text description_Text; // 부연설명
-    public string[] tabDescription; // 탭 부연설명
+    public Text itemName_Text; // 아이템 이름
+    public Text use_Text;
+    public Text drop_Text;
     public Transform tf; // 슬롯의 부모객체
     public Transform etf;
-    private RectTransform rectTransform;
+    public GameObject useBtnOnOff;
+    public Image icon;
+
     public Button[] invenBtn;
     public Button[] tabBtn;
     public Button[] equipBtn;
+    public Button[] useBtn;
 
     public GameObject go; //인벤토리 활성화 비활성하
     public GameObject[] selectedTabImages;
@@ -33,7 +38,7 @@ public class Inventory : MonoBehaviour
     
     private bool itemActivated; //아이템 활성화 시 true
     private bool stopKeyInput; // 키 입력 제한 (소비할 때 나오는 질의 중에)
-
+    private bool showEquipStat=false; // 착용한 장비의 스탯을 보여주는지
     private WaitForSeconds waitTime = new WaitForSeconds(0.01f);
 
 
@@ -46,7 +51,6 @@ public class Inventory : MonoBehaviour
         equipmentTakeOnList = new List<Item_Data>();
         slots = tf.GetComponentsInChildren<Inventory_Slot>();
         eslots = etf.GetComponentsInChildren<Equipment_Slot>();
-        rectTransform = GetComponent<RectTransform>();
         OnClickButton();
     }
 
@@ -67,30 +71,61 @@ public class Inventory : MonoBehaviour
             int temp = i;
             equipBtn[i].onClick.AddListener(() => OnSelectedEquip(temp));
         }
+        for (int i = 0; i < useBtn.Length; i++)
+        {
+            int temp = i;
+            useBtn[i].onClick.AddListener(() => OnSelectedUse(temp));
+        }
     }
     void OnSelectedItem(int num)
     {
+        showEquipStat = false;
         selectedItem = num;
-        Debug.Log(selectedItem);
-        UseItem();
+        itemName_Text.text = inventoryTabList[selectedItem].itemName;
+        description_Text.text = inventoryTabList[selectedItem].itemDescription;
+        icon.sprite= inventoryTabList[selectedItem].itemIcon;
+        SelectedTab();
+        //UseItem();
     }
 
     void OnSelectedTab(int num)
     {
+        showEquipStat = false;
         selectedTab = num;
         Debug.Log(selectedTab);
+        icon.sprite = null; 
         SelectedTab();
         ShowItem();
     }
 
     void OnSelectedEquip(int num)
     {
+        showEquipStat = true;
+        use_Text.text = "착용해제";
+        drop_Text.text = " ";
+        useBtnOnOff.SetActive(false);
         selectedEquip = num;
-        TakeOffEquip(selectedEquip);
-        Debug.Log(selectedEquip);
     }
 
-    void TakeOffEquip(int num)
+    void OnSelectedUse(int num)
+    {
+        if (num == 0 && showEquipStat)
+        {
+            TakeOffEquip(selectedEquip);
+            Debug.Log("성공");
+        }
+        else if (num == 0 && !showEquipStat)
+        {
+            UseItem();
+            Debug.Log("실패");
+        }
+        if (num==1)
+        {
+            inventoryTabList.RemoveAt(selectedItem);
+        }
+    }
+
+    void TakeOffEquip(int num) // 장비 착용 창 버튼
     {
         inventoryItemList.Add(equipmentTakeOnList[num]);
         equipmentTakeOnList.RemoveAt(num);
@@ -147,8 +182,31 @@ public class Inventory : MonoBehaviour
         {
             selectedTabImages[i].GetComponent<Image>().color = color;
         }
-        description_Text.text = tabDescription[selectedTab];
         selectedTabImages[selectedTab].GetComponent<Image>().color = colora;
+
+     
+        if (!showEquipStat)
+        {
+            if (selectedTab == 0)
+            {
+                use_Text.text = "사용하기";
+                useBtnOnOff.SetActive(true);
+                drop_Text.text = "버리기";
+            }
+            else if (selectedTab == 1)
+            {
+                use_Text.text = "착용하기";
+                useBtnOnOff.SetActive(true);
+                drop_Text.text = "버리기";
+            }
+            else if (selectedTab == 2)
+            {
+                use_Text.text = "버리기";
+                drop_Text.text = " ";
+                useBtnOnOff.SetActive(false);
+            }
+        }
+        
        // StartCoroutine(SelectedTabEffectCoroutine());
     } // 선택된 탭을 제외하고 다른 모든 탭의 컬러 알파값 0
     
@@ -253,13 +311,7 @@ public class Inventory : MonoBehaviour
                         inventoryTabList.Add(inventoryItemList[i]);
                 }
                 break;
-            case 3:
-                for (int i = 0; i < inventoryItemList.Count; i++)
-                {
-                    if (Item_Data.ItemType.Etc == inventoryItemList[i].itemType)
-                        inventoryTabList.Add(inventoryItemList[i]);
-                }
-                break;
+           
         }
         for (int i = 0; i < inventoryTabList.Count; i++)
         {
@@ -282,13 +334,13 @@ public class Inventory : MonoBehaviour
             {
                 slots[i].selected_Item.GetComponent<Image>().color = color;
             }
-            description_Text.text = inventoryTabList[selectedItem].itemDescription;
             
             //StartCoroutine(SelectedItemEffectCoroutine());        
         }
         else
         {
-            description_Text.text = "해당 타입의 아이템을 소유하고 있지 않습니다.";
+            description_Text.text = " ";
+            itemName_Text.text = " ";
         }
     } //선택된 아이템을 제외하고, 다른 모든 탭의 컬러 알파값을 0으로 조정
     IEnumerator SelectedItemEffectCoroutine()

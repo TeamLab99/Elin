@@ -29,8 +29,6 @@ public class DataBase_Manager : MonoBehaviour
         itemList.Add(new Item_Data(20002, "belt", "방어력 30 증가", Item_Data.ItemType.Equipment));
         itemList.Add(new Item_Data(30001, "bone", "해골몬스터의 뼈조각", Item_Data.ItemType.Quest));
         itemList.Add(new Item_Data(30002, "egg", "닭 몬스터의 알", Item_Data.ItemType.Quest));
-        itemList.Add(new Item_Data(40001, "silk", "방어구의 재료", Item_Data.ItemType.Etc));
-        itemList.Add(new Item_Data(40010, "diamond", "무기의 재료", Item_Data.ItemType.Etc));
     } // 아이템 정보를 입력
 
 }
