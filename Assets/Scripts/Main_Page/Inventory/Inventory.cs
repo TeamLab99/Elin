@@ -35,7 +35,6 @@ public class Inventory : MonoBehaviour
     private bool stopKeyInput; // 키 입력 제한 (소비할 때 나오는 질의 중에)
 
     private WaitForSeconds waitTime = new WaitForSeconds(0.01f);
-    private Equipment theEquip;
 
 
     void Start()
@@ -382,7 +381,7 @@ public class Inventory : MonoBehaviour
                     else if (selectedTab == 1)
                     {
                         // 장비 장착
-                        theEquip.EquipItem(inventoryItemList[selectedItem]);
+                       
                         inventoryItemList.RemoveAt(selectedItem);
                         ShowItem();
                     }

@@ -4,16 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Box
-  - Ladder
-  - JumpBox
-  - Crank
   - Enemy
   - Manager
   - PoolRoot
   - Sound
   - UIRoot
   - UI
+  - Item
   layers:
   - Default
   - TransparentFX
