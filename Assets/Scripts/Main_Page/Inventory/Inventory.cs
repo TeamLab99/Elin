@@ -35,8 +35,8 @@ public class Inventory : MonoBehaviour
     private int selectedTab=0; //선택된 탭
     private int selectedEquip=0;
     private bool activated; //인벤토리 활성화시 true
+    private bool canUse=false;
     
-    private bool itemActivated; //아이템 활성화 시 true
     private bool stopKeyInput; // 키 입력 제한 (소비할 때 나오는 질의 중에)
     private bool showEquipStat=false; // 착용한 장비의 스탯을 보여주는지
     private WaitForSeconds waitTime = new WaitForSeconds(0.01f);
@@ -92,16 +92,15 @@ public class Inventory : MonoBehaviour
     {
         showEquipStat = false;
         selectedItem = num;
+        canUse = true;
         BtnChange(1);
-        SelectedTab();
-        //UseItem();
     }
 
     void OnSelectedEquip(int num) // 장비창을 눌렀을 때 호출한다.
     {
         showEquipStat = true; // 장비창을 눌렀는지 확인
-        BtnChange(2);
         selectedEquip = num;
+        BtnChange(2);
     }
 
     void ChangeTab()
@@ -146,6 +145,7 @@ public class Inventory : MonoBehaviour
                 ChangeTab();
                 break;
             case 2: // 장비창을 선택했을 때 버튼
+                canUse = true;
                 use_Text.text = "착용해제";
                 drop_Text.text = " ";
                 itemName_Text.text = equipmentTakeOnList[selectedEquip].itemName;
@@ -157,6 +157,7 @@ public class Inventory : MonoBehaviour
                 icon.sprite = null;
                 description_Text.text = " ";
                 itemName_Text.text = " ";
+                canUse = false;
                 break;
             default:
                 break;
@@ -165,17 +166,20 @@ public class Inventory : MonoBehaviour
 
     void OnSelectedUse(int num) // 선택된 아이템을 사용하거나 버릴 때 호출한다.
     {
-        if (num == 0 && showEquipStat)
+        if (canUse)
         {
-            TakeOffEquip(selectedEquip);
-        }
-        else if (num == 0 && !showEquipStat)
-        {
-            UseItem();
-        }
-        if (num==1)
-        {
-            RemoveItem();
+            if (num == 0 && showEquipStat)
+            {
+                TakeOffEquip(selectedEquip);
+            }
+            else if (num == 0 && !showEquipStat)
+            {
+                UseItem();
+            }
+            if (num == 1)
+            {
+                RemoveItem();
+            }
         }
     }
 
@@ -218,15 +222,15 @@ public class Inventory : MonoBehaviour
         }
         Debug.Log("데이터베이스의 해당 id 값이 존재하지 않습니다 : Error");
     }
-    public void RemoveSlot()
+    public void RemoveSlot() // 아이템 슬롯을 초기화 시켜준다.
     {
         for(int i=0; i < slots.Length; i++)
         {
             slots[i].RemoveItem();
             slots[i].gameObject.SetActive(false);
         }
-    } // 인벤토리 슬롯 초기화
-    public void SelectedTab()
+    } 
+    public void SelectedTab() // 선택한 탭의 색깔을 다르게 해준다.
     {
         Color color = selectedTabImages[selectedTab].GetComponent<Image>().color;
         color.a = 0f;
@@ -238,39 +242,28 @@ public class Inventory : MonoBehaviour
         }
         selectedTabImages[selectedTab].GetComponent<Image>().color = colora;
        // StartCoroutine(SelectedTabEffectCoroutine());
-    } // 선택된 탭을 제외하고 다른 모든 탭의 컬러 알파값 0
+    }
+   
     
-    IEnumerator SelectedTabEffectCoroutine()
-    {
-        while (true)
-        {
-            Color color = selectedTabImages[0].GetComponent<Image>().color;
-            while (color.a < 0.5f)
-            {
-                color.a += 0.03f;
-                selectedTabImages[selectedTab].GetComponent<Image>().color=color;
-                yield return waitTime;            
-            }
-            while (color.a > 0f)
-            {
-                color.a -= 0.03f;
-                selectedTabImages[selectedTab].GetComponent<Image>().color = color;
-                yield return waitTime;
-            }
-            yield return new WaitForSeconds(5f);
-        }
-    } // 선택된 탭 반짝임 효과
-    
-    public void RemoveItem()
+    public void RemoveItem() // 버리기를 누르면 아이템 창에서 아이템을 지운다.
     {
         for (int i = 0; i < inventoryItemList.Count; i++)
         {
             if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
-            { inventoryItemList[i].itemCount=0;
+            {   
                 inventoryItemList.RemoveAt(i);
                 ShowItem();
                 break;
             }
+        }
+    }
+
+    public void RemoveEquipSlot()
+    {
+        for (int i = 0; i < eslots.Length; i++)
+        {
+            eslots[i].RemoveItem();
+            eslots[i].gameObject.SetActive(false);
         }
     }
 
@@ -298,7 +291,7 @@ public class Inventory : MonoBehaviour
         {
             for (int i = 0; i < inventoryItemList.Count; i++)
             {
-                if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
+                if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID && equipmentTakeOnList.Count < eslots.Length)
                 {
                     equipmentTakeOnList.Add(inventoryTabList[selectedItem]);
                     inventoryItemList.RemoveAt(i);
@@ -313,24 +306,14 @@ public class Inventory : MonoBehaviour
 
     public void ShowEquipment()
     {
-        int eslotSize=eslots.Length;
-        int equipSize= equipmentTakeOnList.Count;
-        int showSize=(eslotSize>equipSize)?equipSize:eslotSize;
-
-        for (int i = 0; i < eslots.Length; i++)
+        RemoveEquipSlot();
+        for (int i = 0; i < equipmentTakeOnList.Count; i++)
         {
-            eslots[i].RemoveItem();
-            //eslots[i].gameObject.SetActive(false);
-        }
-        if(eslots.Length<selectedItem)
-            selectedItem -= 1;
-        for (int i = 0; i < showSize; i++)
-        {
+            eslots[i].gameObject.SetActive(true);
             eslots[i].AddItem(equipmentTakeOnList[i]);
-            //eslots[i].gameObject.SetActive(true);
         }
     }
-    public void ShowItem()
+    public void ShowItem() // 기존 아이템 슬롯을 초기화하고, 탭에 맞는 아이템들을 받아와서 보여준다.
     {
         int size;
         inventoryTabList.Clear(); //기존에 있던 슬롯들 초기화
@@ -360,74 +343,33 @@ public class Inventory : MonoBehaviour
                 break;
         }
         size = inventoryTabList.Count;
-        if (selectedItem + 1 > size)
+        if (selectedItem + 1 > size)  // 확인하기
             selectedItem -= 1;
         for (int i = 0; i < size; i++)
         {
             slots[i].gameObject.SetActive(true);
             slots[i].AddItem(inventoryTabList[i]);
-        }// 인벤토리 탭 리스트의 내용을 인벤토리 슬롯에 추가
-        SelectedItem();
-    } // 아이템 활성화(인벤토리탭리스트 조건에 맞는 아이템들만 넣어주고, 인벤토리 슬롯에 출력
-    public void SelectedItem()
-    {
-        StopAllCoroutines();
-        if (inventoryTabList.Count > 0)
-        {
-            Color color = slots[0].selected_Item.GetComponent<Image>().color;
-            color.a = 0f;
-            Color colora = color;
-            colora.a = 0.5f;
-            slots[selectedItem].selected_Item.GetComponent<Image>().color = colora;
-            for (int i=0; i<inventoryTabList.Count; i++)
-            {
-                slots[i].selected_Item.GetComponent<Image>().color = color;
-            }
         }
-        else
-        {
-            description_Text.text = " ";
-            itemName_Text.text = " ";
-        }
-    } //선택된 아이템을 제외하고, 다른 모든 탭의 컬러 알파값을 0으로 조정
-    IEnumerator SelectedItemEffectCoroutine()
-    {
-        while (itemActivated)
-        {
-            Color color = slots[0].GetComponent<Image>().color;
-            while (color.a < 0.5f)
-            {
-                color.a += 0.03f;
-                slots[selectedItem].selected_Item.GetComponent<Image>().color = color;
-                yield return waitTime;
-            }
-            while (color.a > 0f)
-            {
-                color.a -= 0.03f;
-                slots[selectedItem].selected_Item.GetComponent<Image>().color = color;
-                yield return waitTime;
-            }
-            yield return new WaitForSeconds(0.3f);
-        }
-    } // 선택된 아이템 반짝임 효과
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I)) // I키를 눌렀을 때 인벤토리 창을 열고 닫게 만든다.
         {
             activated = !activated;
             if (activated)
             {
                 go.SetActive(true);
-                //itemActivated = false;
+                selectedItem = 0;
+                icon.sprite = null;
+                description_Text.text = " ";
+                itemName_Text.text = " ";
                 ShowTab();
                 ShowItem();
+                ShowEquipment();
             }
             else
-            {
                 go.SetActive(false);
-                StopAllCoroutines();
-                //itemActivated = false;
-            }
         }
     }
 }

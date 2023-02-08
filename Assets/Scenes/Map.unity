@@ -6242,6 +6242,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Equipment_Slot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1910520766591591828, guid: 98c62db1cd2a55f459a0b8ca5370b1ed, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5295285423335482609, guid: 98c62db1cd2a55f459a0b8ca5370b1ed, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9534,6 +9538,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Equipment_Slot
       objectReference: {fileID: 0}
+    - target: {fileID: 1910520766591591828, guid: 98c62db1cd2a55f459a0b8ca5370b1ed, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5295285423335482609, guid: 98c62db1cd2a55f459a0b8ca5370b1ed, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9855,6 +9863,10 @@ PrefabInstance:
     - target: {fileID: 1910520766591591828, guid: 98c62db1cd2a55f459a0b8ca5370b1ed, type: 3}
       propertyPath: m_Name
       value: Equipment_Slot (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1910520766591591828, guid: 98c62db1cd2a55f459a0b8ca5370b1ed, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5295285423335482609, guid: 98c62db1cd2a55f459a0b8ca5370b1ed, type: 3}
       propertyPath: m_Pivot.x
