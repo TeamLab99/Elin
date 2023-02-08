@@ -78,38 +78,92 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    void OnSelectedItem(int num)
-    {
-        showEquipStat = false;
-        selectedItem = num;
-        itemName_Text.text = inventoryTabList[selectedItem].itemName;
-        description_Text.text = inventoryTabList[selectedItem].itemDescription;
-        icon.sprite= inventoryTabList[selectedItem].itemIcon;
-        SelectedTab();
-        //UseItem();
-    }
-
-    void OnSelectedTab(int num)
+    void OnSelectedTab(int num) // 탭 버튼을 눌렀을 때 호출한다.
     {
         showEquipStat = false;
         selectedTab = num;
         selectedItem = 0;
-        Debug.Log(selectedTab);
-        icon.sprite = null; 
+        BtnChange(0);
         SelectedTab();
         ShowItem();
     }
 
-    void OnSelectedEquip(int num)
+    void OnSelectedItem(int num) // 아이템창의 아이템을 눌렀을 때 호출한다.
     {
-        showEquipStat = true;
-        use_Text.text = "착용해제";
-        drop_Text.text = " ";
-        useBtnOnOff.SetActive(false);
+        showEquipStat = false;
+        selectedItem = num;
+        BtnChange(1);
+        SelectedTab();
+        //UseItem();
+    }
+
+    void OnSelectedEquip(int num) // 장비창을 눌렀을 때 호출한다.
+    {
+        showEquipStat = true; // 장비창을 눌렀는지 확인
+        BtnChange(2);
         selectedEquip = num;
     }
 
-    void OnSelectedUse(int num)
+    void ChangeTab()
+    {
+        if (selectedTab == 0)
+        {
+            use_Text.text = "사용하기";
+            useBtnOnOff.SetActive(true);
+            drop_Text.text = "버리기";
+        }
+        else if (selectedTab == 1)
+        {
+            use_Text.text = "착용하기";
+            useBtnOnOff.SetActive(true);
+            drop_Text.text = "버리기";
+        }
+        else if (selectedTab == 2)
+        {
+            use_Text.text = "버리기";
+            drop_Text.text = " ";
+            useBtnOnOff.SetActive(false);
+        }
+    }
+
+    void BtnChange(int num) // 버튼을 눌렀을 때 변경되는 텍스트들과 버튼들을 관리한다.
+    {
+        switch (num)
+        {
+            case 0: // 탭을 선택했을 때 버튼
+                if (!showEquipStat)
+                {
+                    icon.sprite = null;
+                    description_Text.text = " ";
+                    itemName_Text.text = " ";
+                    ChangeTab();
+                }
+                break;
+            case 1: // 아이템을 선택했을 때 버튼
+                itemName_Text.text = inventoryTabList[selectedItem].itemName;
+                description_Text.text = inventoryTabList[selectedItem].itemDescription;
+                icon.sprite = inventoryTabList[selectedItem].itemIcon;
+                ChangeTab();
+                break;
+            case 2: // 장비창을 선택했을 때 버튼
+                use_Text.text = "착용해제";
+                drop_Text.text = " ";
+                itemName_Text.text = equipmentTakeOnList[selectedEquip].itemName;
+                description_Text.text = equipmentTakeOnList[selectedEquip].itemDescription;
+                icon.sprite = equipmentTakeOnList[selectedEquip].itemIcon;
+                useBtnOnOff.SetActive(false);
+                break;
+            case 3: // 아이템을 다 사용했을 때 or 장비를 해제했을 때
+                icon.sprite = null;
+                description_Text.text = " ";
+                itemName_Text.text = " ";
+                break;
+            default:
+                break;
+        }
+    }
+
+    void OnSelectedUse(int num) // 선택된 아이템을 사용하거나 버릴 때 호출한다.
     {
         if (num == 0 && showEquipStat)
         {
@@ -125,10 +179,11 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    void TakeOffEquip(int num) // 장비 착용 창 버튼
+    void TakeOffEquip(int num) // 착용한 장비를 해제한다.
     {
         inventoryItemList.Add(equipmentTakeOnList[num]);
         equipmentTakeOnList.RemoveAt(num);
+        BtnChange(3);
         ShowItem();
         ShowEquipment();
     }
@@ -173,7 +228,6 @@ public class Inventory : MonoBehaviour
     } // 인벤토리 슬롯 초기화
     public void SelectedTab()
     {
-        StopAllCoroutines();
         Color color = selectedTabImages[selectedTab].GetComponent<Image>().color;
         color.a = 0f;
         Color colora = color;
@@ -183,30 +237,6 @@ public class Inventory : MonoBehaviour
             selectedTabImages[i].GetComponent<Image>().color = color;
         }
         selectedTabImages[selectedTab].GetComponent<Image>().color = colora;
-
-     
-        if (!showEquipStat)
-        {
-            if (selectedTab == 0)
-            {
-                use_Text.text = "사용하기";
-                useBtnOnOff.SetActive(true);
-                drop_Text.text = "버리기";
-            }
-            else if (selectedTab == 1)
-            {
-                use_Text.text = "착용하기";
-                useBtnOnOff.SetActive(true);
-                drop_Text.text = "버리기";
-            }
-            else if (selectedTab == 2)
-            {
-                use_Text.text = "버리기";
-                drop_Text.text = " ";
-                useBtnOnOff.SetActive(false);
-            }
-        }
-        
        // StartCoroutine(SelectedTabEffectCoroutine());
     } // 선택된 탭을 제외하고 다른 모든 탭의 컬러 알파값 0
     
@@ -255,7 +285,10 @@ public class Inventory : MonoBehaviour
                     if (inventoryItemList[i].itemCount > 1)
                         inventoryItemList[i].itemCount--;
                     else
+                    {
                         inventoryItemList.RemoveAt(i);
+                        BtnChange(3);
+                    }
                     ShowItem();
                     break;
                 }
@@ -269,6 +302,7 @@ public class Inventory : MonoBehaviour
                 {
                     equipmentTakeOnList.Add(inventoryTabList[selectedItem]);
                     inventoryItemList.RemoveAt(i);
+                    BtnChange(3);
                     ShowEquipment();
                     ShowItem();
                     break;
@@ -301,7 +335,6 @@ public class Inventory : MonoBehaviour
         int size;
         inventoryTabList.Clear(); //기존에 있던 슬롯들 초기화
         RemoveSlot();
-        
         switch (selectedTab) //탭에 따른 분류, 그에 따른 아이템 리스트에 추가
         {
             case 0:
@@ -350,8 +383,6 @@ public class Inventory : MonoBehaviour
             {
                 slots[i].selected_Item.GetComponent<Image>().color = color;
             }
-            
-            //StartCoroutine(SelectedItemEffectCoroutine());        
         }
         else
         {
