@@ -73,3 +73,10 @@ crashlytics-build.properties
 *.dwlt
 UserSettings/Layouts/CurrentMaximizeLayout.dwlt
 UserSettings/Layouts/default-2021.dwlt
+*.json
+*.dwlt
+*.asset
+ProjectSettings/ProjectSettings.asset
+ProjectSettings/QualitySettings.asset
+UserSettings/EditorUserSettings.asset
+UserSettings/Layouts/CurrentMaximizeLayout.dwlt

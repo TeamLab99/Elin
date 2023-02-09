@@ -19,57 +19,67 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 54068d7c2b5d980438dacd63d2a80ac4, type: 3}
     percent: 12
     type: "\uACF5\uACA9"
+    cost: 1
   - name: "\uB204\uBAA8"
     attack: 1
     health: 7
     sprite: {fileID: 21300000, guid: 75925c847c5ceb646ab2e0ea205f8435, type: 3}
     percent: 10
     type: "\uD68C\uBCF5"
+    cost: 1
   - name: "\uB514\uB2C8\uC5D0"
     attack: 4
     health: 4
     sprite: {fileID: 21300000, guid: 54af4e4ce25d8cb4397a280ed97af562, type: 3}
     percent: 10
     type: "\uACF5\uACA9"
+    cost: 1
   - name: "\uB77C\uB2C8\uC5D8"
     attack: 1
     health: 4
     sprite: {fileID: 21300000, guid: 3a1559583a9516d4784256cea66506cd, type: 3}
     percent: 15
     type: "\uD68C\uBCF5"
+    cost: 1
   - name: "\uB8E8\uB370\uB098"
     attack: 1
     health: 3
     sprite: {fileID: 21300000, guid: 96a0f9bbd84254e46ac36f6f5212f5c8, type: 3}
     percent: 15
     type: "\uACF5\uACA9"
+    cost: 1
   - name: "\uB9AC\uCF54"
     attack: 3
     health: 4
     sprite: {fileID: 21300000, guid: e03ee7debb519594d9f8b6de6c89466e, type: 3}
     percent: 8
     type: "\uD68C\uBCF5"
+    cost: 1
   - name: "\uCCB4\uB9AC"
     attack: 4
     health: 5
     sprite: {fileID: 21300000, guid: 61c1891409f77c143980896cd6d223ce, type: 3}
     percent: 10
     type: "\uACF5\uACA9"
+    cost: 1
   - name: "\uCF08\uD2B8"
     attack: 3
     health: 4
     sprite: {fileID: 21300000, guid: 8025d5d9eeeb124408f055202a569c1f, type: 3}
     percent: 8
     type: "\uD68C\uBCF5"
+    cost: 1
   - name: "\uD504\uB9AC"
     attack: 3
     health: 4
     sprite: {fileID: 21300000, guid: bc90be6600f14d34b99e2279f17a6a09, type: 3}
     percent: 8
     type: "\uACF5\uACA9"
+    cost: 1
   - name: "\uD0C0\uC774\uAC70"
     attack: 4
     health: 8
     sprite: {fileID: 21300000, guid: 078c54c444b86f54d9705df5ef134880, type: 3}
     percent: 4
     type: "\uD68C\uBCF5"
+    cost: 1

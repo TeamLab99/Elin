@@ -15,6 +15,7 @@ public class Card : MonoBehaviour
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text keyTMP;
     [SerializeField] TMP_Text typeTMP;
+    [SerializeField] TMP_Text costTMP;
     #endregion
 
     // 카드에 담긴 정보, 초기 위치
@@ -31,9 +32,10 @@ public class Card : MonoBehaviour
         this.item = item;
         character.sprite = this.item.sprite;
         nameTMP.text = this.item.name;
+        typeTMP.text = this.item.type;
         attackTMP.text = this.item.attack.ToString();
         healthTMP.text = this.item.health.ToString();
-        typeTMP.text = this.item.type;
+        costTMP.text = this.item.cost.ToString();
 
         // 회복 타입이면 타입 텍스트 초록색으로 변경
         if (this.item.type == "회복")
@@ -90,5 +92,11 @@ public class Card : MonoBehaviour
     void CardUse()
     {
         CardManager.Inst.UseCard(this.item);
+    }
+
+    public int GetCost()
+    {
+        string str = costTMP.text;
+        return int.Parse(str);
     }
 }

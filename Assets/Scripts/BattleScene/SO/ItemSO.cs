@@ -14,6 +14,7 @@ public class Item
     public Sprite sprite; // 이미지
     public float percent; // 확률
     public string type; // 카테고리
+    public int cost;
 }
 
 
