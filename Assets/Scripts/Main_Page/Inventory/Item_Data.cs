@@ -15,8 +15,7 @@ public class Item_Data
     {
           Consumer,
           Equipment,
-          Quest,
-          Etc
+          Quest
     }
     public Item_Data(int _itemID, string _itemName ,string _itemDescription,ItemType _itemType, int _itemCount= 1)
     {
