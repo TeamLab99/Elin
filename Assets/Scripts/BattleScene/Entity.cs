@@ -12,10 +12,12 @@ public class Entity : MonoBehaviour
 {
     // 인스펙터
     [SerializeField] TMP_Text healthTMP;
+    [SerializeField] GameObject skillEffect;
+    [SerializeField] float attackSpeed = 3f;
+    [SerializeField] int skillCount = 5;
 
     public int attack;
     public int health;
-
     public PRS originPRS; // 기존 PRS 저장
     public Vector3 originPos; // 위치값만 저장
 
@@ -30,5 +32,20 @@ public class Entity : MonoBehaviour
     public void SetHealth()
     {
         healthTMP.text = health.ToString();
+    }
+
+    public float GetAttackSpeed()
+    {
+        return attackSpeed;
+    }
+
+    public int GetSkillCount()
+    {
+        return skillCount;
+    }
+
+    public void SkillEffectOn()
+    {
+        skillEffect.SetActive(true);
     }
 }
