@@ -6,10 +6,8 @@ public class Pool_Manager : MonoBehaviour
 {
     // 프리팹들을 보관할 변수
     public GameObject[] prefabs;
-
     // 풀 담당을 하는 리스트들
     List<GameObject>[] pools;
-
 
     void Awake()
     {
@@ -24,6 +22,7 @@ public class Pool_Manager : MonoBehaviour
     {
         GameObject select = null;
         // 선택한 풀의 비활성화 된 게임 오브젝트에 접근한다.
+       
         foreach (GameObject item in pools[idx])
         {
             if (!item.activeSelf)
