@@ -84,7 +84,6 @@ public class Battle : MonoBehaviour
     {
         yield return delay15;
 
-        HitEffectWithAttack();
         curTime = maxTime;
 
         gaugeStop = false;
@@ -96,7 +95,7 @@ public class Battle : MonoBehaviour
     {
         EffectManager.Inst.MoveTransform(monster.gameObject,
             new PRS(monster.transform.position + Vector3.left * 25, Utils.QI, Vector3.one * 1.2f), true, 0.6f);
-        Attack(3, true);
+        Attack(5, true);
     }
 
 
