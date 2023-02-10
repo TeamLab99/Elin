@@ -8431,7 +8431,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 722b43e97e237314487694f289be556b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textHp: {fileID: 1747945172}
+  textState:
+  - {fileID: 1747945172}
+  - {fileID: 1804811447}
+  - {fileID: 884354218}
+  - {fileID: 547069644}
+  atk: 5
+  def: 0
+  currentHp: 50
+  currentMp: 50
 --- !u!1001 &596681374
 PrefabInstance:
   m_ObjectHideFlags: 0
