@@ -40,7 +40,7 @@ public class Inventory : MonoBehaviour
     private bool stopKeyInput; // 키 입력 제한 (소비할 때 나오는 질의 중에)
     private bool showEquipStat=false; // 착용한 장비의 스탯을 보여주는지
     private WaitForSeconds waitTime = new WaitForSeconds(0.01f);
-
+    private Player_Stat thePlayerStat;
 
     void Start()
     {
@@ -52,6 +52,7 @@ public class Inventory : MonoBehaviour
         slots = tf.GetComponentsInChildren<Inventory_Slot>();
         eslots = etf.GetComponentsInChildren<Equipment_Slot>();
         OnClickButton();
+        thePlayerStat = FindObjectOfType<Player_Stat>();
     }
 
     void OnClickButton() // 버튼 클릭 시, 클릭한 번호의 순서를 반환해주는 함수를 불러온다. (버튼들에 함수를 연결한다.)
@@ -182,10 +183,28 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+    private void EquipOnEffect(Item_Data _item)
+    {
+        thePlayerStat.atk += _item.atk;
+        thePlayerStat.def += _item.def;
+    }
+
+    private void ConsumEffect(Item_Data _item)
+    {
+        thePlayerStat.currentHp+= _item.plusHp;
+        thePlayerStat.currentMp += _item.plusMp;
+    }
+
+    private void EquipOffEffect(Item_Data _item)
+    {
+        thePlayerStat.atk -= _item.atk;
+        thePlayerStat.def -= _item.def;
+    }
 
     void TakeOffEquip(int num) // 착용한 장비를 해제한다.
     {
         inventoryItemList.Add(equipmentTakeOnList[num]);
+        EquipOffEffect(equipmentTakeOnList[num]);
         equipmentTakeOnList.RemoveAt(num);
         BtnChange(3);
         ShowItem();
@@ -282,6 +301,7 @@ public class Inventory : MonoBehaviour
                         inventoryItemList.RemoveAt(i);
                         BtnChange(3);
                     }
+                    ConsumEffect(inventoryTabList[selectedItem]);
                     ShowItem();
                     break;
                 }
@@ -296,6 +316,7 @@ public class Inventory : MonoBehaviour
                     equipmentTakeOnList.Add(inventoryTabList[selectedItem]);
                     inventoryItemList.RemoveAt(i);
                     BtnChange(3);
+                    EquipOnEffect(inventoryTabList[selectedItem]);
                     ShowEquipment();
                     ShowItem();
                     break;

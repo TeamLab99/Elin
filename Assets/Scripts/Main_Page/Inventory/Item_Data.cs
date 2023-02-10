@@ -17,7 +17,11 @@ public class Item_Data
           Equipment,
           Quest
     }
-    public Item_Data(int _itemID, string _itemName ,string _itemDescription,ItemType _itemType, int _itemCount= 1)
+    public int atk;
+    public int def;
+    public int plusHp;
+    public int plusMp;
+    public Item_Data(int _itemID, string _itemName, string _itemDescription, ItemType _itemType, int _atk = 0, int _def = 0,int _plusHp=0,int _plus_Mp=0, int _itemCount= 1)
     {
         itemID = _itemID;
         itemCount = _itemCount;
@@ -25,6 +29,10 @@ public class Item_Data
         itemDescription = _itemDescription;
         itemType = _itemType;
         itemIcon = Resources.Load("Main_Page/Sprites/Items/" + itemID.ToString(), typeof(Sprite)) as Sprite; //Sprite로 가져왔지만 변환이 안되서 as Sprite를 붙어야 한다.
+        atk = _atk;
+        def = _def;
+        plusHp = _plusHp;
+        plusMp = _plus_Mp;
     } // 아이템 정보
     
 }
