@@ -54,7 +54,7 @@ public class Enemy_Move : MonoBehaviour
         speed = data.speed;
         maxHealth = data.health;
         health = data.health;
-
+        Debug.Log(data.enemyId);
     }
 
     private void OnTriggerEnter2D(Collider2D collision) // 트리거 충돌

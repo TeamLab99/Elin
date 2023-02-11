@@ -62,6 +62,7 @@ public class SpawnData
     public int spriteType;
     public int health;
     public float speed;
+    public int enemyId;
     public enum montype
     {
         man,
@@ -72,11 +73,12 @@ public class SpawnData
     public montype mon;
    
 
-    public SpawnData(float _spawnTime, int _spriteType, int _health, float _speed, montype _montype){
+    public SpawnData(float _spawnTime, int _spriteType, int _health, float _speed, int _enemyId, montype _montype){
         spawnTime = _spawnTime;
         spriteType = _spriteType;
         health = _health;
         speed = _speed;
         mon = _montype;
+        enemyId = _enemyId;
     }
 }
