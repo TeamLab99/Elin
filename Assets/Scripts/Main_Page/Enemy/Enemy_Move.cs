@@ -61,7 +61,7 @@ public class Enemy_Move : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            gameObject.SetActive(false);
+            rb.velocity *= 2;
         }
     }
 }
