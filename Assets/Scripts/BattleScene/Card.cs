@@ -74,6 +74,7 @@ public class Card : MonoBehaviour
             .Join(attackTMP.DOFade(0, dotweenTime))
             .Join(keyTMP.DOFade(0, dotweenTime))
             .Join(typeTMP.DOFade(0, dotweenTime))
+            .Join(costTMP.DOFade(0, dotweenTime))
             .OnComplete(() =>
             {
                     // 시퀀스가 끝났을 때 카드 효과를 발동시키고 게임오브젝트를 파괴시킴. -> 남아있는 카드들의 정렬을 위해

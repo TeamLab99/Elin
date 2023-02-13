@@ -17,7 +17,7 @@ public class Battle : MonoBehaviour
     // 인스펙터 창에서 Entity 받아오기
     [Header("Entity")]
     [SerializeField] Entity player;
-    [SerializeField] Entity monster;
+    [SerializeField] Monster monster;
 
     // 행동 게이지 수치 관련
     [Header("UI")]
@@ -25,9 +25,7 @@ public class Battle : MonoBehaviour
     float maxTime;
     static float curTime;
     int count;
-
     WaitForSeconds delay15 = new WaitForSeconds(1.5f);
-
 
     // 배틀 종료 판단
     public bool isDie;
@@ -38,7 +36,7 @@ public class Battle : MonoBehaviour
         maxTime = monster.GetAttackSpeed();
         // 게이지 최대시간 입력
         curTime = maxTime;
-        count = 2;
+        count = monster.GetSkillCount();
     }
     private void Update()
     {
@@ -57,7 +55,7 @@ public class Battle : MonoBehaviour
                 {
                     // 게이지 재충전, 어택 애니메이션, 공격 함수
                     curTime = maxTime;
-                    HitEffectWithAttack();
+                    monster.MonsterHitEffectWithAttack(player);
                     count--;
                 }
                 else if (count == 0)
@@ -67,20 +65,17 @@ public class Battle : MonoBehaviour
                         gaugeStop = true;
                         isDie = true;
                         maxTime -= 0.5f;
-                        monster.SkillEffectOn();
-                        StartCoroutine(SkillDelay());
-                        Debug.Log(maxTime);
-
+                        EffectManager.Inst.MonsterSkillEffectOn();
+                        StartCoroutine(MonsterSkillDelay());
                     }
-                    count = 2;
+                    count = monster.GetSkillCount();
                 }
-
             }
         }
 
     }
 
-    public IEnumerator SkillDelay()
+    public IEnumerator MonsterSkillDelay()
     {
         yield return delay15;
 
@@ -88,42 +83,6 @@ public class Battle : MonoBehaviour
 
         gaugeStop = false;
         isDie = false;
-    }
-
-
-    public void HitEffectWithAttack()
-    {
-        EffectManager.Inst.MoveTransform(monster.gameObject,
-            new PRS(monster.transform.position + Vector3.left * 25, Utils.QI, Vector3.one * 1.2f), true, 0.6f);
-        Attack(5, true);
-    }
-
-
-    // 공격 함수(데미지량, 데미지를 받을 대상)
-    public void Attack(int damageNum, bool isPlayer) 
-    {
-        // true면 플레이어, false 면 적의 Entity 정보를 가져옴
-        Entity entity = isPlayer ? player : monster;
-        entity.health -= damageNum;
-
-        if (entity.health <= 0) 
-        {
-            entity.health = 0;
-            entity.SetHealth();
-            GameOver();
-            return;
-        }
-
-        // 체력 text 업데이트
-        entity.SetHealth(); 
-    }
-
-    // 회복 함수
-    public void Heal(int num, bool isMine) 
-    {
-        Entity entity = isMine ? player : monster;
-        entity.health += num;
-        entity.SetHealth();
     }
 
     public void GameOver()
@@ -136,6 +95,17 @@ public class Battle : MonoBehaviour
 
         // 게임 오버 알림
         Debug.Log("게임 오버!");
+    }
 
+    public void PlayerAttack()
+    {
+        player.Attack(monster);
+
+        
+    }
+
+    public void PlayerHeal()
+    {
+        player.Heal(5);
     }
 }

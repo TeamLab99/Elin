@@ -26,6 +26,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform myCardLeft;
     [SerializeField] Transform myCardRight;
     [SerializeField] TMP_Text playerCostTMP;
+    [SerializeField] Player player;
     //[SerializeField] ECardState eCardState;
     #endregion
     
@@ -269,12 +270,12 @@ public class CardManager : MonoBehaviour
         if (item.type == "공격")
         {
             // 적 체력 감소
-            Battle.Inst.Attack(5, false);
+            Battle.Inst.PlayerAttack();
         }
         else if (item.type == "회복")
         {
             // 자신 체력 회복
-            Battle.Inst.Heal(5, true);
+            Battle.Inst.PlayerHeal();
         }
     }
 
