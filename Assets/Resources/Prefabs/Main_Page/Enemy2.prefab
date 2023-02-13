@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 8925768475982022502}
   - component: {fileID: 4673972477491393932}
   - component: {fileID: 6096275610436951388}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,13 +120,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d8f83d7f977ef40a9ac3f9dfbd46fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  next: 0
-  speed: 0
-  health: 0
-  maxHealth: 0
+  next: 10
+  speed: 10
+  health: 10
+  maxHealth: 10
   animCon:
   - {fileID: 22100000, guid: c2359b9034c1ac045ae5d208a51ae8bb, type: 2}
   - {fileID: 22100000, guid: 7bff315a9dc26584995d00d78b50c287, type: 2}
+  target: {fileID: 0}
 --- !u!61 &4673972477491393932
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -173,4 +174,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

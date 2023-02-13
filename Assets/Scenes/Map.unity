@@ -9129,14 +9129,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnData:
-  - spawnTime: 0.5
-    spriteType: 0
-    health: 10
-    speed: 1.5
-  - spawnTime: 1
-    spriteType: 1
-    health: 25
-    speed: 2.5
+  - speed: 3
+    enemyId: 10
+    isInfection: 0
+  - speed: 0
+    enemyId: 20
+    isInfection: 0
+  - speed: 5
+    enemyId: 30
+    isInfection: 1
   spawnPoint: []
   maxCnt: 20
 --- !u!224 &728486795 stripped
@@ -11479,6 +11480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemList: []
   pool: {fileID: 1636272086}
+  pm: {fileID: 592909575}
   status: {fileID: 1555820685}
 --- !u!4 &1433267184
 Transform:
@@ -12379,8 +12381,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 6014695032248160381, guid: feeaa783b91757243aa2ec276d39485d, type: 3}
-  - {fileID: 7196393819674209306, guid: 835c35f5802d44547ba50b990fb127e7, type: 3}
+  - {fileID: 3666142674280705122, guid: 49adcc75d7494e54b9f19d09a83c8f9c, type: 3}
+  - {fileID: 9170407092077921453, guid: 0c48e530b874ffd47981985a6ba9b266, type: 3}
+  - {fileID: 3382315427160244147, guid: 84f509ad5d9411d47924d2a9e098fd9f, type: 3}
+  - {fileID: 8334138376497091587, guid: fe2355c8f817ce343916a2cd7264e420, type: 3}
+  - {fileID: 5252025032464101057, guid: cbfb668c38d3e72409bbd62510403a69, type: 3}
+  - {fileID: 3520999007231899431, guid: b507251482a69be49b999692e511cca1, type: 3}
+  - {fileID: 6585787318207838016, guid: 07f8e37fb5d0b474da14de9a65308a2a, type: 3}
+  - {fileID: 279847633676844278, guid: 676d171b8c359f647a92153bb03975fd, type: 3}
 --- !u!1 &1642493408
 GameObject:
   m_ObjectHideFlags: 0

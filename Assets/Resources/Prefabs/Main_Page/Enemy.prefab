@@ -101,13 +101,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d8f83d7f977ef40a9ac3f9dfbd46fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  next: 0
-  speed: 0
-  health: 0
-  maxHealth: 0
+  next: 5
+  speed: 5
+  health: 5
+  maxHealth: 5
   animCon:
   - {fileID: 9100000, guid: 77c1999be311faa44b876e5272070c01, type: 2}
   - {fileID: 22100000, guid: 89aa68fd0d8e27f47b893835a074037b, type: 2}
+  target: {fileID: 0}
 --- !u!50 &6014695032248160379
 Rigidbody2D:
   serializedVersion: 4
