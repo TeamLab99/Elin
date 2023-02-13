@@ -19,6 +19,7 @@ public class Player_Stat : MonoBehaviour
     public void TakeDamage()
     {
         hp -= 10;
+        mp -= 10;
     }
     void Start()
     {
