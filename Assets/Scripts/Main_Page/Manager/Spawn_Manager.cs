@@ -16,69 +16,41 @@ public class Spawn_Manager : MonoBehaviour
     }
     
     void Update() 
-    { 
-        if (cnt < maxCnt)
+    {
+        if (cnt==0)
         {
-            timer += Time.deltaTime;
-            if (timer > spawnData[Random.Range(0, 2)].spawnTime)
-            {
-                timer = 0;
-                Spawn();
-            }
-        }
-        else
-        {
-            timer = 0;
+            Spawn();
         }
     }
 
     void Spawn()
     {
         cnt++;
-        if (cnt < 10)
+        for(int i=0; i<8; i++)
         {
-            GameObject enemy = DataBase_Manager.instance.pool.Get(0);
+            GameObject enemy = DataBase_Manager.instance.pool.Get(Random.Range(0,4));
             enemy.transform.position = spawnPoint[Random.Range(1, 3)].position;
-            enemy.GetComponent<Enemy_Move>().Init(spawnData[Random.Range(0, 2)]);
+            enemy.GetComponent<Monster>().Init(spawnData[0]);
         }
-        else
+        for (int i = 0; i < 8; i++)
         {
-            GameObject enemy = DataBase_Manager.instance.pool.Get(1);
+            GameObject enemy = DataBase_Manager.instance.pool.Get(Random.Range(4, 7));
             enemy.transform.position = spawnPoint[Random.Range(3, spawnPoint.Length)].position;
-            enemy.GetComponent<Enemy_Move>().Init(spawnData[Random.Range(0, 2)]);
+            enemy.GetComponent<Monster>().Init(spawnData[1]);
         }
-    }
-
-    public void CountDown()
-    {
-        cnt -= 1;
+        for (int i = 0; i < 8; i++)
+        {
+            GameObject enemy = DataBase_Manager.instance.pool.Get(7);
+            enemy.transform.position = spawnPoint[Random.Range(3, spawnPoint.Length)].position;
+            enemy.GetComponent<Monster>().Init(spawnData[2]);
+        }
     }
 }
 
 [System.Serializable]
 public class SpawnData
 {
-    public float spawnTime;
-    public int spriteType;
-    public int health;
     public float speed;
     public int enemyId;
-    public enum montype
-    {
-        man,
-        woman,
-        baby
-    }
-
-    public montype mon;
-   
-
-    public SpawnData(float _spawnTime, int _spriteType, int _health, float _speed, int _enemyId, montype _montype){
-        spawnTime = _spawnTime;
-        spriteType = _spriteType;
-        health = _health;
-        speed = _speed;
-        mon = _montype;
-        enemyId = _enemyId;
-    }
+    public bool isInfection;
 }

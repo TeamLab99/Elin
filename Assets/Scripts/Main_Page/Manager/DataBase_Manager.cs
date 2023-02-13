@@ -8,6 +8,7 @@ public class DataBase_Manager : MonoBehaviour
     public List<Item_Data> itemList = new List<Item_Data>();
     static public DataBase_Manager instance;
     public Pool_Manager pool;
+    public Player_Move pm;
     public GameObject status;
     private bool isOpen = false;
 

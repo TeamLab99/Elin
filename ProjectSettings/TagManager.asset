@@ -4,13 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
   - Manager
   - PoolRoot
   - Sound
   - UIRoot
   - UI
   - Item
+  - Monster
   layers:
   - Default
   - TransparentFX
@@ -22,7 +22,7 @@ TagManager:
   - Wall
   - Ground
   - JumpBox
-  - Enemy
+  - Monster
   - 
   - 
   - 
