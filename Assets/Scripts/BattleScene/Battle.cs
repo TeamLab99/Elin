@@ -17,21 +17,26 @@ public class Battle : MonoBehaviour
     // 인스펙터 창에서 Entity 받아오기
     [Header("Entity")]
     [SerializeField] Entity player;
-    [SerializeField] Entity monster;
+    [SerializeField] Monster monster;
 
     // 행동 게이지 수치 관련
     [Header("UI")]
     public Image scroll;
-    float maxTime = 3f;
+    float maxTime;
     static float curTime;
+    int count;
+    WaitForSeconds delay15 = new WaitForSeconds(1.5f);
 
     // 배틀 종료 판단
     public bool isDie;
+    bool gaugeStop;
 
     private void Start()
     {
+        maxTime = monster.GetAttackSpeed();
         // 게이지 최대시간 입력
         curTime = maxTime;
+        count = monster.GetSkillCount();
     }
     private void Update()
     {
@@ -41,45 +46,43 @@ public class Battle : MonoBehaviour
         // 누군가 죽지 않았다면 계속 검사
         if (!isDie)
         {
-            // Time.DeltaTime을 이용하여 curTime이 0초가 될 때 마다 몬스터의 공격 함수 호출
-            curTime -= Time.deltaTime;
+            if(!gaugeStop)
+                curTime -= Time.deltaTime;
+            
             if (curTime <= 0)
             {
-                // 게이지 재충전, 어택 애니메이션, 공격 함수
-                curTime = maxTime;
-                EffectManager.Inst.MoveTransform(monster.gameObject, 
-                    new PRS(monster.transform.position + Vector3.left * 25, Utils.QI, Vector3.one * 1.2f), true, 0.6f);
-                Attack(10, true);
+                if (count > 0)
+                {
+                    // 게이지 재충전, 어택 애니메이션, 공격 함수
+                    curTime = maxTime;
+                    monster.MonsterHitEffectWithAttack(player);
+                    count--;
+                }
+                else if (count == 0)
+                {
+                    if (maxTime > 1f)
+                    {
+                        gaugeStop = true;
+                        isDie = true;
+                        maxTime -= 0.5f;
+                        EffectManager.Inst.MonsterSkillEffectOn();
+                        StartCoroutine(MonsterSkillDelay());
+                    }
+                    count = monster.GetSkillCount();
+                }
             }
         }
 
     }
 
-    // 공격 함수(데미지량, 데미지를 받을 대상)
-    public void Attack(int damageNum, bool isPlayer) 
+    public IEnumerator MonsterSkillDelay()
     {
-        // true면 플레이어, false 면 적의 Entity 정보를 가져옴
-        Entity entity = isPlayer ? player : monster;
-        entity.health -= damageNum;
+        yield return delay15;
 
-        if (entity.health <= 0) 
-        {
-            entity.health = 0;
-            entity.SetHealth();
-            GameOver();
-            return;
-        }
+        curTime = maxTime;
 
-        // 체력 text 업데이트
-        entity.SetHealth(); 
-    }
-
-    // 회복 함수
-    public void Heal(int num, bool isMine) 
-    {
-        Entity entity = isMine ? player : monster;
-        entity.health += num;
-        entity.SetHealth();
+        gaugeStop = false;
+        isDie = false;
     }
 
     public void GameOver()
@@ -92,26 +95,17 @@ public class Battle : MonoBehaviour
 
         // 게임 오버 알림
         Debug.Log("게임 오버!");
-
     }
 
-    // 몬스터 기본 공격 코루틴(현재 미사용)
-    IEnumerator MonsterNormalAttack()
+    public void PlayerAttack()
     {
-        // 플레이어의 체력 0 이면, 코루틴 정지
-        if (player.health <= 0)
-        {
-            StopCoroutine(MonsterNormalAttack());
-            yield return null;
-        }
+        player.Attack(monster);
 
-        // 3초 딜레이 이후 Attack 함수 실행
-        yield return new WaitForSeconds(3f);
-        Attack(2, true);
-
-        // 재귀 실행
-        StartCoroutine(MonsterNormalAttack());
+        
     }
 
-
+    public void PlayerHeal()
+    {
+        player.Heal(5);
+    }
 }

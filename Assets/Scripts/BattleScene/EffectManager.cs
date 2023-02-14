@@ -15,7 +15,8 @@ public class EffectManager : MonoBehaviour
     
     // 인스펙터
     [SerializeField] Image effect;
-    
+    [SerializeField] GameObject skillEffect;
+
     // DOTween용 sequence
     Sequence mySequence;
     Sequence mySequence2;
@@ -38,16 +39,22 @@ public class EffectManager : MonoBehaviour
     }
 
     // 카드 이동 애니메이션과 다른 점은 오브젝트를 따로 파라미터로 받아서 이동
-    public void MoveTransform(GameObject obj, PRS prs, bool useDotween, float dotweenTime = 0)
+    public void MoveTransform(GameObject obj, bool useDotween, float dotweenTime = 0)
     {
         SetColor("r"); // 빨강
+
+        var p = obj.transform.position + Vector3.left * 25;
+        var r = Utils.QI;
+        var s = Vector3.one * 1.2f;
+
+
         if (useDotween)
         {
             // 오브젝트 시퀀스
             mySequence = DOTween.Sequence();
-            mySequence.Append(obj.transform.DOMove(prs.pos, dotweenTime).SetRelative().SetEase(Ease.Flash, 2, -1)) // 앞으로 갔다가 돌아옴
-            .Join(obj.transform.DORotateQuaternion(prs.rot, dotweenTime))
-            .Join(obj.transform.DOScale(prs.scale, dotweenTime).SetRelative().SetEase(Ease.Flash, 2, -1)); // 커졌다가 돌아옴
+            mySequence.Append(obj.transform.DOMove(p, dotweenTime).SetRelative().SetEase(Ease.Flash, 2, -1)) // 앞으로 갔다가 돌아옴
+            .Join(obj.transform.DORotateQuaternion(r, dotweenTime))
+            .Join(obj.transform.DOScale(s, dotweenTime).SetRelative().SetEase(Ease.Flash, 2, -1)); // 커졌다가 돌아옴
 
             // 이미지 시퀀스
             mySequence2 = DOTween.Sequence();
@@ -58,10 +65,15 @@ public class EffectManager : MonoBehaviour
         else
         {
             // 위치만 바꾸기
-            transform.position = prs.pos;
-            transform.rotation = prs.rot;
-            transform.localScale = prs.scale;
+            transform.position = p;
+            transform.rotation = r;
+            transform.localScale = s;
         }
     }
 
+
+    public void MonsterSkillEffectOn()
+    {
+        skillEffect.SetActive(true);
+    }
 }

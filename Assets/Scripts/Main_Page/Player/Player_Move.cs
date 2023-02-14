@@ -257,15 +257,5 @@ public class Player_Move : MonoBehaviour
             rb.AddForce(new Vector2(10*isRight, 5), ForceMode2D.Impulse);  
     } // 충돌
    */
-    private void OnTriggerEnter2D(Collider2D collision) // 트리거 충돌
-    {
-        if (collision.CompareTag("Enemy"))
-        {
-            
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-
-    }
+  
 }

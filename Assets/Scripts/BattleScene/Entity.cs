@@ -10,25 +10,55 @@ using DG.Tweening;
 /// </summary>
 public class Entity : MonoBehaviour
 {
-    // 인스펙터
-    [SerializeField] TMP_Text healthTMP;
+    [SerializeField] SpriteRenderer characterSprite;
+    [SerializeField] TMP_Text healthTMP;   
 
-    public int attack;
-    public int health;
+    [SerializeField] float health;
+    [SerializeField] float maxHealth;
+    [SerializeField] float attack;
+    [SerializeField] float defense;
 
-    public PRS originPRS; // 기존 PRS 저장
-    public Vector3 originPos; // 위치값만 저장
+    PRS originPRS; // 기존 PRS 저장
+    Vector3 originPos; // 위치값만 저장
 
-    void Start()
+
+    public void Attack(Entity entity)
     {
-        // 초기화
-        SetHealth();
-        originPos = originPRS.pos;
+        entity.TakeDamage(attack);
     }
 
-    // 텍스트 업데이트
-    public void SetHealth()
+    public void TakeDamage(float amount)
+    {
+        amount -= defense;
+
+        if (health > 0)
+        {
+            health -= amount;
+        }
+
+        if (health <= 0)
+        {
+            health = 0;
+            Battle.Inst.GameOver();
+        }
+
+        healthTMP.text = health.ToString();
+    }
+
+    public void Heal(float amount)
+    {
+        health += amount;
+
+        if (health > maxHealth)
+            health = maxHealth;
+        healthTMP.text = health.ToString();
+
+    }
+
+    public void HealthUpdate()
     {
         healthTMP.text = health.ToString();
     }
+
+
 }

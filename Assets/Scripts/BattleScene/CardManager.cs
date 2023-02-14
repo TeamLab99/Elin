@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using Random = UnityEngine.Random;
 using DG.Tweening;
 
@@ -24,6 +25,8 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform cardUsePoint;
     [SerializeField] Transform myCardLeft;
     [SerializeField] Transform myCardRight;
+    [SerializeField] TMP_Text playerCostTMP;
+    [SerializeField] Player player;
     //[SerializeField] ECardState eCardState;
     #endregion
     
@@ -37,6 +40,10 @@ public class CardManager : MonoBehaviour
     bool isCardUsed = false;
     bool isEnlarge = false;
     bool isNumpad = false;
+    float maxTime = 1f;
+    static float curTime=0;
+
+    int playerCost =5;
     int curCardNum = 0;
     int prevCardNum = 0;
     WaitForSeconds delay02 = new WaitForSeconds(0.2f);
@@ -80,6 +87,7 @@ public class CardManager : MonoBehaviour
         // 카드 정보 가져오고 섞고, 첫 드로우
         SetupItemBuffer();
         TurnManager.OnAddCard += AddCard;
+        curTime = maxTime;
     }
 
     private void OnDestroy()
@@ -93,6 +101,20 @@ public class CardManager : MonoBehaviour
         if (!TurnManager.Inst.isLoading && myCards.Count <= 0)
         {
             StartCoroutine(TurnManager.Inst.CardDraw());
+        }
+
+        if (playerCost>= 0 && playerCost < 5)
+        {
+            // Time.DeltaTime을 이용하여 curTime이 0초가 될 때 마다 몬스터의 공격 함수 호출
+            curTime -= Time.deltaTime;
+            if (curTime <= 0)
+            {
+                // 게이지 재충전, 어택 애니메이션, 공격 함수
+                curTime = maxTime;
+                playerCost++;
+                playerCostTMP.text = playerCost + "/5";
+
+            }
         }
 
         //SetECardState();
@@ -210,21 +232,31 @@ public class CardManager : MonoBehaviour
     {
         if (!isCardMoving && isEnlarge) // 다른 카드가 안 움직이고 있고, 이 카드가 선택된 상태라면
         {
-            // 카드 리스트에서 카드 삭제 후 정렬 먼저 함
-            Card card = selectCard;
-            myCards.Remove(selectCard); 
-            SetKeyName();
-            CardAlignment(true, 0.5f);
+            if (playerCost - selectCard.GetCost() >= 0)
+            {
+                playerCost--;
+                playerCostTMP.text = playerCost + "/5";
+                // 카드 리스트에서 카드 삭제 후 정렬 먼저 함
+                Card card = selectCard;
+                myCards.Remove(selectCard);
+                SetKeyName();
+                CardAlignment(true, 0.5f);
 
-            selectCard = null;
-            isEnlarge = false;
-            isCardMoving = false;
-            isCardUsed = true;
+                selectCard = null;
+                isEnlarge = false;
+                isCardMoving = false;
+                isCardUsed = true;
 
-            // 카드 애니메이션
-            card.MoveTransform(new PRS(cardUsePoint.position, Utils.QI, Vector3.one * 2.5f), true, 0.4f);
-            yield return delay02;
-            card.FadeOut(0.4f);
+                // 카드 애니메이션
+                card.MoveTransform(new PRS(cardUsePoint.position, Utils.QI, Vector3.one * 2.5f), true, 0.4f);
+                yield return delay02;
+                card.FadeOut(0.4f);
+            }
+            else
+            {
+                yield return null;
+            }
+
         }
         else
         {
@@ -238,12 +270,12 @@ public class CardManager : MonoBehaviour
         if (item.type == "공격")
         {
             // 적 체력 감소
-            Battle.Inst.Attack(5, false);
+            Battle.Inst.PlayerAttack();
         }
         else if (item.type == "회복")
         {
             // 자신 체력 회복
-            Battle.Inst.Heal(5, true);
+            Battle.Inst.PlayerHeal();
         }
     }
 

@@ -49,7 +49,7 @@ public class BPGameManager : MonoBehaviour
         #endregion
 
         #region 방향키 선택
-        // 오른쪽 방향키
+/*        // 오른쪽 방향키
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             StartCoroutine(CardManager.Inst.MoveToArrow(true));
@@ -69,7 +69,7 @@ public class BPGameManager : MonoBehaviour
         {
             StopAllCoroutines();
             CardManager.Inst.StopCo();
-        }
+        }*/
         #endregion
 
         #region 그 외
