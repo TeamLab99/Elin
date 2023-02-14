@@ -8,7 +8,7 @@ public class Animal : Enemy
     float uninfectionSpeed = 3f;
     float infectionSpeed = 6f;
     float speed;
-
+    bool mad;
     void Start()
     {
    
@@ -37,7 +37,8 @@ public class Animal : Enemy
     }
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(dirX*speed, rb.velocity.y);
+        if(!mad)
+            rb.velocity = new Vector2(dirX*speed, rb.velocity.y);
     }
 
     protected override void Find()
@@ -52,19 +53,35 @@ public class Animal : Enemy
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+       
         if (collision.CompareTag("Player") && isInfection)
+        {
             anim.SetBool("Find", true);
-
+            Vector3 dir = (collision.transform.position - gameObject.transform.position).normalized;
+            DashToPlayer(dir);
+        }
     }
+
+    public void DashToPlayer(Vector3 dir)
+    {
+        CancelInvoke("Think");
+        dir.y = 0;
+        mad = true;
+        rb.velocity = dir * speed * 2;
+        Debug.Log(dir.x);
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && isInfection)
-            StartCoroutine("Behavior");
+            StartCoroutine("CoolDown");
     }
-    IEnumerator Behavior()
+    IEnumerator CoolDown()
     {
         yield return new WaitForSeconds(3f);
         anim.SetBool("Find", false);
+        Think();
+        mad = false;
         yield break; 
     }
 }
