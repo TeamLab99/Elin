@@ -11,6 +11,7 @@ public class Animal : Enemy
 
     void Start()
     {
+   
         if (isInfection)
             speed = infectionSpeed;
         else
@@ -24,14 +25,19 @@ public class Animal : Enemy
             case 0:
                 anim.SetBool("Walk", false);
                 break;
-            default:
+            case 1:
                 anim.SetBool("Walk", true);
+                gameObject.transform.localScale = new Vector3(-1, 1, 1);
                 break;
-        }    
+            case -1:
+                anim.SetBool("Walk", true);
+                gameObject.transform.localScale = new Vector3(1, 1, 1);
+                break;
+        }
     }
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(dirX*speed, 0);
+        rb.velocity = new Vector2(dirX*speed, rb.velocity.y);
     }
 
     protected override void Find()
@@ -48,10 +54,17 @@ public class Animal : Enemy
     {
         if (collision.CompareTag("Player") && isInfection)
             anim.SetBool("Find", true);
+
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && isInfection)
-            anim.SetBool("Find", false);
+            StartCoroutine("Behavior");
+    }
+    IEnumerator Behavior()
+    {
+        yield return new WaitForSeconds(3f);
+        anim.SetBool("Find", false);
+        yield break; 
     }
 }
