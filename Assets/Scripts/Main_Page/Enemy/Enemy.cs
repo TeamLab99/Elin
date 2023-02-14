@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     public bool isLive = true;
     public float speed = 3f;
@@ -25,15 +25,14 @@ public class Monster : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         spr = gameObject.GetComponent<SpriteRenderer>();
         anim = gameObject.GetComponent<Animator>();
-       
     }
  
     void AIThink()
     {
         dirX = Random.Range(-1, 2);
-        rb.velocity = Vector2.right * dirX * speed;
         Invoke("AIThink", 5f);
     }
+
     void Update()
     {
         if (enemyType !=2) // 동물, 하이리
@@ -65,10 +64,10 @@ public class Monster : MonoBehaviour
         Debug.DrawRay(groundCheck, Vector3.down, new Color(0, 1, 0));
         RaycastHit2D groundRayHit = Physics2D.Raycast(groundCheck, Vector3.down, 1, groundLayer);
 
-        if (wallRayHit && enemyType!=2)
+        rb.velocity = new Vector2(dirX * speed, rb.velocity.y);
+        if (wallRayHit.collider && enemyType!=2)
         {
-            CancelInvoke("AIThink");
-            ReThink();
+           // dirX *= -1;
         }
         if (groundRayHit.collider == null && enemyType != 2)
         {
@@ -76,26 +75,37 @@ public class Monster : MonoBehaviour
             ReThink();
         }
     }
+
     void OnEnable()
     {
         isLive = true;
+    }
+
+
+    void ReThink()
+    {
+        dirX *= -1; 
+        Invoke("AIThink",Random.Range(2,5));
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && isInfection)
         {
-            speed =defaultSpeed*2;
+            Vector3 playerPos = collision.transform.position;
+            CancelInvoke("AIThink");
+            if (playerPos.x - transform.position.x > 0)
+            {
+                dirX = 1;
+            }
+            else
+            {
+                dirX = -1;
+            }
+            speed = defaultSpeed * 2;
             anim.SetBool("Find", true);
-        } 
+            Invoke("AIThink", 3f);
+        }
     }
-
-    void ReThink()
-    {
-        dirX *= -1; 
-        rb.velocity = Vector2.right * dirX * speed;
-        Invoke("AIThink",Random.Range(2,5));
-    }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && isInfection)
