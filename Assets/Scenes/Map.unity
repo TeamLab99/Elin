@@ -8220,13 +8220,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnData:
   - speed: 3
-    enemyId: 10
+    enemyID: 10
     isInfection: 0
   - speed: 0
-    enemyId: 20
+    enemyID: 20
     isInfection: 0
   - speed: 5
-    enemyId: 30
+    enemyID: 30
     isInfection: 1
   spawnPoint: []
   maxCnt: 20

@@ -2,128 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+abstract public class Enemy : MonoBehaviour
 {
-    public bool isLive = true;
-    public float speed = 3f;
-    public float dirX;
-    public bool isInfection;
-    public int enemyId;
-    public int enemyType;
+    // 공통 변수는 Enemy 스크립트에서 묶어서 관리
+    protected int dirX;
+    protected int enemyID;
+    protected int enemyType;
+    protected bool isInfection;
 
-    private float defaultSpeed;
-
-    public LayerMask groundLayer; // 땅 레이어
-    public LayerMask wallLayer; // 벽 레이어
-
-    Rigidbody2D rb;
-    SpriteRenderer spr;
-    Animator anim;
-
-    void Awake()
+    protected Rigidbody2D rb;
+    protected SpriteRenderer spr;
+    protected Animator anim;
+    protected void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         spr = gameObject.GetComponent<SpriteRenderer>();
         anim = gameObject.GetComponent<Animator>();
-    }
- 
-    void AIThink()
-    {
-        dirX = Random.Range(-1, 2);
-        Invoke("AIThink", 5f);
-    }
-
-    void Update()
-    {
-        if (enemyType !=2) // 동물, 하이리
-        {
-            switch (dirX)
-            {
-                case -1:
-                    gameObject.transform.localScale = new Vector3(1,1,1);
-                    anim.SetBool("Walk", true);
-                    break;
-                case 0:
-                    anim.SetBool("Walk", false);
-                    break;
-                case 1:
-                    gameObject.transform.localScale = new Vector3(-1, 1, 1);
-                    anim.SetBool("Walk", true);
-                    break;
-            }
-        }
-
-    }
-    private void FixedUpdate()
-    {
-        Vector2 wallCheck = new Vector2(rb.position.x, rb.position.y);
-        Debug.DrawRay(wallCheck, Vector3.right*dirX, new Color(1, 0, 0));
-        RaycastHit2D wallRayHit = Physics2D.Raycast(wallCheck, Vector3.right*dirX, 1, wallLayer);
-
-        Vector2 groundCheck = new Vector2(rb.position.x + dirX, rb.position.y);
-        Debug.DrawRay(groundCheck, Vector3.down, new Color(0, 1, 0));
-        RaycastHit2D groundRayHit = Physics2D.Raycast(groundCheck, Vector3.down, 1, groundLayer);
-
-        rb.velocity = new Vector2(dirX * speed, rb.velocity.y);
-        if (wallRayHit.collider && enemyType!=2)
-        {
-           // dirX *= -1;
-        }
-        if (groundRayHit.collider == null && enemyType != 2)
-        {
-            CancelInvoke("AIThink");
-            ReThink();
-        }
-    }
-
-    void OnEnable()
-    {
-        isLive = true;
-    }
-
-
-    void ReThink()
-    {
-        dirX *= -1; 
-        Invoke("AIThink",Random.Range(2,5));
-    }
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player") && isInfection)
-        {
-            Vector3 playerPos = collision.transform.position;
-            CancelInvoke("AIThink");
-            if (playerPos.x - transform.position.x > 0)
-            {
-                dirX = 1;
-            }
-            else
-            {
-                dirX = -1;
-            }
-            speed = defaultSpeed * 2;
-            anim.SetBool("Find", true);
-            Invoke("AIThink", 3f);
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player") && isInfection)
-        {
-            anim.SetBool("Find", false);
-            speed = defaultSpeed;
-        }
-            
+        Think();
     }
 
     public void Init(SpawnData data)
     {
-        speed = data.speed;
+        enemyID = data.enemyID;
+        enemyType = enemyID / 10;
         isInfection = data.isInfection;
-        enemyId = data.enemyId;
-        enemyType = enemyId/10;
-        defaultSpeed = speed;
-        if (enemyType != 2)
-            AIThink();
     }
+
+    //protected abstract void Dead();
+
+    // 자식들이 같은 기능을 가지고 있다면 부모 클래스에서 추상적으로 선언한다.
+    // 부모클래스에선 추상클래스는 아무것도 선언되어 있지 않고, 자식 클래스에선 무조건 재선언 되어야 한다.
+    // 추상 클래스를 하나라도 선언하면 abstract를 붙이고, 이를 재선언 한다면 override를 붙여서 선언해줘야 한다.
+    protected abstract void Find();
+    protected abstract void Think();
+
 }

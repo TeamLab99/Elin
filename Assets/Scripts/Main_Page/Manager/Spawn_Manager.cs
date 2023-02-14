@@ -30,19 +30,19 @@ public class Spawn_Manager : MonoBehaviour
         {
             GameObject enemy = DataBase_Manager.instance.pool.Get(Random.Range(0,4));
             enemy.transform.position = spawnPoint[Random.Range(1, 3)].position;
-            enemy.GetComponent<Enemy>().Init(spawnData[0]);
+            enemy.GetComponent<Hiry>().Init(spawnData[0]);
         }
         for (int i = 0; i < 8; i++)
         {
             GameObject enemy = DataBase_Manager.instance.pool.Get(Random.Range(4, 7));
             enemy.transform.position = spawnPoint[Random.Range(3, spawnPoint.Length)].position;
-            enemy.GetComponent<Enemy>().Init(spawnData[1]);
+            enemy.GetComponent<Plant>().Init(spawnData[1]);
         }
         for (int i = 0; i < 8; i++)
         {
             GameObject enemy = DataBase_Manager.instance.pool.Get(7);
             enemy.transform.position = spawnPoint[Random.Range(3, spawnPoint.Length)].position;
-            enemy.GetComponent<Enemy>().Init(spawnData[2]);
+            enemy.GetComponent<Animal>().Init(spawnData[2]);
         }
     }
 }
@@ -51,6 +51,6 @@ public class Spawn_Manager : MonoBehaviour
 public class SpawnData
 {
     public float speed;
-    public int enemyId;
+    public int enemyID;
     public bool isInfection;
 }

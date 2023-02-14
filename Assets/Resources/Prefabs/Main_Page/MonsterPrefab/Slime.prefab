@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6585787318207838141}
   - component: {fileID: 6585787318207838018}
   - component: {fileID: 6585787318207838019}
-  - component: {fileID: 6585787318207838142}
+  - component: {fileID: -4189622606865443176}
   m_Layer: 10
   m_Name: Slime
   m_TagString: Monster
@@ -145,7 +145,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1}
   m_Direction: 0
---- !u!114 &6585787318207838142
+--- !u!114 &-4189622606865443176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,18 +154,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6585787318207838016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21b113adb5eb2154c94ada9f370b7cac, type: 3}
+  m_Script: {fileID: 11500000, guid: 9afc9b391e412f845b39a22544d32d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLive: 1
-  speed: 3
-  dirX: 0
-  isInfection: 0
-  enemyId: 0
-  enemyType: 0
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 384

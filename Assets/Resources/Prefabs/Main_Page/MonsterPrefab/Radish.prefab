@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5252025032464101084}
   - component: {fileID: 5252025032464101087}
   - component: {fileID: 5252025032464101086}
-  - component: {fileID: 5252025032464101083}
+  - component: {fileID: -5475532812430608990}
   m_Layer: 10
   m_Name: Radish
   m_TagString: Monster
@@ -145,7 +145,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.9375, y: 1.1875}
   m_Direction: 0
---- !u!114 &5252025032464101083
+--- !u!114 &-5475532812430608990
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,18 +154,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5252025032464101057}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21b113adb5eb2154c94ada9f370b7cac, type: 3}
+  m_Script: {fileID: 11500000, guid: 9afc9b391e412f845b39a22544d32d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLive: 1
-  speed: 3
-  dirX: 0
-  isInfection: 0
-  enemyId: 0
-  enemyType: 0
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 384
