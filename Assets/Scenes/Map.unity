@@ -8222,12 +8222,19 @@ MonoBehaviour:
   - speed: 3
     enemyID: 10
     isInfection: 0
+    isAggressive: 1
   - speed: 0
     enemyID: 20
     isInfection: 0
+    isAggressive: 0
   - speed: 5
     enemyID: 30
     isInfection: 1
+    isAggressive: 1
+  - speed: 4
+    enemyID: 31
+    isInfection: 1
+    isAggressive: 0
   spawnPoint: []
   maxCnt: 20
 --- !u!224 &728486795 stripped
@@ -11470,7 +11477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967f70f555e7f3e49a4bd028a1df8d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
+  monPrefabs:
   - {fileID: 3666142674280705122, guid: 49adcc75d7494e54b9f19d09a83c8f9c, type: 3}
   - {fileID: 9170407092077921453, guid: 0c48e530b874ffd47981985a6ba9b266, type: 3}
   - {fileID: 3382315427160244147, guid: 84f509ad5d9411d47924d2a9e098fd9f, type: 3}
@@ -11479,6 +11486,7 @@ MonoBehaviour:
   - {fileID: 3520999007231899431, guid: b507251482a69be49b999692e511cca1, type: 3}
   - {fileID: 6585787318207838016, guid: 07f8e37fb5d0b474da14de9a65308a2a, type: 3}
   - {fileID: 279847633676844278, guid: 676d171b8c359f647a92153bb03975fd, type: 3}
+  extraPrefabs: []
 --- !u!1 &1642493408
 GameObject:
   m_ObjectHideFlags: 0

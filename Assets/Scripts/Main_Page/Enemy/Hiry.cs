@@ -38,10 +38,6 @@ public class Hiry : Enemy
         rb.velocity = new Vector2(dirX*speed, rb.velocity.y);
     }
 
-    protected override void Find()
-    {
-        Debug.Log("주변에 디버프 현상이 생깁니다.");
-    }
 
     protected override void Think()
     {
