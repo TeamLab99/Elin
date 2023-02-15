@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 9170407092077921443}
   - component: {fileID: 9170407092077921442}
   - component: {fileID: 9170407092077921446}
-  - component: {fileID: 9170407092077921447}
   - component: {fileID: -4888189982124106003}
+  - component: {fileID: -2075860264558587063}
   m_Layer: 10
   m_Name: Chicken
   m_TagString: Monster
@@ -146,30 +146,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1.0625}
   m_Direction: 0
---- !u!114 &9170407092077921447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9170407092077921453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21b113adb5eb2154c94ada9f370b7cac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isLive: 1
-  speed: 3
-  dirX: 0
-  isInfection: 0
-  enemyId: 0
-  enemyType: 0
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 384
 --- !u!61 &-4888189982124106003
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -196,3 +172,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-2075860264558587063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9170407092077921453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d992245cca0b042a6e0ef3c4a7faf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
