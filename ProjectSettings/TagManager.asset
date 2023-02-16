@@ -11,11 +11,12 @@ TagManager:
   - UI
   - Item
   - Monster
+  - Spike
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - MyCardArea
@@ -23,8 +24,8 @@ TagManager:
   - Ground
   - JumpBox
   - Monster
-  - 
-  - 
+  - Spike
+  - PlayerDamaged
   - 
   - 
   - 

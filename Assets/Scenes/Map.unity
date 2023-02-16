@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 85586270}
   - component: {fileID: 85586269}
   - component: {fileID: 85586268}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -850,7 +850,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 228733313}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundFrontCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5587,7 +5587,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 322950559}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundBackCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7334,7 +7334,7 @@ GameObject:
   - component: {fileID: 592909577}
   - component: {fileID: 592909578}
   - component: {fileID: 592909579}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -9501,7 +9501,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1099808445}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ParticleEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10579,6 +10579,7 @@ MonoBehaviour:
   pool: {fileID: 1636272086}
   pm: {fileID: 592909575}
   status: {fileID: 1555820685}
+  spm: {fileID: 0}
 --- !u!4 &1433267184
 Transform:
   m_ObjectHideFlags: 0
@@ -11486,7 +11487,8 @@ MonoBehaviour:
   - {fileID: 3520999007231899431, guid: b507251482a69be49b999692e511cca1, type: 3}
   - {fileID: 6585787318207838016, guid: 07f8e37fb5d0b474da14de9a65308a2a, type: 3}
   - {fileID: 279847633676844278, guid: 676d171b8c359f647a92153bb03975fd, type: 3}
-  extraPrefabs: []
+  extraPrefabs:
+  - {fileID: 2608099576603048579, guid: 5f85f6d74df6b104cad84aef924854d8, type: 3}
 --- !u!1 &1642493408
 GameObject:
   m_ObjectHideFlags: 0
@@ -12631,7 +12633,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1916980411}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}

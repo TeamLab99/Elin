@@ -45,6 +45,9 @@ public class Player_Move : MonoBehaviour
     private bool isSuperJump; // 슈퍼 점프를 하는 중인가?
     private bool isChargeJump; // 슈퍼 점프를 할 수 있는가?
 
+    // 상태를 나타내는 변수들
+    private bool isHit=false;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -66,14 +69,17 @@ public class Player_Move : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (!isControlPlayer)
+        if (!isHit)
         {
-            Walk();
-            Jump();
-            WallSlide();
-            SuperJump();
+            if (!isControlPlayer)
+            {
+                Walk();
+                Jump();
+                WallSlide();
+                SuperJump();
+            }
+            IncreaseGravity();
         }
-        IncreaseGravity();
     }
 
     // 상호작용을 위해 키를 눌렀는가?
@@ -251,11 +257,30 @@ public class Player_Move : MonoBehaviour
         Gizmos.DrawRay(wallCheck.position, Vector2.right * wallDist*isRight);
     }
 
-   /* private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Spike")
-            rb.AddForce(new Vector2(10*isRight, 5), ForceMode2D.Impulse);  
+        {
+            OnDamaged(collision.transform.position);
+        }
     } // 충돌
-   */
-  
+   
+    void OnDamaged(Vector2 targetPos)
+    {
+        isHit = true;
+        gameObject.layer = 12;
+        spr.color = new Color(1, 1, 1,0.4f);
+        int dirc = targetPos.x - transform.position.x > 0 ? -1 : 1;
+        Debug.Log(dirc);
+        rb.AddForce(new Vector2(dirc,1)*7, ForceMode2D.Impulse);
+        StartCoroutine("ControlPlayerMove");
+    }
+    IEnumerator ControlPlayerMove()
+    {
+        yield return new WaitForSeconds(0.8f);
+        isHit = false;
+        gameObject.layer = 3;
+        spr.color = new Color(1, 1, 1, 1f);
+        yield break;
+    }
 }
