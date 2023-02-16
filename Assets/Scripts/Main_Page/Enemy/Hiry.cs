@@ -44,4 +44,22 @@ public class Hiry : Enemy
         dirX = Random.Range(-1, 2);
         Invoke("Think", 5f);
     }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            target = collision.gameObject;
+            StartCoroutine("DeBuff");
+            // isDeBuff 변수를 줘서 한번만 걸리도록 수정할 수도 있다.
+            // 일단은 즉발 디버프로 설정했다.
+        }
+    }
+    IEnumerator DeBuff()
+    {
+        DataBase_Manager.instance.pm.xSpeed = 5;
+        yield return new WaitForSeconds(3f);
+        DataBase_Manager.instance.pm.xSpeed = 10;
+        yield break;
+    }
+   
 }

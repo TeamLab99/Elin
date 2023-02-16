@@ -25,7 +25,6 @@ public class Plant : Enemy
         if (collision.CompareTag("Player"))
         {
             target = collision.gameObject;
-            Debug.Log("발견!");
             SpawnObstruction();
         }
     }

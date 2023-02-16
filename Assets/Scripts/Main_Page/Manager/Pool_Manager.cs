@@ -18,6 +18,7 @@ public class Pool_Manager : MonoBehaviour
         for (int i=0; i< monPools.Length; i++)
         {
             monPools[i] = new List<GameObject>();
+          
         }
         for(int i=0; i<extraPools.Length; i++)
         {
