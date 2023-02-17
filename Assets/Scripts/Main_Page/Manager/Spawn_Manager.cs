@@ -17,28 +17,45 @@ public class Spawn_Manager : MonoBehaviour
     
     void Update() 
     {
-        if (cnt==0)
+        if (Input.GetKeyDown(KeyCode.X))
         {
             Spawn();
+        }
+        else if (Input.GetKeyDown(KeyCode.V))
+        {
+            SpawnPlant();
+        }
+        else if (Input.GetKeyDown(KeyCode.B))
+        {
+            SpawnHiry();
         }
     }
 
     void Spawn()
     {
         cnt++;
-        for(int i=0; i<8; i++)
+        for(int i=0; i<1; i++)
         {
             GameObject enemy = DataBase_Manager.instance.pool.Get(4); // 하이리
             enemy.transform.position = spawnPoint[Random.Range(1, 3)].position;
             enemy.GetComponent<Hiry>().Init(spawnData[3]);
         }
-        for (int i = 0; i < 8; i++)
+      
+       
+    }
+    void SpawnPlant()
+    {
+        for (int i = 0; i < 1; i++)
         {
             GameObject enemy = DataBase_Manager.instance.pool.Get(1); // 식물
             enemy.transform.position = spawnPoint[Random.Range(3, spawnPoint.Length)].position;
             enemy.GetComponent<Plant>().Init(spawnData[1]);
         }
-        for (int i = 0; i < 8; i++)
+    }
+
+    void SpawnHiry()
+    {
+        for (int i = 0; i < 1; i++)
         {
             GameObject enemy = DataBase_Manager.instance.pool.Get(3); // 동물
             enemy.transform.position = spawnPoint[Random.Range(3, spawnPoint.Length)].position;
