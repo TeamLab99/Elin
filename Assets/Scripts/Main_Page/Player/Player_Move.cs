@@ -10,7 +10,6 @@ public class Player_Move : MonoBehaviour
     Animator anim;
     Rigidbody2D rb;
     SpriteRenderer spr;
-
     
     // 검출 관련 변수 
     public Transform groundFrontCheck; // 앞 다리 위치
@@ -82,15 +81,6 @@ public class Player_Move : MonoBehaviour
             IncreaseGravity();
         }
     }
-
-    // 상호작용을 위해 키를 눌렀는가?
-    /*private void InputKey()
-    {
-        if (Input.GetKey(KeyCode.X))
-            isInteraction = true;
-        if (Input.GetKeyUp(KeyCode.X))
-            isInteraction = false;
-    }*/
     // 땅과 벽을 검출한다.
     private void CheckingMap()
     {
@@ -205,7 +195,6 @@ public class Player_Move : MonoBehaviour
     {
         if (isChargeJump)
         {
-            Debug.Log(yMaxSpeed);
             rb.velocity = new Vector2(0, ySpeed + yMaxSpeed * 0.1f);
             yMaxSpeed = 0;
             isChargeJump = false;
@@ -271,7 +260,8 @@ public class Player_Move : MonoBehaviour
         if (collision.CompareTag("DeBuff")){
             deBuff = collision.gameObject;
             deBuff.SetActive(false);
-            xSpeed = 5;
+            xSpeed = 7;
+            Invoke("CoolDownDeBuff", 3f);
         } 
     }  
 
@@ -280,17 +270,20 @@ public class Player_Move : MonoBehaviour
         isHit = true;
         gameObject.layer = 12;
         spr.color = new Color(1, 1, 1,0.4f);
-        int dirc = targetPos.x - transform.position.x > 0 ? -1 : 1;
-        Debug.Log(dirc);
-        rb.AddForce(new Vector2(dirc,1)*7, ForceMode2D.Impulse);
-        StartCoroutine("ControlPlayerMove");
+        StartCoroutine("CoolDownSpike");
     }
-    IEnumerator ControlPlayerMove()
+    IEnumerator CoolDownSpike()
     {
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(1f);
+        spr.color = new Color(1, 1, 1, 1f);
         isHit = false;
         gameObject.layer = 3;
-        spr.color = new Color(1, 1, 1, 1f);
         yield break;
+    }
+
+    void CoolDownDeBuff()
+    {
+        xSpeed = 10;
+        ySpeed = 10;
     }
 }

@@ -27,7 +27,7 @@ public class Spawn_Manager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.B))
         {
-            SpawnHiry();
+            SpawnAnimal();
         }
     }
 
@@ -53,7 +53,7 @@ public class Spawn_Manager : MonoBehaviour
         }
     }
 
-    void SpawnHiry()
+    void SpawnAnimal()
     {
         for (int i = 0; i < 1; i++)
         {

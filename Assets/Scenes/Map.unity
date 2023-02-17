@@ -8234,7 +8234,7 @@ MonoBehaviour:
   - speed: 4
     enemyID: 31
     isInfection: 1
-    isAggressive: 0
+    isAggressive: 1
   spawnPoint: []
   maxCnt: 20
 --- !u!224 &728486795 stripped
