@@ -47,6 +47,7 @@ public class Player_Move : MonoBehaviour
 
     // 상태를 나타내는 변수들
     private bool isHit=false;
+    private GameObject deBuff;
 
     private void Awake()
     {
@@ -264,7 +265,16 @@ public class Player_Move : MonoBehaviour
             OnDamaged(collision.transform.position);
         }
     } // 충돌
-   
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("DeBuff")){
+            deBuff = collision.gameObject;
+            deBuff.SetActive(false);
+            xSpeed = 5;
+        } 
+    }  
+
     void OnDamaged(Vector2 targetPos)
     {
         isHit = true;

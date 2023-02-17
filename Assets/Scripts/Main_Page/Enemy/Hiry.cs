@@ -22,14 +22,10 @@ public class Hiry : Enemy
             case 0:
                 anim.SetBool("Walk", false);
                 break;
-            case 1:
+            default:
                 anim.SetBool("Walk", true);
-                gameObject.transform.localScale = new Vector3(-1, 1, 1);
-                break;
-            case -1:
-                anim.SetBool("Walk", true);
-                gameObject.transform.localScale = new Vector3(1, 1, 1);
-                break;
+                gameObject.transform.localScale = new Vector3(dirX, 1, 1);
+                break;    
         }
     }
 
@@ -49,17 +45,33 @@ public class Hiry : Enemy
         if (collision.CompareTag("Player"))
         {
             target = collision.gameObject;
-            StartCoroutine("DeBuff");
+            anim.SetBool("Find", true);
+            // isDeBuff 변수를 줘서 한번만 걸리도록 수정할 수도 있다.
+            // 일단은 즉발 디버프로 설정했다.
+            SpawnObstruction();
+        }
+    }
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            anim.SetBool("Find", false);
             // isDeBuff 변수를 줘서 한번만 걸리도록 수정할 수도 있다.
             // 일단은 즉발 디버프로 설정했다.
         }
     }
-    IEnumerator DeBuff()
+    void SpawnObstruction()
     {
-        DataBase_Manager.instance.pm.xSpeed = 5;
-        yield return new WaitForSeconds(3f);
-        DataBase_Manager.instance.pm.xSpeed = 10;
+        GameObject deBuff = DataBase_Manager.instance.pool.GetExtra(1); // 디버프
+        deBuff.transform.position = target.transform.position+Vector3.right*3;        
+        //StartCoroutine("Disapear",deBuff);
+    }
+
+    IEnumerator Disapear(GameObject go)
+    {
+        yield return new WaitForSeconds(1f);
+        go.SetActive(false);
         yield break;
     }
-   
+
 }

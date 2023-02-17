@@ -63,6 +63,7 @@ public class Pool_Manager : MonoBehaviour
                 {
                     select = item;
                     select.SetActive(true);
+                    select = extraPrefabs[idx];
                     return select;
                 }
             }
