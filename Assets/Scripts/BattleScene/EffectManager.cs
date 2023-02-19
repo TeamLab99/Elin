@@ -14,39 +14,17 @@ public class EffectManager : MonoBehaviour
     void Awake() => Inst = this;
     
     // 인스펙터
-    [SerializeField] Image effect;
     [SerializeField] GameObject skillEffect;
 
     // DOTween용 sequence
     Sequence mySequence;
-    Sequence mySequence2;
-
-    // Image 색 변경
-    public void SetColor(string str)
-    {
-        switch (str)
-        {
-            case "r":
-                effect.color = new Color32(236, 110, 110, 0);
-                break;
-            case "g":
-                effect.color = new Color32(0, 255, 0, 255);
-                break;
-            case "b":
-                effect.color = new Color32(0, 0, 255, 255);
-                break;
-        }
-    }
 
     // 카드 이동 애니메이션과 다른 점은 오브젝트를 따로 파라미터로 받아서 이동
-    public void MoveTransform(GameObject obj, bool useDotween, float dotweenTime = 0)
+    public void HitMotion(GameObject obj, bool useDotween, float dotweenTime = 0)
     {
-        SetColor("r"); // 빨강
-
-        var p = obj.transform.position + Vector3.left * 25;
+        var p = obj.transform.position + Vector3.left * 27;
         var r = Utils.QI;
-        var s = Vector3.one * 1.2f;
-
+        var s = Vector3.one;
 
         if (useDotween)
         {
@@ -55,12 +33,6 @@ public class EffectManager : MonoBehaviour
             mySequence.Append(obj.transform.DOMove(p, dotweenTime).SetRelative().SetEase(Ease.Flash, 2, -1)) // 앞으로 갔다가 돌아옴
             .Join(obj.transform.DORotateQuaternion(r, dotweenTime))
             .Join(obj.transform.DOScale(s, dotweenTime).SetRelative().SetEase(Ease.Flash, 2, -1)); // 커졌다가 돌아옴
-
-            // 이미지 시퀀스
-            mySequence2 = DOTween.Sequence();
-            mySequence2.PrependInterval(dotweenTime/3)
-            .Append(effect.DOFade(1, 0.2f)) // FadeIn 됐다가
-            .Append(effect.DOFade(0, 0.2f)); //FadeOut 됨
         }
         else
         {
@@ -70,7 +42,6 @@ public class EffectManager : MonoBehaviour
             transform.localScale = s;
         }
     }
-
 
     public void MonsterSkillEffectOn()
     {

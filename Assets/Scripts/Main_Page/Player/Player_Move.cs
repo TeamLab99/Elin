@@ -10,7 +10,6 @@ public class Player_Move : MonoBehaviour
     Animator anim;
     Rigidbody2D rb;
     SpriteRenderer spr;
-
     
     // 검출 관련 변수 
     public Transform groundFrontCheck; // 앞 다리 위치
@@ -45,6 +44,10 @@ public class Player_Move : MonoBehaviour
     private bool isSuperJump; // 슈퍼 점프를 하는 중인가?
     private bool isChargeJump; // 슈퍼 점프를 할 수 있는가?
 
+    // 상태를 나타내는 변수들
+    private bool isHit=false;
+    private GameObject deBuff;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -66,24 +69,18 @@ public class Player_Move : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (!isControlPlayer)
+        if (!isHit)
         {
-            Walk();
-            Jump();
-            WallSlide();
-            SuperJump();
+            if (!isControlPlayer)
+            {
+                Walk();
+                Jump();
+                WallSlide();
+                SuperJump();
+            }
+            IncreaseGravity();
         }
-        IncreaseGravity();
     }
-
-    // 상호작용을 위해 키를 눌렀는가?
-    /*private void InputKey()
-    {
-        if (Input.GetKey(KeyCode.X))
-            isInteraction = true;
-        if (Input.GetKeyUp(KeyCode.X))
-            isInteraction = false;
-    }*/
     // 땅과 벽을 검출한다.
     private void CheckingMap()
     {
@@ -198,7 +195,6 @@ public class Player_Move : MonoBehaviour
     {
         if (isChargeJump)
         {
-            Debug.Log(yMaxSpeed);
             rb.velocity = new Vector2(0, ySpeed + yMaxSpeed * 0.1f);
             yMaxSpeed = 0;
             isChargeJump = false;
@@ -251,11 +247,43 @@ public class Player_Move : MonoBehaviour
         Gizmos.DrawRay(wallCheck.position, Vector2.right * wallDist*isRight);
     }
 
-   /* private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Spike")
-            rb.AddForce(new Vector2(10*isRight, 5), ForceMode2D.Impulse);  
+        {
+            OnDamaged(collision.transform.position);
+        }
     } // 충돌
-   */
-  
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("DeBuff")){
+            deBuff = collision.gameObject;
+            deBuff.SetActive(false);
+            xSpeed = 7;
+            Invoke("CoolDownDeBuff", 3f);
+        } 
+    }  
+
+    void OnDamaged(Vector2 targetPos)
+    {
+        isHit = true;
+        gameObject.layer = 12;
+        spr.color = new Color(1, 1, 1,0.4f);
+        StartCoroutine("CoolDownSpike");
+    }
+    IEnumerator CoolDownSpike()
+    {
+        yield return new WaitForSeconds(1f);
+        spr.color = new Color(1, 1, 1, 1f);
+        isHit = false;
+        gameObject.layer = 3;
+        yield break;
+    }
+
+    void CoolDownDeBuff()
+    {
+        xSpeed = 10;
+        ySpeed = 10;
+    }
 }

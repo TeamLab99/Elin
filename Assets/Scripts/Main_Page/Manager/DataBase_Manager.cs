@@ -10,6 +10,7 @@ public class DataBase_Manager : MonoBehaviour
     public Pool_Manager pool;
     public Player_Move pm;
     public GameObject status;
+    public Spawn_Manager spm;
     private bool isOpen = false;
 
     private void Awake()

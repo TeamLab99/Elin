@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 85586270}
   - component: {fileID: 85586269}
   - component: {fileID: 85586268}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -850,7 +850,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 228733313}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundFrontCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5587,7 +5587,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 322950559}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundBackCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7334,7 +7334,7 @@ GameObject:
   - component: {fileID: 592909577}
   - component: {fileID: 592909578}
   - component: {fileID: 592909579}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -8222,12 +8222,19 @@ MonoBehaviour:
   - speed: 3
     enemyID: 10
     isInfection: 0
+    isAggressive: 1
   - speed: 0
     enemyID: 20
     isInfection: 0
+    isAggressive: 0
   - speed: 5
     enemyID: 30
     isInfection: 1
+    isAggressive: 1
+  - speed: 4
+    enemyID: 31
+    isInfection: 1
+    isAggressive: 1
   spawnPoint: []
   maxCnt: 20
 --- !u!224 &728486795 stripped
@@ -9494,7 +9501,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1099808445}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ParticleEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10572,6 +10579,7 @@ MonoBehaviour:
   pool: {fileID: 1636272086}
   pm: {fileID: 592909575}
   status: {fileID: 1555820685}
+  spm: {fileID: 728452763}
 --- !u!4 &1433267184
 Transform:
   m_ObjectHideFlags: 0
@@ -11470,15 +11478,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967f70f555e7f3e49a4bd028a1df8d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 3666142674280705122, guid: 49adcc75d7494e54b9f19d09a83c8f9c, type: 3}
-  - {fileID: 9170407092077921453, guid: 0c48e530b874ffd47981985a6ba9b266, type: 3}
-  - {fileID: 3382315427160244147, guid: 84f509ad5d9411d47924d2a9e098fd9f, type: 3}
-  - {fileID: 8334138376497091587, guid: fe2355c8f817ce343916a2cd7264e420, type: 3}
+  monPrefabs:
   - {fileID: 5252025032464101057, guid: cbfb668c38d3e72409bbd62510403a69, type: 3}
   - {fileID: 3520999007231899431, guid: b507251482a69be49b999692e511cca1, type: 3}
   - {fileID: 6585787318207838016, guid: 07f8e37fb5d0b474da14de9a65308a2a, type: 3}
   - {fileID: 279847633676844278, guid: 676d171b8c359f647a92153bb03975fd, type: 3}
+  - {fileID: 3936272185867085653, guid: 2b48125bf22eced459e95fefdebb8d77, type: 3}
+  extraPrefabs:
+  - {fileID: 2608099576603048579, guid: 5f85f6d74df6b104cad84aef924854d8, type: 3}
+  - {fileID: 6235853658212691345, guid: 828713cb56cf6f64396cc99010efac18, type: 3}
 --- !u!1 &1642493408
 GameObject:
   m_ObjectHideFlags: 0
@@ -12623,7 +12631,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1916980411}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
