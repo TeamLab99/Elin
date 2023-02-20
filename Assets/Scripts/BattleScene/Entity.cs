@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
@@ -10,55 +11,62 @@ using DG.Tweening;
 /// </summary>
 public class Entity : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer characterSprite;
-    [SerializeField] TMP_Text healthTMP;   
-
-    [SerializeField] float health;
-    [SerializeField] float maxHealth;
-    [SerializeField] float attack;
+    [SerializeField] float maxHp;
     [SerializeField] float defense;
-
+    [SerializeField] float attack; // 마법 매니저 만들면 몬스터에만 들어갈 속성
+    
+    [Header("Pause")]
+    public bool stopGauge;
+    
+    float hp;
+    SpriteRenderer spr;
+    TMP_Text hpTMP;
     PRS originPRS; // 기존 PRS 저장
     Vector3 originPos; // 위치값만 저장
 
+    protected virtual void Awake()
+    {
+        spr = GetComponent<SpriteRenderer>();
+        hpTMP = transform.GetChild(0).GetComponent<TMP_Text>();
+        originPRS = new PRS(transform.position, transform.rotation,
+            transform.localScale);
+        hp = maxHp;
+        originPos = originPRS.pos;
+    }
 
     public void Attack(Entity entity)
     {
-        entity.TakeDamage(attack);
+        entity.TakeDmg(attack);
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDmg(float amount)
     {
         amount -= defense;
 
-        if (health > 0)
+        hp -= amount;
+
+        if (hp <= 0)
         {
-            health -= amount;
+            hp = 0;
+            stopGauge = true;
+            BPGameManager.Inst.GameOver();
         }
 
-        if (health <= 0)
-        {
-            health = 0;
-            Battle.Inst.GameOver();
-        }
-
-        healthTMP.text = health.ToString();
+        HPTxtUpdate();
     }
 
     public void Heal(float amount)
     {
-        health += amount;
+        hp += amount;
 
-        if (health > maxHealth)
-            health = maxHealth;
-        healthTMP.text = health.ToString();
+        if (hp > maxHp)
+            hp = maxHp;
 
+        HPTxtUpdate();
     }
 
-    public void HealthUpdate()
+    public void HPTxtUpdate()
     {
-        healthTMP.text = health.ToString();
+        hpTMP.text = hp.ToString();
     }
-
-
 }

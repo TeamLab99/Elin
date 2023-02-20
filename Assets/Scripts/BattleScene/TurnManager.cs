@@ -17,6 +17,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] [Tooltip("시작 턴 모드를 정합니다")] ETurnMode eTurnMode;
     [SerializeField] [Tooltip("카드 배분이 매우 빨라집니다")] bool fastMode;
     [SerializeField] [Tooltip("시작 카드 개수를 정합니다")] int startCardCount;
+    [SerializeField] NotificationPanel notificationPanel;
 
     [Header("Properties")]
     public bool myTurn;
@@ -53,62 +54,46 @@ public class TurnManager : MonoBehaviour
     public IEnumerator StartGameCo()
     {
         GameSetup();
+
+        Notification("게임 시작", myTurn);
+
         isLoading = true;
-        CardManager.Inst.SetIsCardMoving(true);
 
         for (int i = 0; i < startCardCount; i++)
         {
             yield return delay05;
             OnAddCard?.Invoke(true);
             yield return delay02;
-
-
         }
         yield return delay07;
 
-        CardManager.Inst.SetIsCardMoving(false);
-
-        StartCoroutine(StartTurnCo());
+        isLoading = false;
+        BPGameManager.Inst.MonsterPause(false);
     }
 
     // 카드 다 사용했을 시, 재 드로우
     public IEnumerator CardDraw()
     {
-        CardManager.Inst.SetIsCardMoving(true);
         isLoading = true;
+
         for (int i = 0; i < startCardCount; i++)
         {
             yield return delay05;
             OnAddCard?.Invoke(true);
             yield return delay02;
-
         }
         yield return delay07;
 
-        CardManager.Inst.SetIsCardMoving(false);
-
         isLoading = false;
+        OnTurnStarted?.Invoke(myTurn); // EndTurnBtn 활성화/비활성화 델리게이트
     }
 
-    IEnumerator StartTurnCo()
+    // 턴 알림 팝업 텍스트 색 변경.
+    public void Notification(string message, bool state)
     {
-        isLoading = true;
-
-        /*        if (myTurn)
-                    BPGameManager.Inst.Notification("나의 턴",myTurn);
-                else
-                    BPGameManager.Inst.Notification("상대 턴",myTurn);
-                yield return delay07;
-                OnAddCard?.Invoke(myTurn);*/
-
-        yield return delay07;
-        isLoading = false;
-        OnTurnStarted?.Invoke(myTurn);
-    }
-
-    public void EndTurn()
-    {
-        myTurn = !myTurn;
-        StartCoroutine(StartTurnCo());
+        if (state)
+            notificationPanel.Show(message, new Color32(0,255,0,0));
+        else
+            notificationPanel.Show(message, new Color32(255, 0, 0, 0));
     }
 }

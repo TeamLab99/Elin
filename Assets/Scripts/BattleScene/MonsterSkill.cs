@@ -29,9 +29,7 @@ public class MonsterSkill : MonoBehaviour
         if (monster.GetAttackSpeed() > 1f)
         {
             EffectManager.Inst.MonsterSkillEffectOn();
-            float num = monster.GetAttackSpeed();
-            num -= 0.5f;
-            monster.SetAttackSpeed(num);
+            monster.SetAttackSpeed(monster.GetAttackSpeed()-0.5f);
         }
         else
             return;
