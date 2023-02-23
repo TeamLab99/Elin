@@ -13,9 +13,9 @@ public class Monster : Entity
     [SerializeField] protected float attackSpeed;
     [SerializeField] protected int skillCount;
     [SerializeField] int[] skillType;
+    [SerializeField] GameObject effect;
 
-    [Header("UI")]
-    public Image scroll;
+    protected Image scroll;
 
     protected Player player;
     protected float maxTime;
@@ -29,14 +29,22 @@ public class Monster : Entity
     protected override void Awake()
     {
         base.Awake();
+
     }
 
     void Start()
     {
+        var gauge = GameObject.FindGameObjectWithTag("Gauge");
+        var bp = GameObject.FindGameObjectWithTag("Battle_Player");
+        scroll = gauge.GetComponent<Image>();
+        player = bp.GetComponent<Player>();
+        BPGameManager.Inst.SetMonster(this);
         HPTxtUpdate();
         maxTime = attackSpeed;
         count = skillCount;
         curTime = maxTime;
+
+        EffectManager.Inst.SetSkillEffect(effect);
     }
 
 

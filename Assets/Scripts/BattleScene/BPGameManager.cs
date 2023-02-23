@@ -13,8 +13,11 @@ public class BPGameManager : MonoBehaviour
     public static BPGameManager Inst { get; private set; } // 싱글턴
     void Awake() => Inst = this;
 
-    [SerializeField] Player player;
-    [SerializeField] Monster monster;
+    [SerializeField] Player player; 
+    [SerializeField] GameObject monsterPrefab;
+    [SerializeField] Transform mobSpawnPos;
+    GameObject mob;
+    Monster monster;
 
     /*    [SerializeField] NotificationPanel notificationPanel;
     Color32 red = new Color32(255, 0, 0, 255);
@@ -91,26 +94,24 @@ public class BPGameManager : MonoBehaviour
     // 카드 선택을 막고 TurnManager에게 게임 시작을 알려줌
     public void StartGame()
     {
-        MonsterPause(true);
-        SetEntites();
-        MonsterSkill.Inst.SetEntites(player, monster);
+        SpawnMonster();
         StartCoroutine(TurnManager.Inst.StartGameCo());
     }
 
     public void GameOver()
     {
         // 턴 및 카드 선택 정지
-        MonsterPause(true);
+        monster.SetStopGauge(true);
         TurnManager.Inst.isLoading = true;
         TurnManager.Inst.Notification("게임 오버",false);
         CardManager.Inst.AllEnlargeCancle();
         Debug.Log("게임 오버!");
     }
 
-    public void SetEntites()
+    public void SpawnMonster()
     {
-        player.SetMonster(monster);
-        monster.SetPlayer(player);
+        mob = Instantiate(monsterPrefab, mobSpawnPos.position, Utils.QI, mobSpawnPos);
+        MonsterSkill.Inst.SetEntites(player, monster);
     }
 
     public void PlayerAttack()
@@ -123,8 +124,14 @@ public class BPGameManager : MonoBehaviour
         player.Heal(5);
     }
 
+    public void SetMonster(Monster monster)
+    {
+        this.monster = monster;
+        monster.SetStopGauge(true);
+    }
+
     public void MonsterPause(bool isStop)
     {
-        monster.stopGauge = isStop;
+        monster.SetStopGauge(isStop);
     }
 }

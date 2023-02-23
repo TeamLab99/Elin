@@ -14,24 +14,24 @@ public class Entity : MonoBehaviour
     [SerializeField] float maxHp;
     [SerializeField] float defense;
     [SerializeField] float attack; // 마법 매니저 만들면 몬스터에만 들어갈 속성
-    
+    [SerializeField] TMP_Text hpTMP;
+
+
     [Header("Pause")]
-    public bool stopGauge;
+    protected bool stopGauge;
     
     float hp;
     SpriteRenderer spr;
-    TMP_Text hpTMP;
     PRS originPRS; // 기존 PRS 저장
     Vector3 originPos; // 위치값만 저장
 
     protected virtual void Awake()
     {
         spr = GetComponent<SpriteRenderer>();
-        hpTMP = transform.GetChild(0).GetComponent<TMP_Text>();
         originPRS = new PRS(transform.position, transform.rotation,
             transform.localScale);
-        hp = maxHp;
         originPos = originPRS.pos;
+        hp = maxHp;
     }
 
     public void Attack(Entity entity)
@@ -68,5 +68,10 @@ public class Entity : MonoBehaviour
     public void HPTxtUpdate()
     {
         hpTMP.text = hp.ToString();
+    }
+
+    public void SetStopGauge(bool isBool)
+    {
+        stopGauge = isBool;
     }
 }

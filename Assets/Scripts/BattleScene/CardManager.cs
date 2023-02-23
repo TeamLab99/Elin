@@ -128,7 +128,10 @@ public class CardManager : MonoBehaviour
     {
         var cardObject = Instantiate(cardPrefab, cardSpawnPoint.position, Utils.QI); // 프리팹을 토대로 카드 오브젝트 생성
         var card = cardObject.GetComponent<Card>(); // 오브젝트의 카드 가져옴
+        Transform cardsParent = GameObject.FindGameObjectWithTag("Cards").transform;
         card.Setup(PopItem()); // 랜덤으로 섞인 아이템 리스트에서 하나를 뽑아서 데이터 입력
+        card.transform.SetParent(cardsParent);
+
         myCards.Add(card); // 카드 리스트에 추가
 
         // 레이어 순서 바꾸기, 정렬, 키 네임 셋팅 

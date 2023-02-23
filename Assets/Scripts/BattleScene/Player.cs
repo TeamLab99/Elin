@@ -19,6 +19,9 @@ public class Player : Entity
     void Start()
     {
         HPTxtUpdate();
+        var mob = GameObject.FindGameObjectWithTag("Mob");
+
+        monster = mob.GetComponent<Monster>();
     }
 
     public void SetMonster(Monster monster)

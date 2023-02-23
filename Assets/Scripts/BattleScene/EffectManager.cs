@@ -14,7 +14,7 @@ public class EffectManager : MonoBehaviour
     void Awake() => Inst = this;
     
     // 인스펙터
-    [SerializeField] GameObject skillEffect;
+    GameObject skillEffect;
 
     // DOTween용 sequence
     Sequence mySequence;
@@ -46,5 +46,10 @@ public class EffectManager : MonoBehaviour
     public void MonsterSkillEffectOn()
     {
         skillEffect.SetActive(true);
+    }
+
+    public void SetSkillEffect(GameObject obj)
+    {
+        skillEffect = obj;
     }
 }
