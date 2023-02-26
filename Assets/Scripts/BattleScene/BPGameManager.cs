@@ -13,6 +13,12 @@ public class BPGameManager : MonoBehaviour
     public static BPGameManager Inst { get; private set; } // 싱글턴
     void Awake() => Inst = this;
 
+    [SerializeField] Player player; 
+    [SerializeField] GameObject monsterPrefab;
+    [SerializeField] Transform mobSpawnPos;
+    GameObject mob;
+    Monster monster;
+
     /*    [SerializeField] NotificationPanel notificationPanel;
     Color32 red = new Color32(255, 0, 0, 255);
     Color32 yellow = new Color32(255, 244, 0, 255);*/
@@ -78,7 +84,7 @@ public class BPGameManager : MonoBehaviour
             CardManager.Inst.AllEnlargeCancle();
 
         // 카드 내기, 카드 선택 후 스페이스 바로 실행
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !CardManager.Inst.isSelectCardNull())
         {
             StartCoroutine(CardManager.Inst.TryPutCardCorutine());
         }
@@ -88,15 +94,44 @@ public class BPGameManager : MonoBehaviour
     // 카드 선택을 막고 TurnManager에게 게임 시작을 알려줌
     public void StartGame()
     {
+        SpawnMonster();
         StartCoroutine(TurnManager.Inst.StartGameCo());
     }
 
-    /*    // 턴 알림 팝업 텍스트 색 변경.
-        public void Notification(string message, bool myTurn)
-        {
-            if (!myTurn)
-                notificationPanel.Show(message, red);
-            else
-                notificationPanel.Show(message, yellow);
-        }*/
+    public void GameOver()
+    {
+        // 턴 및 카드 선택 정지
+        monster.SetStopGauge(true);
+        TurnManager.Inst.isLoading = true;
+        TurnManager.Inst.Notification("게임 오버",false);
+        CardManager.Inst.AllEnlargeCancle();
+        Debug.Log("게임 오버!");
+    }
+
+    public void SpawnMonster()
+    {
+        mob = Instantiate(monsterPrefab, mobSpawnPos.position, Utils.QI, mobSpawnPos);
+        MonsterSkill.Inst.SetEntites(player, monster);
+    }
+
+    public void PlayerAttack()
+    {
+        player.Attack(monster);
+    }
+
+    public void PlayerHeal()
+    {
+        player.Heal(5);
+    }
+
+    public void SetMonster(Monster monster)
+    {
+        this.monster = monster;
+        monster.SetStopGauge(true);
+    }
+
+    public void MonsterPause(bool isStop)
+    {
+        monster.SetStopGauge(isStop);
+    }
 }

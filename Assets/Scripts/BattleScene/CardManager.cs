@@ -27,7 +27,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform myCardRight;
     [SerializeField] TMP_Text playerCostTMP;
     [SerializeField] Player player;
-    //[SerializeField] ECardState eCardState;
+    [SerializeField] ECardState eCardState;
     #endregion
     
     // 뽑은 카드들의 정보를 담고 있는 리스트
@@ -36,8 +36,6 @@ public class CardManager : MonoBehaviour
     // 카드 선택 관련
     Card selectCard;
     bool isFirstSelect = false;
-    bool isCardMoving = false;
-    bool isCardUsed = false;
     bool isEnlarge = false;
     bool isNumpad = false;
     float maxTime = 1f;
@@ -49,7 +47,7 @@ public class CardManager : MonoBehaviour
     WaitForSeconds delay02 = new WaitForSeconds(0.2f);
 
     //WaitForSeconds delay015 = new WaitForSeconds(0.15f);
-    //enum ECardState { Loading, CanSelectCard, CanUseCard }
+    enum ECardState { Loading, CanSelectCard, CanUseCard }
 
     // 모든 카드의 정보를 itemBuffer에 입력하고 랜덤으로 섞기
     private void SetupItemBuffer()
@@ -103,21 +101,26 @@ public class CardManager : MonoBehaviour
             StartCoroutine(TurnManager.Inst.CardDraw());
         }
 
-        if (playerCost>= 0 && playerCost < 5)
-        {
-            // Time.DeltaTime을 이용하여 curTime이 0초가 될 때 마다 몬스터의 공격 함수 호출
-            curTime -= Time.deltaTime;
-            if (curTime <= 0)
-            {
-                // 게이지 재충전, 어택 애니메이션, 공격 함수
-                curTime = maxTime;
-                playerCost++;
-                playerCostTMP.text = playerCost + "/5";
 
+        if (eCardState != ECardState.Loading)
+        {
+            if (playerCost >= 0 && playerCost < 5)
+            {
+                // Time.DeltaTime을 이용하여 curTime이 0초가 될 때 마다 몬스터의 공격 함수 호출
+                curTime -= Time.deltaTime;
+                if (curTime <= 0)
+                {
+                    // 게이지 재충전, 어택 애니메이션, 공격 함수
+                    curTime = maxTime;
+                    playerCost++;
+                    playerCostTMP.text = playerCost + "/5";
+
+                }
             }
         }
 
-        //SetECardState();
+
+        SetECardState();
     }
 
     // 카드 한 장 드로우
@@ -125,7 +128,10 @@ public class CardManager : MonoBehaviour
     {
         var cardObject = Instantiate(cardPrefab, cardSpawnPoint.position, Utils.QI); // 프리팹을 토대로 카드 오브젝트 생성
         var card = cardObject.GetComponent<Card>(); // 오브젝트의 카드 가져옴
+        Transform cardsParent = GameObject.FindGameObjectWithTag("Cards").transform;
         card.Setup(PopItem()); // 랜덤으로 섞인 아이템 리스트에서 하나를 뽑아서 데이터 입력
+        card.transform.SetParent(cardsParent);
+
         myCards.Add(card); // 카드 리스트에 추가
 
         // 레이어 순서 바꾸기, 정렬, 키 네임 셋팅 
@@ -230,7 +236,7 @@ public class CardManager : MonoBehaviour
     // 선택한 카드 사용
     public IEnumerator TryPutCardCorutine()
     {
-        if (!isCardMoving && isEnlarge) // 다른 카드가 안 움직이고 있고, 이 카드가 선택된 상태라면
+        if (eCardState == ECardState.CanUseCard)
         {
             if (playerCost - selectCard.GetCost() >= 0)
             {
@@ -242,10 +248,9 @@ public class CardManager : MonoBehaviour
                 SetKeyName();
                 CardAlignment(true, 0.5f);
 
+                TurnManager.Inst.isLoading = false;
                 selectCard = null;
                 isEnlarge = false;
-                isCardMoving = false;
-                isCardUsed = true;
 
                 // 카드 애니메이션
                 card.MoveTransform(new PRS(cardUsePoint.position, Utils.QI, Vector3.one * 2.5f), true, 0.4f);
@@ -256,7 +261,6 @@ public class CardManager : MonoBehaviour
             {
                 yield return null;
             }
-
         }
         else
         {
@@ -270,12 +274,12 @@ public class CardManager : MonoBehaviour
         if (item.type == "공격")
         {
             // 적 체력 감소
-            Battle.Inst.PlayerAttack();
+            BPGameManager.Inst.PlayerAttack();
         }
         else if (item.type == "회복")
         {
             // 자신 체력 회복
-            Battle.Inst.PlayerHeal();
+            BPGameManager.Inst.PlayerHeal();
         }
     }
 
@@ -306,11 +310,13 @@ public class CardManager : MonoBehaviour
     // 키패드 선택
     public IEnumerator MoveToChoiceNum(int curNum)
     {
-        if (!isCardMoving && myCards.Count > curNum) // 안 움직이고 있고 선택한 카드 번호(순서)가 패에 존재하는지
+        
+        if (!TurnManager.Inst.isLoading && myCards.Count > curNum) 
         {
-            isCardMoving = true;
+            TurnManager.Inst.isLoading = true;
 
-            NumpadCheck(); // 방향키 이동과 충돌 방지
+            // 방향키 이동과 충돌 방지
+            NumpadCheck();
 
             curCardNum = curNum;
 
@@ -327,7 +333,7 @@ public class CardManager : MonoBehaviour
 
             prevCardNum = curCardNum;
             isNumpad = true;
-            isCardMoving = false;
+            TurnManager.Inst.isLoading = false;
         }
         else
         {
@@ -336,7 +342,7 @@ public class CardManager : MonoBehaviour
     }
 
     // 방향키 선택
-    public IEnumerator MoveToArrow(bool direction)
+    /*public IEnumerator MoveToArrow(bool direction)
     {
         if (!isCardMoving && myCards.Count > 0)
         {
@@ -406,19 +412,12 @@ public class CardManager : MonoBehaviour
         {
             yield return null;
         }
-    }
-
-    // 모든 코루틴 멈추는 함수
-    public void StopCo()
-    {
-        StopAllCoroutines();
-        isCardMoving = false;
-    }
+    }*/
 
     // 카드 선택 취소
     public void AllEnlargeCancle()
     {
-        if (!isCardMoving && isEnlarge)
+        if (eCardState == ECardState.CanUseCard)
         {
             for (int i = 0; i < myCards.Count; i++)
                 StartCoroutine(EnlargeCard(false, i));
@@ -440,12 +439,6 @@ public class CardManager : MonoBehaviour
         }
     }
     #endregion
-
-    // isCardMoving 캡슐화
-    public void SetIsCardMoving(bool isCardMoving)
-    {
-        this.isCardMoving = isCardMoving;
-    }
 
     // 카드 선택 키 텍스트 설정
     void SetKeyName()
@@ -473,15 +466,21 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    /*    private void SetECardState()
-        {
+     private void SetECardState()
+     {
             if (TurnManager.Inst.isLoading)
                 eCardState = ECardState.Loading;
-
-            else if (!TurnManager.Inst.myTurn || myPutCount == 1 || EntityManager.Inst.IsFullMyEntities)
-                eCardState = ECardState.CanSelectCard;
-
-            else if (TurnManager.Inst.myTurn && myPutCount == 0)
+            else if (!TurnManager.Inst.isLoading && isEnlarge) // 로딩 중이 아니고, 이 카드가 선택된 상태라면
                 eCardState = ECardState.CanUseCard;
-        }*/
+            //else if () // 로딩 중이 아니고, 선택한 카드 번호(순서)가 패에 존재하는지
+                //eCardState = ECardState.CanSelectCard;
+    }
+
+    public bool isSelectCardNull()
+    {
+        if (selectCard == null)
+            return true;
+        else
+            return false;
+    }
 }
