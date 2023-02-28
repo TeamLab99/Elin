@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class SkillEffects : MonoBehaviour
+public class AtkSpdEfc : MonoBehaviour
 {
     Sequence mySequence;
 

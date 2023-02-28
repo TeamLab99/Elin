@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 194827598}
   - component: {fileID: 194827597}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: GameMgr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -716,7 +716,7 @@ GameObject:
   - component: {fileID: 593103278}
   - component: {fileID: 593103279}
   m_Layer: 0
-  m_Name: MonsterSkills
+  m_Name: MobSkillMgr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1329,7 +1329,6 @@ MonoBehaviour:
   defense: 0
   attack: 5
   hpTMP: {fileID: 194595811}
-  stopGauge: 0
   cost: 5
   costRenewable: 0
 --- !u!95 &999374979
@@ -1620,7 +1619,7 @@ GameObject:
   - component: {fileID: 1332864517}
   - component: {fileID: 1332864516}
   m_Layer: 0
-  m_Name: CardManager
+  m_Name: CardMgr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2019,7 +2018,7 @@ GameObject:
   - component: {fileID: 1818819548}
   - component: {fileID: 1818819549}
   m_Layer: 0
-  m_Name: EffectManager
+  m_Name: EffectMgr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2147,7 +2146,7 @@ GameObject:
   - component: {fileID: 1918543341}
   - component: {fileID: 1918543340}
   m_Layer: 0
-  m_Name: TurnManager
+  m_Name: TurnMgr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

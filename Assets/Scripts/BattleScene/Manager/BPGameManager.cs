@@ -111,23 +111,15 @@ public class BPGameManager : MonoBehaviour
     public void SpawnMonster()
     {
         mob = Instantiate(monsterPrefab, mobSpawnPos.position, Utils.QI, mobSpawnPos);
-        MonsterSkill.Inst.SetEntites(player, monster);
-    }
-
-    public void PlayerAttack()
-    {
-        player.Attack(monster);
-    }
-
-    public void PlayerHeal()
-    {
-        player.Heal(5);
     }
 
     public void SetMonster(Monster monster)
     {
         this.monster = monster;
         monster.SetStopGauge(true);
+        MobSkillManager.Inst.SetEntites(player, monster);
+        MagicManager.Inst.SetEntites(player, monster);
+
     }
 
     public void MonsterPause(bool isStop)
