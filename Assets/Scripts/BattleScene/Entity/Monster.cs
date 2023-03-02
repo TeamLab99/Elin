@@ -22,7 +22,7 @@ public class Monster : Entity
     protected int count;
     protected static float curTime;
 
-    WaitForSeconds delay04 = new WaitForSeconds(0.4f);
+    WaitForSeconds delay02 = new WaitForSeconds(0.2f);
     WaitForSeconds delay15 = new WaitForSeconds(1.5f);
     #endregion
 
@@ -34,24 +34,25 @@ public class Monster : Entity
 
     void Start()
     {
+        BPGameManager.Inst.SetMonster(this);
+        EffectManager.Inst.SetSkillEfc(effect);
+        HPTxtUpdate();
+
+
         var gauge = GameObject.FindGameObjectWithTag("Gauge");
         var bp = GameObject.FindGameObjectWithTag("Battle_Player");
         scroll = gauge.GetComponent<Image>();
         player = bp.GetComponent<Player>();
-        BPGameManager.Inst.SetMonster(this);
-        HPTxtUpdate();
         maxTime = attackSpeed;
         count = skillCount;
         curTime = maxTime;
-
-        EffectManager.Inst.SetSkillEffect(effect);
     }
 
 
 
     protected void UseSkill(int index)
     {
-        MonsterSkill.Inst.UseSkill(index);
+        MobSkillManager.Inst.UseSkill(index);
     }
 
     protected IEnumerator SkillDelay()
@@ -63,8 +64,9 @@ public class Monster : Entity
 
     protected IEnumerator MonsterHitEffectWithAttack()
     {
-        EffectManager.Inst.HitMotion(gameObject, true, 0.6f);
-        yield return delay04;
+        EffectManager.Inst.AtkMotion(gameObject, player.gameObject.transform.parent.position ,true, 0.4f);
+        yield return delay02;
+        EffectManager.Inst.CallHitCorutine(player.gameObject);
         Attack(player);
     }
 

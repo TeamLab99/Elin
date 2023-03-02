@@ -271,16 +271,7 @@ public class CardManager : MonoBehaviour
     // 카드 사용
     public void UseCard(Item item)
     {
-        if (item.type == "공격")
-        {
-            // 적 체력 감소
-            BPGameManager.Inst.PlayerAttack();
-        }
-        else if (item.type == "회복")
-        {
-            // 자신 체력 회복
-            BPGameManager.Inst.PlayerHeal();
-        }
+        MagicManager.Inst.UseMagic(item.id);
     }
 
     // 카드 선택 시 위로 살짝 이동 및 확대 애니메이션

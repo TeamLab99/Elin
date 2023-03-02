@@ -223,7 +223,6 @@ MonoBehaviour:
   defense: 0
   attack: 5
   hpTMP: {fileID: 0}
-  stopGauge: 0
 --- !u!212 &3823288857498860796
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -290,9 +289,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 50
   defense: 0
-  attack: 25
+  attack: 2
   hpTMP: {fileID: 3823288857400154638}
-  stopGauge: 0
   attackSpeed: 2
   skillCount: 2
   skillType: 
@@ -324,7 +322,7 @@ Transform:
   m_GameObject: {fileID: 3823288858469411436}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3823288857498860797}
@@ -371,8 +369,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: f246bcac5b3915f4790c5254cb7af6d5, type: 3}
-  m_Color: {r: 0.7924528, g: 0.2197935, b: 0.67977434, a: 0}
+  m_Sprite: {fileID: 21300000, guid: a4e988da39a119444acf56e429fd2373, type: 3}
+  m_Color: {r: 0.6082532, g: 0.9528302, b: 0.7301779, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

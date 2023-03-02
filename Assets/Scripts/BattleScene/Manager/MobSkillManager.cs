@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterSkill : MonoBehaviour
+public class MobSkillManager : MonoBehaviour
 {
-    public static MonsterSkill Inst { get; private set; }
+    public static MobSkillManager Inst { get; private set; }
     void Awake() => Inst = this;
 
     Monster monster;
@@ -28,7 +28,7 @@ public class MonsterSkill : MonoBehaviour
     {
         if (monster.GetAttackSpeed() > 1f)
         {
-            EffectManager.Inst.MonsterSkillEffectOn();
+            EffectManager.Inst.MobSkillEfc();
             monster.SetAttackSpeed(monster.GetAttackSpeed()-0.5f);
         }
         else
