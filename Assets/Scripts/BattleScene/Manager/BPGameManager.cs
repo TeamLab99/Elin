@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 게임의 전체적인 상황을 관리하는 게임 매니저
@@ -106,6 +107,12 @@ public class BPGameManager : MonoBehaviour
         TurnManager.Inst.Notification("게임 오버",false);
         CardManager.Inst.AllEnlargeCancle();
         Debug.Log("게임 오버!");
+        Invoke("MoveScene", 3f);
+    }
+
+    public void MoveScene()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void SpawnMonster()
