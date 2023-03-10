@@ -17,6 +17,7 @@ TagManager:
   - Cards
   - Battle_Player
   - Mob
+  - NPC
   layers:
   - Default
   - TransparentFX
@@ -32,7 +33,7 @@ TagManager:
   - Spike
   - PlayerDamaged
   - DeBuff
-  - 
+  - NPC
   - 
   - 
   - 

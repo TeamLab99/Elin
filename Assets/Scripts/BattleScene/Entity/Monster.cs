@@ -22,7 +22,7 @@ public class Monster : Entity
     protected int count;
     protected static float curTime;
 
-    WaitForSeconds delay02 = new WaitForSeconds(0.2f);
+    WaitForSeconds delay05 = new WaitForSeconds(0.5f);
     WaitForSeconds delay15 = new WaitForSeconds(1.5f);
     #endregion
 
@@ -65,9 +65,13 @@ public class Monster : Entity
     protected IEnumerator MonsterHitEffectWithAttack()
     {
         EffectManager.Inst.AtkMotion(gameObject, player.gameObject.transform.parent.position ,true, 0.4f);
-        yield return delay02;
+        player.HitEffectOn();
+
+        yield return delay05;
+
         EffectManager.Inst.CallHitCorutine(player.gameObject);
         Attack(player);
+        player.HitEffectOff();
     }
 
     #region 전달자

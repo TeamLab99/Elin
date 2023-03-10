@@ -10,6 +10,7 @@ public class Player : Entity
     protected Monster monster;
     [SerializeField] int cost;
     [SerializeField] int costRenewable;
+    [SerializeField] GameObject hitEffect;
 
     protected override void Awake()
     {
@@ -27,5 +28,15 @@ public class Player : Entity
     public void SetMonster(Monster monster)
     {
         this.monster = monster;
+    }
+
+    public void HitEffectOn()
+    {
+        hitEffect.SetActive(true);
+    }
+
+    public void HitEffectOff()
+    {
+        hitEffect.SetActive(false);
     }
 }
