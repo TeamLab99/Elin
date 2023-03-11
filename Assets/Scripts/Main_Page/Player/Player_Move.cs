@@ -48,11 +48,15 @@ public class Player_Move : MonoBehaviour
     private bool isHit=false;
     private GameObject deBuff;
 
+    private Vector2 frontDir;
+    private GameObject scanObject;
+    public GameObject dialogueBox;
     private void Awake()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
+        frontDir = Vector2.right;
     }
     private void Start() 
     {
@@ -66,6 +70,10 @@ public class Player_Move : MonoBehaviour
         CheckingMap();
         ReverseSprite();
         InputSuperJump();
+        if (scanObject != null && Input.GetKeyDown(KeyCode.Q))
+            dialogueBox.SetActive(true);
+        else if(scanObject==null)
+            dialogueBox.SetActive(false);
     }
     void FixedUpdate()
     {
@@ -80,6 +88,15 @@ public class Player_Move : MonoBehaviour
             }
             IncreaseGravity();
         }
+        if (isRight == 1)
+            frontDir = Vector2.right;
+        else if (isRight == -1)
+            frontDir = Vector2.left;
+        RaycastHit2D rayNpc = Physics2D.Raycast(rb.position, frontDir, 1f, LayerMask.GetMask("NPC"));
+        if (rayNpc.collider != null)
+            scanObject = rayNpc.collider.gameObject;
+        else
+            scanObject = null;
     }
     // 땅과 벽을 검출한다.
     private void CheckingMap()
