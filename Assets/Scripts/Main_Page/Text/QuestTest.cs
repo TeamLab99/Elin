@@ -1,46 +1,26 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
 public class QuestTest : MonoBehaviour
 {
-    public TextAsset dialogues;
+    public string jsonFilePath;
+    public TextAsset data;
+    private AllData datas;
+    public Dictionary<string, Dictionary<string, List<string>>> npcQuestDialogueDict;
 
-    private DialogueData data;
-
-    void Start()
+    public void ShowQuestDialogue(string npcName, string questName)
     {
-        string jsonString = dialogues.text;
-        data = JsonUtility.FromJson<DialogueData>(jsonString);
-    }
-
-    public Dialogue[] GetDialogueForNPC(string npcID)
-    {
-        for (int i = 0; i < data.npcs.Length; i++)
+        List<string> dialogueList = npcQuestDialogueDict[npcName][questName];
+        foreach (string dialogue in dialogueList)
         {
-            if (data.npcs[i].id == npcID)
-            {
-                return data.npcs[i].dialogue;
-            }
+            Debug.Log(dialogue);
         }
-        return null;
     }
 }
 
-[System.Serializable]
-public class DialogueData
+public class AllData
 {
-    public NPC[] npcs;
-}
-
-[System.Serializable]
-public class NPC
-{
-    public string id;
-    public Dialogue[] dialogue;
-}
-
-[System.Serializable]
-public class Dialogue
-{
-    public string content;
+    public int progress;
 }

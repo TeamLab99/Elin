@@ -6616,7 +6616,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c53a193e0e0559249bf270e38d0b4b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogues: {fileID: 4900000, guid: 2c02b48d6091f154fb1ab5329b6e0ae3, type: 3}
+  jsonFilePath: 
+  data: {fileID: 0}
 --- !u!224 &462352167 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8792292982402370395, guid: 3ab44bd5397dc2a408e6c0f38b32e876, type: 3}
