@@ -6613,11 +6613,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 450803215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c53a193e0e0559249bf270e38d0b4b2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a03c6cd048655c4297e458cf245296f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFilePath: 
-  data: {fileID: 0}
+  data: {fileID: 4900000, guid: c9e649a3d1b59b941b34fa4835d785ae, type: 3}
 --- !u!224 &462352167 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8792292982402370395, guid: 3ab44bd5397dc2a408e6c0f38b32e876, type: 3}
@@ -12954,6 +12953,7 @@ GameObject:
   - component: {fileID: 1850736724}
   - component: {fileID: 1850736723}
   - component: {fileID: 1850736722}
+  - component: {fileID: 1850736725}
   m_Layer: 14
   m_Name: NPC1
   m_TagString: NPC
@@ -13044,6 +13044,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1850736725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850736721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7642b0d12fb558428e1a3794c08953c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npc_id: 0
 --- !u!1 &1868425444
 GameObject:
   m_ObjectHideFlags: 0

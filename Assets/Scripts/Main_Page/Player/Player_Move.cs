@@ -71,7 +71,12 @@ public class Player_Move : MonoBehaviour
         ReverseSprite();
         InputSuperJump();
         if (scanObject != null && Input.GetKeyDown(KeyCode.Q))
+        {
             dialogueBox.SetActive(true);
+            NPC scanNPC = scanObject.GetComponent<NPC>();
+            scanNPC.ShowQuestList();
+        }
+            
         else if(scanObject==null)
             dialogueBox.SetActive(false);
     }
