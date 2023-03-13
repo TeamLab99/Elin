@@ -18,6 +18,7 @@ TagManager:
   - Battle_Player
   - Mob
   - NPC
+  - EfcIcon
   layers:
   - Default
   - TransparentFX

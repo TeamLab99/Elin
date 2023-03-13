@@ -14,6 +14,11 @@ public class Order : MonoBehaviour
     [SerializeField] string sortingLayerName;
     int originOrder; // 기존 순서로 복귀를 위해 백업
 
+    private void Start()
+    {
+        SetOriginOrder(originOrder);
+    }
+
     // 기존 순서로 되돌림
     public void SetOriginOrder(int originOrder)
     {
