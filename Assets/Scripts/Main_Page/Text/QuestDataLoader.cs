@@ -10,11 +10,7 @@ public class QuestDataLoader : MonoBehaviour
 
     void Start()
     {
-        questData = JsonUtility.FromJson<QuestData>(data.text);
-        foreach(var variBle  in questData.quests)
-        {
-            //print(variBle.dialogue[0]);
-        }
+        questData = JsonUtility.FromJson<QuestData>(data.text);    
     }
 
     public Quest GetQuestByID(int quest_id)
