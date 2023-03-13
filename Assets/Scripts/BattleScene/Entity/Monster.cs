@@ -48,8 +48,6 @@ public class Monster : Entity
         curTime = maxTime;
     }
 
-
-
     protected void UseSkill(int index)
     {
         MobSkillManager.Inst.UseSkill(index);
@@ -73,6 +71,8 @@ public class Monster : Entity
         Attack(player);
         player.HitEffectOff();
     }
+
+
 
     #region 전달자
     public float GetAttackSpeed()

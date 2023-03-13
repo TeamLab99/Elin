@@ -69,6 +69,7 @@ public class TurnManager : MonoBehaviour
 
         isLoading = false;
         BPGameManager.Inst.MonsterPause(false);
+
     }
 
     // 카드 다 사용했을 시, 재 드로우
@@ -92,8 +93,8 @@ public class TurnManager : MonoBehaviour
     public void Notification(string message, bool state)
     {
         if (state)
-            notificationPanel.Show(message, new Color32(0,255,0,0));
+            notificationPanel.Show(message, new Color32(0,255,0,100));
         else
-            notificationPanel.Show(message, new Color32(255, 0, 0, 0));
+            notificationPanel.Show(message, new Color32(255, 0, 0, 100));
     }
 }

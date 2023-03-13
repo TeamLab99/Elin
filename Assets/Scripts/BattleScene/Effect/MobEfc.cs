@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class AtkSpdEfc : MonoBehaviour
+public class MobEfc : MonoBehaviour
 {
     Sequence mySequence;
 
