@@ -19,7 +19,7 @@ public class Entity : MonoBehaviour
 
     [Header("Pause")]
     protected bool stopGauge;
-    
+
     float hp;
     SpriteRenderer spr;
     PRS originPRS; // 기존 PRS 저장
@@ -49,7 +49,8 @@ public class Entity : MonoBehaviour
         {
             hp = 0;
             stopGauge = true;
-            BPGameManager.Inst.GameOver();
+            StartCoroutine(EffectManager.Inst.DeadMotion(spr));
+            StartCoroutine(BPGameManager.Inst.GameOver());
         }
 
         HPTxtUpdate();

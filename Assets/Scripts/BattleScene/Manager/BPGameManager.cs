@@ -14,7 +14,7 @@ public class BPGameManager : MonoBehaviour
     public static BPGameManager Inst { get; private set; } // 싱글턴
     void Awake() => Inst = this;
 
-    [SerializeField] Player player; 
+    [SerializeField] Player player;
     [SerializeField] GameObject monsterPrefab;
     [SerializeField] Transform mobSpawnPos;
     GameObject mob;
@@ -56,27 +56,27 @@ public class BPGameManager : MonoBehaviour
         #endregion
 
         #region 방향키 선택
-/*        // 오른쪽 방향키
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            StartCoroutine(CardManager.Inst.MoveToArrow(true));
-        }
-        if (Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            StopAllCoroutines();
-            CardManager.Inst.StopCo();
-        }
+        /*        // 오른쪽 방향키
+                if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    StartCoroutine(CardManager.Inst.MoveToArrow(true));
+                }
+                if (Input.GetKeyUp(KeyCode.RightArrow))
+                {
+                    StopAllCoroutines();
+                    CardManager.Inst.StopCo();
+                }
 
-        //왼쪽 방향키
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            StartCoroutine(CardManager.Inst.MoveToArrow(false));
-        }
-        if (Input.GetKeyUp(KeyCode.LeftArrow))
-        {
-            StopAllCoroutines();
-            CardManager.Inst.StopCo();
-        }*/
+                //왼쪽 방향키
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    StartCoroutine(CardManager.Inst.MoveToArrow(false));
+                }
+                if (Input.GetKeyUp(KeyCode.LeftArrow))
+                {
+                    StopAllCoroutines();
+                    CardManager.Inst.StopCo();
+                }*/
         #endregion
 
         #region 그 외
@@ -99,15 +99,28 @@ public class BPGameManager : MonoBehaviour
         StartCoroutine(TurnManager.Inst.StartGameCo());
     }
 
-    public void GameOver()
+    public IEnumerator GameOver()
     {
-        // 턴 및 카드 선택 정지
+        // 게이지 막기
         monster.SetStopGauge(true);
-        TurnManager.Inst.isLoading = true;
-        TurnManager.Inst.Notification("게임 오버",false);
-        CardManager.Inst.AllEnlargeCancle();
+
+        // 카드 선택 정지
+        TurnManager.Inst.isLoading = true; // 카드 선택 막기
+        CardManager.Inst.AllEnlargeCancle(); // 카드 선택 취소
+
+
+        yield return new WaitForSeconds(2f);
+        // 애니메이션 멈추기
+        player.gameObject.GetComponent<Animator>().speed = 0f;
+        monster.gameObject.GetComponent<Animator>().speed = 0f;
+
+        // 게임 오버 알리기
+        TurnManager.Inst.Notification("게임 오버", false);
         Debug.Log("게임 오버!");
-        Invoke("MoveScene", 3f);
+
+        // 씬 이동
+        yield return new WaitForSeconds(3f);
+        MoveScene();
     }
 
     public void MoveScene()

@@ -56,6 +56,13 @@ public class EffectManager : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator DeadMotion(SpriteRenderer spr)
+    {
+        spr.color = new Color32(255, 0, 0, 100);
+        spr.DOFade(0, 2f);
+        yield return null;
+    }
+
     public void CallHitCorutine(GameObject obj)
     {
         StartCoroutine(HitMotion(obj));

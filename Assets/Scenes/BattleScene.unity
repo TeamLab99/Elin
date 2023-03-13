@@ -1372,7 +1372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 50
   defense: 0
-  attack: 5
+  attack: 50
   hpTMP: {fileID: 194595811}
   cost: 5
   costRenewable: 0
@@ -1466,7 +1466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8486554206078976078, guid: b1a58d4569039bf42985731130ece6f3, type: 3}
       propertyPath: m_Name
-      value: squirrel
+      value: SquirrelEffect
       objectReference: {fileID: 0}
     - target: {fileID: 8486554206078976078, guid: b1a58d4569039bf42985731130ece6f3, type: 3}
       propertyPath: m_IsActive
