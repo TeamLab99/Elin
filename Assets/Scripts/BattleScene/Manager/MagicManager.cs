@@ -20,16 +20,26 @@ public class MagicManager : MonoBehaviour
     {
         switch (index)
         {
-            case 1: NormalAtk(); break;
+            case 1: HeadButt(); break;
             case 2: Heal(); break;
             default: break;
         }
     }
 
-    public void NormalAtk()
+    //public void Rolling()
+    //{
+        
+    //}
+
+    public void HeadButt()
     {
         player.Attack(monster);
     }
+
+    //public void Defense()
+    //{
+
+    //}
 
     public void Heal()
     {
