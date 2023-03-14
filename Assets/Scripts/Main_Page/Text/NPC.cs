@@ -38,12 +38,11 @@ public class NPC : MonoBehaviour
     }
     public void ShowQuestText()
     {
-      /*  if (quest_id >= questsList.Length)
+         if (quest_id >= questsList.Length)
         {
-            Debug.Log(questsList.Length);
             Debug.Log("실패");
             return;
-        }*/
+        }
             
         if (!isTalking)
         {
