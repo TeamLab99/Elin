@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Headbutt2d
+  m_Name: Headbutt_1
   m_Shader: {fileID: -6465566751694194690, guid: 1983b719709f0784e8cdafc93a1207f3, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
