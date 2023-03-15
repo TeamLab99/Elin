@@ -14,8 +14,8 @@ public class DataBase_Manager : MonoBehaviour
     public Spawn_Manager spm;
     private bool isOpen = false;
 
-    public TextAsset itemdata;
-    private AllItemData datas;
+    //public TextAsset itemdata;
+    //private AllItemData datas;
 
     private void Awake()
     {
@@ -28,13 +28,13 @@ public class DataBase_Manager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             instance = this;
         }
-        datas = JsonUtility.FromJson<AllItemData>(itemdata.text);
+      //  datas = JsonUtility.FromJson<AllItemData>(itemdata.text);
     } // 아이템 데이터 매니저는 항상 존재
 
     void Start() 
     {
-        Debug.Log(datas.itemDatas[0].itemID);
-        itemList.Add(new Item_Data(datas.itemDatas[0].itemID, datas.itemDatas[0].itemName, datas.itemDatas[0].itemDescription, datas.itemDatas[0].itemType, 0,0,10));
+        //Debug.Log(datas.itemDatas[0].itemID);
+        //itemList.Add(new Item_Data(datas.itemDatas[0].itemID, datas.itemDatas[0].itemName, datas.itemDatas[0].itemDescription, datas.itemDatas[0].itemType, 0,0,10));
         itemList.Add(new Item_Data(10002, "gem", "마나를 10 증가", Item_Data.ItemType.Consumer,0,0,0,10));
         itemList.Add(new Item_Data(20001, "bag", "방어력 10 증가", Item_Data.ItemType.Equipment,0,10));
         itemList.Add(new Item_Data(20002, "belt", "공격력 10 증가", Item_Data.ItemType.Equipment,10));
