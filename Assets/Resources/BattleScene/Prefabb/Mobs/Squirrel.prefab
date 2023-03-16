@@ -273,7 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 50
   defense: 0
-  attack: 25
+  attack: 10
   hpTMP: {fileID: 3823288857400154638}
   attackSpeed: 2
   skillCount: 2

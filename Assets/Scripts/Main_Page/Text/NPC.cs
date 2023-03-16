@@ -32,7 +32,7 @@ public class NPC : MonoBehaviour
 
     public void AllQuestList()
     {
-       /* foreach (Quest quest in quests)
+        /*foreach (Quest quest in quests)
         {
         }*/
     }
