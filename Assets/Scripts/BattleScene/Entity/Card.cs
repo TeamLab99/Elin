@@ -37,10 +37,20 @@ public class Card : MonoBehaviour
         healthTMP.text = this.item.health.ToString();
         costTMP.text = this.item.cost.ToString();
 
-        // 회복 타입이면 타입 텍스트 초록색으로 변경
-        if (this.item.type == "회복")
+        switch (this.item.id)
         {
-            typeTMP.color = new Color32(0, 255, 0, 255);
+            case 1:
+                typeTMP.faceColor = new Color32(255, 255, 0, 255);
+                break;
+            case 2:
+                typeTMP.faceColor = new Color32(0, 255, 0, 255);
+                break;
+            case 3:
+                typeTMP.faceColor = new Color32(0, 255, 255, 255);
+                break;
+            case 4:
+                typeTMP.faceColor = new Color32(255, 255, 255, 255);
+                break;
         }
     }
     // 카드 이동 애니메이션 PRS, DOTween 사용여부, 총 재생 시간을 파라미터로 받아와 실행

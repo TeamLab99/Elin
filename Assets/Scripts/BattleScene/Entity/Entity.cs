@@ -15,6 +15,9 @@ public class Entity : MonoBehaviour
     [SerializeField] float defense;
     [SerializeField] float attack; // 마법 매니저 만들면 몬스터에만 들어갈 속성
     [SerializeField] TMP_Text hpTMP;
+    
+    float lastAtkValue;
+    float buffDefense;
 
 
     [Header("Pause")]
@@ -32,17 +35,23 @@ public class Entity : MonoBehaviour
             transform.localScale);
         originPos = originPRS.pos;
         hp = maxHp;
+
+        lastAtkValue = attack;
     }
 
     public void Attack(Entity entity)
     {
+        if (attack <= 0)
+        {
+            attack = 0;
+        }
+
         entity.TakeDmg(attack);
     }
 
     public void TakeDmg(float amount)
     {
         amount -= defense;
-
         hp -= amount;
 
         if (hp <= 0)
@@ -75,4 +84,35 @@ public class Entity : MonoBehaviour
     {
         stopGauge = isBool;
     }
+
+    public void SetAttack(float amount)
+    {
+        attack = amount;
+    }
+
+    public void SetAttackReturn()
+    {
+        attack = lastAtkValue;
+    }
+
+    public void MinusAttack(float amount)
+    {
+        attack -= amount;
+    }
+
+    public void PlusBuffDefense(float amount)
+    {
+        buffDefense += amount;
+    }
+
+    public float GetBuffDefense()
+    {
+        return buffDefense;
+    }
+
+    public void SetBuffDefenseZero()
+    {
+        buffDefense = 0;
+    }
+
 }

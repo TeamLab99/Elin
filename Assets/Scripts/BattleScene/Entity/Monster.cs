@@ -62,7 +62,20 @@ public class Monster : Entity
 
     protected IEnumerator MonsterHitEffectWithAttack()
     {
-        EffectManager.Inst.AtkMotion(gameObject, player.gameObject.transform.parent.position ,true, 0.4f);
+        if (BuffManager.Inst.GetisAvoid())
+        {
+            SetAttack(0);
+            BuffManager.Inst.AvoidOff();
+        }
+        else if (BuffManager.Inst.GetisDefense() && !BuffManager.Inst.GetisAvoid())
+        {
+            MinusAttack(player.GetBuffDefense());
+            player.SetBuffDefenseZero();
+            BuffManager.Inst.DefenseOff();
+        }
+
+
+        EffectManager.Inst.MobAtkMotion(gameObject, player.gameObject.transform.parent.position ,true, 0.4f);
         player.HitEffectOn();
 
         yield return delay05;
@@ -70,6 +83,7 @@ public class Monster : Entity
         EffectManager.Inst.CallHitCorutine(player.gameObject);
         Attack(player);
         player.HitEffectOff();
+        SetAttackReturn();
     }
 
 

@@ -20,7 +20,7 @@ public class EffectManager : MonoBehaviour
     Sequence mySequence;
 
     // 카드 이동 애니메이션과 다른 점은 오브젝트를 따로 파라미터로 받아서 이동
-    public void AtkMotion(GameObject mob, Vector3 playerPos, bool useDotween, float dotweenTime = 0)
+    public void MobAtkMotion(GameObject mob, Vector3 playerPos, bool useDotween, float dotweenTime = 0)
     {
         var p = playerPos;
         var r = Utils.QI;
@@ -41,6 +41,13 @@ public class EffectManager : MonoBehaviour
             transform.rotation = r;
             transform.localScale = s;
         }
+    }
+
+    public void HeadButtMotion(GameObject obj, float dotweenTime =0)
+    {
+        mySequence = DOTween.Sequence();
+        mySequence.Append(obj.transform.DOMoveX(15, dotweenTime).SetRelative().SetEase(Ease.Flash, 2, 0))
+            .Join(obj.transform.DOScale(Vector3.one, dotweenTime).SetRelative().SetEase(Ease.Flash, 2, 0));
     }
 
     public IEnumerator HitMotion(GameObject mob)
