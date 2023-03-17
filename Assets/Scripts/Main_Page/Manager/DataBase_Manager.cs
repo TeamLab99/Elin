@@ -12,6 +12,7 @@ public class DataBase_Manager : MonoBehaviour
     public Player_Move pm;
     public GameObject status;
     public Spawn_Manager spm;
+    public Camera_Follow cm;
     private bool isOpen = false;
 
     //public TextAsset itemdata;
