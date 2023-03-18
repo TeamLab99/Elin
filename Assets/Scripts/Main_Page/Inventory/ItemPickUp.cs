@@ -12,14 +12,4 @@ public class ItemPickUp : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void Start()
-    {
-      
-    }
-
-   
-    void Update()
-    {
-        
-    }
 }

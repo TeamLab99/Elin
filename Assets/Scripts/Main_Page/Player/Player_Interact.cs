@@ -9,7 +9,7 @@ public class Player_Interact : MonoBehaviour
     {
         if (collision.gameObject.layer==15)
         {
-            DataBase_Manager.instance.cm.IsFollow();
+            DataBase_Manager.instance.cm.followType=Camera_Follow.FollowType.LateFollow;
             for(int i=0; i < destroyTile.Length-1; i++)
             {
                 Debug.Log("dd");
@@ -24,6 +24,6 @@ public class Player_Interact : MonoBehaviour
         yield return new WaitForSeconds(1f);
         destroyTile[2].SetActive(false);
         yield return new WaitForSeconds(3f);
-        DataBase_Manager.instance.cm.followPlayer = true;
+        DataBase_Manager.instance.cm.followType = Camera_Follow.FollowType.FollowPlayer;
     }
 }
