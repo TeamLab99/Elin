@@ -5,25 +5,21 @@ using UnityEngine;
 public class Player_Interact : MonoBehaviour
 {
     public GameObject[] destroyTile;
-    private void OnTriggerEnter2D(Collider2D collision)
+    public Camera_Event cm;
+    public void DestroyBlock()
     {
-        if (collision.gameObject.layer==15)
+        for (int i = 0; i < destroyTile.Length - 1; i++)
         {
-            DataBase_Manager.instance.cm.followType=Camera_Follow.FollowType.LateFollow;
-            for(int i=0; i < destroyTile.Length-1; i++)
-            {
-                Debug.Log("dd");
-                destroyTile[i].SetActive(false);
-                StartCoroutine("ReFollowPlayer");
-            }
+            DataBase_Manager.instance.cm.SetEnumValue(Camera_Follow.FollowType.LateFollow);
+            destroyTile[i].SetActive(false);
+            StartCoroutine("ReFollowPlayer");
         }
     }
-
     IEnumerator ReFollowPlayer()
     {
         yield return new WaitForSeconds(1f);
         destroyTile[2].SetActive(false);
         yield return new WaitForSeconds(3f);
-        DataBase_Manager.instance.cm.followType = Camera_Follow.FollowType.FollowPlayer;
+        DataBase_Manager.instance.cm.SetEnumValue(Camera_Follow.FollowType.FollowPlayer);
     }
 }

@@ -11721,7 +11721,7 @@ GameObject:
   - component: {fileID: 348125115}
   - component: {fileID: 348125114}
   - component: {fileID: 348125116}
-  m_Layer: 15
+  m_Layer: 31
   m_Name: Flower A0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13390,7 +13390,6 @@ Transform:
   - {fileID: 228733313}
   - {fileID: 322950559}
   - {fileID: 1916980411}
-  - {fileID: 1099808445}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13429,21 +13428,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundFrontCheck: {fileID: 228733313}
   groundBackCheck: {fileID: 322950559}
-  wallCheck: {fileID: 1916980411}
+  checkPosition: {fileID: 1916980411}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
   wallLayer:
     serializedVersion: 2
     m_Bits: 384
+  objLayer:
+    serializedVersion: 2
+    m_Bits: 2147532800
   groundDist: 1
   wallDist: 0.8
-  particleEffect: {fileID: 1099808445}
-  particle: {fileID: 5322280162734317163, guid: 50909fc89867a0b4abd796beaec9d19e, type: 3}
+  objDist: 1
   xSpeed: 10
   ySpeed: 10
   chargeSpeed: 1.5
   jumpTime: 0.5
+  playerInteract: {fileID: 592909580}
 --- !u!95 &592909577
 Animator:
   serializedVersion: 4
@@ -13527,6 +13529,7 @@ MonoBehaviour:
   - {fileID: 1602496534}
   - {fileID: 213256170}
   - {fileID: 348125112}
+  cm: {fileID: 1827794655}
 --- !u!1001 &596681374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15939,37 +15942,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1099808444
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1099808445}
-  m_Layer: 3
-  m_Name: ParticleEffect
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1099808445
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1099808444}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.18, y: 0.06, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 592909570}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1117339190 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8792292982402370395, guid: 3ab44bd5397dc2a408e6c0f38b32e876, type: 3}
@@ -19665,7 +19637,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980478bca6e6d584f86cfb20e153f83a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraFollow: {fileID: 85586271}
   DesVec: {x: -52, y: 13, z: -15}
+  eventType: 0
 --- !u!61 &1827794656
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20164,7 +20138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1916980411}
   m_Layer: 3
-  m_Name: WallCheck
+  m_Name: Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
