@@ -35,6 +35,7 @@ TagManager:
   - PlayerDamaged
   - DeBuff
   - NPC
+  - ItemBox
   - 
   - 
   - 
@@ -50,8 +51,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Tutorial
   m_SortingLayers:
   - name: Default
     uniqueID: 0

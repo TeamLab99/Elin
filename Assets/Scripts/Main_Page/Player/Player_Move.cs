@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player_Move : MonoBehaviour
 {
-    public static Player_Move instance;
 
     // GetComponent 관련 변수
     Animator anim;
@@ -14,20 +13,20 @@ public class Player_Move : MonoBehaviour
     // 검출 관련 변수 
     public Transform groundFrontCheck; // 앞 다리 위치
     public Transform groundBackCheck; // 뒷 다리 위치
-    public Transform wallCheck; // 벽 체크 위치
+    public Transform checkPosition; // 벽,상호작용 객체 체크 위치
     public LayerMask groundLayer; // 땅 레이어
     public LayerMask wallLayer; // 벽 레이어
+    public LayerMask objLayer; // 객체 레이어
+
     public float groundDist; // 땅과의 거리
     public float wallDist; // 벽과의 거리
+    public float objDist; // 객체와의 거리 
     private bool isWall; // 벽에 붙어있는가?
+    private bool isObj; // 객체와 붙어있는가?
     private bool isGround; // 두 다리 중 하나라도 땅에 붙어 있는가?
     private bool isFrontGruond; // 앞 다리가 땅에 붙어 있는가?
     private bool isBackGruond; // 뒷 다리가 땅에 붙어 있는가?
     private bool isControlPlayer; // 플레이어의 움직임을 제어하는가?
-    //private bool isInteraction=false; // 상호작용 하는가?
-
-    public Transform particleEffect;
-    public GameObject particle;
 
     // 걷기 관련 변수들
     public float xSpeed; // 좌우 이동 속도
@@ -48,8 +47,10 @@ public class Player_Move : MonoBehaviour
     private bool isHit=false;
     private GameObject deBuff;
 
+    // 스캔 대상 체크
     private Vector2 frontDir;
     private GameObject scanObject;
+    public Player_Interact playerInteract;
 
     private void Awake()
     {
@@ -60,12 +61,10 @@ public class Player_Move : MonoBehaviour
     }
     private void Start() 
     {
-        instance = this;
         defaultGravity = rb.gravityScale;
     }
     void Update()
     {
-       // InputKey();
         Animation();
         CheckingMap();
         ReverseSprite();
@@ -102,7 +101,8 @@ public class Player_Move : MonoBehaviour
     // 땅과 벽을 검출한다.
     private void CheckingMap()
     {
-        isWall = Physics2D.Raycast(wallCheck.position, Vector2.right * isRight, wallDist, wallLayer); // 바라보는 방향에 벽이 있는지 확인
+        isObj = Physics2D.Raycast(checkPosition.position, Vector2.right * isRight, objDist, objLayer); // 바라보는 방향에 객체가 있는지 확인
+        isWall = Physics2D.Raycast(checkPosition.position, Vector2.right * isRight, wallDist, wallLayer); // 바라보는 방향에 벽이 있는지 확인
         isFrontGruond = Physics2D.Raycast(groundFrontCheck.position, Vector2.down, groundDist, groundLayer); // 앞 다리가 땅에 있는지 확인
         isBackGruond = Physics2D.Raycast(groundBackCheck.position, Vector2.down, groundDist, groundLayer); // 뒷 다리가 땅에 있는지 확인
         if (isFrontGruond || isBackGruond) // 두 다리 중 하나라도 걸쳐 있다면 땅위에 있음
@@ -262,7 +262,7 @@ public class Player_Move : MonoBehaviour
         Gizmos.DrawRay(groundFrontCheck.position,Vector2.down*groundDist);
         Gizmos.DrawRay(groundBackCheck.position, Vector2.down * groundDist);
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(wallCheck.position, Vector2.right * wallDist*isRight);
+        Gizmos.DrawRay(checkPosition.position, Vector2.right * wallDist*isRight);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -280,7 +280,21 @@ public class Player_Move : MonoBehaviour
             deBuff.SetActive(false);
             xSpeed = 7;
             Invoke("CoolDownDeBuff", 3f);
-        } 
+        }
+        if (isObj)
+        {
+            switch (collision.gameObject.layer)
+            {
+                case 14: // NPC
+                    
+                    break;
+                case 15: // 아이템 박스
+                    break;
+                case 31:
+                    playerInteract.DestroyBlock();
+                    break;
+            }
+        }
     }  
 
     void OnDamaged(Vector2 targetPos)

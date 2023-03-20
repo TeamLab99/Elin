@@ -103,7 +103,7 @@
       "cardName": "구르기",
       "element": "None",
       "cost": "1",
-      "description": "회피합니다"
+      "description": "회피합니다. 버티기보다 우선됩니다."
     },
     {
       "id": "15",
