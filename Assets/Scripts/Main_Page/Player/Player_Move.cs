@@ -9,15 +9,15 @@ public class Player_Move : MonoBehaviour
     Animator anim;
     Rigidbody2D rb;
     SpriteRenderer spr;
-    
+
     // 검출 관련 변수 
+    [Header("검출 관련 변수")]
     public Transform groundFrontCheck; // 앞 다리 위치
     public Transform groundBackCheck; // 뒷 다리 위치
     public Transform checkPosition; // 벽,상호작용 객체 체크 위치
     public LayerMask groundLayer; // 땅 레이어
     public LayerMask wallLayer; // 벽 레이어
     public LayerMask objLayer; // 객체 레이어
-
     public float groundDist; // 땅과의 거리
     public float wallDist; // 벽과의 거리
     public float objDist; // 객체와의 거리 
@@ -28,12 +28,12 @@ public class Player_Move : MonoBehaviour
     private bool isBackGruond; // 뒷 다리가 땅에 붙어 있는가?
     private bool isControlPlayer; // 플레이어의 움직임을 제어하는가?
 
+    [Header("이동 관련 변수")]
     // 걷기 관련 변수들
     public float xSpeed; // 좌우 이동 속도
     private float moveDir; // 방향키를 입력 받는 
     private float isRight=1; // 오른쪽을 보면 1, 왼쪽을 보면 0
     private float defaultGravity; // 기본 중력
-
     // 점프와  슈퍼점프 관련 변수들 
     public float ySpeed; // 점프 속도
     public float chargeSpeed; // 점프 속도 충전 
@@ -63,6 +63,15 @@ public class Player_Move : MonoBehaviour
     {
         defaultGravity = rb.gravityScale;
     }
+
+    // getaxis = -1.0~1.0f
+    // getaxisraw = -1,0,1 3가지만 반환
+    // getbuttondown = 버튼을 누를때 한번 true 발생
+    // getbuttonup = 버튼을 눌렀다 땔 경우 true 발생
+    // getbutton = 버튼을 누르고 있을 때 계속해서 true 발생
+    // tirggerenter2d = 충돌 시, 한번만 호출
+    // tirggerstay2d  = 충돌 시, 지속적으로 호출
+    // exit = 충돌에서 벗어나면 한번 호출
     void Update()
     {
         Animation();
