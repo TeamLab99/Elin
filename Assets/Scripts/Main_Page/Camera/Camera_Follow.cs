@@ -49,6 +49,7 @@ public class Camera_Follow : MonoBehaviour
                 break;
             case FollowType.LateFollow:
                 transform.position = transform.position;
+                StartCoroutine("BackType");
                 break;
         }
     }

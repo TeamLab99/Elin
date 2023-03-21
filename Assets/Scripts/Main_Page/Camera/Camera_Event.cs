@@ -6,7 +6,6 @@ public class Camera_Event : MonoBehaviour
 {
     public Camera_Follow cameraFollow;
     public Vector3 DesVec;
-    private bool isTry=true;
     public EventType eventType;
     public enum EventType{
         Goto,
@@ -16,7 +15,7 @@ public class Camera_Event : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && isTry)
+        if (collision.CompareTag("Player"))
         {
             switch (eventType)
             {
@@ -31,8 +30,7 @@ public class Camera_Event : MonoBehaviour
                     cameraFollow.SetEnumValue(Camera_Follow.FollowType.LateFollow);
                     break;
             }
-            isTry = false;
+            gameObject.SetActive(false);
         }
     }
-          
 }

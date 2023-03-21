@@ -5,7 +5,7 @@ using UnityEngine;
 public class Teleport : MonoBehaviour
 {
     public GameObject toObj;
-    public GameObject target;
+    private GameObject target;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -13,7 +13,6 @@ public class Teleport : MonoBehaviour
             target = collision.gameObject;
             StartCoroutine("TeleportRoutine");
         }
-           
     }
     IEnumerator TeleportRoutine()
     {
