@@ -41,7 +41,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2653481103320204295}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.4
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4920,7 +4920,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2653481104028129241}
   serializedVersion: 8
-  lengthInSec: 1.2
+  lengthInSec: 0.5
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -4995,7 +4995,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.2
+      scalar: 0.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -6277,8 +6277,8 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 27867
-        atime2: 50545
+        atime1: 52659
+        atime2: 59769
         atime3: 65535
         atime4: 0
         atime5: 0
@@ -9818,7 +9818,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2653481104122439987}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.5
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -9833,7 +9833,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0.05
+    scalar: 0
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -9893,7 +9893,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -10062,7 +10062,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 7
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -10115,7 +10115,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 15
+      scalar: 14
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -14697,14 +14697,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2653481104252138419}
-  m_LocalRotation: {x: -0.27677813, y: 0.6799782, z: 0.62888527, w: 0.25598225}
+  m_LocalRotation: {x: 0.6035566, y: 0.20311926, z: -0.24592201, w: 0.7307424}
   m_LocalPosition: {x: 0.24507523, y: 0.08191204, z: 0.22507596}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2653481104256302017}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: -94.471, y: -0.0010070801, z: 135.704}
+  m_LocalEulerAnglesHint: {x: 79.11, y: 0, z: -37.2}
 --- !u!198 &2653481104252138416
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -14713,7 +14713,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2653481104252138419}
   serializedVersion: 8
-  lengthInSec: 0.7
+  lengthInSec: 0.4
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -14788,8 +14788,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.7
-      minScalar: 0.8
+      scalar: 0.5
+      minScalar: 0.3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -14956,8 +14956,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 1
-      scalar: 5
+      minMaxState: 0
+      scalar: 2.65
       minScalar: 2
       maxCurve:
         serializedVersion: 2
@@ -15009,7 +15009,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 1
+      minMaxState: 0
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -15062,7 +15062,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 1
+      minMaxState: 0
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -15340,7 +15340,7 @@ ParticleSystem:
     radiusThickness: 0.28
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 0, y: 0, z: 0}
+    m_Rotation: {x: 3.73, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -15699,7 +15699,7 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 2
+      cycleCount: 1
       repeatInterval: 0.2
       probability: 1
   SizeModule:
@@ -15715,29 +15715,29 @@ ParticleSystem:
         - serializedVersion: 3
           time: 0
           value: 1
-          inSlope: -1.6732811
-          outSlope: -1.6732811
+          inSlope: -0.69163245
+          outSlope: -0.69163245
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.2796155
-          value: 0.5321247
-          inSlope: -1.1225586
-          outSlope: -1.1225586
+          time: 0.50265324
+          value: 0.6523487
+          inSlope: -0.87805986
+          outSlope: -0.87805986
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: 0.1201828
-          inSlope: -0.12239456
-          outSlope: -0.12239456
+          value: 0.12292938
+          inSlope: -1.5843533
+          outSlope: -1.5843533
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.18891975
+          inWeight: 0.18726839
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -16061,8 +16061,8 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 7325
-        atime2: 25058
+        atime1: 8648
+        atime2: 44010
         atime3: 65535
         atime4: 0
         atime5: 0
@@ -19560,7 +19560,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2653481104256302017}
-  - component: {fileID: 3864279894089130076}
   m_Layer: 0
   m_Name: Earthquake
   m_TagString: Untagged
@@ -19587,19 +19586,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &3864279894089130076
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2653481104256302019}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 0e4f215947d42ce4492c4386fe724a13, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 0e4f215947d42ce4492c4386fe724a13, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0

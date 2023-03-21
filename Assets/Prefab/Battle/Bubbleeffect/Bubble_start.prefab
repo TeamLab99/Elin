@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4099161068785503809}
   m_LocalRotation: {x: -0.5001345, y: 0.4998655, z: -0.4998655, w: 0.5001345}
-  m_LocalPosition: {x: -9.654942, y: -0.057225227, z: 0.6440772}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 2.1248755}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41,7 +41,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4099161068785503809}
   serializedVersion: 8
-  lengthInSec: 0.5
+  lengthInSec: 0.45
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -116,8 +116,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.8
-      minScalar: 0.7
+      scalar: 0.5
+      minScalar: 0.3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -169,7 +169,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4.66
+      scalar: 8.23
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1553,7 +1553,7 @@ ParticleSystem:
     flipU: 0
     flipV: 0
   VelocityModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -1663,7 +1663,7 @@ ParticleSystem:
     z:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 2.98
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -2475,7 +2475,7 @@ ParticleSystem:
       m_Bits: 4294967295
     influenceList: []
   ClampVelocityModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -2638,7 +2638,7 @@ ParticleSystem:
     magnitude:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.13
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2692,7 +2692,7 @@ ParticleSystem:
     inWorldSpace: 0
     multiplyDragByParticleSize: 1
     multiplyDragByParticleVelocity: 1
-    dampen: 0
+    dampen: 0.11
     drag:
       serializedVersion: 2
       minMaxState: 0
@@ -4905,7 +4905,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4099161069628217792}
   m_LocalRotation: {x: -0.5146342, y: -0.4849244, z: -0.5146342, w: -0.4849244}
-  m_LocalPosition: {x: -9.724941, y: 0.012774944, z: 0.035075903}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.9811002, y: 1.9811002, z: 1.9811}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4920,7 +4920,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4099161069628217792}
   serializedVersion: 8
-  lengthInSec: 0.8
+  lengthInSec: 0.4
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -4995,7 +4995,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.7
+      scalar: 0.5
       minScalar: 0.3
       maxCurve:
         serializedVersion: 2
@@ -5048,7 +5048,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.2
+      scalar: 3.1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -9773,7 +9773,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8376547790674624608}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.554941, y: -1.5527749, z: -0.018954277}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
