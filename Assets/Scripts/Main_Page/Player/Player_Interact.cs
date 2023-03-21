@@ -12,14 +12,6 @@ public class Player_Interact : MonoBehaviour
         {
             DataBase_Manager.instance.cm.SetEnumValue(Camera_Follow.FollowType.LateFollow);
             destroyTile[i].SetActive(false);
-            StartCoroutine("ReFollowPlayer");
         }
-    }
-    IEnumerator ReFollowPlayer()
-    {
-        yield return new WaitForSeconds(1f);
-        destroyTile[2].SetActive(false);
-        yield return new WaitForSeconds(3f);
-        DataBase_Manager.instance.cm.SetEnumValue(Camera_Follow.FollowType.FollowPlayer);
     }
 }
