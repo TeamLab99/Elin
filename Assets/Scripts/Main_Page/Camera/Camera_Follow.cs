@@ -14,8 +14,9 @@ public class Camera_Follow : MonoBehaviour
     {
         GotoObject,
         FollowPlayer,
-        LateFollow
+        LateFollow,
     }
+
     [SerializeField]
     private FollowType followType;
     void Start()
@@ -40,14 +41,17 @@ public class Camera_Follow : MonoBehaviour
         Goto.z = -15f;
         switch (followType)
         {
+            case FollowType.FollowPlayer:
+                DataBase_Manager.instance.pm.canMove = true;
+                transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothSpeed * Time.deltaTime);
+                break;
             case FollowType.GotoObject:
+                DataBase_Manager.instance.pm.canMove = false;
                 transform.position = Vector3.Lerp(transform.position, Goto, smoothSpeed * Time.deltaTime);
                 StartCoroutine("BackType");
                 break;
-            case FollowType.FollowPlayer:
-                transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothSpeed * Time.deltaTime);
-                break;
             case FollowType.LateFollow:
+                DataBase_Manager.instance.pm.canMove = false;
                 transform.position = transform.position;
                 StartCoroutine("BackType");
                 break;
