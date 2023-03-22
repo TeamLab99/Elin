@@ -4,41 +4,33 @@ using UnityEngine;
 
 public class Squirrel : Monster
 {
-    protected override void Awake()
+    int random;
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
     }
 
-    void Update()
+    protected override IEnumerator MonsterPattern()
     {
-        // 게이지의 상태 계속 업데이트
-        scroll.fillAmount = curTime / maxTime;
-
-        // 누군가 죽지 않았다면 계속 검사
-        if (!stopGauge)
+        if (count > 0)
         {
-            curTime -= Time.deltaTime;
-            if (curTime <= 0)
-            {
-                if (count > 0)
-                {
-                    // 게이지 재충전, 어택 애니메이션, 공격 함수
-                    curTime = maxTime;
-                    StartCoroutine(MonsterHitEffectWithAttack());
-                    count--;
-                }
-                else if (count == 0)
-                {
-                    if (maxTime > 1f)
-                    {
-                        stopGauge = true;
-                        UseSkill(1);
-                        StartCoroutine(SkillDelay());
-                        maxTime = attackSpeed;
-                    }
-                    count = skillCount;
-                }
-            }
+            curTime = maxTime;
+            random = Random.Range(0, 10);
+            if (random == 9)
+                attack *= 1.5f;
+            StartCoroutine(AttackOfMonster());
+            count--;
         }
+        else if (count == 0)
+        {
+            if (maxTime > 1f)
+            {
+                UseSkill(skillindex);
+                maxTime = attackSpeed;
+            }
+            count = skillCount;
+        }
+
+        yield return null;
     }
 }

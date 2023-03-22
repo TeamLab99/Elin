@@ -13,12 +13,11 @@ public class Entity : MonoBehaviour
 {
     [SerializeField] float maxHp;
     [SerializeField] float defense;
-    [SerializeField] float attack; // 마법 매니저 만들면 몬스터에만 들어갈 속성
+    [SerializeField] protected float attack; // 마법 매니저 만들면 몬스터에만 들어갈 속성
     [SerializeField] TMP_Text hpTMP;
     
     float lastAtkValue;
     float buffDefense;
-
 
     [Header("Pause")]
     protected bool stopGauge;
@@ -28,15 +27,20 @@ public class Entity : MonoBehaviour
     PRS originPRS; // 기존 PRS 저장
     Vector3 originPos; // 위치값만 저장
 
-    protected virtual void Awake()
+    protected virtual void Start()
+    {
+        InitSetting();
+    }
+
+    public void InitSetting()
     {
         spr = GetComponent<SpriteRenderer>();
         originPRS = new PRS(transform.position, transform.rotation,
             transform.localScale);
         originPos = originPRS.pos;
         hp = maxHp;
-
         lastAtkValue = attack;
+        HPTxtUpdate();
     }
 
     public void Attack(Entity entity)
@@ -45,7 +49,6 @@ public class Entity : MonoBehaviour
         {
             attack = 0;
         }
-
         entity.TakeDmg(attack);
     }
 
@@ -75,11 +78,22 @@ public class Entity : MonoBehaviour
         HPTxtUpdate();
     }
 
+    public void MinusAttack(float amount)
+    {
+        attack -= amount;
+    }
+
+    public void PlusBuffDefense(float amount)
+    {
+        buffDefense += amount;
+    }
+
     public void HPTxtUpdate()
     {
         hpTMP.text = hp.ToString();
     }
 
+    #region Getter,Setter
     public void SetStopGauge(bool isBool)
     {
         stopGauge = isBool;
@@ -95,15 +109,6 @@ public class Entity : MonoBehaviour
         attack = lastAtkValue;
     }
 
-    public void MinusAttack(float amount)
-    {
-        attack -= amount;
-    }
-
-    public void PlusBuffDefense(float amount)
-    {
-        buffDefense += amount;
-    }
 
     public float GetBuffDefense()
     {
@@ -114,5 +119,6 @@ public class Entity : MonoBehaviour
     {
         buffDefense = 0;
     }
+    #endregion
 
 }

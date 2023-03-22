@@ -182,7 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3823288857498860797}
   - component: {fileID: 3823288857498860796}
-  - component: {fileID: 3823288857498860793}
+  - component: {fileID: 5150501785948284281}
   - component: {fileID: 5166783322393184165}
   m_Layer: 0
   m_Name: Character
@@ -259,7 +259,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3823288857498860793
+--- !u!114 &5150501785948284281
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -273,10 +273,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 50
   defense: 0
-  attack: 10
+  attack: 5
   hpTMP: {fileID: 3823288857400154638}
   attackSpeed: 2
   skillCount: 2
+  skillindex: 1
   skillType: 
   effect: {fileID: 3823288858469411436}
 --- !u!95 &5166783322393184165

@@ -12,17 +12,11 @@ public class Player : Entity
     [SerializeField] int costRenewable;
     [SerializeField] GameObject hitEffect;
 
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
-    }
-
-    void Start()
-    {
+        base.Start();
         HPTxtUpdate();
-        var mob = GameObject.FindGameObjectWithTag("Mob");
-
-        monster = mob.GetComponent<Monster>();
+        monster = GameObject.FindGameObjectWithTag("Mob").GetComponent<Monster>();
     }
 
     public void SetMonster(Monster monster)
