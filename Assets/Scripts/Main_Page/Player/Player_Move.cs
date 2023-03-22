@@ -30,6 +30,7 @@ public class Player_Move : MonoBehaviour
 
     [Header("이동 관련 변수")]
     // 걷기 관련 변수들
+    public bool canMove=true;
     public float xSpeed; // 좌우 이동 속도
     private float moveDir; // 방향키를 입력 받는 
     private float isRight=1; // 오른쪽을 보면 1, 왼쪽을 보면 0
@@ -86,17 +87,25 @@ public class Player_Move : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (!isHit)
+        if (canMove)
         {
-            if (!isControlPlayer)
+            if (!isHit)
             {
-                Walk();
-                Jump();
-                WallSlide();
-                SuperJump();
+                if (!isControlPlayer)
+                {
+                    Walk();
+                    Jump();
+                    WallSlide();
+                    SuperJump();
+                }
+                IncreaseGravity();
             }
-            IncreaseGravity();
         }
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+      
         if (isRight == 1)
             frontDir = Vector2.right;
         else if (isRight == -1)

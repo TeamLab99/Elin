@@ -10,7 +10,7 @@ public class Camera_Event : MonoBehaviour
     public enum EventType{
         Goto,
         Follow,
-        Late
+        Late,
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
