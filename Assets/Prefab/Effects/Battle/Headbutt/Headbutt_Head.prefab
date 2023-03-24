@@ -14629,7 +14629,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8788470741154598200}
   m_Layer: 0
-  m_Name: HeadbuttVer2
+  m_Name: Headbutt_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

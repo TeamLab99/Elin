@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8018010605847232142}
   - component: {fileID: 8018010605847232141}
   m_Layer: 0
-  m_Name: Splash_dot
+  m_Name: poison_platformer_dot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
