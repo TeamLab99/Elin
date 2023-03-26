@@ -32,4 +32,30 @@ public class Player_Stat : MonoBehaviour
         textState[2].text = atk.ToString();
         textState[3].text = def.ToString();
     }
+
+    /*
+      private bool isHit; // 데미지를 받았는지 확인하는 변수
+         void OnDamaged(Vector2 targetPos)
+    {
+        isHit = true;
+        gameObject.layer = 12;
+        spr.color = new Color(1, 1, 1,0.4f);
+        StartCoroutine("CoolDownSpike");
+    }
+    IEnumerator CoolDownSpike()
+    {
+        yield return new WaitForSeconds(1f);
+        spr.color = new Color(1, 1, 1, 1f);
+        isHit = false;
+        gameObject.layer = 3;
+        yield break;
+    }
+      private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Spike")
+        {
+            OnDamaged(collision.transform.position);
+        }
+    } // 충돌
+     */
 }

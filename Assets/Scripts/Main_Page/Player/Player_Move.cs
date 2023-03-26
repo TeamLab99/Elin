@@ -11,32 +11,35 @@ public class Player_Move : MonoBehaviour
     SpriteRenderer spr;
 
     // 검출 관련 변수 
-    [Header("검출 관련 변수")]
+    [Header("검출 관련 변수 : 개발자 관련 변수")]
     public Transform groundFrontCheck; // 앞 다리 위치
     public Transform groundBackCheck; // 뒷 다리 위치
     public Transform checkPosition; // 벽,상호작용 객체 체크 위치
     public LayerMask groundLayer; // 땅 레이어
     public LayerMask wallLayer; // 벽 레이어
-    public LayerMask objLayer; // 객체 레이어
     public float groundDist; // 땅과의 거리
     public float wallDist; // 벽과의 거리
-    public float objDist; // 객체와의 거리 
     private bool isWall; // 벽에 붙어있는가?
-    private bool isObj; // 객체와 붙어있는가?
     private bool isGround; // 두 다리 중 하나라도 땅에 붙어 있는가?
     private bool isFrontGruond; // 앞 다리가 땅에 붙어 있는가?
     private bool isBackGruond; // 뒷 다리가 땅에 붙어 있는가?
     private bool isControlPlayer; // 플레이어의 움직임을 제어하는가?
 
     [Header("이동 관련 변수")]
-    // 걷기 관련 변수들
-    public bool canMove=true;
+   
     public float xSpeed; // 좌우 이동 속도
-    private float moveDir; // 방향키를 입력 받는 
-    private float isRight=1; // 오른쪽을 보면 1, 왼쪽을 보면 0
-    private float defaultGravity; // 기본 중력
-    // 점프와  슈퍼점프 관련 변수들 
     public float ySpeed; // 점프 속도
+    private float moveDir; // 방향키를 입력 받는다.
+    private float jumpDir; // 점프의 입력을 받늗다.
+
+    private float isRight=1; // 오른쪽을 보면 1, 왼쪽을 보면 0
+    private float defaultGravity=2f; // 기본 중력
+    private float fallGravity=2.5f; // 낙하 중력
+
+    public bool canMove=true; // 캐릭터의 움직임을 조절하는 변수
+   
+
+    // 점프와  슈퍼점프 관련 변수들 
     public float chargeSpeed; // 점프 속도 충전 
     private float yMaxSpeed=0; // 최대 점프 속도
     public float jumpTime; // 점프 충전 시간
@@ -45,12 +48,8 @@ public class Player_Move : MonoBehaviour
     private bool isChargeJump; // 슈퍼 점프를 할 수 있는가?
 
     // 상태를 나타내는 변수들
-    private bool isHit=false;
-    private GameObject deBuff;
-
+   
     // 스캔 대상 체크
-    private Vector2 frontDir;
-    private GameObject scanObject;
     public Player_Interact playerInteract;
 
     private void Awake()
@@ -58,11 +57,6 @@ public class Player_Move : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
-        frontDir = Vector2.right;
-    }
-    private void Start() 
-    {
-        defaultGravity = rb.gravityScale;
     }
 
     // getaxis = -1.0~1.0f
@@ -75,51 +69,32 @@ public class Player_Move : MonoBehaviour
     // exit = 충돌에서 벗어나면 한번 호출
     void Update()
     {
+        InputKey();
         Animation();
         CheckingMap();
         ReverseSprite();
         InputSuperJump();
-        if (scanObject != null && Input.GetKeyDown(KeyCode.Q))
-        {
-            NPC scanNPC = scanObject.GetComponent<NPC>();
-            scanNPC.ShowQuestText();
-        }  
     }
     void FixedUpdate()
     {
+        SetGravity();
         if (canMove)
         {
-            if (!isHit)
+            if (!isControlPlayer)
             {
-                if (!isControlPlayer)
-                {
-                    Walk();
-                    Jump();
-                    WallSlide();
-                    SuperJump();
-                }
-                IncreaseGravity();
+                Walk();
+                Jump();
+                WallSlide();
+                SuperJump();
             }
         }
         else
-        {
             rb.velocity = new Vector2(0, rb.velocity.y);
-        }
-      
-        if (isRight == 1)
-            frontDir = Vector2.right;
-        else if (isRight == -1)
-            frontDir = Vector2.left;
-        RaycastHit2D rayNpc = Physics2D.Raycast(rb.position, frontDir, 1f, LayerMask.GetMask("NPC"));
-        if (rayNpc.collider != null)
-            scanObject = rayNpc.collider.gameObject;
-        else
-            scanObject = null;
     }
+
     // 땅과 벽을 검출한다.
-    private void CheckingMap()
+    void CheckingMap()
     {
-        isObj = Physics2D.Raycast(checkPosition.position, Vector2.right * isRight, objDist, objLayer); // 바라보는 방향에 객체가 있는지 확인
         isWall = Physics2D.Raycast(checkPosition.position, Vector2.right * isRight, wallDist, wallLayer); // 바라보는 방향에 벽이 있는지 확인
         isFrontGruond = Physics2D.Raycast(groundFrontCheck.position, Vector2.down, groundDist, groundLayer); // 앞 다리가 땅에 있는지 확인
         isBackGruond = Physics2D.Raycast(groundBackCheck.position, Vector2.down, groundDist, groundLayer); // 뒷 다리가 땅에 있는지 확인
@@ -131,8 +106,14 @@ public class Player_Move : MonoBehaviour
         else
             isGround = false;
     }
+
+    void InputKey()
+    {
+        moveDir = Input.GetAxisRaw("Horizontal");
+        jumpDir = Input.GetAxisRaw("Jump");
+    }
     // 벽 점프 
-    private void WallJump()
+    void WallJump()
     {
         if (Input.GetAxis("Jump") != 0)
         {
@@ -147,7 +128,7 @@ public class Player_Move : MonoBehaviour
         }
     }
     // 벽 슬라이드
-    private void WallSlide()
+    void WallSlide()
     {
         if (isWall)
         {
@@ -157,25 +138,21 @@ public class Player_Move : MonoBehaviour
         }
     } 
     // 걷기
-    private void Walk()
+    void Walk()
     {
         moveDir = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(moveDir * xSpeed, rb.velocity.y);    
     }
     // 점프
-    private void Jump()
+    void Jump()
     {
-        if (Input.GetAxis("Jump") != 0 && isGround && !isWall)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, ySpeed);
-            //Instantiate(particle, particleEffect.transform.position, transform.rotation);
-        }
-            
+        if (isGround && !isWall)
+            rb.velocity = new Vector2(rb.velocity.x, ySpeed * jumpDir);
     }
     // 애니메이션 
-    private void Animation()
+    void Animation()
     {
-        if (Mathf.Abs(rb.velocity.x) > 0.1f)
+        if (Mathf.Abs(moveDir) ==1)
             anim.SetBool("isRun", true);
         else
             anim.SetBool("isRun", false);
@@ -193,7 +170,7 @@ public class Player_Move : MonoBehaviour
             anim.SetBool("isWall", false);
     }
     // 슈퍼 점프 입력 (선행)
-    private void InputSuperJump()
+    void InputSuperJump()
     {
         if ( Input.GetKeyDown(KeyCode.C)&& isGround) // 땅에 붙어 있고, 
         {
@@ -227,7 +204,7 @@ public class Player_Move : MonoBehaviour
         }
     }
     // 슈퍼 점프 (결과)
-    private void SuperJump()
+    void SuperJump()
     {
         if (isChargeJump)
         {
@@ -237,7 +214,7 @@ public class Player_Move : MonoBehaviour
         }
     }
     // 스프라이트 반전   
-    private void FlipX()
+    void FlipX()
     {
         if (isRight == -1)
             spr.flipX = true;
@@ -245,95 +222,47 @@ public class Player_Move : MonoBehaviour
             spr.flipX = false;
     }
     // 좌우 키 입력에 따른 반전
-    private void ReverseSprite()
+    void ReverseSprite()
     {
         if (!isControlPlayer)
         {
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (moveDir==-1)
             {
                 isRight = -1;
                 FlipX();
             }
-            else if (Input.GetKey(KeyCode.RightArrow))
+            else if (moveDir==1)
             {
                 isRight = 1;
                 FlipX();
             }
         }
     }
+
     // 움직임 제어 풀기
-    private void ControlPlayer()
+    void ControlPlayer()
     {
         isControlPlayer = false;
         FlipX();
     }
-    // 낙하 시 중력 증가
-    private void IncreaseGravity()
+
+    // 점프하면 중력 증가
+    void SetGravity()
     {
-        if (rb.velocity.y < 0)
-            rb.gravityScale = 3;
+        if (isGround)
+            rb.gravityScale = defaultGravity;
+        else
+            rb.gravityScale = fallGravity;
     }
-    // 플레이어 검출선 그리기
-    private void OnDrawGizmos()
+
+    void OnDrawGizmos()
     {
+        // 땅 검출 광선 발사
         Gizmos.color = Color.green;
         Gizmos.DrawRay(groundFrontCheck.position,Vector2.down*groundDist);
         Gizmos.DrawRay(groundBackCheck.position, Vector2.down * groundDist);
+        // 벽 검출 광선 발사
         Gizmos.color = Color.red;
         Gizmos.DrawRay(checkPosition.position, Vector2.right * wallDist*isRight);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Spike")
-        {
-            OnDamaged(collision.transform.position);
-        }
-    } // 충돌
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("DeBuff")){
-            deBuff = collision.gameObject;
-            deBuff.SetActive(false);
-            xSpeed = 7;
-            Invoke("CoolDownDeBuff", 3f);
-        }
-        if (isObj)
-        {
-            switch (collision.gameObject.layer)
-            {
-                case 14: // NPC
-                    
-                    break;
-                case 15: // 아이템 박스
-                    break;
-                case 31:
-                    playerInteract.DestroyBlock();
-                    break;
-            }
-        }
-    }  
-
-    void OnDamaged(Vector2 targetPos)
-    {
-        isHit = true;
-        gameObject.layer = 12;
-        spr.color = new Color(1, 1, 1,0.4f);
-        StartCoroutine("CoolDownSpike");
-    }
-    IEnumerator CoolDownSpike()
-    {
-        yield return new WaitForSeconds(1f);
-        spr.color = new Color(1, 1, 1, 1f);
-        isHit = false;
-        gameObject.layer = 3;
-        yield break;
-    }
-
-    void CoolDownDeBuff()
-    {
-        xSpeed = 10;
-        ySpeed = 10;
     }
 }
