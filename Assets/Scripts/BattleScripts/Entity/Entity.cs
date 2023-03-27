@@ -13,15 +13,25 @@ public class Entity : MonoBehaviour
 {
     [SerializeField] float maxHp;
     [SerializeField] float defense;
-    [SerializeField] protected float attack; // 마법 매니저 만들면 몬스터에만 들어갈 속성
+    [SerializeField] float attack; // 마법 매니저 만들면 몬스터에만 들어갈 속성
     [SerializeField] TMP_Text hpTMP;
-    
-    float lastAtkValue;
-    float buffDefense;
+    public float attackShare
+    {
+        get
+        { return attack; }
+        set
+        {
+            if (value < 0)
+                attack = 0;
+            else
+                attack = value;
+        }
+    }
 
     [Header("Pause")]
     protected bool stopGauge;
-
+    float lastAtkValue;
+    float buffDefense;
     float hp;
     SpriteRenderer spr;
     PRS originPRS; // 기존 PRS 저장

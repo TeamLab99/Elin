@@ -46,9 +46,6 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
-*.dwlt
-*.asset
-
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -76,3 +73,6 @@ crashlytics-build.properties
 
 ProjectSettings/ProjectSettings.asset
 UserSettings/Layouts/CurrentMaximizeLayout.dwlt
+UserSettings/EditorUserSettings.asset
+UserSettings/Layouts/default-2021.dwlt
+UserSettings/ChatGptScriptGeneratorSettings.asset

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
+
 public class Monster : Entity
 {
     #region 변수선언
@@ -23,7 +24,7 @@ public class Monster : Entity
     protected int count;
     protected static float curTime;
 
-    WaitForSeconds delay01 = new WaitForSeconds(0.1f);
+    WaitForSeconds delay01 = new WaitForSeconds(0.01f);
     WaitForSeconds delay05 = new WaitForSeconds(0.5f);
     WaitForSeconds delay15 = new WaitForSeconds(1.5f);
     #endregion
@@ -129,6 +130,7 @@ public class Monster : Entity
                 StartCoroutine(MonsterPattern());
             }
         }
+
         yield return delay01;
         StartCoroutine(TimerGauge());
     }

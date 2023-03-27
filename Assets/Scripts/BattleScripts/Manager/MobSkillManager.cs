@@ -9,6 +9,13 @@ public class MobSkillManager : MonoBehaviour
 
     Monster monster;
     Player player;
+    int random;
+
+    public void SetEntites(Player player, Monster monster)
+    {
+        this.player = player;
+        this.monster = monster;
+    }
 
     public void UseSkill(int index)
     {
@@ -17,11 +24,6 @@ public class MobSkillManager : MonoBehaviour
             case 1: AttackSpeedUp(); break;
             default: break;
         }
-    }
-    public void SetEntites(Player player, Monster monster)
-    {
-        this.player = player;
-        this.monster = monster;
     }
 
     public void AttackSpeedUp()
@@ -33,5 +35,15 @@ public class MobSkillManager : MonoBehaviour
         }
         else
             return;
+    }
+
+    public void CriticalAttack()
+    {
+        random = Random.Range(0, 10);
+        if (random == 9)
+        {
+            monster.attackShare *= 2f;
+            Debug.Log("치명타 터짐");
+        }
     }
 }
