@@ -26,32 +26,41 @@ public class Player_Move : MonoBehaviour
     private bool isControlPlayer; // 플레이어의 움직임을 제어하는가?
 
     [Header("이동 관련 변수")]
-   
+
     public float xSpeed; // 좌우 이동 속도
     public float ySpeed; // 점프 속도
     private float moveDir; // 방향키를 입력 받는다.
     private float jumpDir; // 점프의 입력을 받늗다.
 
-    private float isRight=1; // 오른쪽을 보면 1, 왼쪽을 보면 0
-    private float defaultGravity=2f; // 기본 중력
-    private float fallGravity=2.5f; // 낙하 중력
+    private float isRight = 1; // 오른쪽을 보면 1, 왼쪽을 보면 0
+    private float defaultGravity = 2f; // 기본 중력
+    private float fallGravity = 2.5f; // 낙하 중력
 
-    public bool canMove=true; // 캐릭터의 움직임을 조절하는 변수
-   
+    public bool canMove = true; // 캐릭터의 움직임을 조절하는 변수
+
 
     // 점프와  슈퍼점프 관련 변수들 
     public float chargeSpeed; // 점프 속도 충전 
-    private float yMaxSpeed=0; // 최대 점프 속도
+    private float yMaxSpeed = 0; // 최대 점프 속도
     public float jumpTime; // 점프 충전 시간
     private float jumpTimeCounter; // 점프 충전 
     private bool isSuperJump; // 슈퍼 점프를 하는 중인가?
     private bool isChargeJump; // 슈퍼 점프를 할 수 있는가?
 
     // 상태를 나타내는 변수들
-   
+    /*protected enum AnimationState{
+        Idle, //0
+        Run, //1
+        Jump, //2
+        Fall, //3
+        WallSlide //4
+    }
+
+    AnimationState animationState=AnimationState.Idle;*/
+
     // 스캔 대상 체크
     public Player_Interact playerInteract;
-
+    public EventCameraEffects eventCameraEffects;
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -117,6 +126,7 @@ public class Player_Move : MonoBehaviour
     {
         if (Input.GetAxis("Jump") != 0)
         {
+            //eventCameraEffects.TriggerCameraEffects(0);
             if (!isGround)
             {
                 isControlPlayer = true;
@@ -168,6 +178,25 @@ public class Player_Move : MonoBehaviour
             anim.SetBool("isWall", true);
         else
             anim.SetBool("isWall", false);
+
+        /*switch (animationState)
+        {
+            case AnimationState.Idle:
+                anim.SetInteger("State", 0);
+                break;
+            case AnimationState.Run:
+                anim.SetInteger("State", 1);
+                break;
+            case AnimationState.Jump:
+                anim.SetInteger("State", 2);
+                break;
+            case AnimationState.Fall:
+                anim.SetInteger("State", 3);
+                break;
+            case AnimationState.WallSlide:
+                anim.SetInteger("State", 4);
+                break;
+        }*/
     }
     // 슈퍼 점프 입력 (선행)
     void InputSuperJump()
