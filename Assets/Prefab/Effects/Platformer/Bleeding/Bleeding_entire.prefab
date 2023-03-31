@@ -86,7 +86,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7200458201250232019, guid: ffe5d06050f2e28429b4559b7a78cd5c, type: 3}
       propertyPath: m_Name
-      value: Frag
+      value: Bleeding_dot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffe5d06050f2e28429b4559b7a78cd5c, type: 3}
@@ -104,7 +104,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1445650268652055076, guid: 19fce7ec0fc7bb34da5f5ee0ad07a8eb, type: 3}
       propertyPath: m_Name
-      value: Bleeding
+      value: Bleeding_Head
       objectReference: {fileID: 0}
     - target: {fileID: 1445650268652055077, guid: 19fce7ec0fc7bb34da5f5ee0ad07a8eb, type: 3}
       propertyPath: m_RootOrder

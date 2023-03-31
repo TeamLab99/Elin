@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Headbutt_1
+  m_Name: Headbutt_1 1
   m_Shader: {fileID: -6465566751694194690, guid: 1983b719709f0784e8cdafc93a1207f3, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -43,7 +43,7 @@ Material:
     - _QueueOffset: 50
     m_Colors:
     - _Color: {r: 0.57996523, g: 0.2971698, b: 1, a: 1}
-    - _Offset: {r: 2.51, g: -0.07, b: 0, a: 0}
+    - _Offset: {r: 1.34, g: -0.07, b: 0, a: 0}
     - _Tiling: {r: -1.37, g: -1.43, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3806150579210978063
