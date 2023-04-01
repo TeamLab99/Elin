@@ -59,8 +59,8 @@ public class Player_Move : MonoBehaviour
     AnimationState animationState=AnimationState.Idle;*/
 
     // 스캔 대상 체크
-    public Player_Interact playerInteract;
-    public EventCameraEffects eventCameraEffects;
+    //public Player_Interact playerInteract;
+    //public EventCameraEffects eventCameraEffects;
     private void Awake()
     {
         anim = GetComponent<Animator>();
