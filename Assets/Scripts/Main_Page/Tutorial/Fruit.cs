@@ -7,21 +7,21 @@ public class Fruit : MonoBehaviour
     public GameObject textBox;
     public GameObject destroyGround;
     public Camera_Follow cameraFollow;
-    bool isDown=false;
-    private void Update()
+    private Rigidbody2D rb;
+
+    private void Awake()
     {
-        if (Input.GetKey(KeyCode.X))
-            isDown = true;
-        else if (Input.GetKeyUp(KeyCode.X))
-            isDown = false;
+        rb = GetComponent<Rigidbody2D>();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player")){
-            if (isDown)
+        if (collision.CompareTag("Player"))
+        {
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 Debug.Log("실행중");
                 destroyGround.SetActive(false);
+                rb.gravityScale = 1f;
             }
             textBox.SetActive(true);
         }
