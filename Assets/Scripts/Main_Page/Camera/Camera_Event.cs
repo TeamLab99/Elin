@@ -20,7 +20,8 @@ public class Camera_Event : MonoBehaviour
             switch (eventType)
             {
                 case EventType.Goto:
-                    DataBase_Manager.instance.cm.InputVec(DesVec);
+                    //DataBase_Manager.instance.cm.InputVec(DesVec);
+                    cameraFollow.InputVec(DesVec);
                     cameraFollow.SetEnumValue(Camera_Follow.FollowType.GotoObject);
                     break;
                 case EventType.Follow:
