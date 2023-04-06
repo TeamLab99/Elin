@@ -790,15 +790,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 62861872652512695, guid: 0ab88ca0d9366824ab7dc3181a3e9bf7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 684389275826091355, guid: 0ab88ca0d9366824ab7dc3181a3e9bf7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 684389276117752129, guid: 0ab88ca0d9366824ab7dc3181a3e9bf7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2355622894069275475, guid: 0ab88ca0d9366824ab7dc3181a3e9bf7, type: 3}
       propertyPath: m_Name
@@ -2029,7 +2029,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1690824506307082798, guid: 20da8c68c82a1f343b5a3d24387c8714, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1690824506307082799, guid: 20da8c68c82a1f343b5a3d24387c8714, type: 3}
       propertyPath: m_RootOrder
@@ -2338,10 +2338,6 @@ PrefabInstance:
     - target: {fileID: 4779649555217521390, guid: 52a7bbb869b8b17449908b79e2690500, type: 3}
       propertyPath: m_Name
       value: Water_Icksoo
-      objectReference: {fileID: 0}
-    - target: {fileID: 4779649555217521390, guid: 52a7bbb869b8b17449908b79e2690500, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52a7bbb869b8b17449908b79e2690500, type: 3}
