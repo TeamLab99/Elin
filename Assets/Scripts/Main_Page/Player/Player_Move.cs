@@ -120,6 +120,23 @@ public class Player_Move : MonoBehaviour
     {
         moveDir = Input.GetAxisRaw("Horizontal");
         jumpDir = Input.GetAxisRaw("Jump");
+
+        /* 할로우 나이트 이동 로직
+         * moveDir = Input.GetAxis("Horizontal");
+         * if(moveDir>0.25) moveDir=1f; 이런식으로 이동 함
+         * 점프 역시 마찬가지\
+         * 그 외에는 0으로 설정
+         * 
+         * 땅 체크 방법
+         *  if (Physics2D.Raycast(groundTransform.position, Vector2.down, groundCheckY, groundLayer) || 
+         * Physics2D.Raycast(groundTransform.position + new Vector3(-groundCheckX, 0), Vector2.down, groundCheckY, groundLayer) || 
+         * Physics2D.Raycast(groundTransform.position + new Vector3(groundCheckX, 0), Vector2.down, groundCheckY, groundLayer))
+         * 
+         * 머리 체크 방법 (점프 시 위에 블록이 있으면 점프가 취소됨)
+         *   if (Physics2D.Raycast(roofTransform.position, Vector2.up, roofCheckY, groundLayer)
+         *   || Physics2D.Raycast(roofTransform.position + new Vector3(roofCheckX, 0), Vector2.up, roofCheckY, groundLayer)
+         *   || Physics2D.Raycast(roofTransform.position + new Vector3(roofCheckX, 0), Vector2.up, roofCheckY, groundLayer))
+         */
     }
     // 벽 점프 
     void WallJump()
