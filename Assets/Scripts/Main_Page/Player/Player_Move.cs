@@ -12,8 +12,9 @@ public class Player_Move : MonoBehaviour
 
     // 검출 관련 변수 
     [Header("검출 관련 변수 : 개발자 관련 변수")]
-    public Transform groundFrontCheck; // 앞 다리 위치
-    public Transform groundBackCheck; // 뒷 다리 위치
+    public Transform groundCheckPos;
+    public float groundCheckX;
+    private Vector3 groundCheck = Vector3.right;
     public Transform checkPosition; // 벽,상호작용 객체 체크 위치
     public LayerMask groundLayer; // 땅 레이어
     public LayerMask wallLayer; // 벽 레이어
@@ -66,6 +67,7 @@ public class Player_Move : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
+        groundCheck *= groundCheckX;
     }
 
     // getaxis = -1.0~1.0f
@@ -105,8 +107,8 @@ public class Player_Move : MonoBehaviour
     void CheckingMap()
     {
         isWall = Physics2D.Raycast(checkPosition.position, Vector2.right * isRight, wallDist, wallLayer); // 바라보는 방향에 벽이 있는지 확인
-        isFrontGruond = Physics2D.Raycast(groundFrontCheck.position, Vector2.down, groundDist, groundLayer); // 앞 다리가 땅에 있는지 확인
-        isBackGruond = Physics2D.Raycast(groundBackCheck.position, Vector2.down, groundDist, groundLayer); // 뒷 다리가 땅에 있는지 확인
+        isFrontGruond = Physics2D.Raycast(groundCheckPos.position + groundCheck, Vector2.down, groundDist, groundLayer); // 앞 다리가 땅에 있는지 확인
+        isBackGruond = Physics2D.Raycast(groundCheckPos.position - groundCheck, Vector2.down, groundDist, groundLayer); // 뒷 다리가 땅에 있는지 확인\
         if (isFrontGruond || isBackGruond) // 두 다리 중 하나라도 걸쳐 있다면 땅위에 있음
         {
             isGround = true;
@@ -118,8 +120,25 @@ public class Player_Move : MonoBehaviour
 
     void InputKey()
     {
-        moveDir = Input.GetAxisRaw("Horizontal");
-        jumpDir = Input.GetAxisRaw("Jump");
+        moveDir = Input.GetAxis("Horizontal");
+        jumpDir = Input.GetAxis("Jump");
+
+        /* 할로우 나이트 이동 로직
+         * moveDir = Input.GetAxis("Horizontal");
+         * if(moveDir>0.25) moveDir=1f; 이런식으로 이동 함
+         * 점프 역시 마찬가지\
+         * 그 외에는 0으로 설정
+         * 
+         * 땅 체크 방법
+         *  if (Physics2D.Raycast(groundTransform.position, Vector2.down, groundCheckY, groundLayer) || 
+         * Physics2D.Raycast(groundTransform.position + new Vector3(-groundCheckX, 0), Vector2.down, groundCheckY, groundLayer) || 
+         * Physics2D.Raycast(groundTransform.position + new Vector3(groundCheckX, 0), Vector2.down, groundCheckY, groundLayer))
+         * 
+         * 머리 체크 방법 (점프 시 위에 블록이 있으면 점프가 취소됨)
+         *   if (Physics2D.Raycast(roofTransform.position, Vector2.up, roofCheckY, groundLayer)
+         *   || Physics2D.Raycast(roofTransform.position + new Vector3(roofCheckX, 0), Vector2.up, roofCheckY, groundLayer)
+         *   || Physics2D.Raycast(roofTransform.position + new Vector3(roofCheckX, 0), Vector2.up, roofCheckY, groundLayer))
+         */
     }
     // 벽 점프 
     void WallJump()
@@ -150,7 +169,12 @@ public class Player_Move : MonoBehaviour
     // 걷기
     void Walk()
     {
-        moveDir = Input.GetAxisRaw("Horizontal");
+        if (moveDir > 0.25f)
+            moveDir = 1f;
+        else if (moveDir < -0.25f)
+            moveDir = -1f;
+        else
+            moveDir = 0f;
         rb.velocity = new Vector2(moveDir * xSpeed, rb.velocity.y);    
     }
     // 점프
@@ -162,10 +186,11 @@ public class Player_Move : MonoBehaviour
     // 애니메이션 
     void Animation()
     {
-        if (Mathf.Abs(moveDir) ==1)
+        if(Mathf.Abs(moveDir)>0.1f)
             anim.SetBool("isRun", true);
         else
             anim.SetBool("isRun", false);
+    
         if (rb.velocity.y > 0.1f)
             anim.SetBool("isFall", false);
         else
@@ -288,8 +313,8 @@ public class Player_Move : MonoBehaviour
     {
         // 땅 검출 광선 발사
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(groundFrontCheck.position,Vector2.down*groundDist);
-        Gizmos.DrawRay(groundBackCheck.position, Vector2.down * groundDist);
+        Gizmos.DrawRay(groundCheckPos.position+groundCheck,Vector2.down*groundDist);
+        Gizmos.DrawRay(groundCheckPos.position-groundCheck, Vector2.down * groundDist);
         // 벽 검출 광선 발사
         Gizmos.color = Color.red;
         Gizmos.DrawRay(checkPosition.position, Vector2.right * wallDist*isRight);
