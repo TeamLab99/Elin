@@ -12993,6 +12993,7 @@ GameObject:
   - component: {fileID: 592909578}
   - component: {fileID: 592909579}
   - component: {fileID: 592909580}
+  - component: {fileID: 592909581}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -13104,8 +13105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2553cf87bb5de594287d86de9d170476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundFrontCheck: {fileID: 228733313}
-  groundBackCheck: {fileID: 322950559}
+  groundCheckPos: {fileID: 228733313}
+  groundCheckX: 0
   checkPosition: {fileID: 1916980411}
   groundLayer:
     serializedVersion: 2
@@ -13120,8 +13121,6 @@ MonoBehaviour:
   canMove: 1
   chargeSpeed: 1.5
   jumpTime: 0.5
-  playerInteract: {fileID: 592909580}
-  eventCameraEffects: {fileID: 85586272}
 --- !u!95 &592909577
 Animator:
   serializedVersion: 4
@@ -13206,6 +13205,19 @@ MonoBehaviour:
   - {fileID: 213256170}
   - {fileID: 348125112}
   cm: {fileID: 1827794655}
+--- !u!114 &592909581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592909567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab72994ef73b9f5409c5c06bb23717d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trf: {fileID: 592909570}
 --- !u!1001 &596681374
 PrefabInstance:
   m_ObjectHideFlags: 0

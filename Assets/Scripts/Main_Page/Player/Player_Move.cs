@@ -319,4 +319,5 @@ public class Player_Move : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawRay(checkPosition.position, Vector2.right * wallDist*isRight);
     }
+    
 }
