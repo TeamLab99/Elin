@@ -2,73 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerAnimation{
+    Idle,
+    Run,
+    Jump,
+    Fall,
+    Slide
+}
+
 public class Player_Move : MonoBehaviour
 {
-
-    // GetComponent 관련 변수
-    Animator anim;
-    Rigidbody2D rb;
-    SpriteRenderer spr;
-
-    // 검출 관련 변수 
-    [Header("검출 관련 변수 : 개발자 관련 변수")]
-    public Transform groundCheckPos;
-    public float groundCheckX;
-    private Vector3 groundCheck = Vector3.right;
-    public Transform checkPosition; // 벽,상호작용 객체 체크 위치
-    public LayerMask groundLayer; // 땅 레이어
-    public LayerMask wallLayer; // 벽 레이어
-    public float groundDist; // 땅과의 거리
-    public float wallDist; // 벽과의 거리
-    private bool isWall; // 벽에 붙어있는가?
-    private bool isGround; // 두 다리 중 하나라도 땅에 붙어 있는가?
-    private bool isFrontGruond; // 앞 다리가 땅에 붙어 있는가?
-    private bool isBackGruond; // 뒷 다리가 땅에 붙어 있는가?
-    private bool isControlPlayer; // 플레이어의 움직임을 제어하는가?
-
-    [Header("이동 관련 변수")]
-
-    public float xSpeed; // 좌우 이동 속도
-    public float ySpeed; // 점프 속도
-    private float moveDir; // 방향키를 입력 받는다.
-    private float jumpDir; // 점프의 입력을 받늗다.
-
-    private float isRight = 1; // 오른쪽을 보면 1, 왼쪽을 보면 0
-    private float defaultGravity = 2f; // 기본 중력
-    private float fallGravity = 2.5f; // 낙하 중력
-
-    public bool canMove = true; // 캐릭터의 움직임을 조절하는 변수
-
-
-    // 점프와  슈퍼점프 관련 변수들 
-    public float chargeSpeed; // 점프 속도 충전 
-    private float yMaxSpeed = 0; // 최대 점프 속도
-    public float jumpTime; // 점프 충전 시간
-    private float jumpTimeCounter; // 점프 충전 
-    private bool isSuperJump; // 슈퍼 점프를 하는 중인가?
-    private bool isChargeJump; // 슈퍼 점프를 할 수 있는가?
-
-    // 상태를 나타내는 변수들
-    /*protected enum AnimationState{
-        Idle, //0
-        Run, //1
-        Jump, //2
-        Fall, //3
-        WallSlide //4
-    }
-
-    AnimationState animationState=AnimationState.Idle;*/
-
-    // 스캔 대상 체크
-    //public Player_Interact playerInteract;
-    //public EventCameraEffects eventCameraEffects;
-    private void Awake()
-    {
-        anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
-        spr = GetComponent<SpriteRenderer>();
-        groundCheck *= groundCheckX;
-    }
 
     // getaxis = -1.0~1.0f
     // getaxisraw = -1,0,1 3가지만 반환
@@ -78,6 +21,54 @@ public class Player_Move : MonoBehaviour
     // tirggerenter2d = 충돌 시, 한번만 호출
     // tirggerstay2d  = 충돌 시, 지속적으로 호출
     // exit = 충돌에서 벗어나면 한번 호출
+
+
+    // GetComponent 관련 변수
+    Animator anim;
+    Rigidbody2D rb;
+    SpriteRenderer spr;
+    bool canMove = true;
+    public LayerMask wallLayer = 7;
+    public LayerMask groundLayer;
+
+    [Header("Ground Check")]
+    [SerializeField] Transform groundCheckPos;
+    public float groundDistY;
+    public float groundDistX;
+
+    [Header("Wall Check")]
+    [SerializeField] float wallDist; // 벽과의 거리
+    private bool isWall; // 벽에 붙어있는가?
+    private bool isGround; // 두 다리 중 하나라도 땅에 붙어 있는가?
+    private bool isControlPlayer; // 플레이어의 움직임을 제어하는가?
+
+    [Header("Move Speed")]
+    [SerializeField] private float xSpeed; // 좌우 이동 속도
+    [SerializeField] private float ySpeed; // 점프 속도
+    private float defaultGravity = 2f; // 기본 중력
+    private float fallGravity = 2.5f; // 낙하 중력
+
+    private float moveDir; // 방향키를 입력 받는다.
+    private float jumpDir; // 점프의 입력을 받늗다.
+    private float isRight=1; // 오른쪽을 보면 1, 왼쪽을 보면 0
+   
+    // 점프와  슈퍼점프 관련 변수들 
+    public float chargeSpeed; // 점프 속도 충전 
+    private float yMaxSpeed = 0; // 최대 점프 속도
+    public float jumpTime; // 점프 충전 시간
+    private float jumpTimeCounter; // 점프 충전 
+    private bool isSuperJump; // 슈퍼 점프를 하는 중인가?
+    private bool isChargeJump; // 슈퍼 점프를 할 수 있는가?
+
+    PlayerAnimation playerAnimation=PlayerAnimation.Idle;
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        spr = GetComponent<SpriteRenderer>();
+    }
+
     void Update()
     {
         InputKey();
@@ -103,44 +94,26 @@ public class Player_Move : MonoBehaviour
             rb.velocity = new Vector2(0, rb.velocity.y);
     }
 
-    // 땅과 벽을 검출한다.
+    void InputKey()
+    {
+        moveDir = Input.GetAxisRaw("Horizontal");
+        jumpDir = Input.GetAxisRaw("Jump");
+    }
+
     void CheckingMap()
     {
-        isWall = Physics2D.Raycast(checkPosition.position, Vector2.right * isRight, wallDist, wallLayer); // 바라보는 방향에 벽이 있는지 확인
-        isFrontGruond = Physics2D.Raycast(groundCheckPos.position + groundCheck, Vector2.down, groundDist, groundLayer); // 앞 다리가 땅에 있는지 확인
-        isBackGruond = Physics2D.Raycast(groundCheckPos.position - groundCheck, Vector2.down, groundDist, groundLayer); // 뒷 다리가 땅에 있는지 확인\
-        if (isFrontGruond || isBackGruond) // 두 다리 중 하나라도 걸쳐 있다면 땅위에 있음
+        if (Physics2D.Raycast(groundCheckPos.position+new Vector3(groundDistX,0,0), Vector2.down, groundDistY, groundLayer) || 
+            Physics2D.Raycast(groundCheckPos.position- new Vector3(groundDistX,0, 0), Vector2.down, groundDistY, groundLayer)) // 두 다리 중 하나라도 걸쳐 있다면 땅위에 있음
         {
             isGround = true;
             rb.gravityScale = defaultGravity;
         }
         else
             isGround = false;
+
+        
     }
 
-    void InputKey()
-    {
-        moveDir = Input.GetAxis("Horizontal");
-        jumpDir = Input.GetAxis("Jump");
-
-        /* 할로우 나이트 이동 로직
-         * moveDir = Input.GetAxis("Horizontal");
-         * if(moveDir>0.25) moveDir=1f; 이런식으로 이동 함
-         * 점프 역시 마찬가지\
-         * 그 외에는 0으로 설정
-         * 
-         * 땅 체크 방법
-         *  if (Physics2D.Raycast(groundTransform.position, Vector2.down, groundCheckY, groundLayer) || 
-         * Physics2D.Raycast(groundTransform.position + new Vector3(-groundCheckX, 0), Vector2.down, groundCheckY, groundLayer) || 
-         * Physics2D.Raycast(groundTransform.position + new Vector3(groundCheckX, 0), Vector2.down, groundCheckY, groundLayer))
-         * 
-         * 머리 체크 방법 (점프 시 위에 블록이 있으면 점프가 취소됨)
-         *   if (Physics2D.Raycast(roofTransform.position, Vector2.up, roofCheckY, groundLayer)
-         *   || Physics2D.Raycast(roofTransform.position + new Vector3(roofCheckX, 0), Vector2.up, roofCheckY, groundLayer)
-         *   || Physics2D.Raycast(roofTransform.position + new Vector3(roofCheckX, 0), Vector2.up, roofCheckY, groundLayer))
-         */
-    }
-    // 벽 점프 
     void WallJump()
     {
         if (Input.GetAxis("Jump") != 0)
@@ -175,7 +148,7 @@ public class Player_Move : MonoBehaviour
             moveDir = -1f;
         else
             moveDir = 0f;
-        rb.velocity = new Vector2(moveDir * xSpeed, rb.velocity.y);    
+       rb.velocity = new Vector2(moveDir * xSpeed, rb.velocity.y);
     }
     // 점프
     void Jump()
@@ -313,11 +286,11 @@ public class Player_Move : MonoBehaviour
     {
         // 땅 검출 광선 발사
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(groundCheckPos.position+groundCheck,Vector2.down*groundDist);
-        Gizmos.DrawRay(groundCheckPos.position-groundCheck, Vector2.down * groundDist);
+        Gizmos.DrawRay(groundCheckPos.position,Vector2.down*groundDistY);
+        Gizmos.DrawRay(groundCheckPos.position, Vector2.down*groundDistY);
         // 벽 검출 광선 발사
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(checkPosition.position, Vector2.right * wallDist*isRight);
+       // Gizmos.DrawRay(checkPosition.position, Vector2.right * wallDist*isRight);
     }
     
 }
