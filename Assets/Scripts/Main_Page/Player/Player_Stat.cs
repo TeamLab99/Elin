@@ -8,19 +8,33 @@ public class Player_Stat : MonoBehaviour
     public static Player_Stat instance;
     public Text[] textState;
     // 현재 능력치
-    private int hp=100;
-    private int mp=100;
-    public int atk=5;
-    public int def=0;
 
-    public int currentHp=50; 
-    public int currentMp=50;
-    
+    private float hp=100;
+    private float mp =100;
+    public float atk =5;
+    public float def =0;
+
+    public float currentHp=50; 
+    public float currentMp=50;
+    public float maxHp = 110;
+    public float maxMp = 110;
+
+
     public void TakeDamage()
     {
         hp -= 10;
         mp -= 10;
     }
+
+    public void Heal(float heal)
+    {
+        if (heal + currentHp > maxHp)
+            currentHp = maxHp;
+        else
+            currentHp += heal;
+    }
+
+
     void Start()
     {
         instance = this;
@@ -32,30 +46,4 @@ public class Player_Stat : MonoBehaviour
         textState[2].text = atk.ToString();
         textState[3].text = def.ToString();
     }
-
-    /*
-      private bool isHit; // 데미지를 받았는지 확인하는 변수
-         void OnDamaged(Vector2 targetPos)
-    {
-        isHit = true;
-        gameObject.layer = 12;
-        spr.color = new Color(1, 1, 1,0.4f);
-        StartCoroutine("CoolDownSpike");
-    }
-    IEnumerator CoolDownSpike()
-    {
-        yield return new WaitForSeconds(1f);
-        spr.color = new Color(1, 1, 1, 1f);
-        isHit = false;
-        gameObject.layer = 3;
-        yield break;
-    }
-      private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Spike")
-        {
-            OnDamaged(collision.transform.position);
-        }
-    } // 충돌
-     */
 }

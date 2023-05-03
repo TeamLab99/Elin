@@ -630,27 +630,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 35526247}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5469ac9b7adac140bfabf53cc67a529, type: 3}
+  m_Script: {fileID: 11500000, guid: 2553cf87bb5de594287d86de9d170476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveXSpeed: 10
-  jumpForce: 16
-  groundPos: {fileID: 1155133767}
-  groundSize: {x: 1.2, y: 0.6}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  isGround: 0
-  wallPos: {fileID: 553054865}
-  wallDist: 1
-  isWall: 0
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 384
-  isWallSlide: 0
-  wallSlideSpeed: 4
-  moveForceInAir: 10
-  airDragMultiplier: 0.95
+  footPos: {fileID: 1155133767}
+  boxSize: {x: 1.2, y: 0.6}
+  xSpeed: 5
+  ySpeed: 10
 --- !u!1001 &37123660
 PrefabInstance:
   m_ObjectHideFlags: 0

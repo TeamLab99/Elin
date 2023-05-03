@@ -7,6 +7,7 @@ public class Fruit : MonoBehaviour
     public GameObject textBox;
     public GameObject destroyGround;
     public Camera_Follow cameraFollow;
+
     private Rigidbody2D rb;
 
     private void Awake()

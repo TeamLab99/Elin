@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NPC : MonoBehaviour
+public class NPC : InteractObject
 {
     public int npc_id;
     public int quest_id;
@@ -63,6 +63,14 @@ public class NPC : MonoBehaviour
             }
             text.text = questsList[quest_id].dialogue[text_idx];
             text_idx++;
+        }
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            Debug.Log("대화 가능");
         }
     }
 }

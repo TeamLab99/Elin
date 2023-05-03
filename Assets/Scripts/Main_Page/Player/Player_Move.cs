@@ -38,18 +38,17 @@ public class Player_Move : MonoBehaviour
     [Header("Move Speed")]
     [SerializeField] private float xSpeed; // 좌우 이동 속도
     [SerializeField] private float ySpeed; // 점프 속도
-    private float defaultGravity = 2f; // 기본 중력
-    private float fallGravity = 2.5f; // 낙하 중력
 
     private float moveDir; // 방향키를 입력 받는다.
     private float jumpDir; // 점프의 입력을 받늗다.
-    private float isRight=1; // 오른쪽을 보면 1, 왼쪽을 보면 0
-
+   
     private float jumpTime;
     private float chargeTime=0.2f;
     private bool isJump;
+    bool keyDownJump;
+    bool keyJump;
+    bool keyUpJump;
 
-    PlayerAnimation playerAnimation=PlayerAnimation.Idle;
     public void ControlPlayer(bool _canMove)
     {
         canMove = _canMove;
@@ -57,37 +56,55 @@ public class Player_Move : MonoBehaviour
 
     private void Awake()
     {
-        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
-        Animation();
-        isGround = CheckGround();
+        CheckGround();
+        if (Input.GetKeyDown(KeyCode.Q))
+            canMove = !canMove;
+
         if (canMove)
         {
-            moveDir = Input.GetAxisRaw("Horizontal");
+            MoveKeyInput();
             Jump();
         }
-        else
-            rb.velocity = Vector2.zero;
+       
+        StopSlopeSlide();
         FlipPlayer();
     }
+
     void FixedUpdate()
     {
-        Walk();
+        if (canMove)
+            Walk();
     }
 
-    bool CheckGround()
+
+    void MoveKeyInput()
+    {
+        moveDir = Input.GetAxisRaw("Horizontal");
+        keyDownJump = Input.GetKeyDown(KeyCode.Space);
+        keyJump = Input.GetKey(KeyCode.Space);
+        keyUpJump = Input.GetKeyUp(KeyCode.Space);
+    }
+    void CheckGround()
     {
         if (Physics2D.OverlapBox(footPos.position, boxSize, 0f, groundLayer))
-            return true;
+            isGround = true;
         else
-            return false;
+            isGround = false;
     }
 
+    void StopSlopeSlide()
+    {
+        if (moveDir == 0)
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+        else
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
     void Walk()
     {
         if (isGround)
@@ -97,13 +114,13 @@ public class Player_Move : MonoBehaviour
     }
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGround)
+        if (keyDownJump && isGround)
         {
             isJump = true;
             jumpTime = chargeTime;
             rb.velocity = new Vector2(rb.velocity.x, ySpeed);
         }
-        else if (Input.GetKey(KeyCode.Space) && isJump)
+        else if (keyJump && isJump)
         {
             if (jumpTime > 0f)
             {
@@ -111,25 +128,8 @@ public class Player_Move : MonoBehaviour
                 jumpTime -= Time.deltaTime;
             }
         }
-        else if (Input.GetKeyUp(KeyCode.Space))
+        else if (keyUpJump)
             isJump = false;
-    }
-
-    void Animation()
-    {
-        if(Mathf.Abs(moveDir)>0.1f)
-            anim.SetBool("isRun", true);
-        else
-            anim.SetBool("isRun", false);
-    
-        if (rb.velocity.y > 0.1f)
-            anim.SetBool("isFall", false);
-        else
-            anim.SetBool("isFall", true);
-        if (isGround)
-            anim.SetBool("isGround", true);
-        else
-            anim.SetBool("isGround", false);
     }
 
     void FlipPlayer()
