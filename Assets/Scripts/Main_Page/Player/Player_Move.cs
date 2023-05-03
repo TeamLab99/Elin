@@ -32,6 +32,12 @@ public class Player_Move : MonoBehaviour
 
     [Header("Ground Check")]
     [SerializeField] Transform footPos;
+    [SerializeField] Transform checkPos;
+    public float slopeDistance;
+    public float angle;
+    public Vector2 perp;
+    public bool isSlope;
+
     public Vector2 boxSize;
     private bool isGround; // 두 다리 중 하나라도 땅에 붙어 있는가?
 
@@ -45,6 +51,7 @@ public class Player_Move : MonoBehaviour
     private float jumpTime;
     private float chargeTime=0.2f;
     private bool isJump;
+    private float maxSpeed=10f;
     bool keyDownJump;
     bool keyJump;
     bool keyUpJump;
@@ -63,25 +70,60 @@ public class Player_Move : MonoBehaviour
     void Update()
     {
         CheckGround();
-        if (Input.GetKeyDown(KeyCode.Q))
-            canMove = !canMove;
-
         if (canMove)
         {
             MoveKeyInput();
             Jump();
         }
-       
         StopSlopeSlide();
         FlipPlayer();
+        CheckSlope();
     }
 
     void FixedUpdate()
     {
-        if (canMove)
-            Walk();
+        Walk();
     }
 
+
+    void CheckSlope()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(checkPos.position, Vector2.down, slopeDistance, groundLayer);
+        perp = Vector2.Perpendicular(hit.normal).normalized;
+        angle=Vector2.Angle(hit.normal, Vector2.up);
+        Debug.DrawLine(hit.point, hit.point + hit.normal, Color.black);
+        Debug.DrawLine(hit.point, hit.point + perp, Color.white);
+        if (angle != 0)
+        {
+            isSlope = true;
+        }
+        else
+        {
+            isSlope = false;
+        }
+    }
+    void Walk()
+    {
+       /* rb.AddForce(Vector2.right * moveDir * xSpeed, ForceMode2D.Impulse);
+        if (rb.velocity.x > maxSpeed)
+            rb.velocity = new Vector2(maxSpeed, rb.velocity.y);
+        else if (rb.velocity.x < -maxSpeed)
+            rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);*/
+        if (isSlope && isGround &&!isJump)
+        {
+            rb.velocity = perp * maxSpeed * moveDir * -1f;
+        }
+        else if (!isSlope && isGround&&!isJump)
+        {
+            rb.velocity = new Vector2(moveDir * maxSpeed, 0);
+        }
+        else
+        {
+            rb.velocity = new Vector2(moveDir * maxSpeed, rb.velocity.y);
+        }
+       
+       
+    }
 
     void MoveKeyInput()
     {
@@ -90,6 +132,7 @@ public class Player_Move : MonoBehaviour
         keyJump = Input.GetKey(KeyCode.Space);
         keyUpJump = Input.GetKeyUp(KeyCode.Space);
     }
+
     void CheckGround()
     {
         if (Physics2D.OverlapBox(footPos.position, boxSize, 0f, groundLayer))
@@ -105,13 +148,7 @@ public class Player_Move : MonoBehaviour
         else
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
-    void Walk()
-    {
-        if (isGround)
-            rb.velocity = new Vector2(moveDir * xSpeed, rb.velocity.y);
-        else
-            rb.velocity = new Vector2(moveDir * xSpeed, rb.velocity.y);
-    }
+   
     void Jump()
     {
         if (keyDownJump && isGround)
@@ -139,6 +176,7 @@ public class Player_Move : MonoBehaviour
         else if (moveDir == -1)
             spr.flipX = true;
     }
+
     void OnDrawGizmos()
     {
         //Gizmos.color = Color.green;
