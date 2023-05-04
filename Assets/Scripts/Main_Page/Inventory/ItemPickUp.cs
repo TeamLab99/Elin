@@ -11,5 +11,4 @@ public class ItemPickUp : MonoBehaviour
         Inventory.instance.GetAnItem(itemID, count);
         Destroy(gameObject);
     }
-
 }

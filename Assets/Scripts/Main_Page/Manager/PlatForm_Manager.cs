@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlatForm_Manager : MonoBehaviour
 {
-    static public PlatForm_Manager instance1;
+    static public PlatForm_Manager instance;
   
     public int currentHP;
     public int attackPower;
@@ -13,14 +13,14 @@ public class PlatForm_Manager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance1 != null)
+        if (instance != null)
         {
             Destroy(this.gameObject);
         }
         else
         {
             DontDestroyOnLoad(this.gameObject);
-            instance1 = this;
+            instance = this;
         }
     }
 }

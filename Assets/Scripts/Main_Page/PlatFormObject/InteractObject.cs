@@ -5,6 +5,7 @@ using UnityEngine;
 public enum PlatformObjectType
 {
     NPC,
+    Puzzle,
     ItemBox
 }
 

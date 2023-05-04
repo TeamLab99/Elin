@@ -2,46 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[System.Serializable]
-public class AllItemData{
-    public Item_Data[] itemDatas;
-}
-
-[System.Serializable]
-public class ItemDat
+public class Item_Data 
 {
-    public int itemID; //아이템 고유번호(유일)
-    public string itemName; // 아이템 이름 (중복 가능)
-    public string itemDescription; // 아이템 설명
-    public enum Type //아이템 분류
+    public enum ItemType //아이템 분류
     {
         Consumer,
         Equipment,
         Quest
     }
-    public Type itemType;
-    public int atk;
-    public int def;
-    public int plusHp;
-    public int plusMp;
-}
 
-[System.Serializable]
-public class Item_Data 
-{
     public int itemID; //아이템 고유번호(유일)
     public string itemName; // 아이템 이름 (중복 가능)
     public string itemDescription; // 아이템 설명
     public int itemCount;
     public Sprite itemIcon;
     public ItemType itemType;
-    public enum ItemType //아이템 분류
-    {
-          Consumer,
-          Equipment,
-          Quest
-    }
     public int atk;
     public int def;
     public int plusHp;
@@ -58,5 +33,5 @@ public class Item_Data
         def = _def;
         plusHp = _plusHp;
         plusMp = _plus_Mp;
-    } // 아이템 정보
+    } 
 }

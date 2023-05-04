@@ -6,14 +6,7 @@ public class Player_Interact : MonoBehaviour
 {
     public GameObject[] destroyTile;
     public Camera_Event cm;
-    public void DestroyBlock()
-    {
-        for (int i = 0; i < destroyTile.Length - 1; i++)
-        {
-            DataBase_Manager.instance.cm.SetEnumValue(Camera_Follow.FollowType.LateFollow);
-            destroyTile[i].SetActive(false);
-        }
-    }
+   
     //    private bool isObj; // 객체와 붙어있는가?
     //    public float objDist; // 객체와의 거리 
     //public LayerMask objLayer; // 객체 레이어

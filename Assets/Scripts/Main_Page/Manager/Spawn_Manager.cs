@@ -6,9 +6,6 @@ public class Spawn_Manager : MonoBehaviour
 {
     public SpawnData[] spawnData;
     public Transform[] spawnPoint;
-    float timer;
-    private float cnt = 0;
-    public float maxCnt;
    
     void Awake()
     {
@@ -17,7 +14,7 @@ public class Spawn_Manager : MonoBehaviour
     
     void Update() 
     {
-        if (Input.GetKeyDown(KeyCode.X))
+       /* if (Input.GetKeyDown(KeyCode.X))
         {
             Spawn();
         }
@@ -28,10 +25,10 @@ public class Spawn_Manager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.B))
         {
             SpawnAnimal();
-        }
+        }*/
     }
 
-    void Spawn()
+    /*void Spawn()
     {
         cnt++;
         for(int i=0; i<1; i++)
@@ -61,7 +58,7 @@ public class Spawn_Manager : MonoBehaviour
             enemy.transform.position = spawnPoint[Random.Range(3, spawnPoint.Length)].position;
             enemy.GetComponent<Animal>().Init(spawnData[0]);
         }
-    }
+    }*/
 }
 
 [System.Serializable]

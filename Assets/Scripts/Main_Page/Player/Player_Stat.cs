@@ -15,7 +15,7 @@ public class Player_Stat : MonoBehaviour
 
     void Awake()
     {
-        LoadStat(PlatForm_Manager.instance1.currentHP, PlatForm_Manager.instance1.attackPower, PlatForm_Manager.instance1.maxCost, PlatForm_Manager.instance1.recoveryCost);
+        LoadStat(PlatForm_Manager.instance.currentHP, PlatForm_Manager.instance.attackPower, PlatForm_Manager.instance.maxCost, PlatForm_Manager.instance.recoveryCost);
         playerMove = GetComponent<Player_Move>();
         ApplicationHP();
     }
@@ -50,10 +50,10 @@ public class Player_Stat : MonoBehaviour
 
     void SaveStat()
     {
-        PlatForm_Manager.instance1.currentHP = currentHP;
-        PlatForm_Manager.instance1.attackPower = attackPower;
-        PlatForm_Manager.instance1.maxCost = maxCost;
-        PlatForm_Manager.instance1.recoveryCost = recoveryCost;
+        PlatForm_Manager.instance.currentHP = currentHP;
+        PlatForm_Manager.instance.attackPower = attackPower;
+        PlatForm_Manager.instance.maxCost = maxCost;
+        PlatForm_Manager.instance.recoveryCost = recoveryCost;
     }
 
     void LoadStat(int hp, int atk, int cost, float recovery)
