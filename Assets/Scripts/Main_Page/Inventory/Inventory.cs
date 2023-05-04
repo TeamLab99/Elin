@@ -185,20 +185,20 @@ public class Inventory : MonoBehaviour
     }
     private void EquipOnEffect(Item_Data _item)
     {
-        thePlayerStat.atk += _item.atk;
-        thePlayerStat.def += _item.def;
+        //thePlayerStat.atk += _item.atk;
+        //thePlayerStat.def += _item.def;
     }
 
     private void ConsumEffect(Item_Data _item)
     {
-        thePlayerStat.currentHp+= _item.plusHp;
-        thePlayerStat.currentMp += _item.plusMp;
+       // thePlayerStat.currentHp+= _item.plusHp;
+        //thePlayerStat.currentMp += _item.plusMp;
     }
 
     private void EquipOffEffect(Item_Data _item)
     {
-        thePlayerStat.atk -= _item.atk;
-        thePlayerStat.def -= _item.def;
+      //  thePlayerStat.atk -= _item.atk;
+      //  thePlayerStat.def -= _item.def;
     }
 
     void TakeOffEquip(int num) // 착용한 장비를 해제한다.

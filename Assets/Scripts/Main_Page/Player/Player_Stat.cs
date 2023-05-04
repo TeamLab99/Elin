@@ -5,45 +5,68 @@ using UnityEngine.UI;
 
 public class Player_Stat : MonoBehaviour
 {
-    public static Player_Stat instance;
-    public Text[] textState;
-    // 현재 능력치
+    [SerializeField]private int maxHP;
+    private int currentHP;
+    private int attackPower;
+    private int maxCost;
+    private float recoveryCost;
+    [SerializeField] Slider hpSlider;
+    Player_Move playerMove;
 
-    private float hp=100;
-    private float mp =100;
-    public float atk =5;
-    public float def =0;
-
-    public float currentHp=50; 
-    public float currentMp=50;
-    public float maxHp = 110;
-    public float maxMp = 110;
-
-
-    public void TakeDamage()
+    void Awake()
     {
-        hp -= 10;
-        mp -= 10;
+        LoadStat(PlatForm_Manager.instance1.currentHP, PlatForm_Manager.instance1.attackPower, PlatForm_Manager.instance1.maxCost, PlatForm_Manager.instance1.recoveryCost);
+        playerMove = GetComponent<Player_Move>();
+        ApplicationHP();
     }
 
-    public void Heal(float heal)
+    public void HealHP(int heal)
     {
-        if (heal + currentHp > maxHp)
-            currentHp = maxHp;
+        if (maxHP < heal + currentHP)
+            currentHP = maxHP;
         else
-            currentHp += heal;
+            currentHP += heal;
+        ApplicationHP();
     }
 
-
-    void Start()
+    public void DamageHP(int damage)
     {
-        instance = this;
+        if (currentHP - damage <= 0)
+            playerMove.Dead();
+        else
+            currentHP -= damage;
+        ApplicationHP();
     }
-    void Update()
+
+    public void StatUP(int plusHP = 0, int plusAttack=0, int plusCost=0, float plusRecoveryCost=0)
     {
-        textState[0].text = currentHp.ToString();
-        textState[1].text = currentMp.ToString();
-        textState[2].text = atk.ToString();
-        textState[3].text = def.ToString();
+        maxHP += plusHP;
+        currentHP += plusHP;
+        attackPower += plusAttack;
+        maxCost += plusCost;
+        recoveryCost += plusRecoveryCost;
+        ApplicationHP();
+    }
+
+    void SaveStat()
+    {
+        PlatForm_Manager.instance1.currentHP = currentHP;
+        PlatForm_Manager.instance1.attackPower = attackPower;
+        PlatForm_Manager.instance1.maxCost = maxCost;
+        PlatForm_Manager.instance1.recoveryCost = recoveryCost;
+    }
+
+    void LoadStat(int hp, int atk, int cost, float recovery)
+    {
+        currentHP = hp;
+        attackPower = atk;
+        maxCost = cost;
+        recoveryCost = recovery;
+    }
+
+    void ApplicationHP()
+    {
+        hpSlider.maxValue = maxHP;
+        hpSlider.value = currentHP;
     }
 }

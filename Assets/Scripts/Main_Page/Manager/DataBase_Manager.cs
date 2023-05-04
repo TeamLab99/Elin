@@ -45,16 +45,16 @@ public class DataBase_Manager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        /*if (Input.GetKeyDown(KeyCode.Z))
         {
             if (isOpen)
                 isOpen = false;
             else
                 isOpen = true;
             status.SetActive(isOpen);
-        }
+        }*/
 
-        if (Input.GetKeyDown(KeyCode.P))
-            Player_Stat.instance.TakeDamage();
+        //if (Input.GetKeyDown(KeyCode.P))
+            //Player_Stat.instance.TakeDamage();
     }
 }

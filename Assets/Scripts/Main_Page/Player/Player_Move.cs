@@ -184,5 +184,13 @@ public class Player_Move : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(footPos.position, boxSize);
     }
-    
+   
+
+
+    public void Dead()
+    {
+        // 죽는 모션 
+        // 다시 리스폰 하도록 함.
+
+    }
 }
