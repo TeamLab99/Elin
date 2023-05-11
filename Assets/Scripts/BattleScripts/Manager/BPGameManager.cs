@@ -17,7 +17,7 @@ public class BPGameManager : MonoBehaviour
     [SerializeField] Player player;
     [SerializeField] GameObject monsterPrefab;
     [SerializeField] Transform mobSpawnPos;
-    GameObject mob;
+    GameObject mobObject;
     Monster monster;
 
     /*    [SerializeField] NotificationPanel notificationPanel;
@@ -26,7 +26,8 @@ public class BPGameManager : MonoBehaviour
 
     private void Start()
     {
-        StartGame(); // TurnManager에게 시작을 알림.
+        SceneLoader.instance.LoadSceneAddtive(2);
+        SpawnMonster();
     }
     private void Update()
     {
@@ -92,13 +93,6 @@ public class BPGameManager : MonoBehaviour
         #endregion
     }
 
-    // 카드 선택을 막고 TurnManager에게 게임 시작을 알려줌
-    public void StartGame()
-    {
-        SpawnMonster();
-        StartCoroutine(TurnManager.Inst.StartGameCo());
-    }
-
     public IEnumerator GameOver()
     {
         // 게이지 막기
@@ -107,7 +101,6 @@ public class BPGameManager : MonoBehaviour
         // 카드 선택 정지
         TurnManager.Inst.isLoading = true; // 카드 선택 막기
         CardManager.Inst.AllEnlargeCancle(); // 카드 선택 취소
-
 
         yield return new WaitForSeconds(2f);
         // 애니메이션 멈추기
@@ -130,7 +123,7 @@ public class BPGameManager : MonoBehaviour
 
     public void SpawnMonster()
     {
-        mob = Instantiate(monsterPrefab, mobSpawnPos.position, Utils.QI, mobSpawnPos);
+        mobObject = Instantiate(monsterPrefab, mobSpawnPos.position, Utils.QI, mobSpawnPos);
     }
 
     public void SetMonster(Monster monster)

@@ -29,7 +29,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] Player player;
     [SerializeField] ECardState eCardState;
     #endregion
-    
+
     // 뽑은 카드들의 정보를 담고 있는 리스트
     List<Item> itemBuffer;
 
@@ -38,10 +38,11 @@ public class CardManager : MonoBehaviour
     bool isFirstSelect = false;
     bool isEnlarge = false;
     bool isNumpad = false;
+    bool isStarted = false;
     float maxTime = 1f;
-    static float curTime=0;
+    static float curTime = 0;
 
-    int playerCost =5;
+    int playerCost = 5;
     int curCardNum = 0;
     int prevCardNum = 0;
     WaitForSeconds delay02 = new WaitForSeconds(0.2f);
@@ -83,6 +84,7 @@ public class CardManager : MonoBehaviour
     private void Start()
     {
         // 카드 정보 가져오고 섞고, 첫 드로우
+        StartCoroutine(Init());
         SetupItemBuffer();
         TurnManager.OnAddCard += AddCard;
         curTime = maxTime;
@@ -93,10 +95,17 @@ public class CardManager : MonoBehaviour
         TurnManager.OnAddCard -= AddCard;
     }
 
+    private IEnumerator Init()
+    {
+        yield return new WaitForEndOfFrame();
+        playerCostTMP = GameObject.Find("CostTMP").GetComponent<TMP_Text>();
+        isStarted = true;
+    }
+
     private void Update()
     {
         // 현재 카드 개수가 0이 될 시 다시 5장 드로우
-        if (!TurnManager.Inst.isLoading && myCards.Count <= 0)
+        if (!TurnManager.Inst.isLoading && myCards.Count <= 0 && isStarted)
         {
             StartCoroutine(TurnManager.Inst.CardDraw());
         }
@@ -301,8 +310,8 @@ public class CardManager : MonoBehaviour
     // 키패드 선택
     public IEnumerator MoveToChoiceNum(int curNum)
     {
-        
-        if (!TurnManager.Inst.isLoading && myCards.Count > curNum) 
+
+        if (!TurnManager.Inst.isLoading && myCards.Count > curNum)
         {
             TurnManager.Inst.isLoading = true;
 
@@ -457,14 +466,14 @@ public class CardManager : MonoBehaviour
         }
     }
 
-     private void SetECardState()
-     {
-            if (TurnManager.Inst.isLoading)
-                eCardState = ECardState.Loading;
-            else if (!TurnManager.Inst.isLoading && isEnlarge) // 로딩 중이 아니고, 이 카드가 선택된 상태라면
-                eCardState = ECardState.CanUseCard;
-            //else if () // 로딩 중이 아니고, 선택한 카드 번호(순서)가 패에 존재하는지
-                //eCardState = ECardState.CanSelectCard;
+    private void SetECardState()
+    {
+        if (TurnManager.Inst.isLoading)
+            eCardState = ECardState.Loading;
+        else if (!TurnManager.Inst.isLoading && isEnlarge) // 로딩 중이 아니고, 이 카드가 선택된 상태라면
+            eCardState = ECardState.CanUseCard;
+        //else if () // 로딩 중이 아니고, 선택한 카드 번호(순서)가 패에 존재하는지
+        //eCardState = ECardState.CanSelectCard;
     }
 
     public bool isSelectCardNull()

@@ -42,7 +42,7 @@ public class MobSkillManager : MonoBehaviour
         random = Random.Range(0, 10);
         if (random == 9)
         {
-            monster.attackShare *= 2f;
+            monster.ATK *= 2f;
             Debug.Log("치명타 터짐");
         }
     }

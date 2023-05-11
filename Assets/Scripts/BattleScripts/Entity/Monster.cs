@@ -38,9 +38,15 @@ public class Monster : Entity
 
         BPGameManager.Inst.SetMonster(this);
         EffectManager.Inst.SetSkillEfc(effect);
+
+        StartCoroutine(Init());
+    }
+
+    private IEnumerator Init()
+    {
+        yield return new WaitForEndOfFrame();
         scroll = GameObject.FindGameObjectWithTag("Gauge").GetComponent<Image>();
         player = GameObject.FindGameObjectWithTag("Battle_Player").GetComponent<Player>();
-
         StartCoroutine(TimerGauge());
     }
 
@@ -66,12 +72,12 @@ public class Monster : Entity
     {
         if (BuffManager.Inst.GetisAvoid())
         {
-            SetAttack(0);
+            ATK = 0;
             BuffManager.Inst.AvoidOff();
         }
         else if (BuffManager.Inst.GetisDefense() && !BuffManager.Inst.GetisAvoid())
         {
-            MinusAttack(player.GetBuffDefense());
+            ATK = ATK - player.GetBuffDefense();
             player.SetBuffDefenseZero();
             BuffManager.Inst.DefenseOff();
         }
@@ -94,7 +100,7 @@ public class Monster : Entity
         yield return delay05;
         EffectManager.Inst.CallHitCorutine(player.gameObject);
         Attack(player);
-        SetAttackReturn();
+        ReturnAtkValue();
     }
 
     protected virtual IEnumerator MonsterPattern()

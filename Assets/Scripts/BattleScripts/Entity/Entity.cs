@@ -15,25 +15,31 @@ public class Entity : MonoBehaviour
     [SerializeField] float defense;
     [SerializeField] float attack; // 마법 매니저 만들면 몬스터에만 들어갈 속성
     [SerializeField] TMP_Text hpTMP;
-    public float attackShare
-    {
-        get
-        { return attack; }
-        set
-        {
-            if (value < 0)
-                attack = 0;
-            else
-                attack = value;
-        }
-    }
-
-    [Header("Pause")]
-    protected bool stopGauge;
     float lastAtkValue;
     float buffDefense;
     float hp;
+
+    public float ATK
+    {
+        get
+        { return attack; }
+        set {
+            if (value < 0) attack = 0;
+            else attack = value; 
+        }
+    }
+
+    public float BuffDef
+    {
+        get { return buffDefense; }
+        set { if (value < 0) buffDefense = 0; 
+            else attack = value; 
+        }
+    }
+    protected bool stopGauge;
+
     SpriteRenderer spr;
+
     PRS originPRS; // 기존 PRS 저장
     Vector3 originPos; // 위치값만 저장
 
@@ -45,8 +51,7 @@ public class Entity : MonoBehaviour
     public void InitSetting()
     {
         spr = GetComponent<SpriteRenderer>();
-        originPRS = new PRS(transform.position, transform.rotation,
-            transform.localScale);
+        originPRS = new PRS(transform.position, transform.rotation, transform.localScale);
         originPos = originPRS.pos;
         hp = maxHp;
         lastAtkValue = attack;
@@ -74,7 +79,6 @@ public class Entity : MonoBehaviour
             StartCoroutine(EffectManager.Inst.DeadMotion(spr));
             StartCoroutine(BPGameManager.Inst.GameOver());
         }
-
         HPTxtUpdate();
     }
 
@@ -86,11 +90,6 @@ public class Entity : MonoBehaviour
             hp = maxHp;
 
         HPTxtUpdate();
-    }
-
-    public void MinusAttack(float amount)
-    {
-        attack -= amount;
     }
 
     public void PlusBuffDefense(float amount)
@@ -109,16 +108,10 @@ public class Entity : MonoBehaviour
         stopGauge = isBool;
     }
 
-    public void SetAttack(float amount)
-    {
-        attack = amount;
-    }
-
-    public void SetAttackReturn()
+    public void ReturnAtkValue()
     {
         attack = lastAtkValue;
     }
-
 
     public float GetBuffDefense()
     {

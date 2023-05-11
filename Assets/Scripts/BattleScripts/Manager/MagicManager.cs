@@ -58,7 +58,7 @@ public class MagicManager : MonoBehaviour
         effect[0].GetComponent<SpriteRenderer>().sprite = effectimages[1];
         effect[0].gameObject.SetActive(true);
         BuffManager.Inst.DefenseOn();
-        player.PlusBuffDefense(5);
+        player.BuffDef = 5;
     }
 
     public void Heal()

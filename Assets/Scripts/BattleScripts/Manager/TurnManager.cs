@@ -13,8 +13,13 @@ public class TurnManager : MonoBehaviour
     public static TurnManager Inst { get; private set; }
     void Awake() => Inst = this;
 
+    private void Start()
+    {
+        StartCoroutine(Init());
+    }
+
     [Header("Developer")]
-    [SerializeField] [Tooltip("시작 턴 모드를 정합니다")] ETurnMode eTurnMode;
+    [SerializeField] [Tooltip("시작 턴을 정합니다")] ETurnMode eTurnMode;
     [SerializeField] [Tooltip("카드 배분이 매우 빨라집니다")] bool fastMode;
     [SerializeField] [Tooltip("시작 카드 개수를 정합니다")] int startCardCount;
     [SerializeField] NotificationPanel notificationPanel;
@@ -23,13 +28,20 @@ public class TurnManager : MonoBehaviour
     public bool myTurn;
     public bool isLoading; // 게임 끝나고 true 하면 카드, 엔티티 클릭 방지
 
-    enum ETurnMode { Random, My, Other}
+    enum ETurnMode { Random, My, Other }
     WaitForSeconds delay05 = new WaitForSeconds(0.1f);
     WaitForSeconds delay07 = new WaitForSeconds(0.7f);
     WaitForSeconds delay02 = new WaitForSeconds(0.2f);
 
     public static Action<bool> OnAddCard;
     public static event Action<bool> OnTurnStarted;
+
+    IEnumerator Init()
+    {
+        yield return new WaitForEndOfFrame();
+        notificationPanel = GameObject.Find("NotificationPanel").GetComponent<NotificationPanel>();
+        StartCoroutine(StartGameCo());
+    }
 
     void GameSetup()
     {
@@ -38,9 +50,6 @@ public class TurnManager : MonoBehaviour
 
         switch (eTurnMode)
         {
-            case ETurnMode.Random:
-                myTurn = Random.Range(0, 2) == 0;
-                break;
             case ETurnMode.My:
                 myTurn = true;
                 break;
@@ -93,7 +102,7 @@ public class TurnManager : MonoBehaviour
     public void Notification(string message, bool state)
     {
         if (state)
-            notificationPanel.Show(message, new Color32(0,255,0,100));
+            notificationPanel.Show(message, new Color32(0, 255, 0, 100));
         else
             notificationPanel.Show(message, new Color32(255, 0, 0, 100));
     }
