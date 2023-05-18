@@ -1,0 +1,11 @@
+title: Test
+tags:
+---
+Player: hi?
+NPC1: hh
+-> Player: hh?
+    NPC1: hhh.
+-> Player: aa..?
+    NPC1: aa. 
+    NPC1: aaa.
+===
