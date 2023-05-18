@@ -275,8 +275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2553cf87bb5de594287d86de9d170476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundFrontCheck: {fileID: 324590406}
-  groundBackCheck: {fileID: 1854368638}
+  groundCheckPos: {fileID: 0}
+  groundCheckX: 0
   checkPosition: {fileID: 2083930333}
   groundLayer:
     serializedVersion: 2
