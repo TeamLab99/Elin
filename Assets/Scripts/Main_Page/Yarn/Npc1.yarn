@@ -1,0 +1,14 @@
+title: Npc1
+position: -153,-183
+---
+Npc: Hello How are you?
+-> Player: I'm Fine
+-> Player: I'm Fine. Thank you and you?
+        Npc: I'm Fine too.
+        <<jump Node1>>
+===
+title: Node1
+position: -157,101
+---
+Npc: You're rude!
+===

@@ -1,11 +1,11 @@
 title: Test
 tags:
 ---
-Player: hi?
-NPC1: hh
--> Player: hh?
-    NPC1: hhh.
--> Player: aa..?
-    NPC1: aa. 
-    NPC1: aaa.
+Player: 어흥! 
+NPC1: 제발 살려주세요!
+-> Player: 싫어.
+    NPC1: 난 죽는구나 세상아 안녕!
+-> Player: 좋아.
+    NPC1: 감사합니다. 
+    NPC1: 착하게 살겠습니다.
 ===
