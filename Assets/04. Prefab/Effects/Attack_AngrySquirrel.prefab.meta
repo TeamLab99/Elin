@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/04. Prefab/Effects/Attack_AngrySquirrel.prefab.meta
 guid: 4e66e4385ed723649a3a0c1ea0616e9b
 PrefabImporter:
+========
+guid: 3238ae096b583ab4a9aab930e0b044a8
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> 9d0d1fe8766b9285460b5c9014e62f32fef955c3:Assets/03. Images/Effects/Texture.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

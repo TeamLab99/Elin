@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 public class InputManager
 {
     public Action KeyAction = null;
-    public Action<Define.MouseEvent> MouseAction = null;
+    public Action<MouseEvent> MouseAction = null;
 
     bool _pressed = false;
     public void OnUpdate()
@@ -24,13 +24,13 @@ public class InputManager
         {
             if (Input.GetMouseButton(0))
             {
-                MouseAction.Invoke(Define.MouseEvent.Press);
+                MouseAction.Invoke(MouseEvent.Press);
                 _pressed = true;
             }
             else
             {
                 if (_pressed)
-                    MouseAction.Invoke(Define.MouseEvent.Click);
+                    MouseAction.Invoke(MouseEvent.Click);
                 _pressed = false;
             }
         }
