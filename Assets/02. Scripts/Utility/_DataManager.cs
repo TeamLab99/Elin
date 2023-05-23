@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ILoader<Key, Value>
+public interface ILoaders<Key, Value>
 {
     Dictionary<Key, Value> MakeDict();
 }
 
-public class DataManager : Singleton<DataManager>
+public class DataManagers : Singleton<DataManagers>
 {
     public Dictionary<string, StringData> stringData = new Dictionary<string, StringData>();
     public Dictionary<string, CharData> charData = new Dictionary<string, CharData>();
