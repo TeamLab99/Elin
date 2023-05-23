@@ -7,14 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material 4
-  m_Shader: {fileID: -6465566751694194690, guid: be90a9bcfeb7f0649bef40fb8827af47, type: 3}
+  m_Name: Poison_muzzle
+  m_Shader: {fileID: -6465566751694194690, guid: 24b95b5f16fc5324bb97e6852be5aaf7, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 2
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2983
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -24,20 +24,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _BaseMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Base_tex:
-        m_Texture: {fileID: 2800000, guid: eaf9954881d0ec54cb87bbe549858926, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
-        m_Texture: {fileID: 0}
+    - _Base_Tex:
+        m_Texture: {fileID: 2800000, guid: 75c79d4283e99cc4c87ca8f765112d65, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -52,8 +40,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _add_tex:
-        m_Texture: {fileID: 2800000, guid: 288aa75c9e0df4449981752290e5652b, type: 3}
+    - _Texture2D:
+        m_Texture: {fileID: 2800000, guid: 75c79d4283e99cc4c87ca8f765112d65, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -70,51 +58,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaClip: 0
-    - _Blend: 0
-    - _BlendOp: 0
-    - _CameraFadingEnabled: 0
-    - _CameraFarFadeDistance: 2
-    - _CameraNearFadeDistance: 1
-    - _ColorMode: 0
-    - _Cull: 2
-    - _Cutoff: 0.5
-    - _DistortionBlend: 0.5
-    - _DistortionEnabled: 0
-    - _DistortionStrength: 1
-    - _DistortionStrengthScaled: 0.1
-    - _DstBlend: 10
     - _EnableExternalAlpha: 0
-    - _FlipbookBlending: 0
-    - _FlipbookMode: 0
-    - _Float: 3.24
-    - _Mode: 0
+    - _Power: 1.59
     - _QueueControl: 0
-    - _QueueOffset: -17
-    - _SoftParticlesEnabled: 0
-    - _SoftParticlesFarFadeDistance: 1
-    - _SoftParticlesNearFadeDistance: 0
-    - _SrcBlend: 5
-    - _Surface: 1
-    - _ZWrite: 0
-    - _add_power: 0
+    - _QueueOffset: 0
     m_Colors:
-    - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
-    - _BaseColorAddSubDiff: {r: 1, g: 0, b: 0, a: 0}
-    - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0.2162256, b: 2.297397, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _Offset: {r: 0, g: 1, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
-    - _add_flow: {r: 0, g: 0, b: 0, a: 0}
-    - _add_offset: {r: 0, g: 0, b: 0, a: 0}
-    - _add_tiling: {r: 1, g: 1, b: 0, a: 0}
-    - _flow: {r: 0, g: 1.24, b: 0, a: 0}
-    - _offset: {r: 0, g: 0, b: 0, a: 0}
-    - _tiling: {r: 2.19, g: 1, b: 0, a: 0}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &8650837914684093851
+--- !u!114 &7849201523105817115
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
