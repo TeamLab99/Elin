@@ -6,8 +6,11 @@ using Yarn.Unity;
 public class NPC : InteractObject
 {
     [SerializeField] string npcName;
-    public DialogueRunner dd;
-    
+
+    private void Start()
+    {
+        dialogueRunner.AddCommandHandler<float>("seeyou",SeeYou);
+    }
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -25,6 +28,11 @@ public class NPC : InteractObject
         }
     }
 
+    public void SeeYou(float k=1)
+    {
+        Debug.Log(k);
+    }
+    
     [YarnCommand("ttt")]
     public static void CoutLog(string num)
     {
