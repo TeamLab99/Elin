@@ -15,6 +15,12 @@ public class DeckCard
     public int id;
     public string cardName;
     public string element;
+    public string type1;
+    public string type2;
+    public int attackAmount;
+    public int healAmount;
+    public int defenseAmount;
+    public int maintainTime;
     public int cost;
     public string description;
 }

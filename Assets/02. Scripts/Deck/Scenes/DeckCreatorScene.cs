@@ -12,7 +12,7 @@ public class DeckCreatorScene : BaseScene
         base.Init();
 
         //덱크리에이터 씬에 들어온 것
-        SceneType = Define.Scene.DeckCreator;
+        SceneType = Scene.DeckCreator;
 
         //풀링 등은 이 부분에서 해주면 될 것 같다.
         //생각해보니 UI는 RectTransform이다. 이건 그냥 Transform
