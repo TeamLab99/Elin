@@ -50,7 +50,7 @@ Material:
     - _CastShadows: 1
     - _Cull: 0
     - _DstBlend: 1
-    - _Float: 0.88
+    - _Float: 1.83
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SrcBlend: 5
@@ -66,7 +66,7 @@ Material:
     - _add_tiling: {r: 0.95, g: 1, b: 0, a: 0}
     - _flow: {r: 0, g: 0, b: 0, a: 0}
     - _offset: {r: 0, g: 0, b: 0, a: 0}
-    - _tiling: {r: 3.94, g: 2.03, b: 0, a: 0}
+    - _tiling: {r: 12.73, g: 2.03, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2380724822476551442
 MonoBehaviour:
