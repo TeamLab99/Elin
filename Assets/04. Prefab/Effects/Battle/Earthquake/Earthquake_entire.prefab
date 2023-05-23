@@ -4912,7 +4912,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2933573269362940702, guid: c5ef982d907a23345a30405e6a00360f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2933573270119890805, guid: c5ef982d907a23345a30405e6a00360f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5170,6 +5170,10 @@ PrefabInstance:
       propertyPath: m_RenderAlignment
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2933573271069100226, guid: c5ef982d907a23345a30405e6a00360f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8f66eb9a76bdce34589f94f754262313, type: 2}
     - target: {fileID: 2933573271069100227, guid: c5ef982d907a23345a30405e6a00360f, type: 3}
       propertyPath: ShapeModule.type
       value: 0
