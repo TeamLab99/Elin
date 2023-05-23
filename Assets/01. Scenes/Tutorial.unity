@@ -27074,7 +27074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1647217147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27089,6 +27089,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformObjectType: 0
   npcName: Npc1
+  dd: {fileID: 744393373}
 --- !u!61 &1647217148
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -27561,7 +27562,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1820846212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27576,6 +27577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformObjectType: 0
   npcName: Test
+  dd: {fileID: 0}
 --- !u!61 &1820846213
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -29582,7 +29584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2124804342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29597,6 +29599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformObjectType: 0
   npcName: Quest1
+  dd: {fileID: 0}
 --- !u!61 &2124804343
 BoxCollider2D:
   m_ObjectHideFlags: 0
