@@ -12,16 +12,22 @@ using UnityEngine;
 public class DeckCard
 {
     //serializedField 넣으면 public 없어도 가능, 변수의 이름과 형식이 파일과 일치해야함
-    public int id;
+    public int index;
     public string cardName;
     public string element;
-    public string type1;
-    public string type2;
-    public int attackAmount;
-    public int healAmount;
-    public int defenseAmount;
-    public int maintainTime;
+    public string type;
     public int cost;
+    public float percent;
+    public string attackCode;
+    public string buffCode;
+    public string debuffCode;
+    public float attackProbability;
+    public float attackPercent;
+    public float buffProbability;
+    public float buffMaintainTime;
+    public float debuffProbability;
+    public float debuffMaintainTime;
+    public int amount;
     public string description;
 }
 
@@ -37,7 +43,7 @@ public class CardData : ILoader<int, DeckCard>
         Dictionary<int, DeckCard> dict = new Dictionary<int, DeckCard>();
         foreach (DeckCard card in Cards)
         {
-            dict.Add(card.id, card);         
+            dict.Add(card.index, card);         
         }
         return dict;
     }
@@ -49,7 +55,7 @@ public class CardData : ILoader<int, DeckCard>
 [Serializable]
 public class UnlockCard
 {
-    public int id;
+    public int index;
 }
 
 public class DeckData : ILoader<int, UnlockCard>
@@ -61,7 +67,7 @@ public class DeckData : ILoader<int, UnlockCard>
         Dictionary<int, UnlockCard> dict = new Dictionary<int, UnlockCard>();
         foreach (UnlockCard card in deckCards)
         {
-            dict.Add(card.id, card);
+            dict.Add(card.index, card);
         }
         return dict;
     }

@@ -98,12 +98,33 @@ public class UI_Collection : UI_Base
                     for(int j=0; j<deckCount; j++)
                     {
                         UnlockCard deckinfo = _deck[deckKeys[j]];
-                        if (cardinfo.id == deckinfo.id)
+                        if (cardinfo.index == deckinfo.index)
                         {
                             GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
                             card.TryGetComponent<UI_Card>(out UI_Card cardInDeck);
                             cardInDeck.SetInfo(cardinfo);
                             cardNum++;
+                        }
+                    }
+                }
+                break;
+
+            case Sorting.None:
+                for (int i = 0; i < cardCount; i++)
+                {
+                    DeckCard cardinfo = _dict[cardKeys[i]];
+                    for (int j = 0; j < deckCount; j++)
+                    {
+                        UnlockCard deckinfo = _deck[deckKeys[j]];
+                        if (cardinfo.index == deckinfo.index)
+                        {
+                            if (cardinfo.element == "None")
+                            {
+                                GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
+                                UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
+                                cardInDeck.SetInfo(cardinfo);
+                                cardNum++;
+                            }
                         }
                     }
                 }
@@ -116,9 +137,9 @@ public class UI_Collection : UI_Base
                     for (int j = 0; j < deckCount; j++)
                     {
                         UnlockCard deckinfo = _deck[deckKeys[j]];
-                        if (cardinfo.id == deckinfo.id)
+                        if (cardinfo.index == deckinfo.index)
                         {
-                            if (cardinfo.element == "fire")
+                            if (cardinfo.element == "Fire")
                             {
                                 GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
                                 UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
@@ -137,9 +158,9 @@ public class UI_Collection : UI_Base
                     for (int j = 0; j < deckCount; j++)
                     {
                         UnlockCard deckinfo = _deck[deckKeys[j]];
-                        if (cardinfo.id == deckinfo.id)
+                        if (cardinfo.index == deckinfo.index)
                         {
-                            if (cardinfo.element == "water")
+                            if (cardinfo.element == "Water")
                             {
                                 GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
                                 UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
@@ -158,9 +179,9 @@ public class UI_Collection : UI_Base
                     for (int j = 0; j < deckCount; j++)
                     {
                         UnlockCard deckinfo = _deck[deckKeys[j]];
-                        if (cardinfo.id == deckinfo.id)
+                        if (cardinfo.index == deckinfo.index)
                         {
-                            if (cardinfo.element == "wind")
+                            if (cardinfo.element == "Wind")
                             {
                                 GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
                                 UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
@@ -179,9 +200,9 @@ public class UI_Collection : UI_Base
                     for (int j = 0; j < deckCount; j++)
                     {
                         UnlockCard deckinfo = _deck[deckKeys[j]];
-                        if (cardinfo.id == deckinfo.id)
+                        if (cardinfo.index == deckinfo.index)
                         {
-                            if (cardinfo.element == "earth")
+                            if (cardinfo.element == "Ground")
                             {
                                 GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
                                 UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
@@ -205,6 +226,11 @@ public class UI_Collection : UI_Base
 
     //이 부분은 버튼을 누르면 sorting 변수의 값을 바꾸고 새로 그리는 부분
     #region SetSorting
+    public void SetNone()
+    {
+        sorting = Sorting.None;
+        drawCard();
+    }
     public void SetFire()
     {
         sorting = Sorting.Fire;

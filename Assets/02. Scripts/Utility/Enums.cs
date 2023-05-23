@@ -38,6 +38,7 @@ public enum CameraMode
 public enum Sorting
 {
     Default,
+    None,
     Fire,
     Water,
     Wind,

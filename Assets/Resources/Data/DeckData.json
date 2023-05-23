@@ -1,25 +1,28 @@
 {
   "deckCards": [
     {
-      "id": "0"
+      "index": 1
     },
     {
-      "id": "14"
+      "index": 2
     },
     {
-      "id": "15"
+      "index": 3
     },
     {
-      "id": "16"
+      "index": 4
     },
     {
-      "id": "17"
+      "index": 5
     },
     {
-      "id": "18"
+      "index": 11
     },
     {
-      "id": "19"
+      "index": 12
+    },
+    {
+      "index": 13
     }
   ]
 } 

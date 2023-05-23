@@ -7,6 +7,9 @@ public class DeckCreatorScene : BaseScene
     [SerializeField]
     GameObject card;
 
+    [SerializeField]
+    GameObject battleCard;
+
     protected override void Init()
     {
         base.Init();
@@ -17,7 +20,7 @@ public class DeckCreatorScene : BaseScene
         //풀링 등은 이 부분에서 해주면 될 것 같다.
         //생각해보니 UI는 RectTransform이다. 이건 그냥 Transform
         //그 차이를 개선해야 풀링이 가능하다.
-        Managers.Pool.CreatePool(card, 20);
+        Managers.Pool.CreatePool(card, 13);
     }
 
     public override void Clear()

@@ -62,7 +62,7 @@ public class ResourceManager
     {
         //Resources 산하의 Prefabs 폴더에서 해당 이름에 해당하는 컨텐츠를 찾는다.
         //Resources.Load를 사용해서 가능한 방법
-        GameObject original = Load<GameObject>($"EventSystem/{path}");
+        GameObject original = Load<GameObject>($"Prefabs/{path}");
         if (original == null)
         {
             Debug.Log($"Failed to load prefab : {path}");
