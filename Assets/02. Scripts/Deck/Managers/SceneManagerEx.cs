@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class SceneManagerEx
 {
     public BaseScene CurrentScene { get { return GameObject.FindObjectOfType<BaseScene>(); } }
-    public void LoadScene(Define.Scene type)
+    public void LoadScene(Scene type)
     {
         //씬을 로드할 때 이미 생성된 데이터들을 싹 날리고 로드한다.
         Managers.Clear();
@@ -16,9 +16,9 @@ public class SceneManagerEx
     }
 
     //현재 씬의 이름을 알 수 있는 함수
-    string GetSceneName(Define.Scene type)
+    string GetSceneName(Scene type)
     {
-        string name = System.Enum.GetName(typeof(Define.Scene), type);
+        string name = System.Enum.GetName(typeof(Scene), type);
         return name;
     }
 

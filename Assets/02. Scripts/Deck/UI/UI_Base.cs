@@ -61,18 +61,18 @@ public abstract class UI_Base : MonoBehaviour
 
     //이벤트를 바인딩해주는 함수
     //지금 사용하지는 않음
-    public static void BindEvent(GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
+    public static void BindEvent(GameObject go, Action<PointerEventData> action, UIEvent type = UIEvent.Click)
     {
 
         UI_EventHandler evt = Util.GetOrAddComponent<UI_EventHandler>(go);
 
         switch (type)
         {
-            case Define.UIEvent.Click:
+            case UIEvent.Click:
                 evt.OnClickHandler -= action;
                 evt.OnClickHandler += action;
                 break;
-            case Define.UIEvent.Drag:
+            case UIEvent.Drag:
                 evt.OnDragHandler -= action;
                 evt.OnDragHandler += action;
                 break;
