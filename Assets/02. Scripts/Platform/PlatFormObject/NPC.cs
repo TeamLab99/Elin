@@ -6,7 +6,7 @@ using Yarn.Unity;
 public class NPC : InteractObject
 {
     [SerializeField] string npcName;
-
+    public int kkk = 5;
     private void Start()
     {
         dialogueRunner.AddCommandHandler<float>("seeyou",SeeYou);
@@ -31,31 +31,19 @@ public class NPC : InteractObject
     public void SeeYou(float k=1)
     {
         Debug.Log(k);
+        kkk -= 10;
     }
-    
-    [YarnCommand("ttt")]
-    public static void CoutLog(string num)
+        
+    [YarnCommand("UseItem")]
+    public static void CoutLog(int _id)
     {
-        Debug.Log(num);
-        Debug.Log(int.Parse(num));
-        Debug.Log("커맨드 함수 작동중");
-    }
+        Debug.Log(_id);
+     }
 
-    [YarnCommand("kkk")]
-    public static void Use()
+    [YarnFunction("CheckItem")]
+    public static int Use(int cnt)
     {
-        int cnt = 2;
-        Dictionary<int,int> itemList = new Dictionary<int, int>();
-        itemList.Add(101, 5);
-        itemList.Add(102, 3);
-        if (itemList.ContainsKey(101))
-        {
-            itemList[101] -= cnt;
-            Debug.Log(itemList[101]);
-        }
-        else
-        {
-            Debug.Log("못찾음");
-        }
+        int itemAllCnt = 10;
+        return itemAllCnt-cnt;
     }
 }
