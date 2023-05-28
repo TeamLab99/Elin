@@ -19,7 +19,7 @@ TagManager:
   - Mob
   - NPC
   - EfcIcon
-  - DL
+  - Absorbable
   layers:
   - Default
   - TransparentFX
