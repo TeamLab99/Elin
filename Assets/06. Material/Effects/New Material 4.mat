@@ -51,6 +51,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Mask_Tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -91,7 +95,7 @@ Material:
     - _EnableExternalAlpha: 0
     - _FlipbookBlending: 0
     - _FlipbookMode: 0
-    - _Float: 3.24
+    - _Float: 1.91
     - _Mode: 0
     - _QueueControl: 0
     - _QueueOffset: -17
@@ -111,6 +115,8 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0.2162256, b: 2.297397, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _Mask_offset: {r: 0, g: 0, b: 0, a: 0}
+    - _Mask_tiling: {r: 1, g: 1, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _add_flow: {r: 0, g: 0, b: 0, a: 0}
