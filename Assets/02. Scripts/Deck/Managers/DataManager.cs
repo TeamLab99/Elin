@@ -20,7 +20,7 @@ public class DataManager
     public Dictionary<int, UnlockCard> DeckDict { get; private set; } = new Dictionary<int, UnlockCard>();
     
     //착용한 보석에 대해 가지고 있는 변수
-    public Gems equipGem = Gems.none;
+    public EGems equipGem = EGems.none;
 
     public void Init()
     {

@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 //씬에 대한 스크립트이다, 아직까지는 큰 기능은 없다
 public abstract class BaseScene : MonoBehaviour
 {
-    public Scene SceneType { get; protected set; } = Scene.Unknown;
+    public EScene SceneType { get; protected set; } = EScene.Unknown;
 
     // Start is called before the first frame update
     void Awake()

@@ -19,7 +19,7 @@ public class PlatForm_Manager : MonoBehaviour
         }
         else
         {
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
             instance = this;
         }
     }

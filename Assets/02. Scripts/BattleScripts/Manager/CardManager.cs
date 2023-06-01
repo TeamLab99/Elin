@@ -86,13 +86,13 @@ public class CardManager : MonoBehaviour
         // 카드 정보 가져오고 섞고, 첫 드로우
         StartCoroutine(Init());
         SetupItemBuffer();
-        TurnManager.OnAddCard += AddCard;
+        //TurnManager.OnAddCard += AddCard;
         curTime = maxTime;
     }
 
     private void OnDestroy()
     {
-        TurnManager.OnAddCard -= AddCard;
+        //TurnManager.OnAddCard -= AddCard;
     }
 
     private IEnumerator Init()

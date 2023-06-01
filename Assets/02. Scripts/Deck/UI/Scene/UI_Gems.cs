@@ -18,49 +18,49 @@ public class UI_Gems : UI_Base
     #region SetGem
     public void setFireGem()
     {
-        if(Managers.Data.equipGem == Gems.FireGem)
+        if(Managers.Data.equipGem == EGems.FireGem)
         {
-            Managers.Data.equipGem = Gems.none;
+            Managers.Data.equipGem = EGems.none;
         }
         else
         {
-            Managers.Data.equipGem = Gems.FireGem;
+            Managers.Data.equipGem = EGems.FireGem;
         }
     }
 
     public void setWaterGem()
     {
-        if (Managers.Data.equipGem == Gems.WaterGem)
+        if (Managers.Data.equipGem == EGems.WaterGem)
         {
-            Managers.Data.equipGem = Gems.none;
+            Managers.Data.equipGem = EGems.none;
         }
         else
         {
-            Managers.Data.equipGem = Gems.WaterGem;
+            Managers.Data.equipGem = EGems.WaterGem;
         }
     }
 
     public void setWindGem()
     {
-        if (Managers.Data.equipGem == Gems.WindGem)
+        if (Managers.Data.equipGem == EGems.WindGem)
         {
-            Managers.Data.equipGem = Gems.none;
+            Managers.Data.equipGem = EGems.none;
         }
         else
         {
-            Managers.Data.equipGem = Gems.WindGem;
+            Managers.Data.equipGem = EGems.WindGem;
         }
     }
 
     public void setEarthGem()
     {
-        if (Managers.Data.equipGem == Gems.EarthGem)
+        if (Managers.Data.equipGem == EGems.EarthGem)
         {
-            Managers.Data.equipGem = Gems.none;
+            Managers.Data.equipGem = EGems.none;
         }
         else
         {
-            Managers.Data.equipGem = Gems.EarthGem;
+            Managers.Data.equipGem = EGems.EarthGem;
         }
     }
     #endregion

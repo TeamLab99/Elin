@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 //기존에 만든 함수들을 조금 더 확장한 것
 public static class Extension
 {
-    public static void BindEvent(this GameObject go, Action<PointerEventData> action, UIEvent type = UIEvent.Click)
+    public static void BindEvent(this GameObject go, Action<PointerEventData> action, EUIEvent type = EUIEvent.Click)
     {
         UI_Base.BindEvent(go, action, type);
     }

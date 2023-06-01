@@ -17,7 +17,7 @@ public class PlayerAbilityController : MonoBehaviour
     private bool isSeparated = false;  // 플레이어가 분리되었는지 여부
     private bool isAbsorbing = false;  // 플레이어가 흡수 중인지 여부
     private float absorptionTime = 0f;  // 흡수 시간
-    private SeperateDirection seperateDirection = SeperateDirection.None;
+    private ESeperateDirection seperateDirection = ESeperateDirection.None;
     private void Awake()
     {
         spr = GetComponent<SpriteRenderer>();
@@ -65,12 +65,12 @@ public class PlayerAbilityController : MonoBehaviour
         if (isRight)
         {
             rightSeperationPlayer.SetActive(true);
-            seperateDirection = SeperateDirection.Right;
+            seperateDirection = ESeperateDirection.Right;
         }
         else
         {
             leftSeperationPlayer.SetActive(true);
-            seperateDirection = SeperateDirection.Left;
+            seperateDirection = ESeperateDirection.Left;
         }
         isSeparated = true;
         Invoke("DestroySeperationPlayer", 15f);
@@ -78,12 +78,12 @@ public class PlayerAbilityController : MonoBehaviour
 
     private void DestroySeperationPlayer()
     {
-        if (seperateDirection== SeperateDirection.Right)
+        if (seperateDirection== ESeperateDirection.Right)
             rightSeperationPlayer.SetActive(false);
-        if (seperateDirection == SeperateDirection.Left)
+        if (seperateDirection == ESeperateDirection.Left)
             leftSeperationPlayer.SetActive(false);
         isSeparated = false;
-        seperateDirection = SeperateDirection.None;
+        seperateDirection = ESeperateDirection.None;
     }
 
     private void HandleAbsorption()
@@ -135,13 +135,13 @@ public class PlayerAbilityController : MonoBehaviour
             projectile.GetComponent<Rigidbody2D>().velocity = transform.right * 10f;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
             switch (seperateDirection)
             {
-                case SeperateDirection.Right:
+                case ESeperateDirection.Right:
                     GameObject rightProjectile = Instantiate(projectilePrefab, rightSeperationPlayer.transform.position, Quaternion.identity);
                     rightProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * 10f;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
                     DestroySeperationPlayer();
                     CancelInvoke("DestroySeperationPlayer");
                     break;
-                case SeperateDirection.Left:
+                case ESeperateDirection.Left:
                     GameObject leftProjectile = Instantiate(projectilePrefab, leftSeperationPlayer.transform.position, Quaternion.identity);
                     leftProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * -10f;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
                     DestroySeperationPlayer();

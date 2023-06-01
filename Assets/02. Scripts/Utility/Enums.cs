@@ -5,37 +5,37 @@ public enum EUILayer
     Setting
 };
 
-public enum Scene
+public enum EScene
 {
     Unknown,
     DeckCreator
 }
 
-public enum Sound
+public enum ESound
 {
     Bgm,
     Effect,
     MaxCount,
 }
 
-public enum UIEvent
+public enum EUIEvent
 {
     Click,
     Drag,
 
 }
-public enum MouseEvent
+public enum EMouseEvent
 {
     Press,
     Click,
 }
 
-public enum CameraMode
+public enum ECameraMode
 {
     QuarterView
 }
 
-public enum Sorting
+public enum ESorting
 {
     Default,
     None,
@@ -45,7 +45,7 @@ public enum Sorting
     Earth
 }
 
-public enum ItemType
+public enum EItemType
 {
     Consumer,
     Equipment,
@@ -53,7 +53,7 @@ public enum ItemType
     Etc
 }
 
-public enum Gems
+public enum EGems
 {
     none,
     FireGem,
@@ -62,8 +62,7 @@ public enum Gems
     EarthGem
 }
 
-
-public enum SeperateDirection
+public enum ESeperateDirection
 {
     None,
     Right,

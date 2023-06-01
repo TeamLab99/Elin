@@ -8,7 +8,7 @@ public class UI_Collection : UI_Base
 {
     int cardNum;            //내가 가진 카드 숫자
     GameObject content;     //카드들의 UI의 부모
-    Sorting sorting; // 내가 원하는 기준으로 정렬하기 위한 함수
+    ESorting sorting; // 내가 원하는 기준으로 정렬하기 위한 함수
     Dictionary<int, DeckCard> _dict;  //전체 카드를 담을 딕셔너리
 
     //enum으로 바인딩 하기 위해 선언
@@ -36,7 +36,7 @@ public class UI_Collection : UI_Base
         _dict = Managers.Data.CardDict;
 
         //정렬은 기본값으로
-        sorting = Sorting.Default;
+        sorting = ESorting.Default;
 
         //바인딩
         Bind<GameObject>(typeof(GameObjects));
@@ -91,7 +91,7 @@ public class UI_Collection : UI_Base
         //이를 이용해서 content의 크기를 조절함
         switch(sorting)
         {
-            case Sorting.Default:
+            case ESorting.Default:
                 for(int i=0; i<cardCount; i++)
                 {
                     DeckCard cardinfo = _dict[cardKeys[i]];
@@ -109,7 +109,7 @@ public class UI_Collection : UI_Base
                 }
                 break;
 
-            case Sorting.None:
+            case ESorting.None:
                 for (int i = 0; i < cardCount; i++)
                 {
                     DeckCard cardinfo = _dict[cardKeys[i]];
@@ -130,7 +130,7 @@ public class UI_Collection : UI_Base
                 }
                 break;
 
-            case Sorting.Fire:
+            case ESorting.Fire:
                 for (int i = 0; i < cardCount; i++)
                 {
                     DeckCard cardinfo = _dict[cardKeys[i]];
@@ -151,7 +151,7 @@ public class UI_Collection : UI_Base
                 }
                 break;
 
-            case Sorting.Water:
+            case ESorting.Water:
                 for (int i = 0; i < cardCount; i++)
                 {
                     DeckCard cardinfo = _dict[cardKeys[i]];
@@ -172,7 +172,7 @@ public class UI_Collection : UI_Base
                 }
                 break;
 
-            case Sorting.Wind:
+            case ESorting.Wind:
                 for (int i = 0; i < cardCount; i++)
                 {
                     DeckCard cardinfo = _dict[cardKeys[i]];
@@ -193,7 +193,7 @@ public class UI_Collection : UI_Base
                 }
                 break;
 
-            case Sorting.Earth:
+            case ESorting.Earth:
                 for (int i = 0; i < cardCount; i++)
                 {
                     DeckCard cardinfo = _dict[cardKeys[i]];
@@ -228,27 +228,27 @@ public class UI_Collection : UI_Base
     #region SetSorting
     public void SetNone()
     {
-        sorting = Sorting.None;
+        sorting = ESorting.None;
         drawCard();
     }
     public void SetFire()
     {
-        sorting = Sorting.Fire;
+        sorting = ESorting.Fire;
         drawCard();
     }
     public void SetWater()
     {
-        sorting = Sorting.Water;
+        sorting = ESorting.Water;
         drawCard();
     }
     public void SetWind()
     {
-        sorting = Sorting.Wind;
+        sorting = ESorting.Wind;
         drawCard();
     }
     public void SetEarth()
     {
-        sorting = Sorting.Earth;
+        sorting = ESorting.Earth;
         drawCard();
     }
     public void SetDefault()
@@ -256,7 +256,7 @@ public class UI_Collection : UI_Base
         //이 부분은 카드를 새로 추가해본 부분으로 잘 되었다.
         //Managers.Data.getNewCard(10);
         //Managers.Resource.saveData();
-        sorting = Sorting.Default;
+        sorting = ESorting.Default;
         drawCard();
     }
     #endregion

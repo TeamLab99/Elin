@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4356761433790202474}
   - component: {fileID: 8696548420250615036}
   m_Layer: 0
-  m_Name: costTMP
+  m_Name: cost_TMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.02, y: 1.46}
+  m_AnchoredPosition: {x: 1.3, y: 1.6}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4356761433790202474
@@ -127,8 +127,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7
-  m_fontSizeBase: 7
+  m_fontSize: 5.68
+  m_fontSizeBase: 5.68
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 1769006818646625522}
   - component: {fileID: 1965144301545569910}
   m_Layer: 0
-  m_Name: keyTMP
+  m_Name: key_TMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -207,7 +207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.38}
+  m_AnchoredPosition: {x: 0, y: 2.62}
   m_SizeDelta: {x: 3, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1769006818646625522
@@ -354,8 +354,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4060142598591651222}
   - component: {fileID: 4060142598591651223}
+  - component: {fileID: 5574652151088339824}
   - component: {fileID: 4060142598591651217}
-  - component: {fileID: 2023925987}
   m_Layer: 0
   m_Name: BattleCard
   m_TagString: Untagged
@@ -372,7 +372,7 @@ Transform:
   m_GameObject: {fileID: 4060142598591651220}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4060142598773736775}
@@ -423,7 +423,7 @@ SpriteRenderer:
   m_SortingLayerID: -891992447
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -466432899, guid: 189f2d829bd5b5d4eaf7689867f0c539, type: 3}
+  m_Sprite: {fileID: 1536478769, guid: 225b38ccef6f554419fa89363e2f5fb3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -434,6 +434,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5574652151088339824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060142598591651220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab0ec6d73063d840ae7d4ea9bee8f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardSprite: {fileID: 4060142598591651223}
+  magicSprite: {fileID: 4060142598773736774}
+  nameTMP: {fileID: 4060142600191928616}
+  keyTMP: {fileID: 1965144301545569910}
+  costTMP: {fileID: 8696548420250615036}
+  deckCard:
+    index: 0
+    cardName: 
+    element: 
+    type: 
+    cost: 0
+    percent: 0
+    attackCode: 
+    buffCode: 
+    debuffCode: 
+    attackProbability: 0
+    attackPercent: 0
+    buffProbability: 0
+    buffMaintainTime: 0
+    debuffProbability: 0
+    debuffMaintainTime: 0
+    amount: 0
+    description: 
 --- !u!114 &4060142598591651217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,35 +489,6 @@ MonoBehaviour:
   - {fileID: 4356761433790202474}
   - {fileID: 1769006818646625522}
   sortingLayerName: Card
---- !u!60 &2023925987
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4060142598591651220}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.75, y: 3.875}
-    newSize: {x: 2.9375, y: 3.875}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -1.46875, y: 1.9375}
-      - {x: -1.46875, y: -1.9375}
-      - {x: 1.46875, y: -1.9375}
-      - {x: 1.46875, y: 1.9375}
 --- !u!1 &4060142598773736772
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,7 +500,7 @@ GameObject:
   - component: {fileID: 4060142598773736775}
   - component: {fileID: 4060142598773736774}
   m_Layer: 0
-  m_Name: character
+  m_Name: magic_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -579,7 +585,7 @@ GameObject:
   - component: {fileID: 4060142600191928619}
   - component: {fileID: 4060142600191928616}
   m_Layer: 0
-  m_Name: nameTMP
+  m_Name: name_TMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -602,8 +608,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.36}
-  m_SizeDelta: {x: 3, y: 1.5}
+  m_AnchoredPosition: {x: -0.4012, y: 1.91}
+  m_SizeDelta: {x: 3.5745, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4060142600191928619
 MeshRenderer:
@@ -736,6 +742,6 @@ MonoBehaviour:
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_renderer: {fileID: 4060142600191928619}
   m_maskType: 0
