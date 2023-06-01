@@ -4,25 +4,43 @@ using UnityEngine;
 
 public class PlayerAbilityController : MonoBehaviour
 {
-    public GameObject separationPlayerPrefab;  // 분열 플레이어 프리팹
+    SpriteRenderer spr;
+
+    public GameObject leftSeperationPlayer;
+    public GameObject rightSeperationPlayer;
     public GameObject projectilePrefab;  // 발사체 프리팹
+
     public float absorptionRadius = 5f;  // 흡수 반경
     private int currentState = 0;
 
+    private bool isRight = true;
     private bool isSeparated = false;  // 플레이어가 분리되었는지 여부
     private bool isAbsorbing = false;  // 플레이어가 흡수 중인지 여부
     private float absorptionTime = 0f;  // 흡수 시간
+    private SeperateDirection seperateDirection = SeperateDirection.None;
+    private void Awake()
+    {
+        spr = GetComponent<SpriteRenderer>();
+    }
 
     private void Update()
     {
         KeyInput();
-
-        if(currentState==1)
+        CheckDirection();
+        if (currentState==1)
             HandleSeparation();
         else if (currentState==2)
             HandleAbsorption();
         else if(currentState==3)
             HandleProjectile();
+    }
+
+    void CheckDirection()
+    {
+        if (spr.flipX == true)
+            isRight = true;
+        else
+            isRight = false;
     }
 
     private void KeyInput()
@@ -38,22 +56,33 @@ public class PlayerAbilityController : MonoBehaviour
     private void HandleSeparation()
     {
         if (Input.GetKeyDown(KeyCode.Z) && !isSeparated && !isAbsorbing)
-            Invoke("CreateSeparationPlayer", 1f);
+            SeperatePlayer();
     }
 
-    private void CreateSeparationPlayer()
+    private void SeperatePlayer()
     {
-        separationPlayerPrefab.SetActive(true);
-        Vector3 direction = transform.localScale.x > 0 ? Vector3.right : Vector3.left;
-        separationPlayerPrefab.transform.right = direction;
+        if (isRight)
+        {
+            rightSeperationPlayer.SetActive(true);
+            seperateDirection = SeperateDirection.Right;
+        }
+        else
+        {
+            leftSeperationPlayer.SetActive(true);
+            seperateDirection = SeperateDirection.Left;
+        }
         isSeparated = true;
         Invoke("DestroySeperationPlayer", 15f);
     }
 
     private void DestroySeperationPlayer()
     {
+        if (seperateDirection== SeperateDirection.Right)
+            rightSeperationPlayer.SetActive(false);
+        if (seperateDirection == SeperateDirection.Left)
+            leftSeperationPlayer.SetActive(false);
         isSeparated = false;
-        separationPlayerPrefab.SetActive(false);
+        seperateDirection = SeperateDirection.None;
     }
 
     private void HandleAbsorption()
@@ -99,10 +128,21 @@ public class PlayerAbilityController : MonoBehaviour
 
     private void HandleProjectile()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && isSeparated)
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             projectile.GetComponent<Rigidbody2D>().velocity = transform.right * 10f;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
+            switch (seperateDirection)
+            {
+                case SeperateDirection.Right:
+                    GameObject rightProjectile = Instantiate(projectilePrefab, rightSeperationPlayer.transform.position, Quaternion.identity);
+                    rightProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * 10f;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
+                    break;
+                case SeperateDirection.Left:
+                    GameObject leftProjectile = Instantiate(projectilePrefab, leftSeperationPlayer.transform.position, Quaternion.identity);
+                    leftProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * (-10f);  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
+                    break;
+            }
         }
     }
 }

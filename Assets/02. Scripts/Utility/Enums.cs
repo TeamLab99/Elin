@@ -61,3 +61,11 @@ public enum Gems
     WindGem,
     EarthGem
 }
+
+
+public enum SeperateDirection
+{
+    None,
+    Right,
+    Left
+}
