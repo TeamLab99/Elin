@@ -38,9 +38,9 @@ public class PlayerAbilityController : MonoBehaviour
     void CheckDirection()
     {
         if (spr.flipX == true)
-            isRight = true;
-        else
             isRight = false;
+        else
+            isRight = true;
     }
 
     private void KeyInput()
@@ -51,6 +51,7 @@ public class PlayerAbilityController : MonoBehaviour
             currentState = 2;
         else if (Input.GetKeyDown(KeyCode.Alpha3))
             currentState = 3;
+        Debug.Log(currentState);
     }
 
     private void HandleSeparation()
@@ -137,10 +138,14 @@ public class PlayerAbilityController : MonoBehaviour
                 case SeperateDirection.Right:
                     GameObject rightProjectile = Instantiate(projectilePrefab, rightSeperationPlayer.transform.position, Quaternion.identity);
                     rightProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * 10f;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
+                    DestroySeperationPlayer();
+                    CancelInvoke("DestroySeperationPlayer");
                     break;
                 case SeperateDirection.Left:
                     GameObject leftProjectile = Instantiate(projectilePrefab, leftSeperationPlayer.transform.position, Quaternion.identity);
-                    leftProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * (-10f);  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
+                    leftProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * -10f;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
+                    DestroySeperationPlayer();
+                    CancelInvoke("DestroySeperationPlayer");
                     break;
             }
         }
