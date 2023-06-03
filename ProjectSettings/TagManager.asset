@@ -12,7 +12,6 @@ TagManager:
   - Item
   - Monster
   - Spike
-  - DeBuff
   - Gauge
   - Cards
   - Battle_Player
@@ -21,6 +20,7 @@ TagManager:
   - EfcIcon
   - Absorbable
   - Battle_UI
+  - PlayerEgo
   layers:
   - Default
   - TransparentFX
@@ -41,7 +41,7 @@ TagManager:
   - Entity
   - Card
   - Projectile
-  - 
+  - PlayerEgo
   - 
   - 
   - 

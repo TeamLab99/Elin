@@ -3,22 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Yarn.Unity;
 
-public enum PlatformObjectType
+public enum InteractType
 {
     NPC,
-    Puzzle,
+    Merchant,
+    Switch,
     ItemBox
 }
 
 abstract public class InteractObject : MonoBehaviour
 {
-    [SerializeField]PlatformObjectType platformObjectType;
-    protected GameObject dialogueObject;
-    protected DialogueRunner dialogueRunner;
-    private void Awake()
-    {
-        dialogueObject = GameObject.FindGameObjectWithTag("DL");
-        dialogueRunner = dialogueObject.GetComponent<DialogueRunner>();
-    }
+    [SerializeField] InteractType platformObjectType;
     protected abstract void OnTriggerEnter2D(Collider2D collision);
 }
