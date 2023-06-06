@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class AbilityUI : MonoBehaviour
 {
     
-    private Text text;
+    private Text abilityText;
+    [SerializeField] string[] abilityTypeTexts;
     [SerializeField] Image elementImage;
     [SerializeField] Sprite[] elementTypeImages;
 
@@ -17,14 +18,25 @@ public class AbilityUI : MonoBehaviour
 
     private void Awake()
     {
-        text = GetComponentInChildren<Text>();
+        abilityText = GetComponentInChildren<Text>();
+      
         //rectTransform = GetComponent<RectTransform>();
     }
 
+    private void Start() // 초기화
+    {
+        ChangeAbilityType(0); 
+        ChangeElementType(ESorting.None); 
+    }
 
     public void ChangeElementType(ESorting _estort)
     {
         elementImage.sprite = elementTypeImages[(int)(_estort)];
+    }
+
+    public void ChangeAbilityType(int _idx)
+    {
+        abilityText.text = abilityTypeTexts[_idx];
     }
 
     /*void UpdatePosition()

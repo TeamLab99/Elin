@@ -32,28 +32,26 @@ public class PlayerAbilityController : MonoBehaviour
         CheckDirection();
         switch (currentAbilityState)
         {
-            case 1:
+            case 0:
                 HandleSeparation();
                 break;
-            case 2:
+            case 1:
                 HandleAbsorption();
                 break;
-            case 3:
+            case 2:
                 HandleProjectile();
-                break;
-            default:
                 break;
         } 
     }
     private void KeyInput()
     {
-
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            if (currentAbilityState <= 2)
+            if (currentAbilityState < 2)
                 currentAbilityState += 1;
             else
-                currentAbilityState = 1;
+                currentAbilityState = 0;
+            abilityUI.ChangeAbilityType(currentAbilityState);
         }
     }
 

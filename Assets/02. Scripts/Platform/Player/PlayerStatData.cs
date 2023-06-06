@@ -10,6 +10,4 @@ public class PlayerStatData : ScriptableObject
     public int attackPower;
     public int maxCost;
     public float costRecoverySpeed;
-    public float currentMP;
-    public float maxMP;
 }

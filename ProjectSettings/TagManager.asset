@@ -12,7 +12,6 @@ TagManager:
   - Item
   - Monster
   - Spike
-  - Gauge
   - Cards
   - Battle_Player
   - Mob
@@ -54,7 +53,7 @@ TagManager:
   - 
   - 
   - 
-  - Tutorial
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
