@@ -5,90 +5,86 @@ using UnityEngine.UI;
 
 public class PlayerAbilityController : MonoBehaviour
 {
-    SpriteRenderer spr;
     AbilityUI abilityUI;
-    public Slider slider;
-    public Image image;
-    public Sprite sprite;
+    SpriteRenderer spr;
 
     public GameObject leftSeperationPlayer;
     public GameObject rightSeperationPlayer;
-    public GameObject projectilePrefab;  // 발사체 프리팹
+    public GameObject projectilePrefab;
 
-    private int currentState = 0;
-    private int playerDir = 1;
-    private bool isRight = true;
-    private bool isSeparated = false;  // 플레이어가 분리되었는지 여부
-    private float increaseSpeed= 1f;  // 흡수 시간
-    private ESeperateDirection seperateDirection = ESeperateDirection.None;
-    ESorting element = ESorting.None;
+    private int currentAbilityState = 0; 
+    private int playerDir = 1; 
+    private bool isSeparated = false;  
+    private bool coolDownAbsorption = true; // false이면 쿨타임중
+    private bool coolDownProjectile = true; // false이면 쿨타임중
+    private ESorting element = ESorting.None;
+    private ESeperateDirection seperateDirection = ESeperateDirection.None; 
+
     private void Awake()
     {
         spr = GetComponent<SpriteRenderer>();
-        abilityUI = FindObjectOfType<AbilityUI>(); 
+        abilityUI = FindObjectOfType<AbilityUI>();
     }
 
     private void Update()
     {
         KeyInput();
         CheckDirection();
-        if (currentState==1)
-            HandleSeparation();
-        else if (currentState==2)
-            HandleAbsorption();
-        else if(currentState==3)
-            HandleProjectile();
-    }
-
-    void CheckDirection()
-    {
-        if (spr.flipX == true)
+        switch (currentAbilityState)
         {
-            playerDir = -1;
-            isRight = false;
-        }
-        else
-        {
-            playerDir = 1;
-            isRight = true;
-        }
+            case 1:
+                HandleSeparation();
+                break;
+            case 2:
+                HandleAbsorption();
+                break;
+            case 3:
+                HandleProjectile();
+                break;
+            default:
+                break;
+        } 
     }
-
     private void KeyInput()
     {
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            if (currentState <= 2)
-                currentState += 1;
+            if (currentAbilityState <= 2)
+                currentAbilityState += 1;
             else
-                currentState = 1;
-            abilityUI.ShowAbilityUI(currentState);
+                currentAbilityState = 1;
         }
     }
 
+    void CheckDirection()
+    {
+        if (spr.flipX == true)
+            playerDir = -1;
+        else
+            playerDir = 1;
+    }
+
+    // 분리
     private void HandleSeparation()
     {
         if (Input.GetKeyDown(KeyCode.Z) && !isSeparated)
-            SeperatePlayer();
-    }
-
-    private void SeperatePlayer()
-    {
-        if (isRight)
         {
-            rightSeperationPlayer.SetActive(true);
-            rightSeperationPlayer.transform.position = transform.position;
-            seperateDirection = ESeperateDirection.Right;
+            if (playerDir == 1)
+            {
+                rightSeperationPlayer.SetActive(true);
+                rightSeperationPlayer.transform.position = transform.position;
+                seperateDirection = ESeperateDirection.Right;
+            }
+            else
+            {
+                leftSeperationPlayer.SetActive(true);
+                leftSeperationPlayer.transform.position = transform.position;
+                seperateDirection = ESeperateDirection.Left;
+            }
+            isSeparated = true;
+            Invoke("DestroySeperationPlayer", 15f);
         }
-        else
-        {
-            leftSeperationPlayer.SetActive(true);
-            leftSeperationPlayer.transform.position = transform.position;
-            seperateDirection = ESeperateDirection.Left;
-        }
-        isSeparated = true;
-        Invoke("DestroySeperationPlayer", 15f);
     }
 
     private void DestroySeperationPlayer()
@@ -101,29 +97,38 @@ public class PlayerAbilityController : MonoBehaviour
         seperateDirection = ESeperateDirection.None;
     }
 
+    // 흡수
     private void HandleAbsorption()
     {
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Z) && coolDownAbsorption)
         {
-            slider.value += increaseSpeed * Time.deltaTime;
+            coolDownAbsorption = false;
+            Invoke("CoolDownAbsorption", 2f);
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 3f);
-            foreach (Collider2D collider in colliders)
+            foreach (Collider2D collider in colliders) // 가장 가까운 속성을 따라감
             {
                 if (collider.CompareTag("Fire"))
                 {
                     element = ESorting.Fire;
-                    image.sprite = sprite;
+                    abilityUI.ChangeElementType(ESorting.Fire);
+                    return;
                 }
             }
-            if (slider.value == slider.maxValue)
-                Debug.Log("게이지 충전완료");
         }
     }
 
+    private void CoolDownAbsorption()
+    {
+        coolDownAbsorption = true;
+    }
+
+    // 발사
     private void HandleProjectile()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) && coolDownProjectile)
         {
+            coolDownProjectile = false;
+            Invoke("CoolDownProjectile", 2f);
             GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             projectile.GetComponent<Rigidbody2D>().velocity = transform.right * 10f * playerDir;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
             switch (seperateDirection)
@@ -141,7 +146,11 @@ public class PlayerAbilityController : MonoBehaviour
                     CancelInvoke("DestroySeperationPlayer");
                     break;
             }
-            slider.value = 0;
+            abilityUI.ChangeElementType(ESorting.None);
         }
+    }
+    private void CoolDownProjectile()
+    {
+        coolDownProjectile = true;
     }
 }

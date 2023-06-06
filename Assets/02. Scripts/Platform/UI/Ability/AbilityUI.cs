@@ -5,32 +5,31 @@ using UnityEngine.UI;
 
 public class AbilityUI : MonoBehaviour
 {
-    [SerializeField] Transform playerPos;
-    [SerializeField] Sprite[] abilityImages;
-    private Image image;
-    private RectTransform rectTransform;
-    private Vector3 characterScreenPosition;
-    private Vector3 upVec = new Vector3(0, 2f, 0);
+    
+    private Text text;
+    [SerializeField] Image elementImage;
+    [SerializeField] Sprite[] elementTypeImages;
 
+    //[SerializeField] Transform playerPos;
+    //private RectTransform rectTransform;
+    //private Vector3 characterScreenPosition;
+    //private Vector3 upVec = new Vector3(0, 2f, 0);
 
     private void Awake()
     {
-        image = GetComponent<Image>();
-        rectTransform = GetComponent<RectTransform>();
+        text = GetComponentInChildren<Text>();
+        //rectTransform = GetComponent<RectTransform>();
     }
-    // Update is called once per frame
-    void Update()
+
+
+    public void ChangeElementType(ESorting _estort)
     {
-        UpdatePosition();
+        elementImage.sprite = elementTypeImages[(int)(_estort)];
     }
-    void UpdatePosition()
+
+    /*void UpdatePosition()
     {
         characterScreenPosition = Camera.main.WorldToScreenPoint(playerPos.position + upVec);
         rectTransform.position = characterScreenPosition;
-    }
-
-    public void ShowAbilityUI(int _idx)
-    {
-        image.sprite = abilityImages[_idx];
-    }
+    }*/
 }

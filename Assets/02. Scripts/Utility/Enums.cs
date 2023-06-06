@@ -37,12 +37,12 @@ public enum ECameraMode
 
 public enum ESorting
 {
-    Default,
-    None,
-    Fire,
-    Water,
-    Wind,
-    Earth
+    Default=0,
+    None=1,
+    Fire=2,
+    Water=3,
+    Wind=4,
+    Earth=5
 }
 
 public enum EItemType
