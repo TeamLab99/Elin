@@ -40,7 +40,6 @@ public class Inventory : MonoBehaviour
     private bool stopKeyInput; // 키 입력 제한 (소비할 때 나오는 질의 중에)
     private bool showEquipStat=false; // 착용한 장비의 스탯을 보여주는지
     private WaitForSeconds waitTime = new WaitForSeconds(0.01f);
-    private Player_Stat thePlayerStat;
 
     void Start()
     {
@@ -52,7 +51,6 @@ public class Inventory : MonoBehaviour
         slots = tf.GetComponentsInChildren<Inventory_Slot>();
         eslots = etf.GetComponentsInChildren<Equipment_Slot>();
         OnClickButton();
-        thePlayerStat = FindObjectOfType<Player_Stat>();
     }
 
     void OnClickButton() // 버튼 클릭 시, 클릭한 번호의 순서를 반환해주는 함수를 불러온다. (버튼들에 함수를 연결한다.)

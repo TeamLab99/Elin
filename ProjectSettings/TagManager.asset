@@ -21,6 +21,7 @@ TagManager:
   - Absorbable
   - Battle_UI
   - PlayerEgo
+  - Fire
   layers:
   - Default
   - TransparentFX

@@ -1,25 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAbilityController : MonoBehaviour
 {
     SpriteRenderer spr;
     AbilityUI abilityUI;
+    public Slider slider;
+    public Image image;
+    public Sprite sprite;
 
     public GameObject leftSeperationPlayer;
     public GameObject rightSeperationPlayer;
     public GameObject projectilePrefab;  // 발사체 프리팹
-    public float absorptionRadius = 5f;  // 흡수 반경
 
     private int currentState = 0;
     private int playerDir = 1;
     private bool isRight = true;
     private bool isSeparated = false;  // 플레이어가 분리되었는지 여부
-    private bool isAbsorbing = false;  // 플레이어가 흡수 중인지 여부
-    private float absorptionTime = 0f;  // 흡수 시간
+    private float increaseSpeed= 1f;  // 흡수 시간
     private ESeperateDirection seperateDirection = ESeperateDirection.None;
-
+    ESorting element = ESorting.None;
     private void Awake()
     {
         spr = GetComponent<SpriteRenderer>();
@@ -67,7 +69,7 @@ public class PlayerAbilityController : MonoBehaviour
 
     private void HandleSeparation()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && !isSeparated && !isAbsorbing)
+        if (Input.GetKeyDown(KeyCode.Z) && !isSeparated)
             SeperatePlayer();
     }
 
@@ -101,41 +103,20 @@ public class PlayerAbilityController : MonoBehaviour
 
     private void HandleAbsorption()
     {
-        // 흡수 시작
-        if (Input.GetKeyDown(KeyCode.Z) && !isAbsorbing)
-            isAbsorbing = true;
-        // 흡수 종료
-        if (Input.GetKeyUp(KeyCode.Z) && isAbsorbing)
+        if (Input.GetKey(KeyCode.Z))
         {
-            isAbsorbing = false;
-            absorptionTime = 0f;
-        }
-            
-        if (isAbsorbing)
-        {
-            absorptionTime += Time.deltaTime;
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, absorptionRadius);
+            slider.value += increaseSpeed * Time.deltaTime;
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 3f);
             foreach (Collider2D collider in colliders)
             {
-                if (collider.gameObject == gameObject)
-                    continue;
-
-                if (collider.gameObject.CompareTag("Absorbable"))
+                if (collider.CompareTag("Fire"))
                 {
-                    // 흡수할 오브젝트를 끌어당기는 로직 추가
-                    Vector3 direction = transform.position - collider.transform.position;
-                    float distance = direction.magnitude;
-                    float pullForce = Mathf.Lerp(10f, 1f, absorptionTime);  // 흡수 시간에 따라 힘을 조절 (필요에 따라 조정)
-                    collider.GetComponent<Rigidbody2D>().AddForce(direction.normalized * pullForce);
-
-                    // 플레이어와 오브젝트가 충돌하면 흡수가 완료되도록 처리
-                    if (distance < 0.5f)
-                    {
-                        Destroy(collider.gameObject);
-                        isAbsorbing = false;
-                    }
+                    element = ESorting.Fire;
+                    image.sprite = sprite;
                 }
             }
+            if (slider.value == slider.maxValue)
+                Debug.Log("게이지 충전완료");
         }
     }
 
@@ -160,6 +141,7 @@ public class PlayerAbilityController : MonoBehaviour
                     CancelInvoke("DestroySeperationPlayer");
                     break;
             }
+            slider.value = 0;
         }
     }
 }
