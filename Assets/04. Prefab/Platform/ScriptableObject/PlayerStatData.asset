@@ -17,5 +17,3 @@ MonoBehaviour:
   attackPower: 1
   maxCost: 5
   costRecoverySpeed: 0.2
-  currentMP: 100
-  maxMP: 100

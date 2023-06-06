@@ -10,6 +10,7 @@ public class AbilityUI : MonoBehaviour
     [SerializeField] string[] abilityTypeTexts;
     [SerializeField] Image elementImage;
     [SerializeField] Sprite[] elementTypeImages;
+    [SerializeField] GameObject loadingObject;
 
     //[SerializeField] Transform playerPos;
     //private RectTransform rectTransform;
@@ -37,6 +38,11 @@ public class AbilityUI : MonoBehaviour
     public void ChangeAbilityType(int _idx)
     {
         abilityText.text = abilityTypeTexts[_idx];
+    }
+
+    public void SetLoadingEffect(bool active)
+    {
+        loadingObject.SetActive(active);
     }
 
     /*void UpdatePosition()

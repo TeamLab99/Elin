@@ -2,35 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Merchant : InteractObject
+public class Merchant : MonoBehaviour
 {
-    [SerializeField] GameObject talkUI;
-    [SerializeField] GameObject merchantUI; 
-    protected override void OnTriggerEnter2D(Collider2D collision)
+    [SerializeField] GameObject introduceBox;
+    [SerializeField] GameObject merchantUI;
+
+    private bool isOpenMerchantUI = false;
+    private List<ItemData>sellList = new List<ItemData>();
+    
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            talkUI.SetActive(true);
-        }
+        if(collision.gameObject.CompareTag("Player"))
+            introduceBox.SetActive(true);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if(Input.GetKey(KeyCode.X) && !isOpenMerchantUI)
         {
-            if (Input.GetKey(KeyCode.X))
+            if (collision.gameObject.CompareTag("Player"))
             {
+                isOpenMerchantUI = true;
                 merchantUI.SetActive(true);
-            }
+                introduceBox.SetActive(false);
+            }      
         }
     }
-
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            talkUI.SetActive(false);
+            isOpenMerchantUI = false;
+            merchantUI.SetActive(false);
+            introduceBox.SetActive(false);
         }
     }
 }

@@ -9,11 +9,16 @@ public class PlayerStat : MonoBehaviour
     
     HPUI hpUI;
     StatUI statUI;
+    PlayerMove playerMove;
+
+    private bool invincibility = false;
+    private WaitForSeconds invincibilityTime = new WaitForSeconds(2f);
 
     private void Awake()
     {
         hpUI = FindObjectOfType<HPUI>();
         statUI = FindObjectOfType<StatUI>();
+        playerMove = GetComponent<PlayerMove>();
     }
 
     public void ChangeStat(int _maxHP=0, int _attackPower=0, int _maxCost=0, float _recoverySpeed=0)
@@ -36,13 +41,24 @@ public class PlayerStat : MonoBehaviour
 
     public void DamagePlayer(int _damage)
     {
-        if (playerStatData.currentHP - _damage <= 0)
+        if (!invincibility)
         {
-            playerStatData.currentHP = 0;
-            Debug.Log("플레이어는 죽었습니다..");
+            StartCoroutine("Invincibility");
+            if (playerStatData.currentHP - _damage <= 0)
+            {
+                playerStatData.currentHP = 0;
+                playerMove.Dead();
+            }
+            else
+                playerStatData.currentHP -= _damage;
+            hpUI.UpdateHPFigure();
         }
-        else
-            playerStatData.currentHP -= _damage;
-        hpUI.UpdateHPFigure();
+    }
+
+    IEnumerator Invincibility()
+    {
+        invincibility = true;
+        yield return invincibilityTime;
+        invincibility = false;
     }
 }

@@ -2,14 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerAnimation{
-    Idle,
-    Run,
-    Jump,
-    Fall,
-    Slide
-}
-
 public class Player_Move : MonoBehaviour
 {
 

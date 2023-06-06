@@ -10,7 +10,7 @@ public class PlayerAbilityController : MonoBehaviour
 
     public GameObject leftSeperationPlayer;
     public GameObject rightSeperationPlayer;
-    public GameObject projectilePrefab;
+    public GameObject[] projectilePrefab;
 
     private int currentAbilityState = 0; 
     private int playerDir = 1; 
@@ -126,19 +126,20 @@ public class PlayerAbilityController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z) && coolDownProjectile)
         {
             coolDownProjectile = false;
+            abilityUI.SetLoadingEffect(true);
             Invoke("CoolDownProjectile", 2f);
-            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            GameObject projectile = Instantiate(projectilePrefab[(int)element], transform.position, Quaternion.identity);
             projectile.GetComponent<Rigidbody2D>().velocity = transform.right * 10f * playerDir;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
             switch (seperateDirection)
             {
                 case ESeperateDirection.Right:
-                    GameObject rightProjectile = Instantiate(projectilePrefab, rightSeperationPlayer.transform.position, Quaternion.identity);
+                    GameObject rightProjectile = Instantiate(projectilePrefab[(int)element], rightSeperationPlayer.transform.position, Quaternion.identity);
                     rightProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * 10f;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
                     DestroySeperationPlayer();
                     CancelInvoke("DestroySeperationPlayer");
                     break;
                 case ESeperateDirection.Left:
-                    GameObject leftProjectile = Instantiate(projectilePrefab, leftSeperationPlayer.transform.position, Quaternion.identity);
+                    GameObject leftProjectile = Instantiate(projectilePrefab[(int)element], leftSeperationPlayer.transform.position, Quaternion.identity);
                     leftProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * -10f;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
                     DestroySeperationPlayer();
                     CancelInvoke("DestroySeperationPlayer");
@@ -149,6 +150,7 @@ public class PlayerAbilityController : MonoBehaviour
     }
     private void CoolDownProjectile()
     {
+        abilityUI.SetLoadingEffect(false);
         coolDownProjectile = true;
     }
 }
