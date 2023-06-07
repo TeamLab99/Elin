@@ -9,7 +9,7 @@ public class Camera_Follow : MonoBehaviour
     public bool followPlayer;
     private Vector3 offSet;
     private Vector3 Goto;
-   
+
     public enum FollowType
     {
         GotoObject,
@@ -43,7 +43,7 @@ public class Camera_Follow : MonoBehaviour
         {
             case FollowType.FollowPlayer:
                 //DataBase_Manager.instance.pm.canMove = true;
-                transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothSpeed * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position + Vector3.up * 0.25f, targetCamPos, smoothSpeed * Time.deltaTime);
                 break;
             case FollowType.GotoObject:
                 //DataBase_Manager.instance.pm.canMove = false;

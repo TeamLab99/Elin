@@ -96,7 +96,7 @@ public class CardManager2 : Singleton<CardManager2>
     private void CardAlignment()
     {
         List<PRS> originCardPRSs = new List<PRS>();
-        originCardPRSs = RoundAlignment(cardLeft, cardRight, myCards.Count, 0.5f, Vector3.one * 1.2f);
+        originCardPRSs = RoundAlignment(cardLeft, cardRight, myCards.Count, 0.5f, Vector3.one * 1);
 
         for (int i = 0; i < myCards.Count; i++)
         {
