@@ -6,6 +6,6 @@ public class MonsterEncounter : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        BattleGameManager.instance.StartBattle();
+        BattleGameManager.instance.StartBattle(gameObject.transform.position);
     }
 }

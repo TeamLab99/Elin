@@ -469,6 +469,10 @@ MonoBehaviour:
     debuffMaintainTime: 0
     amount: 0
     description: 
+  originPRS:
+    pos: {x: 0, y: 0, z: 0}
+    rot: {x: 0, y: 0, z: 0, w: 0}
+    scale: {x: 0, y: 0, z: 0}
 --- !u!114 &4060142598591651217
 MonoBehaviour:
   m_ObjectHideFlags: 0

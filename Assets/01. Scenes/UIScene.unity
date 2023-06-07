@@ -1068,6 +1068,7 @@ GameObject:
   - component: {fileID: 525205289}
   - component: {fileID: 525205288}
   - component: {fileID: 525205287}
+  - component: {fileID: 525205290}
   m_Layer: 5
   m_Name: Gauge
   m_TagString: Untagged
@@ -1089,11 +1090,11 @@ RectTransform:
   m_Children:
   - {fileID: 322698}
   m_Father: {fileID: 1108682413}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 502}
+  m_AnchoredPosition: {x: 0, y: 600}
   m_SizeDelta: {x: 706.1209, y: 102}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &525205287
@@ -1183,6 +1184,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 525205285}
   m_CullTransparentMesh: 1
+--- !u!114 &525205290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525205285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0c0fc3cd8250b47bcbdfbc5fd18ace, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eUi: 0
+  targetPosY: 490
+  playTime: 1
 --- !u!1 &532534908
 GameObject:
   m_ObjectHideFlags: 0
@@ -2786,7 +2802,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1108682413}
   m_Layer: 5
-  m_Name: Temp
+  m_Name: Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2805,8 +2821,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1308848300}
-  - {fileID: 1360346058}
   - {fileID: 525205286}
+  - {fileID: 1360346058}
   m_Father: {fileID: 330996186}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3072,6 +3088,7 @@ GameObject:
   - component: {fileID: 1360346058}
   - component: {fileID: 1360346060}
   - component: {fileID: 1360346059}
+  - component: {fileID: 1360346061}
   m_Layer: 5
   m_Name: CostTMP
   m_TagString: Untagged
@@ -3092,11 +3109,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1108682413}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -805, y: -426}
+  m_AnchoredPosition: {x: -805, y: -580}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1360346059
@@ -3196,6 +3213,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1360346057}
   m_CullTransparentMesh: 1
+--- !u!114 &1360346061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360346057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0c0fc3cd8250b47bcbdfbc5fd18ace, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eUi: 1
+  targetPosY: -460
+  playTime: 1
 --- !u!1 &1400372612
 GameObject:
   m_ObjectHideFlags: 0

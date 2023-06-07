@@ -68,3 +68,9 @@ public enum ESeperateDirection
     Right,
     Left
 }
+
+public enum EUiAnimation
+{
+    Gauge,
+    Cost,
+}

@@ -10,6 +10,7 @@ public class UI_Collection : UI_Base
     GameObject content;     //카드들의 UI의 부모
     ESorting sorting; // 내가 원하는 기준으로 정렬하기 위한 함수
     Dictionary<int, DeckCard> _dict;  //전체 카드를 담을 딕셔너리
+    Dictionary<int, UnlockCard> _deck;
 
     //enum으로 바인딩 하기 위해 선언
     enum GameObjects
@@ -55,7 +56,7 @@ public class UI_Collection : UI_Base
 
         //내 덱에 대한 딕셔너리는 호출될 때마다 새로 받아옴
         //위에서 언급한 가변성과 관련 있음
-        Dictionary<int, UnlockCard> _deck = Managers.Data.DeckDict;
+        _deck = Managers.Data.DeckDict;
 
         content.TryGetComponent<RectTransform>(out RectTransform rectTransform);
 
@@ -82,7 +83,6 @@ public class UI_Collection : UI_Base
             child = content.transform.GetChild(0);
             Managers.Resource.Destroy(child.gameObject);
         }
-           
 
         //sorting에 따라 조금씩 다른 작업을 함
         //기본값은 전체 카드를 다 보여주고
@@ -92,126 +92,29 @@ public class UI_Collection : UI_Base
         switch(sorting)
         {
             case ESorting.Default:
-                for(int i=0; i<cardCount; i++)
-                {
-                    DeckCard cardinfo = _dict[cardKeys[i]];
-                    for(int j=0; j<deckCount; j++)
-                    {
-                        UnlockCard deckinfo = _deck[deckKeys[j]];
-                        if (cardinfo.index == deckinfo.index)
-                        {
-                            GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
-                            card.TryGetComponent<UI_Card>(out UI_Card cardInDeck);
-                            cardInDeck.SetInfo(cardinfo);
-                            cardNum++;
-                        }
-                    }
-                }
+                SetSorting(cardCount, cardKeys, deckCount, deckKeys, rectTransform);
+
                 break;
 
             case ESorting.None:
-                for (int i = 0; i < cardCount; i++)
-                {
-                    DeckCard cardinfo = _dict[cardKeys[i]];
-                    for (int j = 0; j < deckCount; j++)
-                    {
-                        UnlockCard deckinfo = _deck[deckKeys[j]];
-                        if (cardinfo.index == deckinfo.index)
-                        {
-                            if (cardinfo.element == "None")
-                            {
-                                GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
-                                UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
-                                cardInDeck.SetInfo(cardinfo);
-                                cardNum++;
-                            }
-                        }
-                    }
-                }
+                SetSorting(cardCount, cardKeys, deckCount, deckKeys, rectTransform, "None");
+
                 break;
 
             case ESorting.Fire:
-                for (int i = 0; i < cardCount; i++)
-                {
-                    DeckCard cardinfo = _dict[cardKeys[i]];
-                    for (int j = 0; j < deckCount; j++)
-                    {
-                        UnlockCard deckinfo = _deck[deckKeys[j]];
-                        if (cardinfo.index == deckinfo.index)
-                        {
-                            if (cardinfo.element == "Fire")
-                            {
-                                GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
-                                UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
-                                cardInDeck.SetInfo(cardinfo);
-                                cardNum++;
-                            }
-                        }
-                    }
-                }
+                SetSorting(cardCount, cardKeys, deckCount, deckKeys, rectTransform, "Fire");
                 break;
 
             case ESorting.Water:
-                for (int i = 0; i < cardCount; i++)
-                {
-                    DeckCard cardinfo = _dict[cardKeys[i]];
-                    for (int j = 0; j < deckCount; j++)
-                    {
-                        UnlockCard deckinfo = _deck[deckKeys[j]];
-                        if (cardinfo.index == deckinfo.index)
-                        {
-                            if (cardinfo.element == "Water")
-                            {
-                                GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
-                                UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
-                                cardInDeck.SetInfo(cardinfo);
-                                cardNum++;
-                            }
-                        }
-                    }
-                }
+                SetSorting(cardCount, cardKeys, deckCount, deckKeys, rectTransform, "Water");
                 break;
 
             case ESorting.Wind:
-                for (int i = 0; i < cardCount; i++)
-                {
-                    DeckCard cardinfo = _dict[cardKeys[i]];
-                    for (int j = 0; j < deckCount; j++)
-                    {
-                        UnlockCard deckinfo = _deck[deckKeys[j]];
-                        if (cardinfo.index == deckinfo.index)
-                        {
-                            if (cardinfo.element == "Wind")
-                            {
-                                GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
-                                UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
-                                cardInDeck.SetInfo(cardinfo);
-                                cardNum++;
-                            }
-                        }
-                    }
-                }
+                SetSorting(cardCount, cardKeys, deckCount, deckKeys, rectTransform, "Wind");
                 break;
 
             case ESorting.Earth:
-                for (int i = 0; i < cardCount; i++)
-                {
-                    DeckCard cardinfo = _dict[cardKeys[i]];
-                    for (int j = 0; j < deckCount; j++)
-                    {
-                        UnlockCard deckinfo = _deck[deckKeys[j]];
-                        if (cardinfo.index == deckinfo.index)
-                        {
-                            if (cardinfo.element == "Ground")
-                            {
-                                GameObject card = Managers.UI.MakeCard<UI_Card>(rectTransform, "UI_Card").gameObject;
-                                UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
-                                cardInDeck.SetInfo(cardinfo);
-                                cardNum++;
-                            }
-                        }
-                    }
-                }
+                SetSorting(cardCount, cardKeys, deckCount, deckKeys, rectTransform, "Earth");
                 break;
 
             default:
@@ -224,8 +127,55 @@ public class UI_Collection : UI_Base
         content.GetComponent<RectTransform>().sizeDelta = new Vector2(content.GetComponent<RectTransform>().rect.width, 356 * (int)Math.Ceiling((double)cardNum / 4));
     }
 
+
+
     //이 부분은 버튼을 누르면 sorting 변수의 값을 바꾸고 새로 그리는 부분
     #region SetSorting
+    public void SetSorting(int cardCount, int[] cardKeys, int deckCount, int[] deckKeys, RectTransform rect, string element = null)
+    {
+        if (element != null)
+        {
+            for (int i = 0; i < cardCount; i++)
+            {
+                DeckCard cardinfo = _dict[cardKeys[i]];
+                for (int j = 0; j < deckCount; j++)
+                {
+                    UnlockCard deckinfo = _deck[deckKeys[j]];
+                    if (cardinfo.index == deckinfo.index)
+                    {
+                        if (cardinfo.element == "Ground")
+                        {
+                            GameObject card = Managers.UI.MakeCard<UI_Card>(rect, "UI_Card").gameObject;
+                            UI_Card cardInDeck = card.GetOrAddComponent<UI_Card>();
+                            cardInDeck.SetInfo(cardinfo);
+                            cardNum++;
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < cardCount; i++)
+            {
+                DeckCard cardinfo = _dict[cardKeys[i]];
+                for (int j = 0; j < deckCount; j++)
+                {
+                    UnlockCard deckinfo = _deck[deckKeys[j]];
+                    if (cardinfo.index == deckinfo.index)
+                    {
+                        GameObject card = Managers.UI.MakeCard<UI_Card>(rect, "UI_Card").gameObject;
+                        card.TryGetComponent<UI_Card>(out UI_Card cardInDeck);
+                        cardInDeck.SetInfo(cardinfo);
+                        cardNum++;
+                    }
+                }
+            }
+        }
+
+    }
+
+
     public void SetNone()
     {
         sorting = ESorting.None;

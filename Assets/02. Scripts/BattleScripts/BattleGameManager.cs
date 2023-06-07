@@ -9,6 +9,7 @@ public class BattleGameManager : Singleton<BattleGameManager>
     bool isSetting;
     [SerializeField] GameObject mainCamera;
     [SerializeField] GameObject player;
+    [SerializeField] Ease ease;
     GameObject uiObject;
 
     void Start()
@@ -31,24 +32,24 @@ public class BattleGameManager : Singleton<BattleGameManager>
 
     void InputCheatKey()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && !isSetting)
-        {
-            isSetting = true;
-            StartBattle();
-        }
+        // + 치트 키 입력
     }
 
-    public void StartBattle()
+    public void StartBattle(Vector3 mobPos)
     {
         player.GetComponent<Player_Move>().enabled = false;
-
-        var targetPos = player.transform.position - Vector3.right * 10f;
-        player.transform.DOMoveX(targetPos.x, 0.5f);
         mainCamera.GetComponent<Camera_Follow>().enabled = false;
-        targetPos.z = -15;
-        mainCamera.transform.DOMove(targetPos - Vector3.left*5f, 0.5f);
 
-        uiObject.transform.GetChild(0).gameObject.SetActive(true);
-        StartCoroutine(TurnManager2.instance.StartGameCo());
+        var targetPos = new Vector3(Mathf.Lerp(player.transform.position.x, mobPos.x, 0.5f), mobPos.y, -15);
+        mainCamera.transform.DOMove(targetPos, 1.5f).SetEase(ease);
+
+        StartCoroutine(TurnManager2.instance.StartGameCo(uiObject.transform.GetChild(0).gameObject, 2f));
+    }
+
+    public void EndBattle()
+    {
+        player.GetComponent<Player_Move>().enabled = true;
+        mainCamera.GetComponent<Camera_Follow>().enabled = true;
+        // + ui 종료 애니메이션 재생 후 false
     }
 }
