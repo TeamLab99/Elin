@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Package.meta
 guid: e5e02f5261d90e7449a94b9ef26369ad
+========
+guid: f1471a165c65cd54ab9178fcc5aac339
+>>>>>>>> 177aec4516d65c9928c0101d9ae25fafdb67a7aa:Assets/02. Scripts/Platform/UI.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
