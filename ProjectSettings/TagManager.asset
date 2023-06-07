@@ -21,6 +21,7 @@ TagManager:
   - Battle_UI
   - PlayerEgo
   - Fire
+  - DownPlatform
   layers:
   - Default
   - TransparentFX
@@ -42,7 +43,7 @@ TagManager:
   - Card
   - Projectile
   - PlayerEgo
-  - 
+  - DownPlatform
   - 
   - 
   - 

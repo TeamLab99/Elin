@@ -17,9 +17,9 @@ public class PlayerMove : MonoBehaviour
 
     [Header("Move Var")]
     [SerializeField] private float xSpeed; 
-    [SerializeField] private float ySpeed; 
+    [SerializeField] private float ySpeed;
+    [SerializeField] private float canDownJumpDistance;
     private float moveDir;
-
     private float jumpTime  = 0f;
     private float chargeTime = 0.2f;
     private bool isJump = false;
@@ -29,6 +29,7 @@ public class PlayerMove : MonoBehaviour
     private bool keyDownJump;
     private bool keyJump;
     private bool keyUpJump;
+    private bool keyDownArrow;
 
     private void Awake()
     {
@@ -53,11 +54,18 @@ public class PlayerMove : MonoBehaviour
         keyDownJump = Input.GetKeyDown(KeyCode.Space);
         keyJump = Input.GetKey(KeyCode.Space);
         keyUpJump = Input.GetKeyUp(KeyCode.Space);
+        keyDownArrow = Input.GetKey(KeyCode.DownArrow);
     }
 
     private void Jump()
     {
-        if (keyDownJump && isGround)
+        if(keyDownJump && isGround && keyDownArrow)
+        {
+            RaycastHit2D downJumpRay = Physics2D.Raycast(transform.position, Vector2.down, canDownJumpDistance, groundLayer);
+            Debug.Log(canDownJumpDistance-downJumpRay.distance);
+            return;
+        }
+        else if (keyDownJump && isGround && !keyDownArrow)
         {
             isJump = true;
             jumpTime = chargeTime;
@@ -74,7 +82,16 @@ public class PlayerMove : MonoBehaviour
         else if (keyUpJump)
             isJump = false;
     }
+    
 
+    private bool CanDownJump()
+    {
+        RaycastHit2D downJumpRay = Physics2D.Raycast(transform.position, Vector2.down,canDownJumpDistance,groundLayer);
+        if (downJumpRay.distance < canDownJumpDistance)
+            return true;
+        else
+            return false;
+    }
     private void FlipPlayer()
     {
         if (moveDir == 1)
@@ -125,8 +142,8 @@ public class PlayerMove : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        //Gizmos.color = Color.green;
-        //Gizmos.DrawRay(groundCheckPos.position,Vector2.down*groundDistY);
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position,Vector2.down*canDownJumpDistance);
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(footPos.position, boxSize);
     }
