@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class Merchant : MonoBehaviour
 {
+    [SerializeField] int[] sellItemsID;
     [SerializeField] GameObject introduceBox;
     [SerializeField] GameObject merchantUI;
+    StoreUI storeUI;
 
     private bool isOpenMerchantUI = false;
-    private List<ItemData>sellList = new List<ItemData>();
-    
+    public Dictionary<int, Items>sellList = new Dictionary<int, Items>();
+
+    private void Awake()
+    {
+        storeUI = merchantUI.GetComponent<StoreUI>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
@@ -22,6 +28,8 @@ public class Merchant : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Player"))
             {
+                sellList = ItemManager.instance.itemDictionary;
+                storeUI.ShowSellItems(sellList);
                 isOpenMerchantUI = true;
                 merchantUI.SetActive(true);
                 introduceBox.SetActive(false);

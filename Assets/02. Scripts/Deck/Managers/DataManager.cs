@@ -18,6 +18,7 @@ public class DataManager
     // 새로운 카드를 얻는다면 그 클래스는 UnlockCard로 해서 DeckDict에 id를 키로 해서 Add해주면 됨
     public Dictionary<int, DeckCard> CardDict { get; private set; } = new Dictionary<int, DeckCard>();
     public Dictionary<int, UnlockCard> DeckDict { get; private set; } = new Dictionary<int, UnlockCard>();
+    public Dictionary<int, Items> ItemDict { get; private set; } = new Dictionary<int, Items>();
     
     //착용한 보석에 대해 가지고 있는 변수
     public EGems equipGem = EGems.none;
@@ -27,6 +28,7 @@ public class DataManager
         //Resources의 Data 폴더 산하에서 해당하는 이름에 맞는 json 데이터를 읽어온다.
         CardDict = LoadJson<CardData, int, DeckCard>("CardData").MakeDict();
         DeckDict = LoadJson<DeckData, int, UnlockCard>("DeckData").MakeDict();
+        ItemDict = LoadJson<ItemData, int, Items>("ItemData").MakeDict();
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>

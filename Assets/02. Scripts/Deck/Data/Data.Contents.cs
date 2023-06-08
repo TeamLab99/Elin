@@ -43,7 +43,7 @@ public class CardData : ILoader<int, DeckCard>
         Dictionary<int, DeckCard> dict = new Dictionary<int, DeckCard>();
         foreach (DeckCard card in Cards)
         {
-            dict.Add(card.index, card);         
+            dict.Add(card.index, card);
         }
         return dict;
     }
@@ -79,11 +79,15 @@ public class DeckData : ILoader<int, UnlockCard>
 [Serializable]
 public class Items
 {
-    public int id;
+    public int itemID;
+    public string itemType;
+    public string itemEffect;
+    public int itemFigure;
     public string itemName;
     public string itemDescription;
-    public int itemCount;
-    public int itemSpriteId;
+    public int buyPrice;
+    public int sellPrice;
+    public Sprite itemIcon;
     //enum을 그냥 0, 1, 2, 3 이렇게 해도 되지만 직관적이지 않다.
     //enum을 string으로 바꿔주는 converter가 있는 거 같은데 사용법은 잘 모르겠다.
     //public Define.ItemType itemType;
@@ -91,14 +95,15 @@ public class Items
 
 public class ItemData : ILoader<int, Items>
 {
-    public List<Items> items = new List<Items>();
+    public List<Items> itemList = new List<Items>();
 
     public Dictionary<int, Items> MakeDict()
     {
         Dictionary<int, Items> dict = new Dictionary<int, Items>();
-        foreach (Items item in items)
+        foreach (Items item in itemList)
         {
-            dict.Add(item.id, item);
+            item.itemIcon = Resources.Load("Items/" + item.itemID.ToString(), typeof(Sprite)) as Sprite;
+            dict.Add(item.itemID, item);
         }
         return dict;
     }
