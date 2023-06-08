@@ -28,7 +28,7 @@ public class Merchant : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                sellList = ItemManager.instance.itemDictionary;
+                sellList = ItemManager.instance.allItemDataBase;
                 storeUI.ShowSellItems(sellList);
                 isOpenMerchantUI = true;
                 merchantUI.SetActive(true);

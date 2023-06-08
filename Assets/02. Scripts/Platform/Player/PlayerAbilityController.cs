@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerAbilityController : MonoBehaviour
+public class PlayerAbilityController : PlayerController
 {
     AbilityUI abilityUI;
     SpriteRenderer spr;

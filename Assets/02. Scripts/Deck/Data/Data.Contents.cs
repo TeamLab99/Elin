@@ -87,6 +87,7 @@ public class Items
     public string itemDescription;
     public int buyPrice;
     public int sellPrice;
+    public int itemCnt = 1;
     public Sprite itemIcon;
     //enum을 그냥 0, 1, 2, 3 이렇게 해도 되지만 직관적이지 않다.
     //enum을 string으로 바꿔주는 converter가 있는 거 같은데 사용법은 잘 모르겠다.
@@ -102,7 +103,8 @@ public class ItemData : ILoader<int, Items>
         Dictionary<int, Items> dict = new Dictionary<int, Items>();
         foreach (Items item in itemList)
         {
-            item.itemIcon = Resources.Load("Items/" + item.itemID.ToString(), typeof(Sprite)) as Sprite;
+            string iconPath = "Data/Items/" + item.itemID.ToString(); // 아이콘 이미지의 전체 경로
+            item.itemIcon = Resources.Load<Sprite>(iconPath);
             dict.Add(item.itemID, item);
         }
         return dict;

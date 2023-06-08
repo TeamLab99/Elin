@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerStat : MonoBehaviour
+public class PlayerStat : PlayerController
 {
     [SerializeField] PlayerStatData playerStatData;
     
     HPUI hpUI;
     StatUI statUI;
-    PlayerMove playerMove;
 
     private bool invincibility = false;
     private WaitForSeconds invincibilityTime = new WaitForSeconds(2f);
@@ -18,9 +17,12 @@ public class PlayerStat : MonoBehaviour
     {
         hpUI = FindObjectOfType<HPUI>();
         statUI = FindObjectOfType<StatUI>();
-        playerMove = GetComponent<PlayerMove>();
     }
-
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+            statUI.UpdateStatFigure();
+    }
     public void ChangeStat(int _maxHP=0, int _attackPower=0, int _maxCost=0, float _recoverySpeed=0)
     {
         playerStatData.maxHP += _maxHP;
@@ -54,6 +56,7 @@ public class PlayerStat : MonoBehaviour
             hpUI.UpdateHPFigure();
         }
     }
+
 
     IEnumerator Invincibility()
     {

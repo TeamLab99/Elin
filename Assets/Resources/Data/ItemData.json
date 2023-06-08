@@ -3,7 +3,7 @@
     {
       "itemID": "101",
       "itemType": "Con",
-      "itemEffect": "Hp",
+      "itemEffect": "plusHP",
       "itemFigure": "10",
       "itemName": "사과",
       "itemDescription": [
@@ -16,7 +16,7 @@
     {
       "itemID": "102",
       "itemType": "Con",
-      "itemEffect": "Hp",
+      "itemEffect": "plusHP",
       "itemFigure": "20",
       "itemName": "포도",
       "itemDescription": [
