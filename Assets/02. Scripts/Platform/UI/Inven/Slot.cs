@@ -8,17 +8,19 @@ public class Slot : MonoBehaviour
     [SerializeField] Image itemIcon;
     [SerializeField] Text itemCntText;
     private Button button;
-    private int itemID;
+    private Items holdItemInfo;
+    private int itemIdx;
     private void Awake()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(()=> ItemManager.instance.StartUseItem(itemID));
+        button.onClick.AddListener(ClickButton);
     }
 
-    public void AddItem(Items _itemData)
+    public void AddItem(Items _itemData, int _itemIdx)
     {
         itemIcon.sprite = _itemData.itemIcon;
-        itemID = _itemData.itemID;
+        holdItemInfo = _itemData;
+        itemIdx = _itemIdx;        
         if (_itemData.itemType != "Equ")
             itemCntText.text = "X " + _itemData.itemCnt.ToString();
         else
@@ -31,4 +33,16 @@ public class Slot : MonoBehaviour
         itemIcon.sprite = null;
     } 
 
+    public void ClickButton()
+    {
+        switch (holdItemInfo.itemID / 100)
+        {
+            case 2:
+                ItemManager.instance.TakeOnEquipment(holdItemInfo, itemIdx);
+                break;
+            default:
+                ItemManager.instance.UseItem(holdItemInfo.itemID);
+                break;
+        }
+    }
 }
