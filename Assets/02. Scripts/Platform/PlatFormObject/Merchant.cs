@@ -10,7 +10,7 @@ public class Merchant : MonoBehaviour
     StoreUI storeUI;
 
     private bool isOpenMerchantUI = false;
-    public Dictionary<int, Items>sellList = new Dictionary<int, Items>();
+    public List<Items>sellList = new List<Items>();
 
     private void Awake()
     {
@@ -22,14 +22,23 @@ public class Merchant : MonoBehaviour
             introduceBox.SetActive(true);
     }
 
+    public void SetSellItemList()
+    {
+        sellList.Clear();
+        for(int i=0; i < sellItemsID.Length; i++)
+        {
+            sellList.Add(ItemManager.instance.allItemDataBase[sellItemsID[i]]);
+        }
+        storeUI.ShowSellItems(sellList);
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if(Input.GetKey(KeyCode.X) && !isOpenMerchantUI)
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                sellList = ItemManager.instance.allItemDataBase;
-                storeUI.ShowSellItems(sellList);
+                SetSellItemList();
                 isOpenMerchantUI = true;
                 merchantUI.SetActive(true);
                 introduceBox.SetActive(false);

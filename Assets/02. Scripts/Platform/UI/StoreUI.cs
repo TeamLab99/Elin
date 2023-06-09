@@ -5,23 +5,47 @@ using UnityEngine.UI;
 
 public class StoreUI : MonoBehaviour
 {
-    List<int> keys = new List<int>();
-    [SerializeField] Image[] sellImages;
+    List<Items> sellList = new List<Items>();
+    List<Items> buyList = new List<Items>();
+    [SerializeField] Transform displaySellList;
+    [SerializeField] Transform displayBuyList;
+    [SerializeField] DisplaySlot[] displaySlots;
+    StoreListSlot[] storeListSlots;
     // Update is called once per frame
-    public void ShowSellItems(Dictionary<int, Items> keyValuePairs)
+
+    private void Awake()
     {
-        int i = 0;
-        foreach (int k in keyValuePairs.Keys)
+        storeListSlots = displayBuyList.GetComponentsInChildren<StoreListSlot>();
+        // buyBtns = buyList.GetComponentsInChildren<Button>();
+    }
+
+    public void ShowSellItems(List <Items> _sellList)
+    {
+        sellList.Clear();
+        for(int i=0; i< _sellList.Count; i++)
         {
-            keys.Add(k);
+            displaySlots[i].AddItem(_sellList[i]);
+            sellList.Add(_sellList[i]);
         }
+    }
 
-       for(int t=0; t<keys.Count; t++)
+    public void AddBuyList(Items _item)
+    {
+        if (buyList.Count <= 6)
         {
-            sellImages[i].sprite = keyValuePairs[keys[t]].itemIcon;
-
-            Debug.Log(keyValuePairs[keys[t]].itemDescription);
-            i+=1;
+            for(int i=0; i<buyList.Count; i++)
+            {
+                if(_item.itemID == buyList[i].itemID)
+                {
+                    buyList[i].itemCnt += 1;
+                    storeListSlots[i].AddItem(buyList[i]);
+                    return;
+                }
+            }
+            if (buyList.Count == 6)
+                return;
+            buyList.Add(_item);
+            storeListSlots[buyList.Count-1].AddItem(buyList[buyList.Count - 1]);
         }
     }
 }
