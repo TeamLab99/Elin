@@ -22,6 +22,9 @@ TagManager:
   - PlayerEgo
   - Fire
   - DownPlatform
+  - Gauge
+  - DL
+  - PlatformUI
   layers:
   - Default
   - TransparentFX

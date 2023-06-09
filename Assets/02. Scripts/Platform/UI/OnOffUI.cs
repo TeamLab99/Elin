@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class OnOffUI : MonoBehaviour
 { 
-    [SerializeField] GameObject StatObject;
+    [SerializeField] GameObject statObject;
+    [SerializeField] GameObject invenObject;
     bool statActivate = false;
+    bool invenActivate = false;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
             statActivate = !statActivate;
-            StatObject.SetActive(statActivate);
+            statObject.SetActive(statActivate);
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            invenActivate = !invenActivate;
+            invenObject.SetActive(invenActivate);
         }
     }
 }

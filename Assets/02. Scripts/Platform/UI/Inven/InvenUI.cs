@@ -11,24 +11,28 @@ public enum ItemTypes
 
 public class InvenUI : MonoBehaviour
 {
-    public string itemTypeString;
+    public Slot[] itemSlots;
+    public Transform itemSlotsTransform;
     public ItemTypes itemTypeEnum = ItemTypes.Con;
    
     private int slotSize=0;
-    private Slot[] itemSlots;
+    private string itemTypeString;
+    private InvenTabSlot[] invenTabSlots;
     private Dictionary<int, Items> invenItems; // 인벤토리에 저장된 아이템
     private List<Items> showItemList = new List<Items>(); // 보여지는 아이템들
     private Dictionary<int, Items> wearEquipDic = new Dictionary<int, Items>(); // 착용한 장비 아이템
 
-    private void Start()
+
+    private void Awake()
     {
-        itemSlots = GetComponentsInChildren<Slot>();
+        itemSlots = itemSlotsTransform.GetComponentsInChildren<Slot>();
+        invenTabSlots = GetComponentsInChildren<InvenTabSlot>();
+        ItemManager.instance.RegisterInvenUI(this);
     }
 
-    public void ClassificationItems(ItemTypes _itemType)
+    public void ClassificationItems()
     {
         showItemList.Clear();
-        itemTypeEnum = _itemType;
         itemTypeString = itemTypeEnum.ToString();
         foreach (KeyValuePair<int,Items> itemList in ItemManager.instance.holdItemDataBase)
         {
@@ -38,13 +42,6 @@ public class InvenUI : MonoBehaviour
         ShowItem();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            ClassificationItems(itemTypeEnum);
-        }
-    }
     public void ShowItem()
     {
         slotSize = showItemList.Count;
@@ -59,4 +56,24 @@ public class InvenUI : MonoBehaviour
             itemSlots[i].gameObject.SetActive(false);
         }
     }
+
+
+    public void ChangeTab(ItemTypes _itemType)
+    {
+        itemTypeEnum = _itemType;
+        ClassificationItems();
+        for(int i=0; i<invenTabSlots.Length; i++)
+            invenTabSlots[i].SelectButtonEffect();
+    }
+
+    private void OnEnable()
+    {
+        ClassificationItems();
+        //StartCoroutine("LoadingItemList");
+    }
+
+    /*IEnumerator LoadingItemList()
+    {
+        yield return new WaitForEndOfFrame();
+    }*/
 }

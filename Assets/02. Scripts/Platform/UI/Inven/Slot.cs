@@ -6,13 +6,12 @@ using UnityEngine.UI;
 public class Slot : MonoBehaviour
 {
     [SerializeField] Image itemIcon;
-    private Text itemCntText;
+    [SerializeField] Text itemCntText;
     private Button button;
     private int itemID;
     private void Awake()
     {
         button = GetComponent<Button>();
-        itemCntText = GetComponentInChildren<Text>();
         button.onClick.AddListener(()=> ItemManager.instance.StartUseItem(itemID));
     }
 

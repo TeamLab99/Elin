@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerStat : PlayerController
+public class PlayerStat : Singleton<PlayerStat>
 {
     [SerializeField] PlayerStatData playerStatData;
-    
-    HPUI hpUI;
-    StatUI statUI;
 
+    private HPUI hpUI;
+    private StatUI statUI;
+    private PlayerMove playerMove;
     private bool invincibility = false;
+    private GameObject player;
+    private GameObject platformUI;
     private WaitForSeconds invincibilityTime = new WaitForSeconds(2f);
 
     private void Awake()
     {
-        hpUI = FindObjectOfType<HPUI>();
-        statUI = FindObjectOfType<StatUI>();
+        platformUI = GameObject.FindGameObjectWithTag("PlatformUI");
+        player = GameObject.FindGameObjectWithTag("Player");
+        hpUI = platformUI.GetComponentInChildren<HPUI>();
+        statUI = platformUI.GetComponentInChildren<StatUI>();
+        playerMove = player.GetComponent<PlayerMove>();
     }
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-            statUI.UpdateStatFigure();
-    }
+
     public void ChangeStat(int _maxHP=0, int _attackPower=0, int _maxCost=0, float _recoverySpeed=0)
     {
         playerStatData.maxHP += _maxHP;
@@ -30,6 +31,7 @@ public class PlayerStat : PlayerController
         playerStatData.maxCost += _maxCost;
         playerStatData.costRecoverySpeed += _recoverySpeed;
         statUI.UpdateStatFigure();
+        hpUI.UpdateHPFigure();
     }
 
     public void HealPlayer(int _heal)
@@ -56,7 +58,6 @@ public class PlayerStat : PlayerController
             hpUI.UpdateHPFigure();
         }
     }
-
 
     IEnumerator Invincibility()
     {

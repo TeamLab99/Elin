@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerAbilityController : PlayerController
+public class PlayerAbilityController : MonoBehaviour
 {
     AbilityUI abilityUI;
     SpriteRenderer spr;
@@ -126,7 +126,6 @@ public class PlayerAbilityController : PlayerController
         if (Input.GetKeyDown(KeyCode.Z) && coolDownProjectile)
         {
             coolDownProjectile = false;
-            abilityUI.SetLoadingEffect(true);
             Invoke("CoolDownProjectile", 2f);
             GameObject projectile = Instantiate(projectilePrefab[(int)element], transform.position, Quaternion.identity);
             projectile.GetComponent<Rigidbody2D>().velocity = transform.right * 10f * playerDir;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
@@ -150,7 +149,6 @@ public class PlayerAbilityController : PlayerController
     }
     private void CoolDownProjectile()
     {
-        abilityUI.SetLoadingEffect(false);
         coolDownProjectile = true;
     }
 }
