@@ -389,6 +389,7 @@ public class Inventory : MonoBehaviour
             }
             else
                 go.SetActive(false);
+            
         }
     }
 }

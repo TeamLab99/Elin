@@ -59,7 +59,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
-    - _Power: 1.59
+    - _Power: 3.49
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:

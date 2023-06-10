@@ -4,16 +4,32 @@ using UnityEngine;
 
 public class Merchant : MonoBehaviour
 {
+    [SerializeField] int[] sellItemsID;
     [SerializeField] GameObject introduceBox;
     [SerializeField] GameObject merchantUI;
+    StoreUI storeUI;
 
     private bool isOpenMerchantUI = false;
-    private List<ItemData>sellList = new List<ItemData>();
-    
+    public List<Items>sellList = new List<Items>();
+
+    private void Awake()
+    {
+        storeUI = merchantUI.GetComponent<StoreUI>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
             introduceBox.SetActive(true);
+    }
+
+    public void SetSellItemList()
+    {
+        sellList.Clear();
+        for(int i=0; i < sellItemsID.Length; i++)
+        {
+            sellList.Add(ItemManager.instance.allItemDataBase[sellItemsID[i]]);
+        }
+        storeUI.ShowSellItems(sellList);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -22,6 +38,7 @@ public class Merchant : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Player"))
             {
+                SetSellItemList();
                 isOpenMerchantUI = true;
                 merchantUI.SetActive(true);
                 introduceBox.SetActive(false);

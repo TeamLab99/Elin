@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class Spike : MonoBehaviour
 {
-    PlayerStat playerStat;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
-        {
-            playerStat = collision.gameObject.GetComponent<PlayerStat>();
-            playerStat.DamagePlayer(10);
+         {
+            PlayerStat.instance.DamagePlayer(10);
         }
     }
 }

@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerStat : MonoBehaviour
+public class PlayerStat : Singleton<PlayerStat>
 {
     [SerializeField] PlayerStatData playerStatData;
-    
-    HPUI hpUI;
-    StatUI statUI;
-    PlayerMove playerMove;
 
+    private HPUI hpUI;
+    private StatUI statUI;
+    private PlayerMove playerMove;
     private bool invincibility = false;
+    private GameObject player;
+    private GameObject platformUI;
     private WaitForSeconds invincibilityTime = new WaitForSeconds(2f);
 
     private void Awake()
     {
-        hpUI = FindObjectOfType<HPUI>();
-        statUI = FindObjectOfType<StatUI>();
-        playerMove = GetComponent<PlayerMove>();
+        platformUI = GameObject.FindGameObjectWithTag("PlatformUI");
+        player = GameObject.FindGameObjectWithTag("Player");
+        hpUI = platformUI.GetComponentInChildren<HPUI>();
+        statUI = platformUI.GetComponentInChildren<StatUI>();
+        playerMove = player.GetComponent<PlayerMove>();
     }
 
     public void ChangeStat(int _maxHP=0, int _attackPower=0, int _maxCost=0, float _recoverySpeed=0)
@@ -28,6 +31,7 @@ public class PlayerStat : MonoBehaviour
         playerStatData.maxCost += _maxCost;
         playerStatData.costRecoverySpeed += _recoverySpeed;
         statUI.UpdateStatFigure();
+        hpUI.UpdateHPFigure();
     }
 
     public void HealPlayer(int _heal)
