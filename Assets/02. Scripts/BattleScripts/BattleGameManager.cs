@@ -6,11 +6,14 @@ using DG.Tweening;
 // 치트, UI, 게임 오버
 public class BattleGameManager : Singleton<BattleGameManager>
 {
-    bool isSetting;
     [SerializeField] GameObject mainCamera;
     [SerializeField] GameObject player;
     [SerializeField] Ease ease;
-    GameObject uiObject;
+    [SerializeField] NotificationPanel notificationPanel;
+
+    GameObject battleUI;
+
+    bool isSetting;
 
     void Start()
     {
@@ -20,7 +23,8 @@ public class BattleGameManager : Singleton<BattleGameManager>
     IEnumerator GetUI()
     {
         yield return new WaitForEndOfFrame();
-        uiObject = GameObject.FindGameObjectWithTag("Battle_UI");
+        battleUI = GameObject.FindGameObjectWithTag("UI").transform.Find("Battle").gameObject;
+        notificationPanel = battleUI.transform.Find("NotificationPanel").GetComponent<NotificationPanel>();
     }
 
     void Update()
@@ -43,13 +47,25 @@ public class BattleGameManager : Singleton<BattleGameManager>
         var targetPos = new Vector3(Mathf.Lerp(player.transform.position.x, mobPos.x, 0.5f), mobPos.y, -15);
         mainCamera.transform.DOMove(targetPos, 1.5f).SetEase(ease);
 
-        StartCoroutine(TurnManager2.instance.StartGameCo(uiObject.transform.GetChild(0).gameObject, 2f));
+        StartCoroutine(TurnManager2.instance.StartGameCo(battleUI, 2f));
     }
 
-    public void EndBattle()
+    public void Win()
     {
         player.GetComponent<Player_Move>().enabled = true;
         mainCamera.GetComponent<Camera_Follow>().enabled = true;
         // + ui 종료 애니메이션 재생 후 false
+        // + 전투 승리 보상 추가
+    }
+
+    public void Lose()
+    {
+        // 모든 오브젝트 활동 정지
+        // 게임 오버 화면 송출
+    }
+
+    public void Notification(string message)
+    {
+        notificationPanel.Show(message);
     }
 }

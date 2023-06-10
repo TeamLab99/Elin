@@ -24,10 +24,6 @@ public class Card2 : MonoBehaviour
         costTMP.text = deckCard.cost.ToString();
     }
 
-    public void SetKey(string keycode)
-    {
-        keyTMP.text = keycode;
-    }
 
     public void MoveTransform(PRS prs, bool useDotween, float dotweenTime = 0)
     {
@@ -43,5 +39,30 @@ public class Card2 : MonoBehaviour
             transform.rotation = prs.rot;
             transform.localScale = prs.scale;
         }
+    }
+
+    public IEnumerator MoveTransformCoroutine(Vector3 prs, bool useDotween, float dotweenTime = 0)
+    {
+        keyTMP.gameObject.SetActive(false);
+        if (useDotween)
+        {
+            Sequence sequence = DOTween.Sequence();
+            sequence
+                .Append(transform.DOMove(prs, dotweenTime))
+                .Join(GetComponent<SpriteRenderer>().DOFade(0, dotweenTime))
+                .Join(nameTMP.GetComponent<TMP_Text>().DOFade(0, dotweenTime))
+                .Join(costTMP.GetComponent<TMP_Text>().DOFade(0, dotweenTime));
+        }
+        else
+        {
+            transform.position = prs;
+        }
+
+        yield return new WaitForSeconds(dotweenTime);
+    }
+
+    public void SetKey(string keycode)
+    {
+        keyTMP.text = keycode;
     }
 }
