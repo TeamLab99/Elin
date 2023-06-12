@@ -7,6 +7,7 @@ public class DisplaySlot : MonoBehaviour
     Items displayItemInfo;
     Button button;
     StoreUI storeUI;
+    [SerializeField] Text priceText;
     [SerializeField] Image displayItemIcon;
 
     private void Awake()
@@ -20,5 +21,12 @@ public class DisplaySlot : MonoBehaviour
     {
         displayItemInfo = _itemInfo;
         displayItemIcon.sprite = _itemInfo.itemIcon;
+        priceText.text = _itemInfo.sellPrice.ToString();
+    }
+
+    public void DeleteItem()
+    {
+        gameObject.SetActive(false);
+        priceText.text = " ";
     }
 }

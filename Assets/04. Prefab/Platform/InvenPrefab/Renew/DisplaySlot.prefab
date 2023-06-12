@@ -149,7 +149,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -215,4 +215,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e626c124f5b471d4b964b8194e35096d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  priceText: {fileID: 1457783117839731384}
   displayItemIcon: {fileID: 1457783119279964808}

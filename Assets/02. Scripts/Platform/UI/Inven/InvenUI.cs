@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum ItemTypes
 {
@@ -12,6 +13,7 @@ public enum ItemTypes
 public class InvenUI : MonoBehaviour
 {
     public Slot[] itemSlots;
+    public Text moneyText;
     public Transform itemSlotsTransform;
     public EquipSlot[] equipSlots;
     public Transform equipSlotsTransform;
@@ -96,6 +98,7 @@ public class InvenUI : MonoBehaviour
     {
         ClassificationItems();
         WearEquipmentItems();
+        SetUpMoneyText();
         //StartCoroutine("LoadingItemList");
     }
 
@@ -111,4 +114,9 @@ public class InvenUI : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
     }*/
+
+    public void SetUpMoneyText()
+    {
+        moneyText.text = ItemManager.instance.GetMoneyInfo().ToString();
+    }
 }

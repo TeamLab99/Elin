@@ -9,8 +9,9 @@ public class ItemManager : Singleton<ItemManager>
     public List<Items> holdEquipList;
     public List<Items> wearEquipList;
     
+    
     private InvenUI invenUI;
-    private bool canUseItem = true;
+    private int money = 200;
     private WaitForSeconds itemCoolTime = new WaitForSeconds(0.2f);
 
     void Start()
@@ -55,6 +56,7 @@ public class ItemManager : Singleton<ItemManager>
         }
         else // 장비 아이템
             holdEquipList.Add(allItemDataBase[_itemID]);
+        invenUI.ClassificationItems();
     }
 
     public void UseItem(int _itemID, int _itemCnt=1) // 기타, 소모품만 사용
@@ -135,4 +137,8 @@ public class ItemManager : Singleton<ItemManager>
         invenUI = _invenUI;
     }
 
+    public int GetMoneyInfo()
+    {
+        return money;
+    }
 }
