@@ -7,6 +7,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SceneLoader.instance.LoadSceneAddtive(2);
+        //SceneLoader.instance.LoadSceneAddtive(2);
     }
 }

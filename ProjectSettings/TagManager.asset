@@ -13,18 +13,15 @@ TagManager:
   - Monster
   - Spike
   - Cards
-  - Battle_Player
   - Mob
   - NPC
   - EfcIcon
   - Absorbable
-  - Battle_UI
   - PlayerEgo
   - Fire
   - DownPlatform
-  - Gauge
   - DL
-  - PlatformUI
+  - Gauge
   layers:
   - Default
   - TransparentFX

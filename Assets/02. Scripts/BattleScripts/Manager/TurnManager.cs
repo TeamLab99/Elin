@@ -102,8 +102,8 @@ public class TurnManager : MonoBehaviour
     public void Notification(string message, bool state)
     {
         if (state)
-            notificationPanel.Show(message, new Color32(0, 255, 0, 100));
+            notificationPanel.Show(message);
         else
-            notificationPanel.Show(message, new Color32(255, 0, 0, 100));
+            notificationPanel.Show(message);
     }
 }
