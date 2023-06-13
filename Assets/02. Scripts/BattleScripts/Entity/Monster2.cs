@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public abstract class Monster2 : Entity2
 {
-    [SerializeField] public int attackSpeed;
-    [SerializeField] public int skillCount;
+    [SerializeField] int attackSpeed;
+    [SerializeField] int skillCount;
+    [SerializeField] EMonsterState monsterState;
+
     float maxTime;
     float curTime;
     bool stopGauge;
@@ -14,11 +16,12 @@ public abstract class Monster2 : Entity2
     Image gauge;
     WaitForSeconds delay001 = new WaitForSeconds(0.01f);
 
+    enum EMonsterState { Stop, Idle, Attack, Skill };
+
     public override void Init()
     {
         maxTime = attackSpeed;
         curTime = maxTime;
-        
     }
 
     public IEnumerator GetGaugeUI()
@@ -31,13 +34,14 @@ public abstract class Monster2 : Entity2
     {
         throw new System.NotImplementedException();
         // 갖고 있는 버프/디버프 리스트 배틀 매니저에 반환?
+        // 턴매니저 == 배틀 매니저?
     }
 
-    protected IEnumerator TimerGauge()
+    protected IEnumerator GaugeTimer()
     {
         gauge.fillAmount = curTime / maxTime;
 
-        if (!stopGauge)
+        if (monsterState == EMonsterState.Idle)
         {
             curTime -= Time.deltaTime;
             if (curTime <= 0)
@@ -48,11 +52,11 @@ public abstract class Monster2 : Entity2
         }
 
         yield return null;
-        StartCoroutine(TimerGauge());
+        StartCoroutine(GaugeTimer());
     }
 
     public void StartBattle()
     {
-        StartCoroutine(TimerGauge());
+        StartCoroutine(GaugeTimer());
     }
 }

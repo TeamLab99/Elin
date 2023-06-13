@@ -14,6 +14,7 @@ public class TurnManager2 : Singleton<TurnManager2>
     public bool myTurn;
 
     WaitForSeconds delay025 = new WaitForSeconds(0.25f);
+    WaitForSeconds delay035 = new WaitForSeconds(0.35f);
     WaitForSeconds delay05 = new WaitForSeconds(0.5f);
 
     public static Action OnAddCard;
@@ -44,8 +45,6 @@ public class TurnManager2 : Singleton<TurnManager2>
     {
         isLoading = true;
 
-        yield return delay05;
-
         for (int i = 0; i < startCardCount; i++)
         {
             OnAddCard?.Invoke();
@@ -53,6 +52,7 @@ public class TurnManager2 : Singleton<TurnManager2>
         }
         CardManager2.instance.SetKey();
 
+        yield return delay035;
         isLoading = false;
         EndDrawPhase?.Invoke();
         // isLoading으로 엔티티들의 모든 추가 행동을 멈출 것인가?

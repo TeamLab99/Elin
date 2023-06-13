@@ -23,8 +23,10 @@ public class CardManager2 : Singleton<CardManager2>
     string[] keyArray = { "A", "S", "D", "F", "G" };
     Card2 selectCard;
     int currentCardNumber = -1;
-    enum ECardState { Loading, CanSelectCard, CanUseCard }
-    bool canUseCard = true;
+    enum ECardState { Loading, CanUseCard, ActivatingCard, Noting }
+    bool isSelected;
+    bool isCardActivating;
+    bool isAlignment;
 
     // 카드 사용 시 몬스터에게 알려줄 이벤트
     //public static event Action UseTheCard;
@@ -92,7 +94,7 @@ public class CardManager2 : Singleton<CardManager2>
         myCards.Add(card);
 
         SetOriginOrder();
-        CardAlignment();
+        StartCoroutine(CardAlignment());
     }
 
     void SetOriginOrder()
@@ -113,11 +115,14 @@ public class CardManager2 : Singleton<CardManager2>
     {
         SetEcardState();
         InputKey();
+
+        if (myCards.Count <= 0 && eCardState != ECardState.Loading)
+            StartCoroutine(TurnManager2.instance.ReDrawCards());
     }
 
     void InputKey()
     {
-        if (eCardState == ECardState.CanSelectCard && canUseCard)
+        if (eCardState == ECardState.CanUseCard && !isAlignment)
         {
             if (Input.GetKeyDown(KeyCode.A))
                 ChoiceCard(0);
@@ -137,20 +142,20 @@ public class CardManager2 : Singleton<CardManager2>
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                StartCoroutine(CardUse());
+                if (isSelected)
+                    StartCoroutine(CardUse());
             }
         }
     }
 
     void ChoiceCard(int index)
     {
-        if (index > myCards.Count)
+        if (index >= myCards.Count)
             return;
 
         if (selectCard == myCards[index])
         {
-            currentCardNumber = index;
-            EnlargeCard(true, selectCard);
+            SelectAndEnlarge(selectCard, true);
             return;
         }
         else
@@ -158,9 +163,7 @@ public class CardManager2 : Singleton<CardManager2>
             if (selectCard != null)
                 EnlargeCard(false, selectCard);
 
-            selectCard = myCards[index];
-            currentCardNumber = index;
-            EnlargeCard(true, selectCard);
+            SelectAndEnlarge(myCards[index], true);
         }
     }
 
@@ -174,9 +177,7 @@ public class CardManager2 : Singleton<CardManager2>
 
         if (myCards.Count == 1 || currentCardNumber == -1)
         {
-            selectCard = myCards[0];
-            EnlargeCard(true, selectCard);
-            currentCardNumber = 0;
+            SelectAndEnlarge(myCards[0], true);
         }
         else
         {
@@ -184,27 +185,48 @@ public class CardManager2 : Singleton<CardManager2>
 
             if (trueNum < 0)
             {
-                selectCard = myCards[myCards.Count - 1];
-                EnlargeCard(true, selectCard);
-                currentCardNumber = myCards.Count - 1;
+                SelectAndEnlarge(myCards[myCards.Count - 1], true);
                 return;
             }
             else if (trueNum >= myCards.Count)
             {
-                selectCard = myCards[0];
-                EnlargeCard(true, selectCard);
-                currentCardNumber = 0;
+                SelectAndEnlarge(myCards[0], true);
                 return;
             }
 
-            selectCard = myCards[trueNum];
-            EnlargeCard(true, selectCard);
-            currentCardNumber = trueNum;
+            SelectAndEnlarge(myCards[trueNum], true);
         }
     }
 
-    private void CardAlignment()
+    void SelectAndEnlarge(Card2 card, bool isSelecting)
     {
+        EnlargeCard(true, card);
+        selectCard = card;
+        currentCardNumber = myCards.FindIndex(x => x == card);
+    }
+
+    public void EnlargeCard(bool isEnlarge, Card2 card)
+    {
+
+        if (isEnlarge)
+        {
+            Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -6.8f, -10f);
+            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 1.1f), false);
+            isSelected = isEnlarge;
+        }
+        else
+        {
+            card.MoveTransform(card.originPRS, false);
+            isSelected = isEnlarge;
+        }
+
+        card.GetComponent<Order>().SetMostFrontOrder(isEnlarge);
+
+    }
+
+    IEnumerator CardAlignment()
+    {
+        isAlignment = true;
         List<PRS> originCardPRSs = new List<PRS>();
         originCardPRSs = RoundAlignment(cardLeft, cardRight, myCards.Count, 0.5f, Vector3.one * 1);
 
@@ -213,8 +235,10 @@ public class CardManager2 : Singleton<CardManager2>
             var targetCard = myCards[i];
 
             targetCard.originPRS = originCardPRSs[i];
-            targetCard.MoveTransform(targetCard.originPRS, true, 0.7f);
+            targetCard.MoveTransform(targetCard.originPRS, true, 0.5f);
         }
+        yield return new WaitForSeconds(0.25f);
+        isAlignment = false;
     }
 
     List<PRS> RoundAlignment(Transform leftTr, Transform rightTr, int objCount, float height, Vector3 scale)
@@ -252,17 +276,32 @@ public class CardManager2 : Singleton<CardManager2>
         return results;
     }
 
-    public void EnlargeCard(bool isEnlarge, Card2 card)
+    IEnumerator CardUse()
     {
-        if (isEnlarge)
-        {
-            Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -6.8f, -10f);
-            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 1.2f), false);
-        }
-        else
-            card.MoveTransform(card.originPRS, false);
+        if (selectCard == null)
+            yield break;
+        isCardActivating = true;
+        // UseTheCard 이벤트 호출
 
-        card.GetComponent<Order>().SetMostFrontOrder(isEnlarge);
+        myCards.Remove(selectCard);
+
+        yield return StartCoroutine(selectCard.MoveTransformCoroutine(new PRS(cardUseTrasnform.position, Utils.QI, selectCard.originPRS.scale), true, 0.5f));
+        selectCard.DOKill();
+        Destroy(selectCard.gameObject);
+
+        if (myCards.Count == 1)
+            currentCardNumber = -1;
+        else
+            currentCardNumber -= 1;
+
+        if (myCards.Count > 0)
+        {
+            StartCoroutine(CardAlignment());
+            SetKey();
+        }
+
+        isCardActivating = false;
+        selectCard = null;
     }
 
     public void SetKey()
@@ -273,37 +312,18 @@ public class CardManager2 : Singleton<CardManager2>
         }
     }
 
-    IEnumerator CardUse()
-    {
-        if (selectCard == null)
-            yield break;
-
-        canUseCard = false;
-        // UseTheCard 이벤트 호출
-
-        myCards.Remove(selectCard);
-        if (myCards.Count <= 0)
-            StartCoroutine(TurnManager2.instance.ReDrawCards());
-        else
-        {
-            CardAlignment();
-            SetKey();
-        }
-        currentCardNumber = -1;
-
-        yield return StartCoroutine(selectCard.MoveTransformCoroutine(cardUseTrasnform.position, true, 0.5f));
-
-        selectCard.DOKill();
-        Destroy(selectCard.gameObject);
-        selectCard = null;
-        canUseCard = true;
-    }
-
     void SetEcardState()
     {
         if (TurnManager2.instance.isLoading)
             eCardState = ECardState.Loading;
-        else if (!TurnManager2.instance.isLoading)
-            eCardState = ECardState.CanSelectCard;
+
+        else if (isCardActivating)
+            eCardState = ECardState.ActivatingCard;
+
+        else if (myCards.Count > 0 && !TurnManager2.instance.isLoading)
+            eCardState = ECardState.CanUseCard;
+
+        else
+            eCardState = ECardState.Noting;
     }
 }

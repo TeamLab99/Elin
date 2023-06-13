@@ -41,21 +41,25 @@ public class Card2 : MonoBehaviour
         }
     }
 
-    public IEnumerator MoveTransformCoroutine(Vector3 prs, bool useDotween, float dotweenTime = 0)
+    public IEnumerator MoveTransformCoroutine(PRS prs, bool useDotween, float dotweenTime = 0)
     {
         keyTMP.gameObject.SetActive(false);
         if (useDotween)
         {
             Sequence sequence = DOTween.Sequence();
             sequence
-                .Append(transform.DOMove(prs, dotweenTime))
+                .Append(transform.DOMove(prs.pos, dotweenTime))
+                .Join(transform.DORotateQuaternion(prs.rot, dotweenTime))
+                .Join(transform.DOScale(prs.scale, dotweenTime))
                 .Join(GetComponent<SpriteRenderer>().DOFade(0, dotweenTime))
                 .Join(nameTMP.GetComponent<TMP_Text>().DOFade(0, dotweenTime))
                 .Join(costTMP.GetComponent<TMP_Text>().DOFade(0, dotweenTime));
         }
         else
         {
-            transform.position = prs;
+            transform.position = prs.pos;
+            transform.rotation = prs.rot;
+            transform.localScale = prs.scale;
         }
 
         yield return new WaitForSeconds(dotweenTime);
