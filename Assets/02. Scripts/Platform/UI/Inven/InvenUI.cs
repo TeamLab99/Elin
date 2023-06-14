@@ -34,8 +34,17 @@ public class InvenUI : MonoBehaviour
         ItemManager.instance.RegisterInvenUI(this);
     }
 
+    public void AllSlotClear()
+    {
+        foreach(Slot _itemSlots in itemSlots)
+        {
+            _itemSlots.RemoveItem();
+        }
+    }
+
     public void ClassificationItems()
     {
+        AllSlotClear();
         showItemList.Clear();
         itemTypeString = itemTypeEnum.ToString();
         switch (itemTypeEnum)
@@ -65,11 +74,6 @@ public class InvenUI : MonoBehaviour
             itemSlots[i].gameObject.SetActive(true);
             itemSlots[i].AddItem(showItemList[i],i);
         }
-        for(int i=slotSize; i < itemSlots.Length; i++)
-        {
-            itemSlots[i].RemoveItem();
-            itemSlots[i].gameObject.SetActive(false);
-        }
     }
 
 
@@ -86,11 +90,6 @@ public class InvenUI : MonoBehaviour
         {
             equipSlots[i].gameObject.SetActive(true);
             equipSlots[i].AddItem(showWearList[i]);
-        }
-        for (int i = wearSlotSize; i <4; i++)
-        {
-            equipSlots[i].RemoveItem();
-            equipSlots[i].gameObject.SetActive(false);
         }
     }
 

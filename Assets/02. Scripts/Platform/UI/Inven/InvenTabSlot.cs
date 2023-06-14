@@ -25,4 +25,6 @@ public class InvenTabSlot : MonoBehaviour
         else
             buttonImage.color = Color.white;
     }
+
+
 }
