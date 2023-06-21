@@ -14816,6 +14816,14 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.m_NumColorKeys
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4781387527267486099, guid: eb23f5c76513e5045ad327608aab3d33, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4781387527267486100, guid: eb23f5c76513e5045ad327608aab3d33, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4781387527267486100, guid: eb23f5c76513e5045ad327608aab3d33, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 1

@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &348424010852011381
 Transform:
   m_ObjectHideFlags: 0
@@ -43,6 +43,10 @@ PrefabInstance:
     - target: {fileID: 7377764747339848324, guid: 05aa1f9f68a3d9648a33ce5467448833, type: 3}
       propertyPath: m_Name
       value: Bleeding_Dot_develop
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377764747339848324, guid: 05aa1f9f68a3d9648a33ce5467448833, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7377764747339848325, guid: 05aa1f9f68a3d9648a33ce5467448833, type: 3}
       propertyPath: m_RootOrder
@@ -86,6 +90,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7377764747339848325, guid: 05aa1f9f68a3d9648a33ce5467448833, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377764747863379569, guid: 05aa1f9f68a3d9648a33ce5467448833, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -149,6 +157,10 @@ PrefabInstance:
     - target: {fileID: 5382270908032668257, guid: 5ffa01892799ef34ab7c5a236db7a3df, type: 3}
       propertyPath: m_Name
       value: Bleeding_Head_develop
+      objectReference: {fileID: 0}
+    - target: {fileID: 5382270908032668257, guid: 5ffa01892799ef34ab7c5a236db7a3df, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ffa01892799ef34ab7c5a236db7a3df, type: 3}
