@@ -10,4 +10,8 @@ public class PlayerStatData : ScriptableObject
     public int attackPower;
     public int maxCost;
     public float costRecoverySpeed;
+    public int enhanceHpStep;
+    public int enhanceAtkStep;
+    public int enhanceCostStep;
+    public int enhanceRecoveryStep;
 }

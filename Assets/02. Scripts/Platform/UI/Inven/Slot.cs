@@ -10,7 +10,7 @@ public class Slot : MonoBehaviour
     private Button button;
     private Items holdItemInfo;
     Color transparentColor = Color.white;
-    Color nontranparentColor = Color.white;
+    Color nontransparentColor = Color.white;
     
     private int itemIdx;
     private void Awake()
@@ -18,12 +18,12 @@ public class Slot : MonoBehaviour
         button = GetComponent<Button>();
         button.onClick.AddListener(ClickButton);
         transparentColor.a = 0f;
-        nontranparentColor.a = 1f;
+        nontransparentColor.a = 1f;
     }
 
     public void AddItem(Items _itemData, int _itemIdx)
     {
-        itemIcon.color = nontranparentColor;
+        itemIcon.color = nontransparentColor;
         itemIcon.sprite = _itemData.itemIcon;
         holdItemInfo = _itemData;
         itemIdx = _itemIdx;        
@@ -37,6 +37,7 @@ public class Slot : MonoBehaviour
     {
         itemCntText.text = " ";
         itemIcon.sprite = null;
+        transparentColor.a = 0f;
         itemIcon.color = transparentColor;
     } 
 

@@ -34,14 +34,6 @@ public class InvenUI : MonoBehaviour
         ItemManager.instance.RegisterInvenUI(this);
     }
 
-    public void AllSlotClear()
-    {
-        foreach(Slot _itemSlots in itemSlots)
-        {
-            _itemSlots.RemoveItem();
-        }
-    }
-
     public void ClassificationItems()
     {
         AllSlotClear();
@@ -64,6 +56,14 @@ public class InvenUI : MonoBehaviour
                 break;
         }
         ShowItem();
+    }
+
+    public void AllSlotClear()
+    {
+        foreach (Slot _itemSlots in itemSlots)
+        {
+            _itemSlots.RemoveItem();
+        }
     }
 
     public void ShowItem()
