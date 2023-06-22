@@ -5,7 +5,7 @@ using DG.Tweening;
 using System;
 using Random = UnityEngine.Random;
 
-public class CardManager2 : Singleton<CardManager2>
+public class BattleCardManager : Singleton<BattleCardManager>
 {
 
     [SerializeField] GameObject cardPrefab;
@@ -14,14 +14,14 @@ public class CardManager2 : Singleton<CardManager2>
     [SerializeField] Transform cardUseTrasnform;
     [SerializeField] Transform cardLeft;
     [SerializeField] Transform cardRight;
-    [SerializeField] List<Card2> myCards;
+    [SerializeField] List<BattleCard> myCards;
     [SerializeField] ECardState eCardState;
 
     Dictionary<int, DeckCard> deckCards;
     Dictionary<int, UnlockCard> unlockCards;
     List<DeckCard> shuffleCards;
     string[] keyArray = { "A", "S", "D", "F", "G" };
-    Card2 selectCard;
+    BattleCard selectCard;
     int currentCardNumber = -1;
     enum ECardState { Loading, CanUseCard, ActivatingCard, Noting }
     bool isSelected;
@@ -73,23 +73,29 @@ public class CardManager2 : Singleton<CardManager2>
     void Start()
     {
         SetupCardBuffer();
-        TurnManager2.OnAddCard += AddCard;
-        TurnManager2.EndDrawPhase += EndDrawPhase;
+        BattleTurnManager.OnAddCard += AddCard;
+        BattleTurnManager.EndDrawPhase += EndDrawPhase;
     }
 
     void OnDestroy()
     {
-        TurnManager2.OnAddCard -= AddCard;
-        TurnManager2.EndDrawPhase -= EndDrawPhase;
+        BattleTurnManager.OnAddCard -= AddCard;
+        BattleTurnManager.EndDrawPhase -= EndDrawPhase;
+    }
+
+    public void CreatePoolCard()
+    {
+        Managers.Pool.CreatePool(cardPrefab,10);
     }
 
     void AddCard()
     {
         //var cardGeneratePositon = cardsParentTransform.position + Vector3.up * -4.5f;
-        var cardObject = Instantiate(cardPrefab, cardSpawnTrasnform.position, Utils.QI);
-        cardObject.transform.parent = cardHandTransform;
 
-        var card = cardObject.GetComponent<Card2>();
+        var cardObject = Managers.Pool.Pop(cardPrefab, cardHandTransform);
+        cardObject.transform.position = cardSpawnTrasnform.position;
+
+        var card = cardObject.GetComponent<BattleCard>();
         card.Setup(PopCard());
         myCards.Add(card);
 
@@ -117,7 +123,7 @@ public class CardManager2 : Singleton<CardManager2>
         InputKey();
 
         if (myCards.Count <= 0 && eCardState != ECardState.Loading)
-            StartCoroutine(TurnManager2.instance.ReDrawCards());
+            StartCoroutine(BattleTurnManager.instance.ReDrawCards());
     }
 
     void InputKey()
@@ -143,7 +149,7 @@ public class CardManager2 : Singleton<CardManager2>
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (isSelected)
-                    StartCoroutine(CardUse());
+                    StartCoroutine(UseCard());
             }
         }
     }
@@ -198,14 +204,14 @@ public class CardManager2 : Singleton<CardManager2>
         }
     }
 
-    void SelectAndEnlarge(Card2 card, bool isSelecting)
+    void SelectAndEnlarge(BattleCard card, bool isSelecting)
     {
         EnlargeCard(true, card);
         selectCard = card;
         currentCardNumber = myCards.FindIndex(x => x == card);
     }
 
-    public void EnlargeCard(bool isEnlarge, Card2 card)
+    public void EnlargeCard(bool isEnlarge, BattleCard card)
     {
 
         if (isEnlarge)
@@ -276,7 +282,7 @@ public class CardManager2 : Singleton<CardManager2>
         return results;
     }
 
-    IEnumerator CardUse()
+    IEnumerator UseCard()
     {
         if (selectCard == null)
             yield break;
@@ -287,7 +293,7 @@ public class CardManager2 : Singleton<CardManager2>
 
         yield return StartCoroutine(selectCard.MoveTransformCoroutine(new PRS(cardUseTrasnform.position, Utils.QI, selectCard.originPRS.scale), true, 0.5f));
         selectCard.DOKill();
-        Destroy(selectCard.gameObject);
+        Managers.Pool.Push(selectCard.GetComponent<Poolable>());
 
         if (myCards.Count == 1)
             currentCardNumber = -1;
@@ -314,13 +320,13 @@ public class CardManager2 : Singleton<CardManager2>
 
     void SetEcardState()
     {
-        if (TurnManager2.instance.isLoading)
+        if (BattleTurnManager.instance.isLoading)
             eCardState = ECardState.Loading;
 
         else if (isCardActivating)
             eCardState = ECardState.ActivatingCard;
 
-        else if (myCards.Count > 0 && !TurnManager2.instance.isLoading)
+        else if (myCards.Count > 0 && !BattleTurnManager.instance.isLoading)
             eCardState = ECardState.CanUseCard;
 
         else

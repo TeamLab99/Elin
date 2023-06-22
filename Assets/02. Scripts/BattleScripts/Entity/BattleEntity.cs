@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public abstract class Entity2 : MonoBehaviour
+public abstract class BattleEntity : MonoBehaviour
 {
     [SerializeField] TMP_Text hpTMP;
 
@@ -31,7 +31,7 @@ public abstract class Entity2 : MonoBehaviour
         hpTMP.text = hp.ToString();
     }
 
-    protected void Attack(Entity2 entity)
+    protected void Attack(BattleEntity entity)
     {
         entity.TakeDamage(attack);
     }

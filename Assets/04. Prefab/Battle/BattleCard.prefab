@@ -443,11 +443,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4060142598591651220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ab0ec6d73063d840ae7d4ea9bee8f07, type: 3}
+  m_Script: {fileID: 11500000, guid: de82b65bc6c50ad41b77a46ed9627442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardSprite: {fileID: 4060142598591651223}
-  magicSprite: {fileID: 4060142598773736774}
+  cardSprite: {fileID: 0}
+  magicSprite: {fileID: 0}
   nameTMP: {fileID: 4060142600191928616}
   keyTMP: {fileID: 1965144301545569910}
   costTMP: {fileID: 8696548420250615036}

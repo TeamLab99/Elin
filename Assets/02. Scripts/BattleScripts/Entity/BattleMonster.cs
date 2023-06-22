@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Monster2 : Entity2
+public abstract class BattleMonster : BattleEntity
 {
     [SerializeField] int attackSpeed;
     [SerializeField] int skillCount;

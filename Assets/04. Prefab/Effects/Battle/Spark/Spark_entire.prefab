@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7332113227304082480
 Transform:
   m_ObjectHideFlags: 0
@@ -99,6 +99,10 @@ PrefabInstance:
     - target: {fileID: 6240011562186947326, guid: 710d9c7178252df4788aa2d3a1000f09, type: 3}
       propertyPath: m_Name
       value: Spark_Hit
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240011562186947326, guid: 710d9c7178252df4788aa2d3a1000f09, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 710d9c7178252df4788aa2d3a1000f09, type: 3}

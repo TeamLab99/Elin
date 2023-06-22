@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 
-public class Card2 : MonoBehaviour
+public class BattleCard : MonoBehaviour
 {
     [SerializeField] SpriteRenderer cardSprite;
     [SerializeField] SpriteRenderer magicSprite;
@@ -23,7 +23,6 @@ public class Card2 : MonoBehaviour
         nameTMP.text = deckCard.cardName;
         costTMP.text = deckCard.cost.ToString();
     }
-
 
     public void MoveTransform(PRS prs, bool useDotween, float dotweenTime = 0)
     {

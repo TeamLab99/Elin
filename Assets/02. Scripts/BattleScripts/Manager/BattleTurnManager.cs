@@ -4,10 +4,12 @@ using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 
-public class TurnManager2 : Singleton<TurnManager2>
+/// <summary>
+/// 행동 순서 제어
+/// </summary>
+public class BattleTurnManager : Singleton<BattleTurnManager>
 {
     [SerializeField] [Tooltip("시작 카드 개수를 정합니다.")] int startCardCount = 5;
-    [SerializeField] Monster2 monster;
 
     [Header("Properties")]
     public bool isLoading; // 카드 사용 방지, 몬스터 공격 방지
@@ -33,7 +35,7 @@ public class TurnManager2 : Singleton<TurnManager2>
             OnAddCard?.Invoke();
             yield return delay025;
         }
-        CardManager2.instance.SetKey();
+        BattleCardManager.instance.SetKey();
 
         BattleGameManager.instance.Notification("전투 시작!");
         yield return delay05;
@@ -50,7 +52,7 @@ public class TurnManager2 : Singleton<TurnManager2>
             OnAddCard?.Invoke();
             yield return delay025;
         }
-        CardManager2.instance.SetKey();
+        BattleCardManager.instance.SetKey();
 
         yield return delay035;
         isLoading = false;
