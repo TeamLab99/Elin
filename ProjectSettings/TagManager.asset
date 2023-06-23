@@ -18,10 +18,11 @@ TagManager:
   - EfcIcon
   - Absorbable
   - PlayerEgo
-  - Fire
   - DownPlatform
   - DL
   - Gauge
+  - PlatformUI
+  - WaterCrystal
   layers:
   - Default
   - TransparentFX
