@@ -103,12 +103,12 @@ public class PlayerAbilityController : MonoBehaviour
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 3f);
             foreach (Collider2D collider in colliders) // 가장 가까운 속성을 따라감
             {
-                if (collider.CompareTag("Fire"))
+               /* if (collider.CompareTag("WaterElement"))
                 {
                     element = EProjectileType.Fire;
                     abilityUI.ChangeElementType(EProjectileType.Fire);
                     return;
-                }
+                }*/
             }
         }
     }
@@ -126,21 +126,21 @@ public class PlayerAbilityController : MonoBehaviour
             coolDownProjectile = false;
             Invoke("CoolDownProjectile", 2f);
             playerProjectile = PlayerPoolManager.instance.GetProjectile((int)element);
-            playerProjectile.transform.position = transform.position;
-            playerProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * 10f * playerDir;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
+            playerProjectile.transform.position = transform.position+Vector3.right*playerDir* 0.5f;
+            playerProjectile.GetComponent<Projectile>().ShootProjectile(playerDir);  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
             switch (seperateDirection)
             {
                 case ESeperateDirection.Right:
                     alterEgoProjectile = PlayerPoolManager.instance.GetProjectile((int)element);
-                    alterEgoProjectile.transform.position = transform.position;
-                    alterEgoProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * 10f;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
+                    alterEgoProjectile.transform.position = alterEgoPlayer.transform.position+Vector3.right* 0.5f;
+                    alterEgoProjectile.GetComponent<Projectile>().ShootProjectile(1); // 발사체 방향은 플레이어가 바라보는 방향으로 설정
                     DestroySeperationPlayer();
                     CancelInvoke("DestroySeperationPlayer");
                     break;
                 case ESeperateDirection.Left:
                     alterEgoProjectile = PlayerPoolManager.instance.GetProjectile((int)element);
-                    alterEgoProjectile.transform.position = transform.position;
-                    alterEgoProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * -10f;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
+                    alterEgoProjectile.transform.position = alterEgoPlayer.transform.position + Vector3.right*-0.5f;
+                    alterEgoProjectile.GetComponent<Projectile>().ShootProjectile(-1);// 발사체 방향은 플레이어가 바라보는 방향으로 설정
                     DestroySeperationPlayer();
                     CancelInvoke("DestroySeperationPlayer");
                     break;

@@ -37085,9 +37085,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefabs:
-  - {fileID: 4658070668546091903, guid: 9da96470d5f6f2e41b3d4b017567745d, type: 3}
-  - {fileID: 4658070668546091903, guid: 9da96470d5f6f2e41b3d4b017567745d, type: 3}
-  - {fileID: 4658070668546091903, guid: 9da96470d5f6f2e41b3d4b017567745d, type: 3}
+  - {fileID: 7957678560335066253, guid: 5053ec84d38f67e4eaa59f3910b824fa, type: 3}
+  - {fileID: 1849254604418984248, guid: a3517625e545ddb46bed23a1e9a5d818, type: 3}
+  - {fileID: 7957678560335066253, guid: 5053ec84d38f67e4eaa59f3910b824fa, type: 3}
   alterEgoPrefabs:
   - {fileID: 224977145632255577, guid: 098e089a4cb8f6f4a93be546bb6249a5, type: 3}
   - {fileID: 371242048915732598, guid: f8b839baab4884b41ae7b212e4d18934, type: 3}

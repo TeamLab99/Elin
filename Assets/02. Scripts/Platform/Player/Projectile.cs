@@ -6,32 +6,34 @@ public class Projectile : MonoBehaviour
 {
     public int speed;
     public int damage;
-    public float hitTime;
-    public ParticleSystem projectileHeadParticle;
+    public GameObject projectileHead;
     public GameObject projectileHit;
     public GameObject projectileParent;
 
     protected Rigidbody2D rb;
-    protected WaitForSeconds hitParticleTime;
+    protected WaitForSeconds hitParticleTime= new WaitForSeconds(0.5f);
 
     protected void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        WaitForSeconds hitParticleTime = new WaitForSeconds(hitTime);
     }
 
     protected IEnumerator CollisionEffect()
     {
-        projectileHeadParticle.Stop();
+        projectileHead.SetActive(false);
         projectileHit.SetActive(true);
         yield return hitParticleTime;
         projectileHit.SetActive(false);
         projectileParent.SetActive(false);
     }
 
-    public void ShootProjectile(int _dir)
+    public virtual void ShootProjectile(int _dir)
     {
         rb.velocity = _dir * speed * Vector2.right;
     }
 
+    private void OnEnable()
+    {
+        projectileHead.SetActive(true);
+    }
 }
