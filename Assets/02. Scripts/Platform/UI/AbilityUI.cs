@@ -26,10 +26,10 @@ public class AbilityUI : MonoBehaviour
     private void Start() // 초기화
     {
         ChangeAbilityType(0); 
-        ChangeElementType(ESorting.None); 
+        ChangeElementType(EProjectileType.None); 
     }
 
-    public void ChangeElementType(ESorting _estort)
+    public void ChangeElementType(EProjectileType _estort)
     {
         elementImage.sprite = elementTypeImages[(int)(_estort)];
     }

@@ -8,8 +8,7 @@ public class ItemManager : Singleton<ItemManager>
     public Dictionary<int, Items> holdItemDataBase; // 들고 있는 아이템들
     public List<Items> holdEquipList;
     public List<Items> wearEquipList;
-    
-    
+   
     private InvenUI invenUI;
     private int money = 200;
     private WaitForSeconds itemCoolTime = new WaitForSeconds(0.2f);

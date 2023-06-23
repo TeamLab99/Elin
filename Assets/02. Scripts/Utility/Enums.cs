@@ -64,9 +64,16 @@ public enum EGems
 
 public enum ESeperateDirection
 {
-    None,
-    Right,
-    Left
+    Left = 0,
+    Right=1,
+    None = 2
+}
+
+public enum EProjectileType
+{
+    None = 0,
+    Fire =1,
+    Water=2
 }
 
 public enum EUiAnimation

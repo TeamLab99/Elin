@@ -8,16 +8,16 @@ public class PlayerAbilityController : MonoBehaviour
     AbilityUI abilityUI;
     SpriteRenderer spr;
 
-    public GameObject leftSeperationPlayer;
-    public GameObject rightSeperationPlayer;
-    public GameObject[] projectilePrefab;
+    GameObject alterEgoPlayer;
+    GameObject alterEgoProjectile;
+    GameObject playerProjectile;
 
     private int currentAbilityState = 0; 
     private int playerDir = 1; 
     private bool isSeparated = false;  
     private bool coolDownAbsorption = true; // false이면 쿨타임중
     private bool coolDownProjectile = true; // false이면 쿨타임중
-    private ESorting element = ESorting.None;
+    private EProjectileType element = EProjectileType.None;
     private ESeperateDirection seperateDirection = ESeperateDirection.None; 
 
     private void Awake()
@@ -70,14 +70,14 @@ public class PlayerAbilityController : MonoBehaviour
         {
             if (playerDir == 1)
             {
-                rightSeperationPlayer.SetActive(true);
-                rightSeperationPlayer.transform.position = transform.position;
+                alterEgoPlayer=PlayerPoolManager.instance.GetAlterEgo((int)ESeperateDirection.Right);
+                alterEgoPlayer.transform.position = transform.position;
                 seperateDirection = ESeperateDirection.Right;
             }
             else
             {
-                leftSeperationPlayer.SetActive(true);
-                leftSeperationPlayer.transform.position = transform.position;
+                alterEgoPlayer = PlayerPoolManager.instance.GetAlterEgo((int)ESeperateDirection.Left);
+                alterEgoPlayer.transform.position = transform.position;
                 seperateDirection = ESeperateDirection.Left;
             }
             isSeparated = true;
@@ -87,10 +87,8 @@ public class PlayerAbilityController : MonoBehaviour
 
     private void DestroySeperationPlayer()
     {
-        if (seperateDirection== ESeperateDirection.Right)
-            rightSeperationPlayer.SetActive(false);
-        if (seperateDirection == ESeperateDirection.Left)
-            leftSeperationPlayer.SetActive(false);
+        if (seperateDirection != ESeperateDirection.None)
+            alterEgoPlayer.SetActive(false);
         isSeparated = false;
         seperateDirection = ESeperateDirection.None;
     }
@@ -107,8 +105,8 @@ public class PlayerAbilityController : MonoBehaviour
             {
                 if (collider.CompareTag("Fire"))
                 {
-                    element = ESorting.Fire;
-                    abilityUI.ChangeElementType(ESorting.Fire);
+                    element = EProjectileType.Fire;
+                    abilityUI.ChangeElementType(EProjectileType.Fire);
                     return;
                 }
             }
@@ -127,24 +125,27 @@ public class PlayerAbilityController : MonoBehaviour
         {
             coolDownProjectile = false;
             Invoke("CoolDownProjectile", 2f);
-            GameObject projectile = Instantiate(projectilePrefab[(int)element], transform.position, Quaternion.identity);
-            projectile.GetComponent<Rigidbody2D>().velocity = transform.right * 10f * playerDir;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
+            playerProjectile = PlayerPoolManager.instance.GetProjectile((int)element);
+            playerProjectile.transform.position = transform.position;
+            playerProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * 10f * playerDir;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
             switch (seperateDirection)
             {
                 case ESeperateDirection.Right:
-                    GameObject rightProjectile = Instantiate(projectilePrefab[(int)element], rightSeperationPlayer.transform.position, Quaternion.identity);
-                    rightProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * 10f;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
+                    alterEgoProjectile = PlayerPoolManager.instance.GetProjectile((int)element);
+                    alterEgoProjectile.transform.position = transform.position;
+                    alterEgoProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * 10f;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
                     DestroySeperationPlayer();
                     CancelInvoke("DestroySeperationPlayer");
                     break;
                 case ESeperateDirection.Left:
-                    GameObject leftProjectile = Instantiate(projectilePrefab[(int)element], leftSeperationPlayer.transform.position, Quaternion.identity);
-                    leftProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * -10f;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
+                    alterEgoProjectile = PlayerPoolManager.instance.GetProjectile((int)element);
+                    alterEgoProjectile.transform.position = transform.position;
+                    alterEgoProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * -10f;  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
                     DestroySeperationPlayer();
                     CancelInvoke("DestroySeperationPlayer");
                     break;
             }
-            abilityUI.ChangeElementType(ESorting.None);
+            abilityUI.ChangeElementType(EProjectileType.None);
         }
     }
     private void CoolDownProjectile()
