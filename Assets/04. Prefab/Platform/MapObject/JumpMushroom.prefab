@@ -140,8 +140,10 @@ GameObject:
   - component: {fileID: 2149962587555869362}
   - component: {fileID: 2149962587555869365}
   - component: {fileID: 2149962587555869364}
+  - component: {fileID: 3333584498482882469}
+  - component: {fileID: 8632156360748097579}
   m_Layer: 0
-  m_Name: JumpMushroom_IDLE
+  m_Name: JumpMushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,8 +157,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2149962587555869367}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.46, y: -0.29, z: 0}
-  m_LocalScale: {x: 0.4974, y: 0.4974, z: 0.4974}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2149962588464593557}
@@ -251,8 +253,8 @@ MonoBehaviour:
   - {fileID: 2149962588471258318}
   - {fileID: 2149962588985360310}
   m_Bounds:
-    m_Center: {x: 0.84090686, y: -1.6208901, z: 0}
-    m_Extent: {x: 4.0249996, y: 5.1991096, z: 0}
+    m_Center: {x: 0.8409071, y: -1.6208906, z: 0}
+    m_Extent: {x: 4.0249996, y: 5.19911, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -276,6 +278,44 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &3333584498482882469
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2149962587555869367}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.8, y: 2}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 20.36, y: 17.96}
+    newSize: {x: 20.36, y: 17.96}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 8, y: 3}
+  m_EdgeRadius: 0
+--- !u!114 &8632156360748097579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2149962587555869367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7590d256935695647bb357420a79a49c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2149962587561690674
 GameObject:
   m_ObjectHideFlags: 0

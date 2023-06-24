@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerAbilityController : MonoBehaviour
 {
+    public ParticleSystem[] playerAbsorptionParticle;
+
     AbilityUI abilityUI;
     SpriteRenderer spr;
 
@@ -99,16 +101,18 @@ public class PlayerAbilityController : MonoBehaviour
         if (Input.GetKey(KeyCode.Z) && coolDownAbsorption)
         {
             coolDownAbsorption = false;
+            playerAbsorptionParticle[0].Play();
+            playerAbsorptionParticle[1].Play();
             Invoke("CoolDownAbsorption", 2f);
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 3f);
             foreach (Collider2D collider in colliders) // 가장 가까운 속성을 따라감
             {
-               /* if (collider.CompareTag("WaterElement"))
+                if (collider.CompareTag("WaterElement"))
                 {
-                    element = EProjectileType.Fire;
-                    abilityUI.ChangeElementType(EProjectileType.Fire);
+                    element = EProjectileType.Water;
+                    abilityUI.ChangeElementType(EProjectileType.Water);
                     return;
-                }*/
+                }
             }
         }
     }
@@ -146,6 +150,7 @@ public class PlayerAbilityController : MonoBehaviour
                     break;
             }
             abilityUI.ChangeElementType(EProjectileType.None);
+            element = EProjectileType.None;
         }
     }
     private void CoolDownProjectile()

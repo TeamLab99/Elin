@@ -23,6 +23,7 @@ TagManager:
   - Gauge
   - PlatformUI
   - WaterCrystal
+  - WaterElement
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,8 @@ public class PlayerMove : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer spr;
 
+    public ParticleSystem[] playerParticles;
+
     [Header("Ground Check")]
     [SerializeField] Transform footPos;
     [SerializeField] Transform checkPos;
@@ -115,6 +117,8 @@ public class PlayerMove : MonoBehaviour
 
     private void Walk()
     {
+        if (isGround && moveDir!=0)
+            playerParticles[(int)EPlayerParticle.Move].Play();
         rb.velocity = new Vector2(xSpeed * moveDir, rb.velocity.y);
     }
 
@@ -148,4 +152,9 @@ public class PlayerMove : MonoBehaviour
         Gizmos.DrawWireCube(footPos.position, boxSize);
     }
 
+    public void JumpMushroom()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, 25);
+        playerParticles[(int)EPlayerParticle.Jump].Play();
+    }
 }
