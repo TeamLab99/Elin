@@ -4938,7 +4938,7 @@ GameObject:
   - component: {fileID: 1539845293031116013}
   m_Layer: 18
   m_Name: WaterProjectile
-  m_TagString: Untagged
+  m_TagString: WaterElement
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5015,6 +5015,7 @@ MonoBehaviour:
   projectileHead: {fileID: 3260386365645373541}
   projectileHit: {fileID: 5373519746890453265}
   projectileParent: {fileID: 1849254604418984248}
+  projectileType: 0
 --- !u!1 &3260386365645373541
 GameObject:
   m_ObjectHideFlags: 0

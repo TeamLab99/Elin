@@ -5020,7 +5020,7 @@ GameObject:
   - component: {fileID: 5660154624806435285}
   m_Layer: 18
   m_Name: NormalProjectile
-  m_TagString: Untagged
+  m_TagString: NormalProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5097,6 +5097,7 @@ MonoBehaviour:
   projectileHead: {fileID: 8730953925770713404}
   projectileHit: {fileID: 5009401909638947745}
   projectileParent: {fileID: 7957678560335066253}
+  projectileType: 0
 --- !u!1 &8386848437195895093
 GameObject:
   m_ObjectHideFlags: 0

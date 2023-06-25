@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     public GameObject projectileHead;
     public GameObject projectileHit;
     public GameObject projectileParent;
+    public EProjectileType projectileType;
 
     protected Rigidbody2D rb;
     protected WaitForSeconds hitParticleTime= new WaitForSeconds(0.5f);

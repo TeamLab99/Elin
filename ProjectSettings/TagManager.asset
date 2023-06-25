@@ -22,8 +22,9 @@ TagManager:
   - DL
   - Gauge
   - PlatformUI
-  - WaterCrystal
   - WaterElement
+  - NormalProjectile
+  - WaterProjectile
   layers:
   - Default
   - TransparentFX
