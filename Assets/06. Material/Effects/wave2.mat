@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-2249950783238312557
+--- !u!114 &-8239293146103961034
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: wind_cc 1
-  m_Shader: {fileID: -6465566751694194690, guid: 7e5cbe2b43f03c6498a0a9caee6d9a58, type: 3}
+  m_Name: wave2
+  m_Shader: {fileID: -6465566751694194690, guid: b38d35082c41d3a4f8b285418ba6eb25, type: 3}
   m_ValidKeywords:
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
@@ -36,23 +36,15 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
+    - _Base_tex:
+        m_Texture: {fileID: 2800000, guid: 42b26bf9f4058cc43b66b46731a4e933, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Base_Tex:
-        m_Texture: {fileID: 2800000, guid: ba92357f865dd1f45a012eea22d006fd, type: 3}
+    - _Mask_Tex:
+        m_Texture: {fileID: 2800000, guid: 0039ef825faad484eba0c37ebd9e378e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MaskTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NormalMap:
+    - _add_tex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -73,10 +65,9 @@ Material:
     - _AlphaClip: 0
     - _Blend: 2
     - _CastShadows: 1
-    - _Cull: 0
+    - _Cull: 2
     - _DstBlend: 1
-    - _EnableExternalAlpha: 0
-    - _Power: 1.86
+    - _Float: 4.45
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SrcBlend: 5
@@ -84,10 +75,15 @@ Material:
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
+    - _add_power: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _tiling: {r: 1, g: 1, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Mask_offset: {r: 0, g: -0.1, b: 0, a: 0}
+    - _Mask_tiling: {r: 3.12, g: 0.92, b: 0, a: 0}
+    - _add_flow: {r: 0, g: 0, b: 0, a: 0}
+    - _add_offset: {r: 0, g: 0, b: 0, a: 0}
+    - _add_tiling: {r: 1, g: 1, b: 0, a: 0}
+    - _flow: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _offset: {r: 0, g: 0, b: 0, a: 0}
+    - _tiling: {r: 2.2, g: 0.75, b: 0, a: 0}
   m_BuildTextureStacks: []
