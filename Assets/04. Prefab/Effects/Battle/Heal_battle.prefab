@@ -4880,7 +4880,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1064698681835155416}
   m_Layer: 0
-  m_Name: Heal_battle
+  m_Name: Heal_Battle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
