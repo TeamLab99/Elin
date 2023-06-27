@@ -7,16 +7,13 @@ public class Bridge : MonoBehaviour
     public Transform bridgeTransform; // 다리의 Transform 컴포넌트를 참조할 변수
     private Quaternion targetRotation = Quaternion.Euler(0f, 0f, 0f); // 목표 회전값을 저장할 변수
     public float rotationSpeed = 3f; // 회전 속도 설정
+    public int crystalCnt = 0;
+    public bool bothCharge = false;
+
     Animator anim;
     private void Awake()
     {
         anim = GetComponent<Animator>();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.W))
-            LayBridge();
     }
 
     public void LayBridge()
@@ -38,5 +35,16 @@ public class Bridge : MonoBehaviour
         }
 
         bridgeTransform.rotation = targetRotation; // 최종 목표 회전값 설정
+    }
+
+
+    public void BothLayBridge()
+    {
+        crystalCnt += 1;
+        if (crystalCnt == 2)
+        {
+            bothCharge = true;
+            anim.SetBool("Active", true);
+        }
     }
 }

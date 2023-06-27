@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Slot : MonoBehaviour
+public class ItemSlot : MonoBehaviour
 {
     [SerializeField] Image itemIcon;
     [SerializeField] Text itemCntText;
@@ -11,12 +11,12 @@ public class Slot : MonoBehaviour
     private Items holdItemInfo;
     Color transparentColor = Color.white;
     Color nontransparentColor = Color.white;
-    
     private int itemIdx;
+
     private void Awake()
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(ClickButton);
+        //button = GetComponent<Button>();
+        //button.onClick.AddListener(ClickButton);
         transparentColor.a = 0f;
         nontransparentColor.a = 1f;
     }
@@ -41,20 +41,11 @@ public class Slot : MonoBehaviour
         itemIcon.color = transparentColor;
     } 
 
-    public void ClickButton()
+    public void ClickItemSlot()
     {
-        if (holdItemInfo == null)
-        {
+        if (itemIcon.sprite == null)
             return;
-        }
-        switch (holdItemInfo.itemID / 100)
-        {
-            case 2:
-                ItemManager.instance.TakeOnEquipment(holdItemInfo, itemIdx);
-                break;
-            default:
-                ItemManager.instance.UseItem(holdItemInfo.itemID);
-                break;
-        }
+        InvenUI.instance.itemInfoObject.SetActive(true);
+        InvenUI.instance.itemInfoUI.ChangeItemInfo(holdItemInfo, itemIdx);
     }
 }

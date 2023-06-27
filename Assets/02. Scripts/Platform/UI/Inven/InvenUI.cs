@@ -10,17 +10,20 @@ public enum ItemTypes
     Etc
 }
 
-public class InvenUI : MonoBehaviour
+public class InvenUI : Singleton<InvenUI>
 {
-    public Slot[] itemSlots;
+    public ItemSlot[] itemSlots;
     public Text moneyText;
     public Transform itemSlotsTransform;
     public EquipSlot[] equipSlots;
     public Transform equipSlotsTransform;
     public ItemTypes itemTypeEnum = ItemTypes.Con;
+    public ItemInfoUI itemInfoUI;
+    public GameObject itemInfoObject;
 
-    private int slotSize=0;
     public int wearSlotSize = 0;
+    private int slotSize=0;
+    
     private string itemTypeString;
     private InvenTabSlot[] invenTabSlots;
     private List<Items> showItemList = new List<Items>(); // 보여지는 아이템들
@@ -28,10 +31,10 @@ public class InvenUI : MonoBehaviour
 
     private void Awake()
     {
-        itemSlots = itemSlotsTransform.GetComponentsInChildren<Slot>();
+        itemSlots = itemSlotsTransform.GetComponentsInChildren<ItemSlot>();
         equipSlots = equipSlotsTransform.GetComponentsInChildren<EquipSlot>();
         invenTabSlots = GetComponentsInChildren<InvenTabSlot>();
-        ItemManager.instance.RegisterInvenUI(this);
+        StartCoroutine("LoadingItemList");
     }
 
     public void ClassificationItems()
@@ -60,7 +63,7 @@ public class InvenUI : MonoBehaviour
 
     public void AllSlotClear()
     {
-        foreach (Slot _itemSlots in itemSlots)
+        foreach (ItemSlot _itemSlots in itemSlots)
         {
             _itemSlots.RemoveItem();
         }
@@ -93,13 +96,7 @@ public class InvenUI : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        ClassificationItems();
-        WearEquipmentItems();
-        SetUpMoneyText();
-        //StartCoroutine("LoadingItemList");
-    }
+
 
     public void ChangeTab(ItemTypes _itemType)
     {
@@ -109,10 +106,13 @@ public class InvenUI : MonoBehaviour
             invenTabSlots[i].SelectButtonEffect();
     }
 
-    /*IEnumerator LoadingItemList()
+    IEnumerator LoadingItemList()
     {
         yield return new WaitForEndOfFrame();
-    }*/
+        ClassificationItems();
+        WearEquipmentItems();
+        SetUpMoneyText();
+    }
 
     public void SetUpMoneyText()
     {
