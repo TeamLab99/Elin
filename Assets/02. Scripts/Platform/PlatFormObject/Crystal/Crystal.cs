@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Crystal : MonoBehaviour
 {
-    protected bool isCharge = false;
-
+    public bool isCharge = false;
+    public Bridge bridge;
     public void ActionPuzzle()
     {
-        Debug.Log("퍼즐 수행!");
+        bridge.LayBridge();
     }
 }
