@@ -154,7 +154,7 @@ public class PlayerMove : MonoBehaviour
 
     public void JumpMushroom()
     {
-        rb.velocity = new Vector2(rb.velocity.x, 25);
+        rb.velocity = new Vector2(rb.velocity.x, 40);
         playerParticles[(int)EPlayerParticle.Jump].Play();
     }
 }

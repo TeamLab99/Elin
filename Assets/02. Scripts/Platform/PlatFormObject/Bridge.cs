@@ -7,6 +7,11 @@ public class Bridge : MonoBehaviour
     public Transform bridgeTransform; // 다리의 Transform 컴포넌트를 참조할 변수
     private Quaternion targetRotation = Quaternion.Euler(0f, 0f, 0f); // 목표 회전값을 저장할 변수
     public float rotationSpeed = 3f; // 회전 속도 설정
+    Animator anim;
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -16,7 +21,7 @@ public class Bridge : MonoBehaviour
 
     public void LayBridge()
     {
-        StartCoroutine(RotateBridge());
+        anim.SetBool("Active", true);
     }
 
     IEnumerator RotateBridge()
