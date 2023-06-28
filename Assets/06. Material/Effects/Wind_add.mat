@@ -68,7 +68,7 @@ Material:
     - _Cull: 2
     - _DstBlend: 1
     - _EnableExternalAlpha: 0
-    - _Power: 1.47
+    - _Power: 1.94
     - _Power_1: 11.35
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -84,7 +84,7 @@ Material:
     - _Offset: {r: 0.06, g: 0, b: 0, a: 0}
     - _Offset_1: {r: 0, g: 0.11, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Tiling: {r: -0.59, g: 0.94, b: 0, a: 0}
+    - _Tiling: {r: 1.8, g: 0.61, b: 0, a: 0}
     - _Tiling_1: {r: 1, g: 1.27, b: 0, a: 0}
     - _tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

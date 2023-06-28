@@ -27,6 +27,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 42b26bf9f4058cc43b66b46731a4e933, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Mask_Tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _add_tex:
         m_Texture: {fileID: 2800000, guid: 5282f344955f9ea45a6a59abb2ee952d, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -58,13 +62,15 @@ Material:
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
-    - _add_power: 0.03
+    - _add_power: 0.01
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Mask_offset: {r: 0, g: 0, b: 0, a: 0}
+    - _Mask_tiling: {r: 1, g: 1, b: 0, a: 0}
     - _add_flow: {r: 0, g: 0, b: 0, a: 0}
     - _add_offset: {r: 0, g: 0, b: 0, a: 0}
     - _add_tiling: {r: 1, g: 1, b: 0, a: 0}
-    - _flow: {r: -0.5, g: -0.5, b: 0, a: 0}
+    - _flow: {r: 0, g: -0.5, b: 0, a: 0}
     - _offset: {r: 0, g: 0, b: 0, a: 0}
     - _tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
