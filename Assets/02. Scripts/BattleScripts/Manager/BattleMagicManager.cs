@@ -5,48 +5,78 @@ using UnityEngine;
 
 public class BattleMagicManager : Singleton<BattleMagicManager>
 {
-    Player player;
+    BattlePlayer player;
     BattleMonster monster;
 
-    [SerializeField]GameObject skillPrefab;
-    [SerializeField]GameObject skillEffectPrefab;
-    GameObject hitEffectPrefab;
+    [SerializeField] MagicSO magic;
 
-    GameObject skill;
-    public void SetEntites(Player player, BattleMonster monster)
+    public void SetEntites(BattlePlayer player, BattleMonster monster)
     {
         this.player = player;
         this.monster = monster;
-
-        //Managers.Pool.CreatePool(skillPrefab);
     }
 
-/*    public void CallMagic(DeckCard magic)
+    public void CallMagic(DeckCard card)
     {
-        switch (magic.type)
+        switch (card.cardName)
         {
-            case "A":
-                Attack(magic);
+            case "구르기":
+                Rolling(card);
                 break;
-            case "B":
-                Buff(magic);
-                break;
-            case "D":
-                Debuff(magic);
-                break;
-            case "AB":
-                AttackAndBuff(magic);
-                break;
-            case "AD":
-                AttackAndDebuff(magic);
-                break;
-            case "BD":
-                BuffAndDebuff(magic);
+            case "버티기":
+                Defense(card);
                 break;
             default:
-                Debug.Log("존재하지 않는 타입의 마법입니다.");
+                Debug.Log("존재하지 않는 마법입니다.");
                 break;
         }
-    }*/
+    }
 
+    #region Buff
+    public void Rolling(DeckCard card)
+    {
+        var skillEffect = magic.items[card.index - 1].skillEffect;
+        var skillIcon = magic.items[card.index - 1].skillIcon;
+        var playerBuffDebuffList = player.battleBuffDebuff.buffDebuffList;
+
+        if (playerBuffDebuffList.Find(item => item is Rolling))
+        {
+            var skill = playerBuffDebuffList.Find(item => item is Rolling);
+            skill.TimeUpdate();
+        }
+        else
+        {
+            var effect = Managers.Pool.Pop(skillEffect, player.transform.Find("PlayerEffects"));
+            effect.transform.position = player.gameObject.transform.position;
+            
+            var magic = effect.GetComponent<BuffDebuffMagic>();
+            playerBuffDebuffList.Add(magic);
+            magic.ConnectBuffManager(player.battleBuffDebuff, BuffIconsController.instance.GetBuffIconInfo(true));
+        }
+    }
+
+    public void Defense(DeckCard card)
+    {
+        var skillEffect = magic.items[card.index - 1].skillEffect;
+        var skillIcon = magic.items[card.index - 1].skillIcon;
+        var playerBuffDebuffList = player.battleBuffDebuff.buffDebuffList;
+
+        if (playerBuffDebuffList.Find(item => item is Defense))
+        {
+            var skill = playerBuffDebuffList.Find(item => item is Defense);
+            skill.TimeUpdate();
+        }
+        else
+        {
+            var effect = Managers.Pool.Pop(skillEffect, player.transform.Find("PlayerEffects"));
+            effect.transform.position = player.gameObject.transform.position;
+
+            var magic = effect.GetComponent<BuffDebuffMagic>();
+            playerBuffDebuffList.Add(magic);
+            magic.ConnectBuffManager(player.battleBuffDebuff, BuffIconsController.instance.GetBuffIconInfo(true));
+        }
+
+    }
+
+    #endregion
 }

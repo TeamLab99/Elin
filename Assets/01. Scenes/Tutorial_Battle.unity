@@ -426,6 +426,7 @@ GameObject:
   - component: {fileID: 35526252}
   - component: {fileID: 35526256}
   - component: {fileID: 35526257}
+  - component: {fileID: 35526258}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -565,6 +566,20 @@ MonoBehaviour:
   boxSize: {x: 1, y: 0.3}
   xSpeed: 5
   ySpeed: 10
+--- !u!114 &35526258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35526247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f711597edb108743af7b2af22e8b580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpTMP: {fileID: 1826009839}
+  battleBuffDebuff: {fileID: 0}
 --- !u!1001 &37123660
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1019,11 +1034,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 56970031}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c4ab1b100e04fa46a6db43396447461, type: 3}
+  m_Script: {fileID: 11500000, guid: 78539941f62ceaa469fdd5b0ca64787a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillPrefab: {fileID: 4655407308136541105, guid: 2e7997aafab99694692dca4bfbcbc79f, type: 3}
-  skillEffectPrefab: {fileID: 5118234223389634639, guid: 03da0fb161f4bc34b90fcfc869853f80, type: 3}
+  magic: {fileID: 11400000, guid: ad46b7d0c6734264db55276d93524b49, type: 2}
 --- !u!1 &93683134
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,8 +1332,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967f70f555e7f3e49a4bd028a1df8d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monPrefabs: []
-  extraPrefabs: []
+  projectilePrefabs: []
+  alterEgoPrefabs: []
 --- !u!4 &149641214
 Transform:
   m_ObjectHideFlags: 0
@@ -1910,7 +1924,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 232891210}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -24105,9 +24119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a474bb952bd4d1246a8dbca283357daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 1630716458}
-  playerObject: {fileID: 35526247}
   notificationPanel: {fileID: 0}
+  mainCamera: {fileID: 1630716458}
+  player: {fileID: 35526247}
+  monster: {fileID: 1037606699}
   ease: 7
 --- !u!1 &952111804
 GameObject:
@@ -24508,6 +24523,7 @@ GameObject:
   - component: {fileID: 1037606701}
   - component: {fileID: 1037606703}
   - component: {fileID: 1037606702}
+  - component: {fileID: 1037606704}
   m_Layer: 0
   m_Name: DummyMonster
   m_TagString: Untagged
@@ -24621,6 +24637,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ee201adee5842f4fbcb58432c72b615, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1037606704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037606699}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6311cb4908c04a54dbe56b69ffe0994e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpTMP: {fileID: 207653125}
+  battleBuffDebuff: {fileID: 0}
+  attackSpeed: 3
+  skillCount: 5
+  monsterState: 1
 --- !u!1001 &1045440959
 PrefabInstance:
   m_ObjectHideFlags: 0

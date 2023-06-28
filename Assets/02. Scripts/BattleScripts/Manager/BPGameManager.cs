@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,9 +20,9 @@ public class BPGameManager : MonoBehaviour
     GameObject mobObject;
     Monster monster;
 
-    /*    [SerializeField] NotificationPanel notificationPanel;
+    *//*    [SerializeField] NotificationPanel notificationPanel;
     Color32 red = new Color32(255, 0, 0, 255);
-    Color32 yellow = new Color32(255, 244, 0, 255);*/
+    Color32 yellow = new Color32(255, 244, 0, 255);*//*
 
     private void Start()
     {
@@ -57,7 +57,7 @@ public class BPGameManager : MonoBehaviour
         #endregion
 
         #region 방향키 선택
-        /*        // 오른쪽 방향키
+        *//*        // 오른쪽 방향키
                 if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
                     StartCoroutine(CardManager.Inst.MoveToArrow(true));
@@ -77,7 +77,7 @@ public class BPGameManager : MonoBehaviour
                 {
                     StopAllCoroutines();
                     CardManager.Inst.StopCo();
-                }*/
+                }*//*
         #endregion
 
         #region 그 외
@@ -140,3 +140,4 @@ public class BPGameManager : MonoBehaviour
         monster.SetStopGauge(isStop);
     }
 }
+*/

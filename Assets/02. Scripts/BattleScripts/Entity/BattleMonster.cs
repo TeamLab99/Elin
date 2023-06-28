@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class BattleMonster : BattleEntity
+public class BattleMonster : BattleEntity
 {
     [SerializeField] int attackSpeed;
     [SerializeField] int skillCount;
@@ -14,7 +14,7 @@ public abstract class BattleMonster : BattleEntity
     bool stopGauge;
 
     Image gauge;
-    WaitForSeconds delay001 = new WaitForSeconds(0.01f);
+    WaitForSeconds delay = new WaitForSeconds(0.0001f);
 
     enum EMonsterState { Stop, Idle, Attack, Skill };
 
@@ -22,41 +22,42 @@ public abstract class BattleMonster : BattleEntity
     {
         maxTime = attackSpeed;
         curTime = maxTime;
+        battleBuffDebuff = gameObject.AddComponent<BattleBuffManager>();
+        StartCoroutine(GetGaugeUI());
     }
 
     public IEnumerator GetGaugeUI()
     {
         yield return new WaitForEndOfFrame();
         gauge = GameObject.FindGameObjectWithTag("Gauge").GetComponent<Image>();
-    }
-
-    public override void BuffCheck()
-    {
-        throw new System.NotImplementedException();
-        // 갖고 있는 버프/디버프 리스트 배틀 매니저에 반환?
-        // 턴매니저 == 배틀 매니저?
+        StartCoroutine(GaugeTimer());
     }
 
     protected IEnumerator GaugeTimer()
     {
         gauge.fillAmount = curTime / maxTime;
 
-        if (monsterState == EMonsterState.Idle)
+        if (!stopGauge)
         {
             curTime -= Time.deltaTime;
             if (curTime <= 0)
             {
-                Debug.Log("공격!");
+                // 몬스터 패턴
+                Debug.Log("공격!"); 
                 curTime = maxTime;
             }
         }
-
-        yield return null;
+        yield return delay;
         StartCoroutine(GaugeTimer());
     }
 
     public void StartBattle()
     {
         StartCoroutine(GaugeTimer());
+    }
+
+    public override void BuffCheck()
+    {
+        throw new System.NotImplementedException();
     }
 }

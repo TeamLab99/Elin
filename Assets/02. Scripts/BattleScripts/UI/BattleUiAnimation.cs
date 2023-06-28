@@ -7,7 +7,7 @@ using DG.Tweening;
 public class BattleUiAnimation : MonoBehaviour
 {
     [SerializeField] EUiAnimation eUi;
-    [SerializeField] float targetPosY;
+    [SerializeField] float targetPosXY;
     [SerializeField] float playTime;
     Vector3 originRectPos;
 
@@ -26,6 +26,9 @@ public class BattleUiAnimation : MonoBehaviour
             case EUiAnimation.Cost:
                 CostOnEnableAnimation();
                 break;
+            case EUiAnimation.Buff:
+                BuffOnEnableAnimation();
+                break;
             default:
                 break;
         }
@@ -38,11 +41,16 @@ public class BattleUiAnimation : MonoBehaviour
 
     void GaugeOnEnableAnimation()
     {
-        gameObject.GetComponent<RectTransform>().DOAnchorPosY(targetPosY, playTime);
+        gameObject.GetComponent<RectTransform>().DOAnchorPosY(targetPosXY, playTime);
     }
 
     void CostOnEnableAnimation()
     {
-        gameObject.GetComponent<RectTransform>().DOAnchorPosY(targetPosY, playTime);
+        gameObject.GetComponent<RectTransform>().DOAnchorPosY(targetPosXY, playTime);
+    }
+
+    void BuffOnEnableAnimation()
+    {
+        gameObject.GetComponent<RectTransform>().DOAnchorPosX(targetPosXY, playTime);
     }
 }

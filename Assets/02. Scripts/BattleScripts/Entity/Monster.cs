@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -140,19 +140,4 @@ public class Monster : Entity
         yield return delay01;
         StartCoroutine(TimerGauge());
     }
-
-    #region 전달자
-    public float GetAttackSpeed()
-    {
-        return attackSpeed;
-    }
-    public int GetSkillCount()
-    {
-        return skillCount;
-    }
-    public void SetAttackSpeed(float amount)
-    {
-        attackSpeed = amount;
-    }
-    #endregion
-}
+}*/

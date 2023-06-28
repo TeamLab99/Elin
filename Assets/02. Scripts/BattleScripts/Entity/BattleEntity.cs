@@ -14,7 +14,9 @@ public abstract class BattleEntity : MonoBehaviour
     float maxAttack;
     float buffDefense;
     bool attackable;
-    
+
+    public BattleBuffManager battleBuffDebuff;
+
     //Buff[] buffs;
 
     // Start is called before the first frame update

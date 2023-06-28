@@ -20,9 +20,9 @@ public class BattleTurnManager : Singleton<BattleTurnManager>
     WaitForSeconds delay05 = new WaitForSeconds(0.5f);
 
     public static Action OnAddCard;
-    public static event Action EndDrawPhase;
+    //public static event Action EndDrawPhase;
 
-    public IEnumerator StartGameCo(GameObject ui,float time = 0.5f)
+    public IEnumerator StartGameCo(GameObject ui,BattleMonster monster,float time = 0.5f)
     {
         isLoading = true;
         delay05 = new WaitForSeconds(time);
@@ -35,11 +35,12 @@ public class BattleTurnManager : Singleton<BattleTurnManager>
             OnAddCard?.Invoke();
             yield return delay025;
         }
-        BattleCardManager.instance.SetKey();
 
         BattleGameManager.instance.Notification("전투 시작!");
+        BattleCardManager.instance.SetKey();
         yield return delay05;
 
+        monster.enabled = true;
         isLoading = false;
     }
 
@@ -52,11 +53,9 @@ public class BattleTurnManager : Singleton<BattleTurnManager>
             OnAddCard?.Invoke();
             yield return delay025;
         }
-        BattleCardManager.instance.SetKey();
 
         yield return delay035;
+        BattleCardManager.instance.SetKey();
         isLoading = false;
-        EndDrawPhase?.Invoke();
-        // isLoading으로 엔티티들의 모든 추가 행동을 멈출 것인가?
     }
 }

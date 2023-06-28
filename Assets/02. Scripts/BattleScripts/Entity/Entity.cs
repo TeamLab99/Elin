@@ -12,34 +12,11 @@ using DG.Tweening;
 public class Entity : MonoBehaviour
 {
     [SerializeField] float maxHp;
-    [SerializeField] float defense;
-    [SerializeField] float attack; // 마법 매니저 만들면 몬스터에만 들어갈 속성
+    [SerializeField] float attack;
     [SerializeField] TMP_Text hpTMP;
-    float lastAtkValue;
-    float buffDefense;
     float hp;
 
-    public float ATK
-    {
-        get
-        { return attack; }
-        set {
-            if (value < 0) attack = 0;
-            else attack = value; 
-        }
-    }
-
-    public float BuffDef
-    {
-        get { return buffDefense; }
-        set { if (value < 0) buffDefense = 0; 
-            else attack = value; 
-        }
-    }
-    protected bool stopGauge;
-
-    SpriteRenderer spr;
-
+    public BattleBuffManager battleBuffDebuff;
     PRS originPRS; // 기존 PRS 저장
     Vector3 originPos; // 위치값만 저장
 
@@ -50,78 +27,43 @@ public class Entity : MonoBehaviour
 
     public void InitSetting()
     {
-        spr = GetComponent<SpriteRenderer>();
+        battleBuffDebuff = gameObject.AddComponent<BattleBuffManager>();
         originPRS = new PRS(transform.position, transform.rotation, transform.localScale);
         originPos = originPRS.pos;
         hp = maxHp;
-        lastAtkValue = attack;
         HPTxtUpdate();
     }
 
-    public void Attack(Entity entity)
+    public void Attack(Entity entity, int value)
     {
-        if (attack <= 0)
-        {
-            attack = 0;
-        }
-        entity.TakeDmg(attack);
+        entity.TakeDmg(value);
     }
 
     public void TakeDmg(float amount)
     {
-        amount -= defense;
-        hp -= amount;
-
-        if (hp <= 0)
+        if (hp - amount <= 0)
         {
             hp = 0;
-            stopGauge = true;
-            StartCoroutine(EffectManager.Inst.DeadMotion(spr));
-            StartCoroutine(BPGameManager.Inst.GameOver());
+            Debug.Log("게임 오버");
         }
+        else
+            hp -= amount;
+
         HPTxtUpdate();
     }
 
     public void Heal(float amount)
     {
-        hp += amount;
-
-        if (hp > maxHp)
+        if (hp + amount >= maxHp)
             hp = maxHp;
+        else
+            hp += amount;
 
         HPTxtUpdate();
-    }
-
-    public void PlusBuffDefense(float amount)
-    {
-        buffDefense += amount;
     }
 
     public void HPTxtUpdate()
     {
         hpTMP.text = hp.ToString();
     }
-
-    #region Getter,Setter
-    public void SetStopGauge(bool isBool)
-    {
-        stopGauge = isBool;
-    }
-
-    public void ReturnAtkValue()
-    {
-        attack = lastAtkValue;
-    }
-
-    public float GetBuffDefense()
-    {
-        return buffDefense;
-    }
-
-    public void SetBuffDefenseZero()
-    {
-        buffDefense = 0;
-    }
-    #endregion
-
 }

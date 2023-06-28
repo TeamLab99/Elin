@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using Random = UnityEngine.Random;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,3 +34,4 @@ public class Squirrel : Monster
         yield return null;
     }
 }
+*/

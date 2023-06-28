@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -19,7 +19,7 @@ public class Card : MonoBehaviour
     #endregion
 
     // 카드에 담긴 정보, 초기 위치
-    public Item item;
+    public MagicResources item;
     public PRS originPRS;
 
     // 애니메이션 재생을 위한 시퀀스
@@ -27,15 +27,15 @@ public class Card : MonoBehaviour
     Sequence mySequence2;
 
     // 카드에 정보 Setup
-    public void Setup(Item item)
+    public void Setup(MagicResources item)
     {
         this.item = item;
-        character.sprite = this.item.sprite;
+*//*        character.sprite = this.item.sprite;
         nameTMP.text = this.item.name;
         typeTMP.text = this.item.type;
         attackTMP.text = this.item.attack.ToString();
         healthTMP.text = this.item.health.ToString();
-        costTMP.text = this.item.cost.ToString();
+        costTMP.text = this.item.cost.ToString();*//*
 
         switch (this.item.id)
         {
@@ -111,3 +111,4 @@ public class Card : MonoBehaviour
         return int.Parse(str);
     }
 }
+*/

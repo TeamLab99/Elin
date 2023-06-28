@@ -42,7 +42,7 @@ public class BattleCard : MonoBehaviour
 
     public IEnumerator MoveTransformCoroutine(PRS prs, bool useDotween, float dotweenTime = 0)
     {
-        keyTMP.gameObject.SetActive(false);
+        keyTMP.text = "";
         if (useDotween)
         {
             Sequence sequence = DOTween.Sequence();
@@ -67,5 +67,12 @@ public class BattleCard : MonoBehaviour
     public void SetKey(string keycode)
     {
         keyTMP.text = keycode;
+    }
+
+    void OnDisable()
+    {
+        GetComponent<SpriteRenderer>().color =Color.white;
+        nameTMP.GetComponent<TMP_Text>().color = Color.white;
+        costTMP.GetComponent<TMP_Text>().color = Color.white;
     }
 }
