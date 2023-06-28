@@ -44,7 +44,10 @@ public class ItemSlot : MonoBehaviour
     public void ClickItemSlot()
     {
         if (itemIcon.sprite == null)
+        {
+            InvenUI.instance.itemInfoObject.SetActive(false);
             return;
+        }
         InvenUI.instance.itemInfoObject.SetActive(true);
         InvenUI.instance.itemInfoUI.ChangeItemInfo(holdItemInfo, itemIdx);
     }
