@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class PlatformMonster : MonoBehaviour
 {
+    public float recognitionRange;
     [SerializeField] protected int hp;
     [SerializeField] protected int speed;
     [SerializeField] protected int lookDir;
-    [SerializeField] protected Vector2 recognitionRange;
     [SerializeField] protected Transform recognitionPos;
     [SerializeField] protected LayerMask playerLayer;
-
+    protected RaycastHit2D playerHit;
     protected Animator anim;
     protected bool findPlayer = false;
+    
     
     protected virtual void Awake()
     {

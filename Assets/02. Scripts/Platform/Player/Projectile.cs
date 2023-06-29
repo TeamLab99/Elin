@@ -13,14 +13,18 @@ public class Projectile : MonoBehaviour
 
     protected Rigidbody2D rb;
     protected WaitForSeconds hitParticleTime= new WaitForSeconds(0.5f);
+    protected Collider2D collide;
 
     protected void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        collide = GetComponent<Collider2D>();
     }
 
     protected IEnumerator CollisionEffect()
     {
+        rb.velocity = Vector2.zero;
+        collide.enabled = false;
         projectileHead.SetActive(false);
         projectileHit.SetActive(true);
         yield return hitParticleTime;
@@ -36,5 +40,6 @@ public class Projectile : MonoBehaviour
     private void OnEnable()
     {
         projectileHead.SetActive(true);
+        collide.enabled = true;
     }
 }
