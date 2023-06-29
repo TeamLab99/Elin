@@ -4,18 +4,29 @@ using UnityEngine;
 
 public class PlatformPoisonPlant : PlatformMonster
 {
-    [SerializeField] ParticleSystem[] attackParticle;
+    [SerializeField] ParticleSystem attackEffectParticle;
+    GameObject attackProjectile;
     bool isAttacking=false;
+
+    private void Start()
+    {
+        attackEffectParticle.GetComponent<ParticleSystemRenderer>().flip=new Vector3(lookDir, 0, 0);
+    }
 
     private void Update()
     {
         CheckNearPlayer();
+        FindPlayer();
     }
 
     private void CheckNearPlayer()
     {
-        findPlayer = Physics2D.OverlapBox(recognitionPos.position, recognitionRange, 0f, playerLayer);
-        if (findPlayer && !isAttacking)
+        playerHit = Physics2D.Raycast(recognitionPos.position, lookDir*Vector2.right, recognitionRange, playerLayer);
+    }
+
+    private void FindPlayer()
+    {
+        if (playerHit && !isAttacking)
         {
             anim.SetTrigger("Attack");
             isAttacking = true;
@@ -24,20 +35,20 @@ public class PlatformPoisonPlant : PlatformMonster
 
     public void AttackPlayer()
     {
-        attackParticle[0].Play();
-        attackParticle[1].Play();
-        isAttacking = false;
+        attackEffectParticle.Play();
+        attackProjectile = PlayerPoolManager.instance.GetMonsterAttack(0);
+        attackProjectile.transform.position = recognitionPos.position;
+        attackProjectile.GetComponent<Projectile>().ShootProjectile(lookDir);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void CoolDownAttack()
     {
-        if (collision.gameObject.layer==18)
-            Destroy(gameObject);
+        isAttacking = false;
     }
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(recognitionPos.position, recognitionRange);
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(recognitionPos.position, lookDir * Vector2.right * recognitionRange);
     }
 }
