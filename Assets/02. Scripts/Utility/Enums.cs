@@ -80,4 +80,5 @@ public enum EUiAnimation
 {
     Gauge,
     Cost,
+    Buff
 }

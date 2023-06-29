@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb2897dc443807145bd5868e6abe6199, type: 3}
+  m_Name: MagicSO
+  m_EditorClassIdentifier: 
+  items:
+  - id: 1
+    name: "\uAD6C\uB974\uAE30"
+    skillEffect: {fileID: 4105982107856548525, guid: 884fbe287d67c9a4bbb0939eaf7243d2, type: 3}
+  - id: 2
+    name: "\uBC15\uCE58\uAE30"
+    skillEffect: {fileID: 4978609732441752155, guid: a123de21992980e40947c2ca2ea6f50c, type: 3}
+  - id: 3
+    name: "\uC7AC\uC0DD"
+    skillEffect: {fileID: 6040202953078129332, guid: f68e43f0d6966dc4491cb69a17fafcbb, type: 3}
+  - id: 4
+    name: "\uBC84\uD2F0\uAE30"
+    skillEffect: {fileID: 6848092154663536722, guid: 6d39b720ba38cdd48bd94d0997bd8251, type: 3}

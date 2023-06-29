@@ -26,10 +26,10 @@ public class BattleCardManager : Singleton<BattleCardManager>
     enum ECardState { Loading, CanUseCard, ActivatingCard, Noting }
     bool isSelected;
     bool isCardActivating;
-    bool isAlignment;
+    bool isMonsterAttack;
 
     // 카드 사용 시 몬스터에게 알려줄 이벤트
-    //public static event Action UseTheCard;
+    public static Action<bool> EffectPlayBack;
 
     public DeckCard PopCard()
     {
@@ -74,13 +74,13 @@ public class BattleCardManager : Singleton<BattleCardManager>
     {
         SetupCardBuffer();
         BattleTurnManager.OnAddCard += AddCard;
-        BattleTurnManager.EndDrawPhase += EndDrawPhase;
+        //BattleTurnManager.EndDrawPhase += EndDrawPhase;
     }
 
     void OnDestroy()
     {
         BattleTurnManager.OnAddCard -= AddCard;
-        BattleTurnManager.EndDrawPhase -= EndDrawPhase;
+        //BattleTurnManager.EndDrawPhase -= EndDrawPhase;
     }
 
     public void CreatePoolCard()
@@ -108,27 +108,24 @@ public class BattleCardManager : Singleton<BattleCardManager>
         for (int i = 0; i < myCards.Count; i++)
         {
             var targetCard = myCards[i];
-            targetCard?.GetComponent<Order>().SetOriginOrder(i);
+            targetCard?.GetComponent<Order>().SetOriginOrder(myCards.Count-i);
         }
     }
 
-    void EndDrawPhase()
+/*    void EndDrawPhase()
     {
         // 5장 드로우가 끝나고 실행될 함수
-    }
+    }*/
 
     void Update()
     {
         SetEcardState();
         InputKey();
-
-        if (myCards.Count <= 0 && eCardState != ECardState.Loading)
-            StartCoroutine(BattleTurnManager.instance.ReDrawCards());
     }
 
     void InputKey()
     {
-        if (eCardState == ECardState.CanUseCard && !isAlignment)
+        if (eCardState == ECardState.CanUseCard)
         {
             if (Input.GetKeyDown(KeyCode.A))
                 ChoiceCard(0);
@@ -232,7 +229,6 @@ public class BattleCardManager : Singleton<BattleCardManager>
 
     IEnumerator CardAlignment()
     {
-        isAlignment = true;
         List<PRS> originCardPRSs = new List<PRS>();
         originCardPRSs = RoundAlignment(cardLeft, cardRight, myCards.Count, 0.5f, Vector3.one * 1);
 
@@ -241,10 +237,9 @@ public class BattleCardManager : Singleton<BattleCardManager>
             var targetCard = myCards[i];
 
             targetCard.originPRS = originCardPRSs[i];
-            targetCard.MoveTransform(targetCard.originPRS, true, 0.5f);
+            targetCard.MoveTransform(targetCard.originPRS, true, 0.35f);
         }
-        yield return new WaitForSeconds(0.25f);
-        isAlignment = false;
+        yield return null;
     }
 
     List<PRS> RoundAlignment(Transform leftTr, Transform rightTr, int objCount, float height, Vector3 scale)
@@ -287,11 +282,12 @@ public class BattleCardManager : Singleton<BattleCardManager>
         if (selectCard == null)
             yield break;
         isCardActivating = true;
-        // UseTheCard 이벤트 호출
-
+        EnlargeCard(true, selectCard);
+        EffectPlayBack?.Invoke(true);
         myCards.Remove(selectCard);
 
         yield return StartCoroutine(selectCard.MoveTransformCoroutine(new PRS(cardUseTrasnform.position, Utils.QI, selectCard.originPRS.scale), true, 0.5f));
+        BattleMagicManager.instance.CallMagic(selectCard.deckCard);
         selectCard.DOKill();
         Managers.Pool.Push(selectCard.GetComponent<Poolable>());
 
@@ -305,8 +301,13 @@ public class BattleCardManager : Singleton<BattleCardManager>
             StartCoroutine(CardAlignment());
             SetKey();
         }
+        else
+        {
+            StartCoroutine(BattleTurnManager.instance.ReDrawCards());
+        }
 
         isCardActivating = false;
+        EffectPlayBack?.Invoke(false);
         selectCard = null;
     }
 
@@ -318,9 +319,14 @@ public class BattleCardManager : Singleton<BattleCardManager>
         }
     }
 
+    public void DontUseCard(bool isBool)
+    {
+        isMonsterAttack = isBool;
+    }
+
     void SetEcardState()
     {
-        if (BattleTurnManager.instance.isLoading)
+        if (BattleTurnManager.instance.isLoading || isMonsterAttack)
             eCardState = ECardState.Loading;
 
         else if (isCardActivating)

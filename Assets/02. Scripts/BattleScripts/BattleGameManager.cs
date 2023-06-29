@@ -6,16 +6,13 @@ using DG.Tweening;
 // 치트, UI, 게임 스타트, 오버
 public class BattleGameManager : Singleton<BattleGameManager>
 {
-    [SerializeField] GameObject mainCamera;
-    [SerializeField] GameObject playerObject;
     [SerializeField] NotificationPanel notificationPanel;
+    [SerializeField] GameObject mainCamera;
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject monster;
     [SerializeField] Ease ease;
 
     GameObject battleUI;
-
-    BattleMonster monster;
-    Player player; // playerObject의 컴포넌트로 접근
-
     bool isSetting;
 
     void Start()
@@ -45,20 +42,22 @@ public class BattleGameManager : Singleton<BattleGameManager>
     public void StartBattle(Vector3 mobPos)
     {
         BattleCardManager.instance.CreatePoolCard();
-        BattleMagicManager.instance.SetEntites(player, monster);
+        BattleMagicManager.instance.SetEntites(player.GetComponent<BattlePlayer>(), monster.GetComponent<BattleMonster>());
 
-        playerObject.GetComponent<Player_Move>().enabled = false;
+        player.GetComponent<Player_Move>().rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        player.GetComponent<Player_Move>().enabled = false;
         mainCamera.GetComponent<Camera_Follow>().enabled = false;
 
-        var targetPos = new Vector3(Mathf.Lerp(playerObject.transform.position.x, mobPos.x, 0.5f), mobPos.y, -15);
+        var targetPos = new Vector3(Mathf.Lerp(player.transform.position.x, mobPos.x, 0.5f), mobPos.y, -15);
         mainCamera.transform.DOMove(targetPos, 1.5f).SetEase(ease);
 
-        StartCoroutine(BattleTurnManager.instance.StartGameCo(battleUI, 2f));
+        StartCoroutine(BattleTurnManager.instance.StartGameCo(battleUI, monster.GetComponent<BattleMonster>(), 2f));
+        
     }
 
     public void Win()
     {
-        playerObject.GetComponent<Player_Move>().enabled = true;
+        player.GetComponent<Player_Move>().enabled = true;
         mainCamera.GetComponent<Camera_Follow>().enabled = true;
         // + ui 종료 애니메이션 재생 후 false
         // + 전투 승리 보상 추가

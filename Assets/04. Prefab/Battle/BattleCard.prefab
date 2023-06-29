@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8218296743724695355}
   - component: {fileID: 4356761433790202474}
   - component: {fileID: 8696548420250615036}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: cost_TMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 5655526230791860394}
   - component: {fileID: 1769006818646625522}
   - component: {fileID: 1965144301545569910}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: key_TMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 4060142598591651223}
   - component: {fileID: 5574652151088339824}
   - component: {fileID: 4060142598591651217}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: BattleCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -503,7 +503,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4060142598773736775}
   - component: {fileID: 4060142598773736774}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: magic_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 4060142600191928617}
   - component: {fileID: 4060142600191928619}
   - component: {fileID: 4060142600191928616}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: name_TMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}

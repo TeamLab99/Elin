@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +18,7 @@ public class CardManager : MonoBehaviour
     void Awake() => Inst = this;
 
     #region 인스펙터
-    [SerializeField] ItemSO itemSO;
+    [SerializeField] MagicSO itemSO;
     [SerializeField] GameObject cardPrefab;
     [SerializeField] List<Card> myCards;
     [SerializeField] Transform cardSpawnPoint;
@@ -31,7 +31,7 @@ public class CardManager : MonoBehaviour
     #endregion
 
     // 뽑은 카드들의 정보를 담고 있는 리스트
-    List<Item> itemBuffer;
+    List<MagicResources> itemBuffer;
 
     // 카드 선택 관련
     Card selectCard;
@@ -53,30 +53,30 @@ public class CardManager : MonoBehaviour
     // 모든 카드의 정보를 itemBuffer에 입력하고 랜덤으로 섞기
     private void SetupItemBuffer()
     {
-        itemBuffer = new List<Item>(100); // 미리 캐퍼시티 100으로 용량 설정해주면 메모리 효율적으로 사용
-        for (int i = 0; i < itemSO.items.Length; i++)
+        itemBuffer = new List<MagicResources>(100); // 미리 캐퍼시티 100으로 용량 설정해주면 메모리 효율적으로 사용
+*//*        for (int i = 0; i < itemSO.items.Length; i++)
         {
-            Item item = itemSO.items[i];
+            MagicResources item = itemSO.items[i];
             for (int j = 0; j < item.percent; j++)
                 itemBuffer.Add(item);
-        }
+        }*//*
 
         for (int i = 0; i < itemBuffer.Count; i++)
         {
             int rand = Random.Range(i, itemBuffer.Count);
-            Item temp = itemBuffer[i];
+            MagicResources temp = itemBuffer[i];
             itemBuffer[i] = itemBuffer[rand];
             itemBuffer[rand] = temp;
         }
     }
 
     // ItemBuffer에서 제일 앞에 있는 카드 뽑기
-    public Item PopItem()
+    public MagicResources PopItem()
     {
         if (itemBuffer.Count == 0)
             SetupItemBuffer();
 
-        Item item = itemBuffer[0];
+        MagicResources item = itemBuffer[0];
         itemBuffer.RemoveAt(0); // 뽑고 삭제
         return item;
     }
@@ -278,7 +278,7 @@ public class CardManager : MonoBehaviour
     }
 
     // 카드 사용
-    public void UseCard(Item item)
+    public void UseCard(MagicResources item)
     {
         MagicManager.Inst.UseMagic(item.id);
     }
@@ -342,7 +342,7 @@ public class CardManager : MonoBehaviour
     }
 
     // 방향키 선택
-    /*public IEnumerator MoveToArrow(bool direction)
+    *//*public IEnumerator MoveToArrow(bool direction)
     {
         if (!isCardMoving && myCards.Count > 0)
         {
@@ -412,7 +412,7 @@ public class CardManager : MonoBehaviour
         {
             yield return null;
         }
-    }*/
+    }*//*
 
     // 카드 선택 취소
     public void AllEnlargeCancle()
@@ -484,3 +484,4 @@ public class CardManager : MonoBehaviour
             return false;
     }
 }
+*/

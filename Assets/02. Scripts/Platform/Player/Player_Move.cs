@@ -16,7 +16,7 @@ public class Player_Move : MonoBehaviour
 
     // GetComponent 관련 변수
     Animator anim;
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     SpriteRenderer spr;
 
     bool canMove = true;

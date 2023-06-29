@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
-public abstract class BattleMonster : BattleEntity
+
+public class BattleMonster : BattleEntity
 {
     [SerializeField] int attackSpeed;
     [SerializeField] int skillCount;
     [SerializeField] EMonsterState monsterState;
-
+    [SerializeField] BattlePlayer player;
     float maxTime;
     float curTime;
     bool stopGauge;
 
     Image gauge;
-    WaitForSeconds delay001 = new WaitForSeconds(0.01f);
+    WaitForSeconds delay = new WaitForSeconds(0.0001f);
 
     enum EMonsterState { Stop, Idle, Attack, Skill };
 
@@ -22,41 +24,64 @@ public abstract class BattleMonster : BattleEntity
     {
         maxTime = attackSpeed;
         curTime = maxTime;
+        battleBuffDebuff = gameObject.AddComponent<BattleBuffManager>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<BattlePlayer>();
+        StartCoroutine(GetGaugeUI());
     }
 
     public IEnumerator GetGaugeUI()
     {
         yield return new WaitForEndOfFrame();
         gauge = GameObject.FindGameObjectWithTag("Gauge").GetComponent<Image>();
+        StartCoroutine(GaugeTimer());
     }
 
-    public override void BuffCheck()
-    {
-        throw new System.NotImplementedException();
-        // 갖고 있는 버프/디버프 리스트 배틀 매니저에 반환?
-        // 턴매니저 == 배틀 매니저?
-    }
-
-    protected IEnumerator GaugeTimer()
+    protected virtual IEnumerator GaugeTimer()
     {
         gauge.fillAmount = curTime / maxTime;
 
-        if (monsterState == EMonsterState.Idle)
+        if (!stopGauge)
         {
             curTime -= Time.deltaTime;
+
             if (curTime <= 0)
             {
-                Debug.Log("공격!");
+                StartCoroutine(MonsterPattern());
                 curTime = maxTime;
             }
-        }
 
-        yield return null;
+        }
+        yield return delay;
         StartCoroutine(GaugeTimer());
+    }
+
+    protected virtual IEnumerator MonsterPattern()
+    {
+        EntitiesStateChange(true);
+        gameObject.transform.DOScale(Vector3.one,0.5f).SetRelative().SetEase(Ease.Flash, 2,0);
+        Attack(player);
+        EntitiesStateChange(false);
+        yield return null;
+    }
+    
+    void EntitiesStateChange(bool isBool)
+    {
+        BattleCardManager.EffectPlayBack.Invoke(isBool);
+        BattleCardManager.instance.DontUseCard(isBool);
     }
 
     public void StartBattle()
     {
         StartCoroutine(GaugeTimer());
+    }
+
+    public override void TimerControl(bool isStop)
+    {
+        stopGauge = isStop;
+    }
+
+    public override void Attack(BattleEntity entity)
+    {
+        entity.TakeDamage(entity.battleBuffDebuff.CheckDamageImpactBuff(attack));
     }
 }

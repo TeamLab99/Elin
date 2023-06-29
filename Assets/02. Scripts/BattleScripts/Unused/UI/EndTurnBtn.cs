@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,3 +34,4 @@ public class EndTurnBtn : MonoBehaviour
         btnText.color = isActive ? new Color32(255, 195, 90, 255) : new Color32(55, 55, 55, 255); // 텍스트 색깔도 다르게 변경
     }
 }
+*/

@@ -426,6 +426,7 @@ GameObject:
   - component: {fileID: 35526252}
   - component: {fileID: 35526256}
   - component: {fileID: 35526257}
+  - component: {fileID: 35526258}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -553,6 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2553cf87bb5de594287d86de9d170476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -565,6 +567,22 @@ MonoBehaviour:
   boxSize: {x: 1, y: 0.3}
   xSpeed: 5
   ySpeed: 10
+--- !u!114 &35526258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35526247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f711597edb108743af7b2af22e8b580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpTMP: {fileID: 1826009839}
+  maxHp: 50
+  attack: 5
+  battleBuffDebuff: {fileID: 0}
 --- !u!1001 &37123660
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1019,11 +1037,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 56970031}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c4ab1b100e04fa46a6db43396447461, type: 3}
+  m_Script: {fileID: 11500000, guid: 78539941f62ceaa469fdd5b0ca64787a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillPrefab: {fileID: 4655407308136541105, guid: 2e7997aafab99694692dca4bfbcbc79f, type: 3}
-  skillEffectPrefab: {fileID: 5118234223389634639, guid: 03da0fb161f4bc34b90fcfc869853f80, type: 3}
+  magic: {fileID: 11400000, guid: ad46b7d0c6734264db55276d93524b49, type: 2}
 --- !u!1 &93683134
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,8 +1335,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967f70f555e7f3e49a4bd028a1df8d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monPrefabs: []
-  extraPrefabs: []
+  projectilePrefabs: []
+  alterEgoPrefabs: []
 --- !u!4 &149641214
 Transform:
   m_ObjectHideFlags: 0
@@ -1678,7 +1695,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 50
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: edaeed841ae8fc443b4ca9f283b2de79, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: d29b26da372a18d4dba44ba83c7c2afb, type: 2}
@@ -1910,7 +1927,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 232891210}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4806,6 +4823,37 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8792292982402370395, guid: 3ab44bd5397dc2a408e6c0f38b32e876, type: 3}
   m_PrefabInstance: {fileID: 745475421}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &745772707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 745772708}
+  m_Layer: 0
+  m_Name: MobEffects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &745772708
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745772707}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1037606700}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &765958549
 GameObject:
   m_ObjectHideFlags: 0
@@ -24105,9 +24153,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a474bb952bd4d1246a8dbca283357daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 1630716458}
-  playerObject: {fileID: 35526247}
   notificationPanel: {fileID: 0}
+  mainCamera: {fileID: 1630716458}
+  player: {fileID: 35526247}
+  monster: {fileID: 1037606699}
   ease: 7
 --- !u!1 &952111804
 GameObject:
@@ -24508,6 +24557,7 @@ GameObject:
   - component: {fileID: 1037606701}
   - component: {fileID: 1037606703}
   - component: {fileID: 1037606702}
+  - component: {fileID: 1037606704}
   m_Layer: 0
   m_Name: DummyMonster
   m_TagString: Untagged
@@ -24528,6 +24578,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 207653124}
+  - {fileID: 745772708}
   m_Father: {fileID: 1899777330}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -24593,10 +24644,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -3.4759169, y: 1.5205641}
+  m_Offset: {x: -3.25568, y: 2.2143044}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -24607,7 +24658,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8.431833, y: 4.201128}
+  m_Size: {x: 8.07946, y: 5.852891}
   m_EdgeRadius: 0
 --- !u!114 &1037606703
 MonoBehaviour:
@@ -24621,6 +24672,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ee201adee5842f4fbcb58432c72b615, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1037606704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037606699}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6311cb4908c04a54dbe56b69ffe0994e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpTMP: {fileID: 207653125}
+  maxHp: 50
+  attack: 5
+  battleBuffDebuff: {fileID: 0}
+  attackSpeed: 3
+  skillCount: 5
+  monsterState: 1
+  player: {fileID: 0}
 --- !u!1001 &1045440959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28664,7 +28735,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 50
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: edaeed841ae8fc443b4ca9f283b2de79, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: d29b26da372a18d4dba44ba83c7c2afb, type: 2}
