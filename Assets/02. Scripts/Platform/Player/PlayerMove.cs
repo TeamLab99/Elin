@@ -11,7 +11,6 @@ public class PlayerMove : MonoBehaviour
 
     [Header("Ground Check")]
     [SerializeField] Transform footPos;
-    [SerializeField] Transform checkPos;
     [SerializeField] LayerMask groundLayer;
 
     private bool isGround;
@@ -20,7 +19,6 @@ public class PlayerMove : MonoBehaviour
     [Header("Move Var")]
     [SerializeField] private float xSpeed; 
     [SerializeField] private float ySpeed;
-    [SerializeField] private float canDownJumpDistance;
     private float moveDir;
     private float jumpTime  = 0f;
     private float chargeTime = 0.2f;
@@ -61,19 +59,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Jump()
     {
-        if(keyDownJump && isGround && keyDownArrow)
-        {
-            RaycastHit2D downJumpRay = Physics2D.Raycast(transform.position, Vector2.down, canDownJumpDistance, groundLayer);
-            Debug.Log(canDownJumpDistance-downJumpRay.distance);
-            return;
-        }
-        else if (keyDownJump && isGround && !keyDownArrow)
-        {
-            isJump = true;
-            jumpTime = chargeTime;
-            rb.velocity = new Vector2(rb.velocity.x, ySpeed);
-        }
-        else if (keyJump && isJump)
+        if (keyJump && isJump)
         {
             if (jumpTime > 0f)
             {
@@ -85,15 +71,6 @@ public class PlayerMove : MonoBehaviour
             isJump = false;
     }
     
-
-    private bool CanDownJump()
-    {
-        RaycastHit2D downJumpRay = Physics2D.Raycast(transform.position, Vector2.down,canDownJumpDistance,groundLayer);
-        if (downJumpRay.distance < canDownJumpDistance)
-            return true;
-        else
-            return false;
-    }
     private void FlipPlayer()
     {
         if (moveDir == 1)
@@ -146,8 +123,6 @@ public class PlayerMove : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position,Vector2.down*canDownJumpDistance);
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(footPos.position, boxSize);
     }
