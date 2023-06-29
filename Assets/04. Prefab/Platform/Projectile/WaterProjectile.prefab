@@ -4938,7 +4938,7 @@ GameObject:
   - component: {fileID: 1539845293031116013}
   m_Layer: 18
   m_Name: WaterProjectile
-  m_TagString: WaterElement
+  m_TagString: WaterProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

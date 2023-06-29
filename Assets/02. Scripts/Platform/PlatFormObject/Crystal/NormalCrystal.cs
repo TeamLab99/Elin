@@ -11,5 +11,10 @@ public class NormalCrystal : Crystal
             isCharge = true;
             ActionPuzzle();
         }
+        else if (collision.gameObject.CompareTag("WaterProjectile") && !isCharge)
+        {
+            isCharge = true;
+            ActionPuzzle();
+        }
     }
 }

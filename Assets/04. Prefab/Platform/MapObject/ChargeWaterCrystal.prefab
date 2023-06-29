@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -1260511564, guid: 88752dd23f24bdf4f80df3d648e10761, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3039783, g: 0.49187925, b: 0.9339623, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCharge: 0
+  bothCharge: 0
   bridge: {fileID: 0}
 --- !u!61 &3583012149154305685
 BoxCollider2D:
