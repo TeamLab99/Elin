@@ -9,7 +9,7 @@ public class PlayerStat : Singleton<PlayerStat>
 
     private HPUI hpUI;
     private StatUI statUI;
-    private PlayerMove playerMove;
+    private PlayerController playerController;
     private bool invincibility = false;
     private GameObject player;
     private GameObject platformUI;
@@ -25,7 +25,7 @@ public class PlayerStat : Singleton<PlayerStat>
         player = GameObject.FindGameObjectWithTag("Player");
         hpUI = platformUI.GetComponentInChildren<HPUI>();
         statUI = platformUI.GetComponentInChildren<StatUI>();
-        playerMove = player.GetComponent<PlayerMove>();
+        playerController = player.GetComponent<PlayerController>();
         halfTransparentColor.a = 0.5f;
     }
 
@@ -56,7 +56,7 @@ public class PlayerStat : Singleton<PlayerStat>
             if (playerStatData.currentHP - _damage <= 0)
             {
                 playerStatData.currentHP = 0;
-                playerMove.Dead();
+                playerController.Dead();
             }
             else
                 playerStatData.currentHP -= _damage;
