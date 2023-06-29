@@ -590,6 +590,7 @@ GameObject:
   - component: {fileID: 7567677568435261686}
   - component: {fileID: 7567677568435261687}
   - component: {fileID: 7567677568435261684}
+  - component: {fileID: 6989238151821446965}
   m_Layer: 0
   m_Name: Player_Sheet
   m_TagString: Untagged
@@ -714,8 +715,8 @@ MonoBehaviour:
   - {fileID: 7567677567905535480}
   - {fileID: 7567677568414132334}
   m_Bounds:
-    m_Center: {x: 1.6043073, y: 0.7342937, z: 0}
-    m_Extent: {x: 1.9978418, y: 3.1028533, z: 0}
+    m_Center: {x: 1.6043175, y: 0.71912026, z: 0}
+    m_Extent: {x: 1.9978343, y: 3.1180263, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -739,6 +740,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6989238151821446965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7567677568435261688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b66388eab3272f4b9a3038ec4e644c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAnimationController: {fileID: 0}
 --- !u!1 &7567677568457578568
 GameObject:
   m_ObjectHideFlags: 0
