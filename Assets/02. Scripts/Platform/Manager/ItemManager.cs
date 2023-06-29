@@ -8,8 +8,6 @@ public class ItemManager : Singleton<ItemManager>
     public Dictionary<int, Items> holdItemDataBase; // 들고 있는 아이템들
     public List<Items> holdEquipList;
     public List<Items> wearEquipList;
-   
-    private InvenUI invenUI;
     private int money = 200;
     private WaitForSeconds itemCoolTime = new WaitForSeconds(0.2f);
 
@@ -50,12 +48,12 @@ public class ItemManager : Singleton<ItemManager>
             else
             {
                 holdItemDataBase.Add(_itemID, allItemDataBase[_itemID]);
-                holdItemDataBase[_itemID].itemCnt += _itemCnt - 1;
+                holdItemDataBase[_itemID].itemCnt = _itemCnt;
             }   
         }
         else // 장비 아이템
             holdEquipList.Add(allItemDataBase[_itemID]);
-        invenUI.ClassificationItems();
+        InvenUI.instance.ClassificationItems();
     }
 
     public void UseItem(int _itemID, int _itemCnt=1) // 기타, 소모품만 사용
@@ -87,18 +85,18 @@ public class ItemManager : Singleton<ItemManager>
     {
         if (holdItemDataBase[_itemID].itemCnt <= 0)
             holdItemDataBase.Remove(_itemID);
-        invenUI.ClassificationItems();
+        InvenUI.instance.ClassificationItems();
     }
 
     public void TakeOnEquipment(Items _equipItem, int _itemIdx)
     {
-        if (invenUI.wearSlotSize < 4)
+        if (InvenUI.instance.wearSlotSize < 4)
         {
             holdEquipList.RemoveAt(_itemIdx);
             wearEquipList.Add(_equipItem);
             EquipItemEffect(_equipItem);
-            invenUI.ClassificationItems();
-            invenUI.WearEquipmentItems();
+            InvenUI.instance.ClassificationItems();
+            InvenUI.instance.WearEquipmentItems();
         }
     }
 
@@ -107,8 +105,8 @@ public class ItemManager : Singleton<ItemManager>
         holdEquipList.Add(_equipItem);
         wearEquipList.Remove(_equipItem);
         EquipItemEffect(_equipItem, -1);
-        invenUI.ClassificationItems();
-        invenUI.WearEquipmentItems();
+        InvenUI.instance.ClassificationItems();
+        InvenUI.instance.WearEquipmentItems();
     }
 
     public void EquipItemEffect(Items _equipEffect, int _sign = 1)
@@ -130,10 +128,6 @@ public class ItemManager : Singleton<ItemManager>
             default:
                 break;
         }
-    }
-    public void RegisterInvenUI(InvenUI _invenUI)
-    {
-        invenUI = _invenUI;
     }
 
     public int GetMoneyInfo()

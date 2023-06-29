@@ -76,13 +76,6 @@ public enum EProjectileType
     Fire =2
 }
 
-public enum EPlayerParticle
-{
-    Move=0,
-    Jump=1,
-    Fall=2
-}
-
 public enum EUiAnimation
 {
     Gauge,

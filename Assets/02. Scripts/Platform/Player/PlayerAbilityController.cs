@@ -8,7 +8,9 @@ public class PlayerAbilityController : MonoBehaviour
     public ParticleSystem[] playerAbsorptionParticle;
 
     AbilityUI abilityUI;
-    SpriteRenderer spr;
+    [SerializeField] PlayerController playerController;
+    [SerializeField] SpriteRenderer spr;
+    [SerializeField] Animator anim;
 
     GameObject alterEgoPlayer;
     GameObject alterEgoProjectile;
@@ -24,7 +26,6 @@ public class PlayerAbilityController : MonoBehaviour
 
     private void Awake()
     {
-        spr = GetComponent<SpriteRenderer>();
         abilityUI = FindObjectOfType<AbilityUI>();
     }
 
@@ -83,14 +84,13 @@ public class PlayerAbilityController : MonoBehaviour
                 seperateDirection = ESeperateDirection.Left;
             }
             isSeparated = true;
+            anim.SetTrigger("Split");
             Invoke("DestroySeperationPlayer", 15f);
         }
     }
 
     private void DestroySeperationPlayer()
     {
-        if (seperateDirection != ESeperateDirection.None)
-            alterEgoPlayer.SetActive(false);
         isSeparated = false;
         seperateDirection = ESeperateDirection.None;
     }
@@ -103,6 +103,8 @@ public class PlayerAbilityController : MonoBehaviour
             coolDownAbsorption = false;
             playerAbsorptionParticle[0].Play();
             playerAbsorptionParticle[1].Play();
+            anim.SetTrigger("Absorption");
+            playerController.ControlPlayer(false);
             Invoke("CoolDownAbsorption", 2f);
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 3f);
             foreach (Collider2D collider in colliders) // 가장 가까운 속성을 따라감
@@ -114,7 +116,13 @@ public class PlayerAbilityController : MonoBehaviour
                     return;
                 }
             }
+            Invoke("CanMovePlayer", 0.5f);
         }
+    }
+
+    public void CanMovePlayer()
+    {
+        playerController.ControlPlayer(true);
     }
 
     private void CoolDownAbsorption()
@@ -132,12 +140,14 @@ public class PlayerAbilityController : MonoBehaviour
             playerProjectile = PlayerPoolManager.instance.GetProjectile((int)element);
             playerProjectile.transform.position = transform.position+Vector3.right*playerDir* 0.5f;
             playerProjectile.GetComponent<Projectile>().ShootProjectile(playerDir);  // 발사체 방향은 플레이어가 바라보는 방향으로 설정
+            anim.SetTrigger("Split");
             switch (seperateDirection)
             {
                 case ESeperateDirection.Right:
                     alterEgoProjectile = PlayerPoolManager.instance.GetProjectile((int)element);
                     alterEgoProjectile.transform.position = alterEgoPlayer.transform.position+Vector3.right* 0.5f;
                     alterEgoProjectile.GetComponent<Projectile>().ShootProjectile(1); // 발사체 방향은 플레이어가 바라보는 방향으로 설정
+                    alterEgoPlayer.GetComponentInChildren<PlayerAlterEgoAnimationController>().ShootProjectile();
                     DestroySeperationPlayer();
                     CancelInvoke("DestroySeperationPlayer");
                     break;
@@ -145,6 +155,7 @@ public class PlayerAbilityController : MonoBehaviour
                     alterEgoProjectile = PlayerPoolManager.instance.GetProjectile((int)element);
                     alterEgoProjectile.transform.position = alterEgoPlayer.transform.position + Vector3.right*-0.5f;
                     alterEgoProjectile.GetComponent<Projectile>().ShootProjectile(-1);// 발사체 방향은 플레이어가 바라보는 방향으로 설정
+                    alterEgoPlayer.GetComponentInChildren<PlayerAlterEgoAnimationController>().ShootProjectile();
                     DestroySeperationPlayer();
                     CancelInvoke("DestroySeperationPlayer");
                     break;

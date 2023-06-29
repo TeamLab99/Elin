@@ -5,7 +5,7 @@ using UnityEngine;
 public class Mushroom : MonoBehaviour
 {
     Animator anim;
-    PlayerMove playerMove;
+    PlayerController playerController;
 
     private void Awake()
     {
@@ -17,9 +17,9 @@ public class Mushroom : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             anim.SetTrigger("AddForce");
-            if(playerMove ==null)
-                playerMove = collision.gameObject.GetComponent<PlayerMove>();
-            playerMove.JumpMushroom();
+            if(playerController == null)
+                playerController = collision.gameObject.GetComponent<PlayerController>();
+            playerController.JumpMushroom();
         }
     }
 
