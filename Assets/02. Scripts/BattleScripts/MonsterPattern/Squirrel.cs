@@ -1,18 +1,13 @@
-/*using System;
+using System;
 using Random = UnityEngine.Random;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Squirrel : Monster
+public class Squirrel : BattleMonster
 {
-    protected override void Start()
-    {
-        base.Start();
-    }
-
-    protected override IEnumerator MonsterPattern()
+/*    protected override IEnumerator MonsterPattern()
     {
         if (count > 0)
         {
@@ -32,6 +27,5 @@ public class Squirrel : Monster
         }
 
         yield return null;
-    }
+    }*/
 }
-*/

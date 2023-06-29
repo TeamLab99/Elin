@@ -26,10 +26,10 @@ public class BattleCardManager : Singleton<BattleCardManager>
     enum ECardState { Loading, CanUseCard, ActivatingCard, Noting }
     bool isSelected;
     bool isCardActivating;
-    bool isAlignment;
+    bool isMonsterAttack;
 
     // 카드 사용 시 몬스터에게 알려줄 이벤트
-    public static event Action<bool> EffectPlayBack;
+    public static Action<bool> EffectPlayBack;
 
     public DeckCard PopCard()
     {
@@ -286,7 +286,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
         EffectPlayBack?.Invoke(true);
         myCards.Remove(selectCard);
 
-        yield return StartCoroutine(selectCard.MoveTransformCoroutine(new PRS(cardUseTrasnform.position, Utils.QI, selectCard.originPRS.scale), true, 0.25f));
+        yield return StartCoroutine(selectCard.MoveTransformCoroutine(new PRS(cardUseTrasnform.position, Utils.QI, selectCard.originPRS.scale), true, 0.5f));
         BattleMagicManager.instance.CallMagic(selectCard.deckCard);
         selectCard.DOKill();
         Managers.Pool.Push(selectCard.GetComponent<Poolable>());
@@ -319,9 +319,14 @@ public class BattleCardManager : Singleton<BattleCardManager>
         }
     }
 
+    public void DontUseCard(bool isBool)
+    {
+        isMonsterAttack = isBool;
+    }
+
     void SetEcardState()
     {
-        if (BattleTurnManager.instance.isLoading)
+        if (BattleTurnManager.instance.isLoading || isMonsterAttack)
             eCardState = ECardState.Loading;
 
         else if (isCardActivating)

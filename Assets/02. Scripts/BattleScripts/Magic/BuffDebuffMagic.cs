@@ -15,11 +15,14 @@ public abstract class BuffDebuffMagic : MonoBehaviour
     protected bool isEnd = false;
     protected bool isTimerStop = false;
 
+    protected float percent;
     protected float probability;
     protected float maintime;
     protected float time;
 
     protected int amount;
+
+    public abstract IEnumerator Timer();
 
     private void Start()
     {
@@ -40,22 +43,16 @@ public abstract class BuffDebuffMagic : MonoBehaviour
         BattleCardManager.EffectPlayBack -= TimerControl;
     }
 
-    void TimerControl(bool active)
-    {
-        isTimerStop = active;
-    }
-
-    public abstract IEnumerator Timer();
-
-    public BuffDebuffMagic InputBuff()
-    {
-        return this;
-    }
-
     public virtual void Delete()
     {
         // 만약 오브젝트 풀링 쓸거면 변수 초기화 여기서 해줘야함
         Managers.Pool.Push(GetComponent<Poolable>());
+    }
+
+    public void ChangeIcon(SkillIcon icon)
+    {
+        this.icon = icon;
+        IconInit();
     }
 
     public void TimeUpdate()
@@ -74,17 +71,16 @@ public abstract class BuffDebuffMagic : MonoBehaviour
         IconInit();
     }
 
+    void TimerControl(bool active)
+    {
+        isTimerStop = active;
+    }
+
     void IconInit()
     {
         icon.countText.text = time.ToString();
         icon.IconImage.sprite = skilIcon;
         icon.isFull = true;
         icon.buff = this;
-    }
-
-    public void ChangeIcon(SkillIcon icon)
-    {
-        this.icon = icon;
-        IconInit();
     }
 }

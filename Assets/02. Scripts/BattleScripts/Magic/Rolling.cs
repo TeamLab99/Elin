@@ -49,12 +49,13 @@ public class Rolling : BuffDebuffMagic, IMagic
 
     void IMagic.DeSpell()
     {
+        // 존재하는 버프 삭제 하는 기믹이 있을 때 사용.
         Delete();
     }
 
     void IMagic.Spell()
     {
-        // 몬스터의 공격력 무효화
+        // 버프 창에 있다가 특정 조건에 의해 발동하는 카드를 위해 사용
 
         // 삭제
         Delete();

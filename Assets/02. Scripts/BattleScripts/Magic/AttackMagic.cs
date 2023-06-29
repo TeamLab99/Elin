@@ -7,22 +7,19 @@ public abstract class AttackMagic : MonoBehaviour
     [SerializeField] GameObject skillEffect;
     [SerializeField] Sprite skillIcon;
 
-    protected int amount;
+    protected DeckCard card;
+
+    protected float percent;
     protected float probability;
 
-    protected DeckCard card;
-    protected List<BuffDebuffMagic> buffDebuffMagics;
+    protected int amount;
 
-    private void OnEnable()
-    {
-        skillEffect.SetActive(true);
-        // 버프 리스트에 추가
-    }
+    protected bool isEnd = false;
 
-    public Sprite GetSkillIcon()
-    {
-        return skillIcon;
-    }
+    // 공격 추가 버프/디버프 저장?
+    protected BattleBuffManager buffManager;
+
+    public abstract float CalculateAttackValue(float value);
 
     public virtual void Delete()
     {
@@ -30,4 +27,13 @@ public abstract class AttackMagic : MonoBehaviour
         Managers.Pool.Push(GetComponent<Poolable>());
     }
 
+    public void ConnectBuffManager(BattleBuffManager buffManager, SkillIcon icon)
+    {
+        this.buffManager = buffManager;
+    }
+
+    void OnEnable()
+    {
+        skillEffect.SetActive(true);
+    }
 }

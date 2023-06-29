@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class MonsterEncounter : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    bool isFirstMeet = false;
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        BattleGameManager.instance.StartBattle(gameObject.transform.position);
+        if (!isFirstMeet)
+        {
+            BattleGameManager.instance.StartBattle(gameObject.transform.position);
+            isFirstMeet = true;
+        }
     }
 }

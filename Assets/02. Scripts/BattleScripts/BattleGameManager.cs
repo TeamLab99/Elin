@@ -44,6 +44,7 @@ public class BattleGameManager : Singleton<BattleGameManager>
         BattleCardManager.instance.CreatePoolCard();
         BattleMagicManager.instance.SetEntites(player.GetComponent<BattlePlayer>(), monster.GetComponent<BattleMonster>());
 
+        player.GetComponent<Player_Move>().rb.constraints = RigidbodyConstraints2D.FreezeAll;
         player.GetComponent<Player_Move>().enabled = false;
         mainCamera.GetComponent<Camera_Follow>().enabled = false;
 

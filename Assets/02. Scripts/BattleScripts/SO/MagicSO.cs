@@ -12,7 +12,6 @@ public class MagicResources
     public int id;
     public string name;
     public GameObject skillEffect;
-    public Sprite skillIcon;
 }
 
 

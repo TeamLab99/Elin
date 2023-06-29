@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class BattlePlayer : BattleEntity
 {
-    public override void BuffCheck()
+    private void Start()
     {
-        throw new System.NotImplementedException();
+        hp = maxHp;
+        Init();
+        HpTextUpdate();
     }
 
     public override void Init()
     {
         battleBuffDebuff = gameObject.AddComponent<BattleBuffManager>();
+    }
+
+    public override void TimerControl(bool isStop)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void MagicAttack(BattleEntity entity, float value)
+    {
+        entity.TakeDamage(value);
     }
 }

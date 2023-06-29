@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using Random = UnityEngine.Random;
 
 public class BattleMagicManager : Singleton<BattleMagicManager>
 {
@@ -23,6 +25,12 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
             case "구르기":
                 Rolling(card);
                 break;
+            case "박치기":
+                HeadButt(card);
+                break;
+            case "재생":
+                Heal(card);
+                break;
             case "버티기":
                 Defense(card);
                 break;
@@ -35,8 +43,10 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
     #region Buff
     public void Rolling(DeckCard card)
     {
+        if (!GetRandom(card.buffProbability))
+            return;
+
         var skillEffect = magic.items[card.index - 1].skillEffect;
-        var skillIcon = magic.items[card.index - 1].skillIcon;
         var playerBuffDebuffList = player.battleBuffDebuff.buffDebuffList;
 
         if (playerBuffDebuffList.Find(item => item is Rolling))
@@ -48,7 +58,7 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
         {
             var effect = Managers.Pool.Pop(skillEffect, player.transform.Find("PlayerEffects"));
             effect.transform.position = player.gameObject.transform.position;
-            
+
             var magic = effect.GetComponent<BuffDebuffMagic>();
             playerBuffDebuffList.Add(magic);
             magic.ConnectBuffManager(player.battleBuffDebuff, BuffIconsController.instance.GetBuffIconInfo(true));
@@ -57,8 +67,10 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
 
     public void Defense(DeckCard card)
     {
+        if (!GetRandom(card.buffProbability))
+            return;
+
         var skillEffect = magic.items[card.index - 1].skillEffect;
-        var skillIcon = magic.items[card.index - 1].skillIcon;
         var playerBuffDebuffList = player.battleBuffDebuff.buffDebuffList;
 
         if (playerBuffDebuffList.Find(item => item is Defense))
@@ -71,12 +83,50 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
             var effect = Managers.Pool.Pop(skillEffect, player.transform.Find("PlayerEffects"));
             effect.transform.position = player.gameObject.transform.position;
 
-            var magic = effect.GetComponent<BuffDebuffMagic>();
-            playerBuffDebuffList.Add(magic);
-            magic.ConnectBuffManager(player.battleBuffDebuff, BuffIconsController.instance.GetBuffIconInfo(true));
+            var buff = effect.GetComponent<BuffDebuffMagic>();
+            playerBuffDebuffList.Add(buff);
+            buff.ConnectBuffManager(player.battleBuffDebuff, BuffIconsController.instance.GetBuffIconInfo(true));
         }
-
     }
 
+    public void Heal(DeckCard card)
+    {
+        if (!GetRandom(card.buffProbability))
+            return;
+
+        var skillEffect = magic.items[card.index - 1].skillEffect;
+
+        var effect = Managers.Pool.Pop(skillEffect, player.transform.Find("PlayerEffects"));
+        effect.transform.position = player.gameObject.transform.position;
+
+        player.Heal(card.amount);
+    }
     #endregion
+
+    public void HeadButt(DeckCard card)
+    {
+        if (!GetRandom(card.attackProbability))
+            return;
+
+        var skillEffect = magic.items[card.index - 1].skillEffect;
+
+        var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+        effect.transform.position = monster.gameObject.transform.position + Vector3.up * 0.5f;
+
+        player.transform.DOMoveX(5f, 0.3f).SetRelative().SetEase(Ease.Flash, 2, 0);
+        player.MagicAttack(monster, card.amount);
+    }
+
+    public bool GetRandom(float probability)
+    {
+        float percentage = probability / 100;
+        float rate = 100 - (100 * percentage);
+        int tmp = (int)Random.Range(0, 100);
+
+        if (tmp <= rate - 1)
+        {
+            return false;
+        }
+        return true;
+    }
 }

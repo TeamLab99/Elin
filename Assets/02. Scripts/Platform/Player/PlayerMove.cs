@@ -48,6 +48,8 @@ public class PlayerMove : MonoBehaviour
         }
         FlipPlayer();
         CheckGround();
+        if (Input.GetKeyDown(KeyCode.W))
+            canMove = false;
     }
 
     private void MoveKeyInput()
