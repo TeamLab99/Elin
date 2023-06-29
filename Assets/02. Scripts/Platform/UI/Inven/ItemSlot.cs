@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemSlot : MonoBehaviour
+public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     [SerializeField] Image itemIcon;
     [SerializeField] Text itemCntText;
@@ -13,12 +14,22 @@ public class ItemSlot : MonoBehaviour
     Color nontransparentColor = Color.white;
     private int itemIdx;
 
+    [SerializeField] private Image dragImage;
+    [SerializeField] private RectTransform dragRectTransform;
+    private Vector2 originalPosition;
+    private bool isDragging;
+    private Sprite originalImage;
+
+    GameObject droppedButton;
+    Image droppedImage;
+    ShortCutKeySlot shortCutKeySlot;
+
+
     private void Awake()
     {
-        //button = GetComponent<Button>();
-        //button.onClick.AddListener(ClickButton);
         transparentColor.a = 0f;
         nontransparentColor.a = 1f;
+        isDragging = false;
     }
 
     public void AddItem(Items _itemData, int _itemIdx)
@@ -50,5 +61,51 @@ public class ItemSlot : MonoBehaviour
         }
         InvenUI.instance.itemInfoObject.SetActive(true);
         InvenUI.instance.itemInfoUI.ChangeItemInfo(holdItemInfo, itemIdx);
+    }
+
+    public void OnPointerClick(PointerEventData eventData) // 우클릭
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            ClickItemSlot();
+        }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (!isDragging)
+        {
+            originalPosition = dragRectTransform.anchoredPosition;
+            isDragging = true;
+            originalImage = dragImage.sprite;
+        }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (isDragging)
+        {
+            Vector2 position = eventData.position;
+            dragRectTransform.position = position;
+        }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (isDragging)
+        {
+            if(eventData.pointerCurrentRaycast.gameObject.layer == 22)
+            {
+                droppedButton = eventData.pointerCurrentRaycast.gameObject;
+                shortCutKeySlot = droppedButton.GetComponent<ShortCutKeySlot>();
+            }
+            if (droppedButton != null && droppedButton != gameObject)
+            {
+
+                shortCutKeySlot.ChangeItemInfo(holdItemInfo, itemIdx);
+            }
+            dragRectTransform.anchoredPosition = originalPosition;
+            isDragging = false;
+        }
     }
 }
