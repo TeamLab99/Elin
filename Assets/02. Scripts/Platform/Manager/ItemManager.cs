@@ -48,7 +48,7 @@ public class ItemManager : Singleton<ItemManager>
             else
             {
                 holdItemDataBase.Add(_itemID, allItemDataBase[_itemID]);
-                holdItemDataBase[_itemID].itemCnt += _itemCnt - 1;
+                holdItemDataBase[_itemID].itemCnt = _itemCnt;
             }   
         }
         else // 장비 아이템
