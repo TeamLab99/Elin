@@ -5,23 +5,16 @@ using UnityEngine.UI;
 
 public class AbilityUI : MonoBehaviour
 {
-    
-    private Text abilityText;
-    [SerializeField] string[] abilityTypeTexts;
-    [SerializeField] Image elementImage;
-    [SerializeField] Sprite[] elementTypeImages;
-
+    [SerializeField] Image abilityImage;
+    [SerializeField] Sprite seperateImage;
+    [SerializeField] Sprite[] absorptionTypeImages;
+    [SerializeField] Sprite[] projectileTypeImages;
+    int currentState = 0;
+    EProjectileType currenElement;
     //[SerializeField] Transform playerPos;
     //private RectTransform rectTransform;
     //private Vector3 characterScreenPosition;
     //private Vector3 upVec = new Vector3(0, 2f, 0);
-
-    private void Awake()
-    {
-        abilityText = GetComponentInChildren<Text>();
-      
-        //rectTransform = GetComponent<RectTransform>();
-    }
 
     private void Start() // 초기화
     {
@@ -31,12 +24,27 @@ public class AbilityUI : MonoBehaviour
 
     public void ChangeElementType(EProjectileType _estort)
     {
-        elementImage.sprite = elementTypeImages[(int)(_estort)];
+        currenElement = _estort;
+       switch (currentState)
+        {
+            case 1:
+                abilityImage.sprite = absorptionTypeImages[(int)_estort];
+                break;
+            case 2:
+                abilityImage.sprite = projectileTypeImages[(int)_estort];
+                break;
+            default:
+                break;
+        }
     }
 
     public void ChangeAbilityType(int _idx)
     {
-        abilityText.text = abilityTypeTexts[_idx];
+        currentState = _idx;
+        if (_idx == 0)
+            abilityImage.sprite = seperateImage;
+        else
+            ChangeElementType(currenElement);
     }
 
     /*void UpdatePosition()

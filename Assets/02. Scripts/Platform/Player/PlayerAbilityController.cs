@@ -105,6 +105,7 @@ public class PlayerAbilityController : MonoBehaviour
             playerAbsorptionParticle[1].Play();
             anim.SetTrigger("Absorption");
             playerController.ControlPlayer(false);
+            Invoke("CanMovePlayer", 0.5f);
             Invoke("CoolDownAbsorption", 2f);
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 3f);
             foreach (Collider2D collider in colliders) // 가장 가까운 속성을 따라감
@@ -116,7 +117,6 @@ public class PlayerAbilityController : MonoBehaviour
                     return;
                 }
             }
-            Invoke("CanMovePlayer", 0.5f);
         }
     }
 
