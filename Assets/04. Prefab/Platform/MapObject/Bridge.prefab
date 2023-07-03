@@ -213,8 +213,8 @@ Transform:
   m_GameObject: {fileID: 1507297550637297638}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5705943, y: 0.5705943, z: 0.5705943}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1507297550767450746}
   m_Father: {fileID: 0}
@@ -294,8 +294,8 @@ MonoBehaviour:
   - {fileID: 1507297550275153945}
   - {fileID: 1507297548999242534}
   m_Bounds:
-    m_Center: {x: -2.4316044, y: -0.26604223, z: 0}
-    m_Extent: {x: 7.9845724, y: 2.78667, z: 0}
+    m_Center: {x: -2.4316053, y: -0.26604176, z: 0}
+    m_Extent: {x: 7.9845724, y: 2.7866697, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -333,6 +333,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bridgeTransform: {fileID: 1507297550637297634}
   rotationSpeed: 3
+  crystalCnt: 0
+  bothCharge: 0
 --- !u!1 &1507297550767450749
 GameObject:
   m_ObjectHideFlags: 0
