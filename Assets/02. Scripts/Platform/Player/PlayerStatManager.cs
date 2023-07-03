@@ -15,6 +15,7 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
     private GameObject platformUI;
     private SpriteRenderer spr;
     private WaitForSeconds invincibilityTime = new WaitForSeconds(2f);
+    public bool playerDead = false;
 
     private void Awake()
     {
@@ -45,20 +46,22 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
         hpUI.UpdateHPFigure();
     }
 
-    public void DamagePlayer(int _damage, bool _right)
+    public void DamagePlayer(int _damage)
     {
         if (!invincibility)
         {
-            StartCoroutine("Invincibility",_right);
+            StartCoroutine("Invincibility");
             if (playerStatData.currentHP - _damage <= 0)
             {
                 playerStatData.currentHP = 0;
                 playerController.Dead();
+                PlayerRespawnManager.instance.ShowGameOverUI();
+                playerDead = true;
             }
             else
             {
                 playerStatData.currentHP -= _damage;
-                playerController.Hit(_right);
+                playerController.Hit();
             }
             hpUI.UpdateHPFigure();
         }
@@ -70,4 +73,16 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
         yield return invincibilityTime;
         invincibility = false;
     }
+
+    public void RespawnPlayer(bool _isFull, Transform _respawnPosition)
+    {
+        if (_isFull)
+            playerStatData.currentHP = playerStatData.maxHP;
+        else
+            playerStatData.currentHP = playerStatData.maxHP / 2;
+        playerController.Respawn(_respawnPosition);
+        hpUI.UpdateHPFigure();
+    }
+
+
 }
