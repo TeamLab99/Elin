@@ -8,7 +8,7 @@ public class Spike : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerStat.instance.DamagePlayer(10);
+            PlayerStatManager.instance.DamagePlayer(10);
         }
     }
 }

@@ -3,33 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StoreUI : MonoBehaviour
+public class StoreUI : Singleton<StoreUI>
 {
-    List<Items> sellList = new List<Items>();
-    List<Items> buyList = new List<Items>();
-    [SerializeField] Text allBuyPriceText;
-    [SerializeField] Text allSellPriceText;
-    [SerializeField] Transform displaySellList;
-    [SerializeField] Transform displayBuyList;
+    [SerializeField] Text aumText;
+    [SerializeField] Transform displayList;
     [SerializeField] DisplaySlot[] displaySlots;
-    StoreListSlot[] storeListSlots;
-    int allBuyPrice = 0;
-    int allSellPrice = 0;
-    // Update is called once per frame
+    [SerializeField] GameObject storeObject;
+    public GameObject decisionBuy;
+
+    private int aum;
+    private Items clickObject = null;
+    private bool canClick = true;
 
     private void Awake()
     {
-        storeListSlots = displayBuyList.GetComponentsInChildren<StoreListSlot>();
-        // buyBtns = buyList.GetComponentsInChildren<Button>();
+        displaySlots = displayList.GetComponentsInChildren<DisplaySlot>();
+        SetAum();
+    }
+
+    public void SetAum()
+    {
+        aum = ItemManager.instance.LoadAum();
+        aumText.text = aum.ToString();
     }
 
     public void ShowSellItems(List <Items> _sellList)
     {
-        sellList.Clear();
         for(int i=0; i< _sellList.Count; i++)
         {
             displaySlots[i].AddItem(_sellList[i]);
-            sellList.Add(_sellList[i]);
         }
         for(int i=_sellList.Count; i<displaySlots.Length; i++)
         {
@@ -37,27 +39,55 @@ public class StoreUI : MonoBehaviour
         }
     }
 
-    public void AddBuyList(Items _item)
+    public void ClearSellItems()
     {
-        if (buyList.Count <= 6)
+        for (int i = 0; i < displaySlots.Length; i++)
         {
-            for(int i=0; i<buyList.Count; i++)
-            {
-                if(_item.itemID == buyList[i].itemID)
-                {
-                    buyList[i].itemCnt += 1;
-                    storeListSlots[i].AddItem(buyList[i]);
-                    allBuyPrice += buyList[i].sellPrice;
-                    allBuyPriceText.text = allBuyPrice.ToString();
-                    return;
-                }
-            }
-            if (buyList.Count == 6)
-                return;
-            buyList.Add(_item);
-            storeListSlots[buyList.Count-1].AddItem(buyList[buyList.Count - 1]);
-            allBuyPrice += buyList[buyList.Count-1].sellPrice;
-            allBuyPriceText.text = allBuyPrice.ToString();
+            displaySlots[i].DeleteItem();
+        }
+    }
+
+    public void ClickExitStoreBtn()
+    {
+        if (canClick)
+        {
+            ClearSellItems();
+            storeObject.SetActive(false);
+        }
+    }
+
+    public void OnDecisionBuy(Items _item)
+    {
+        decisionBuy.SetActive(true);
+        for(int i=0; i < displaySlots.Length; i++)
+        {
+            displaySlots[i].ControlBtnClick(false);
+            canClick = false;
+        }
+        clickObject = _item;
+    }
+
+    public void OffDecisionBuy()
+    {
+        for (int i = 0; i < displaySlots.Length; i++)
+        {
+            displaySlots[i].ControlBtnClick(true);
+            canClick = true;
+        }
+        decisionBuy.SetActive(false);
+    }
+
+    public bool CanBuyObject()
+    {
+        if (aum >= clickObject.buyPrice)
+        {
+            ItemManager.instance.UseAum(clickObject.buyPrice);
+            ItemManager.instance.GetItem(clickObject.itemID);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

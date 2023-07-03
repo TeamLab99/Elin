@@ -8,7 +8,7 @@ public class ItemManager : Singleton<ItemManager>
     public Dictionary<int, Items> holdItemDataBase; // 들고 있는 아이템들
     public List<Items> holdEquipList;
     public List<Items> wearEquipList;
-    private int money = 200;
+    private int Aum = 0;
     private WaitForSeconds itemCoolTime = new WaitForSeconds(0.2f);
 
     void Start()
@@ -20,14 +20,7 @@ public class ItemManager : Singleton<ItemManager>
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            GetItem(101);
-            GetItem(101);
-            GetItem(102,5);
-            GetItem(201);
-            GetItem(301,3);
-            GetItem(202);
-            GetItem(202);
-            GetItem(204);
+            EarnAum();
         }
     }
 
@@ -74,7 +67,7 @@ public class ItemManager : Singleton<ItemManager>
         switch (holdItemDataBase[_itemID].itemEffect)
         {
             case "plusHP":
-                PlayerStat.instance.HealPlayer(holdItemDataBase[_itemID].itemFigure* _sign);
+                PlayerStatManager.instance.HealPlayer(holdItemDataBase[_itemID].itemFigure* _sign);
                 break;
             default:
                 break;
@@ -114,24 +107,38 @@ public class ItemManager : Singleton<ItemManager>
         switch (_equipEffect.itemEffect)
         {
             case "maxHP":
-                PlayerStat.instance.ChangeStat(_equipEffect.itemFigure * _sign, 0, 0, 0);
+                PlayerStatManager.instance.ChangeStat(_equipEffect.itemFigure * _sign, 0, 0, 0);
                 break;
             case "attackPower":
-                PlayerStat.instance.ChangeStat(0, _equipEffect.itemFigure * _sign, 0, 0);
+                PlayerStatManager.instance.ChangeStat(0, _equipEffect.itemFigure * _sign, 0, 0);
                 break;
             case "maxCost":
-                PlayerStat.instance.ChangeStat(0, 0, _equipEffect.itemFigure * _sign, 0);
+                PlayerStatManager.instance.ChangeStat(0, 0, _equipEffect.itemFigure * _sign, 0);
                 break;
             case "costRecoverySpeed":
-                PlayerStat.instance.ChangeStat(0, 0, 0, _equipEffect.itemFigure * _sign);
+                PlayerStatManager.instance.ChangeStat(0, 0, 0, _equipEffect.itemFigure * _sign);
                 break;
             default:
                 break;
         }
     }
 
-    public int GetMoneyInfo()
+    public int LoadAum()
     {
-        return money;
+        return Aum;
+    }
+
+    public void UseAum(int _use)
+    {
+        Aum -= _use;
+        InvenUI.instance.SetAum();
+        StoreUI.instance.SetAum();
+    }
+
+    public void EarnAum(int _earn=1000)
+    {
+        Aum += _earn;
+        InvenUI.instance.SetAum();
+        StoreUI.instance.SetAum();
     }
 }

@@ -13,7 +13,7 @@ public enum ItemTypes
 public class InvenUI : Singleton<InvenUI>
 {
     public ItemSlot[] itemSlots;
-    public Text moneyText;
+    public Text aumText;
     public Transform itemSlotsTransform;
     public EquipSlot[] equipSlots;
     public Transform equipSlotsTransform;
@@ -23,6 +23,7 @@ public class InvenUI : Singleton<InvenUI>
 
     public int wearSlotSize = 0;
     private int slotSize=0;
+    private int aum = 0;
     
     private string itemTypeString;
     private InvenTabSlot[] invenTabSlots;
@@ -96,8 +97,6 @@ public class InvenUI : Singleton<InvenUI>
         }
     }
 
-
-
     public void ChangeTab(ItemTypes _itemType)
     {
         itemTypeEnum = _itemType;
@@ -111,11 +110,12 @@ public class InvenUI : Singleton<InvenUI>
         yield return new WaitForEndOfFrame();
         ClassificationItems();
         WearEquipmentItems();
-        SetUpMoneyText();
+        SetAum();
     }
 
-    public void SetUpMoneyText()
+    public void SetAum()
     {
-        moneyText.text = ItemManager.instance.GetMoneyInfo().ToString();
+        aum = ItemManager.instance.LoadAum();
+        aumText.text = aum.ToString();
     }
 }

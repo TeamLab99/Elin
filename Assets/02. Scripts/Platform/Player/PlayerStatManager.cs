@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerStat : Singleton<PlayerStat>
+public class PlayerStatManager : Singleton<PlayerStatManager>
 {
     [SerializeField] PlayerStatData playerStatData;
 

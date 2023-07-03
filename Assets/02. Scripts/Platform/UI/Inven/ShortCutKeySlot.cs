@@ -64,6 +64,7 @@ public class ShortCutKeySlot : MonoBehaviour
         {
             ItemManager.instance.UseItem(holdItemInfo.itemID);
             itemCnt.text = holdItemInfo.itemCnt.ToString();
+            ResetShortCutKeySlot();
             canUse = false;
         }
         else
@@ -84,11 +85,8 @@ public class ShortCutKeySlot : MonoBehaviour
 
     public void UpdateCntText()
     {
-        itemCnt.text = holdItemInfo.itemCnt.ToString();
-        if (holdItemInfo.itemCnt == 0)
-        {
-            ResetShortCutKeySlot();
-        }
+        if (holdItemInfo != null)
+            itemCnt.text = holdItemInfo.itemCnt.ToString();
     }
 
     public void ResetShortCutKeySlot()
