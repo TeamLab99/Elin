@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6520e909b0d3eee4a84a7b2edd24c60a, type: 3}
   m_Name: PlayerStatData
   m_EditorClassIdentifier: 
-  currentHP: 90
-  maxHP: 100
+  currentHP: 110
+  maxHP: 300
   attackPower: 1
   maxCost: 5
   costRecoverySpeed: 0.2

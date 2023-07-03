@@ -14,8 +14,6 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
     private GameObject player;
     private GameObject platformUI;
     private SpriteRenderer spr;
-    private Color halfTransparentColor;
-    private Color nonTransparentColor = Color.white;
     private WaitForSeconds invincibilityTime = new WaitForSeconds(2f);
 
     private void Awake()
@@ -26,7 +24,6 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
         hpUI = platformUI.GetComponentInChildren<HPUI>();
         statUI = platformUI.GetComponentInChildren<StatUI>();
         playerController = player.GetComponent<PlayerController>();
-        halfTransparentColor.a = 0.5f;
     }
 
     public void ChangeStat(int _maxHP=0, int _attackPower=0, int _maxCost=0, float _recoverySpeed=0)
@@ -48,28 +45,29 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
         hpUI.UpdateHPFigure();
     }
 
-    public void DamagePlayer(int _damage)
+    public void DamagePlayer(int _damage, bool _right)
     {
         if (!invincibility)
         {
-            StartCoroutine("Invincibility");
+            StartCoroutine("Invincibility",_right);
             if (playerStatData.currentHP - _damage <= 0)
             {
                 playerStatData.currentHP = 0;
                 playerController.Dead();
             }
             else
+            {
                 playerStatData.currentHP -= _damage;
+                playerController.Hit(_right);
+            }
             hpUI.UpdateHPFigure();
         }
     }
 
     IEnumerator Invincibility()
     {
-        invincibility = true;
-        spr.color = halfTransparentColor;
+        invincibility = true;   
         yield return invincibilityTime;
-        spr.color = nonTransparentColor;
         invincibility = false;
     }
 }
