@@ -26,16 +26,20 @@ public class PlayerController : MonoBehaviour
     private float jumpTime  = 0f;
     private float chargeTime = 0.2f;
     private bool isJump = false;
-    private Vector2 hitForce = new Vector2(0, 8);
+    private Vector2 hitForce = new Vector2(0, 3);
 
     [Header("Control Player")]
     private bool canMove = true;
     private bool playerDead = false;
     private bool keyDownJump;
+    private Color halfColor = Color.white;
+    private Color defaultColor;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        defaultColor = spr.color;
+        halfColor.a = 0.5f;
     }
 
     private void Update()
@@ -126,8 +130,15 @@ public class PlayerController : MonoBehaviour
 
     public void Hit()
     {
+        spr.color = halfColor;
+        Invoke("ReturnSpriteColor", 2f);
         rb.AddForce(hitForce, ForceMode2D.Impulse);
         playerHitParticle.Play();
+    }
+
+    public void ReturnSpriteColor()
+    {
+        spr.color = defaultColor;
     }
 
     public void Dead()

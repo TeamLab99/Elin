@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 355ef206dd9aef4458cf5e1d4d1a863e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
   damage: 10
   projectileHead: {fileID: 99755025190794399}
   projectileHit: {fileID: 6449506862183212974}
@@ -203,6 +203,18 @@ PrefabInstance:
       propertyPath: projectileParent
       value: 
       objectReference: {fileID: 420585442973486776}
+    - target: {fileID: 8921319432690371030, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
+      propertyPath: m_Flip.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921319432690371030, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
+      propertyPath: m_Flip.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921319432690371030, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
+      propertyPath: m_AllowRoll
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8921319432690371031, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
       propertyPath: m_Name
       value: Nependeath_Projectile
@@ -233,15 +245,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8921319432690371032, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8921319432690371032, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8921319432690371032, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8921319432690371032, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

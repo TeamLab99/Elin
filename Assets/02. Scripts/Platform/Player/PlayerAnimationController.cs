@@ -16,4 +16,9 @@ public class PlayerAnimationController : MonoBehaviour
     {
         playerController.SetJumpGravity();
     }
+
+    public void ShowDeadUI()
+    {
+        PlayerRespawnManager.instance.ShowGameOverUI();
+    }
 }
