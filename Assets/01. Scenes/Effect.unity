@@ -140,10 +140,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 874374634781716462, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 1da8bbcfc16655041b76a55a3bae7f1f, type: 2}
     - target: {fileID: 2427034913259480718, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -192,10 +188,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapObject (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 4354571852719055679, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 031b1da93dc18634caa775e0ef325ba3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
 --- !u!1 &1933582143
