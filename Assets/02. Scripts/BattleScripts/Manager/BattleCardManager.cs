@@ -255,8 +255,8 @@ public class BattleCardManager : Singleton<BattleCardManager>
 
         if (isEnlarge)
         {
-            Vector3 enlargePos = new Vector3(card.originPRS.pos.x, card.originPRS.pos.y+1f, -10f);
-            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one), false);
+            Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -6.2f, -10f);
+            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one*0.35f), false);
             isSelected = isEnlarge;
         }
         else
@@ -272,7 +272,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
     IEnumerator CardAlignment()
     {
         List<PRS> originCardPRSs = new List<PRS>();
-        originCardPRSs = RoundAlignment(cardLeft, cardRight, myCards.Count, 0.5f, Vector3.one * 0.75f);
+        originCardPRSs = RoundAlignment(cardLeft, cardRight, myCards.Count, 0.75f, Vector3.one * 0.25f);
 
         for (int i = 0; i < myCards.Count; i++)
         {
@@ -307,12 +307,58 @@ public class BattleCardManager : Singleton<BattleCardManager>
         {
             var targetPos = Vector3.Lerp(leftTr.position, rightTr.position, objLerps[i]);
             var targetRot = Utils.QI;
-            if (objCount >= 1)
+
+            if (objCount == 3)
             {
                 float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(objLerps[i] - 0.5f, 2));
-                curve = height >= 0 ? curve : -curve;
+                curve = height >= 0 ? curve : -curve; //위에서 높이에 제곱을 해버리면 무조건 양수기 때문에 높이가 음수라면 커브도 음수로 변경
+                targetPos.y += curve;
+                targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]); //구형을 그리면서 Lerp
+
+                if (i == 0 || i == 2)
+                {
+                    targetPos.y -= 1f;
+                }
+                else
+                {
+                    targetPos.y -= 0.5f;
+                }
+            }
+            else if (objCount == 4)
+            {
+                float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(objLerps[i] - 0.5f, 2));
+                curve = height >= 0 ? curve : -curve; 
                 targetPos.y += curve;
                 targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]);
+
+                if (i == 0 || i == 3)
+                {
+                    targetPos.y -= 1f;
+                }
+                else
+                {
+                    targetPos.y -= 0.5f;
+                }
+            }
+            else if (objCount == 5)
+            {
+                float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(objLerps[i] - 0.5f, 2));
+                curve = height >= 0 ? curve : -curve; //위에서 높이에 제곱을 해버리면 무조건 양수기 때문에 높이가 음수라면 커브도 음수로 변경
+                targetPos.y += curve;
+                targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]); //구형을 그리면서 Lerp
+
+                if (i == 0 || i == 4)
+                {
+                    targetPos.y -= 1f;
+                }
+                else if (i == 1 || i == 3)
+                {
+                    targetPos.y -= 0.5f;
+                }
+                else
+                {
+                    targetPos.y -= 0.25f;
+                }
             }
             results.Add(new PRS(targetPos, targetRot, scale));
         }

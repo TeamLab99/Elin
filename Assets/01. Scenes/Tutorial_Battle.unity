@@ -21990,11 +21990,11 @@ MonoBehaviour:
   maxHp: 50
   attack: 5
   battleBuffDebuff: {fileID: 0}
-  attackSpeed: 2
-  skillCount: 2
+  attackSpeed: 5
+  skillCount: 5
   monsterState: 1
   player: {fileID: 0}
-  gaugeIcon: {fileID: -1357952498, guid: e88052155bd41e047a487cad767cbd56, type: 3}
+  gaugeIcon: {fileID: -1161415325, guid: d3a8789646db08c4590ab7d3c46e5b04, type: 3}
 --- !u!1 &1087349319
 GameObject:
   m_ObjectHideFlags: 0

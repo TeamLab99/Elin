@@ -6,17 +6,15 @@ using TMPro;
 
 public class SkillIcon
 {
-    public SkillIcon(Image image, TMP_Text count, TMP_Text amount, Image cool)
+    public SkillIcon(Image image, TMP_Text amount, Image cool)
     {
         IconImage = image;
-        countText = count;
         amountText = amount;
         coolTimeImage = cool;
     }
 
     public Image IconImage;
     public Image coolTimeImage;
-    public TMP_Text countText;
     public TMP_Text amountText;
     public bool isFull = false;
     public BuffDebuffMagic buff;
@@ -40,18 +38,16 @@ public class BuffIconsController : Singleton<BuffIconsController>
         for (int i = 0; i < playerBuffObjects.Length; i++)
         {
             var image = playerBuffObjects[i].transform.GetChild(0).GetComponent<Image>();
-            var counter = playerBuffObjects[i].transform.GetChild(1).GetComponent<TMP_Text>();
+            var cool = playerBuffObjects[i].transform.GetChild(1).GetComponent<Image>();
             var amount = playerBuffObjects[i].transform.GetChild(2).GetComponent<TMP_Text>();
-            var cool = playerBuffObjects[i].transform.GetChild(3).GetComponent<Image>();
 
-            playerIconsList.Add(new SkillIcon(image, counter, amount,cool));
+            playerIconsList.Add(new SkillIcon(image, amount,cool));
 
             var mobImage = playerBuffObjects[i].transform.GetChild(0).GetComponent<Image>();
-            var mobCounter = playerBuffObjects[i].transform.GetChild(1).GetComponent<TMP_Text>();
+            var mobCool = playerBuffObjects[i].transform.GetChild(1).GetComponent<Image>();
             var mobAmount = playerBuffObjects[i].transform.GetChild(2).GetComponent<TMP_Text>();
-            var mobCool = playerBuffObjects[i].transform.GetChild(3).GetComponent<Image>();
 
-            monsterIconsList.Add(new SkillIcon(mobImage, mobCounter, mobAmount, mobCool));
+            monsterIconsList.Add(new SkillIcon(mobImage, mobAmount, mobCool));
         }
     }
 
@@ -66,10 +62,9 @@ public class BuffIconsController : Singleton<BuffIconsController>
     {
         // 데이터 초기화
         icon.IconImage.sprite = null;
-        icon.countText.text = "";
         icon.amountText.text = "";
         icon.isFull = false;
-        icon.coolTimeImage.fillAmount = 1f;
+        icon.coolTimeImage.fillAmount = 0f;
 
         // 누구의 버프 리스트에 있었는가 확인
         if (playerIconsList.Contains(icon))
@@ -105,11 +100,10 @@ public class BuffIconsController : Singleton<BuffIconsController>
                     icons[i].buff.ChangeIcon(icons[i - 1]);
 
                     icons[i].IconImage.sprite = null;
-                    icons[i].countText.text = "";
                     icons[i].amountText.text = "";
                     icons[i].isFull = false;
                     icons[i].buff = null;
-                    icons[i].coolTimeImage.fillAmount = 1f;
+                    icons[i].coolTimeImage.fillAmount = 0f;
                 }
             }
         }

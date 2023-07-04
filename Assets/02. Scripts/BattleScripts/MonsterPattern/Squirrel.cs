@@ -33,7 +33,7 @@ public class Squirrel : BattleMonster
     public IEnumerator Attack()
     {
         EntitiesStateChange(true);
-        gameObject.transform.DOScale(Vector3.one, 0.5f).SetRelative().SetEase(Ease.Flash, 2, 0);
+        //gameObject.transform.DOScale(Vector3.one, 0.5f).SetRelative().SetEase(Ease.Flash, 2, 0);
 
         yield return StartCoroutine(MobSkillManager.instance.CallNormalAttackEffect(1));
         Attack(player);

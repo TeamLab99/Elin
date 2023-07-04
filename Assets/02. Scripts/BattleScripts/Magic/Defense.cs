@@ -59,4 +59,10 @@ public class Defense : BuffDebuffMagic, IMagic
         // 삭제
         Delete();
     }
+
+    public override void IconInit()
+    {
+        base.IconInit();
+        icon.amountText.text = amount.ToString();
+    }
 }
