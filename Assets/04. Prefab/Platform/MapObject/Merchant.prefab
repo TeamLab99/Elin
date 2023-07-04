@@ -305,8 +305,8 @@ MonoBehaviour:
   - {fileID: 5504599644953445445}
   - {fileID: 5504599643713553086}
   m_Bounds:
-    m_Center: {x: -1.9018507, y: 2.1264699, z: 0}
-    m_Extent: {x: 5.313462, y: 5.5835333, z: 0}
+    m_Center: {x: -1.9018507, y: 2.126471, z: 0}
+    m_Extent: {x: 5.313462, y: 5.5835323, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -368,8 +368,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd620eb3405e03429c18a90e9c88f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sellItemsID: 
-  introduceBox: {fileID: 0}
+  sellItemsID: 6500000066000000
+  introduceBox: {fileID: 2986512806744836774}
   storeObject: {fileID: 0}
   sellList: []
 --- !u!1 &5504599643467344038

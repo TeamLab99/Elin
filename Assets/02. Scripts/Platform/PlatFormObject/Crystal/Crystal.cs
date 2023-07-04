@@ -6,26 +6,25 @@ public class Crystal : MonoBehaviour
 {
     public bool isCharge = false;
     public bool bothCharge = false;
-    public Bridge bridge;
+    public Door door;
     public void ActionPuzzle()
     {
         if (bothCharge)
         {
-            bridge.BothLayBridge();
+            door.BothOpenDoor();
             StartCoroutine("TurnOffCrystal");
         }
         else
-            bridge.LayBridge();
+            door.OpenDoor();
     }
 
     public IEnumerator TurnOffCrystal()
     {
         yield return new WaitForSeconds(1f);
-        if (!bridge.bothCharge)
+        if (!door.bothCharge)
         {
             isCharge = false;
-            Debug.Log("실행됨");
-            bridge.crystalCnt -= 1;
+            door.crystalCnt -= 1;
         }
     }
 }
