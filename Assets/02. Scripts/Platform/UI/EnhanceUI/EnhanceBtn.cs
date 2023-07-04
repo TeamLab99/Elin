@@ -9,9 +9,9 @@ public class EnhanceBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public EnhanceStat enhanceStat;
     public GameObject selectIcon;
 
-    private Image image;
     private Color originalColor;
     private Color transparentColor;
+    [SerializeField] Image image;
     [SerializeField] Text statName;
     [SerializeField] Text stepFigureText;
     [SerializeField] Text priceFigureText;
@@ -19,7 +19,6 @@ public class EnhanceBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     private void Awake()
     {
-        image = GetComponent<Image>();
         originalColor = image.color;
         transparentColor = new Color(originalColor.r, originalColor.g, originalColor.b, 0.5f);
         SetName();
