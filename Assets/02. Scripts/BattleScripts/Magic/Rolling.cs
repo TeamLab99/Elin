@@ -22,7 +22,7 @@ public class Rolling : BuffDebuffMagic, IMagic
             if (!isTimerStop)
                 time -= 1f;
 
-            icon.countText.text = time.ToString();
+            icon.coolTimeImage.fillAmount -= 0.33f;
         }
         isEnd = true;
         Delete();

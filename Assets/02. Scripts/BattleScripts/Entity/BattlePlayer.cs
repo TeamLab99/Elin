@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class BattlePlayer : BattleEntity
 {
@@ -8,12 +10,20 @@ public class BattlePlayer : BattleEntity
     {
         hp = maxHp;
         Init();
-        HpTextUpdate();
     }
 
     public override void Init()
     {
         battleBuffDebuff = gameObject.AddComponent<BattleBuffManager>();
+        StartCoroutine(GetGaugeUI("HpBar"));
+    }
+
+    public override IEnumerator GetGaugeUI(string tagName)
+    {
+        yield return new WaitForEndOfFrame();
+        hpBar = GameObject.FindGameObjectsWithTag(tagName)[0].GetComponent<Image>();
+        hpTMP = GameObject.FindGameObjectsWithTag("HpText")[1].GetComponent<TMP_Text>();
+        HpTextUpdate();
     }
 
     public override void TimerControl(bool isStop)

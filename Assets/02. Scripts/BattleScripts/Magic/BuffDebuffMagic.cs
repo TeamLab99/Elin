@@ -82,5 +82,6 @@ public abstract class BuffDebuffMagic : MonoBehaviour
         icon.IconImage.sprite = skilIcon;
         icon.isFull = true;
         icon.buff = this;
+        icon.coolTimeImage.fillAmount = 1f;
     }
 }
