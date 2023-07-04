@@ -14466,7 +14466,7 @@ GameObject:
   - component: {fileID: 3756604435486749500}
   - component: {fileID: 201582769281361580}
   m_Layer: 0
-  m_Name: Spark_Projectile
+  m_Name: Spark_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -40,6 +40,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8025334470336668149}
     m_Modifications:
+    - target: {fileID: 2933573269362940703, guid: c5ef982d907a23345a30405e6a00360f, type: 3}
+      propertyPath: m_SortingOrder
+      value: -2
+      objectReference: {fileID: 0}
     - target: {fileID: 2933573270124050180, guid: c5ef982d907a23345a30405e6a00360f, type: 3}
       propertyPath: m_Name
       value: Earthquake_Head

@@ -285,7 +285,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.61
+      scalar: 3.41
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -14658,15 +14658,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 93563684431364513, guid: cdcb3a3cb5371284a9cca745917ae375, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.66514677
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 93563684431364513, guid: cdcb3a3cb5371284a9cca745917ae375, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.8026237
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 93563684431364513, guid: cdcb3a3cb5371284a9cca745917ae375, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.068087734
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 93563684431364513, guid: cdcb3a3cb5371284a9cca745917ae375, type: 3}
       propertyPath: m_LocalRotation.w

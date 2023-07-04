@@ -72,7 +72,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
-    - _Noise_scale: 2
+    - _Noise_scale: 5.27
     - _Power: 1.81
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -85,6 +85,6 @@ Material:
     - _Base_tiling: {r: 1, g: 1, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _Noise_flow: {r: 1.4, g: 0, b: 0, a: 0}
+    - _Noise_flow: {r: 2.28, g: 0, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

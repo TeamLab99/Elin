@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 2
       minColor: {r: 1, g: 0, b: 0, a: 0.36862746}
-      maxColor: {r: 1, g: 0, b: 0.15032196, a: 0.33333334}
+      maxColor: {r: 1, g: 0, b: 0.14901972, a: 0.34901962}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -444,7 +444,7 @@ ParticleSystem:
     startRotationX:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4.58498
+      scalar: 4.7403145
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -5348,7 +5348,7 @@ ParticleSystem:
     startRotationX:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4.58498
+      scalar: 4.69319
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -9743,7 +9743,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -36
+  m_SortingOrder: -3
   m_RenderMode: 4
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -14613,7 +14613,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
