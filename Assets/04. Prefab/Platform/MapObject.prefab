@@ -16369,18 +16369,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6554582885391683948, guid: dafee3e66c0ed7b4580b33afcc057ea5, type: 3}
-      propertyPath: m_SortingLayer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6554582885391683948, guid: dafee3e66c0ed7b4580b33afcc057ea5, type: 3}
-      propertyPath: m_SortingOrder
-      value: -7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6554582885391683948, guid: dafee3e66c0ed7b4580b33afcc057ea5, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6554582885391683950, guid: dafee3e66c0ed7b4580b33afcc057ea5, type: 3}
       propertyPath: m_Name
       value: WaterElement (1)
