@@ -32616,10 +32616,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1070872288}
     m_Modifications:
-    - target: {fileID: 6033500751125031506, guid: 0c0dfb37a0f090d459d3fe014e5e05d2, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 1da8bbcfc16655041b76a55a3bae7f1f, type: 2}
     - target: {fileID: 6888585407413458519, guid: 0c0dfb37a0f090d459d3fe014e5e05d2, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -32686,10 +32682,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anim_Chargechristal_normal
       objectReference: {fileID: 0}
-    - target: {fileID: 6065576397095496981, guid: 1ae575cdd2d48bd4e8eae50850a94441, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 031b1da93dc18634caa775e0ef325ba3, type: 2}
     - target: {fileID: 6065576397095496986, guid: 1ae575cdd2d48bd4e8eae50850a94441, type: 3}
       propertyPath: m_RootOrder
       value: 8
