@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: PlayerStatData
   m_EditorClassIdentifier: 
   currentHP: 10
-  maxHP: 10
-  attackPower: 20
-  maxCost: 10
-  costRecoverySpeed: 1
+  maxHP: 160
+  attackPower: 40
+  maxCost: 16
+  costRecoverySpeed: 4
   enhanceHpStep: 0
-  enhanceAtkStep: 1
+  enhanceAtkStep: 0
   enhanceCostStep: 0
   enhanceRecoveryStep: 0

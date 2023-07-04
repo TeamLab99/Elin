@@ -17,7 +17,10 @@ public class EnhanceUI : Singleton<EnhanceUI>
     public int selectStatEnhancePrice;
     public int enhanceStep;
     public Text aumText;
+    public Text warningText;
 
+    private string warningMessage = "아움이 부족합니다.";
+    private string defaultMessage = "업그레이드 하시겠습니까?";
     private int btnIndex;
     private bool canUpgrade=true;
 
@@ -73,9 +76,10 @@ public class EnhanceUI : Singleton<EnhanceUI>
         {
             enhanceDecisionUI.SetActive(true);
             enhanceDecisionStatText[0].text = enhanceDecisionStatString;
-            enhanceDecisionStatText[1].text = (enhanceStep + 1).ToString() + "단계";
-            enhanceDecisionStatText[2].text = (enhanceStep).ToString() + "단계";
+            enhanceDecisionStatText[1].text = (enhanceStep ).ToString() + "단계";
+            enhanceDecisionStatText[2].text = (enhanceStep+1).ToString() + "단계";
             enhanceDecisionStatText[3].text = selectStatEnhancePrice.ToString();
+            warningText.text = defaultMessage;
         }    
     }
 
@@ -118,6 +122,7 @@ public class EnhanceUI : Singleton<EnhanceUI>
         }
         else
         {
+            warningText.text = warningMessage;
             return;
         }
     }

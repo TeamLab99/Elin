@@ -4833,6 +4833,7 @@ GameObject:
   - component: {fileID: 874374636298779165}
   - component: {fileID: 1363852857771140543}
   - component: {fileID: 1178502695}
+  - component: {fileID: 5149832976593401666}
   m_Layer: 0
   m_Name: Treedoor1_0
   m_TagString: Untagged
@@ -4954,3 +4955,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5149832976593401666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874374636298779164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef7575f1d407ef4fbbc67dc2b0751e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crystalCnt: 0
+  bothCharge: 0
