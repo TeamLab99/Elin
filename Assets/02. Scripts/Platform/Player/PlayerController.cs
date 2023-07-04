@@ -25,11 +25,11 @@ public class PlayerController : MonoBehaviour
     private float jumpTime  = 0f;
     private float chargeTime = 0.2f;
     private bool isJump = false;
-    private Vector2 leftHitForce = new Vector2(-30, 20);
-    private Vector2 rightHitForce = new Vector2(10, 7);
+    private Vector2 hitForce = new Vector2(0, 8);
 
     [Header("Control Player")]
     private bool canMove = true;
+    private bool playerDead = false;
     private bool keyDownJump;
 
     private void Awake()
@@ -123,18 +123,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Hit(bool _right)
+    public void Hit()
     {
-        if (_right)
-            rb.AddForce(rightHitForce, ForceMode2D.Impulse);
-        else
-            rb.AddForce(leftHitForce,ForceMode2D.Impulse);
+        rb.AddForce(hitForce, ForceMode2D.Impulse);
     }
 
     public void Dead()
     {
-        anim.SetTrigger("Dead");
-        Debug.Log("죽었습니다.");
+        if (!playerDead)
+        {
+            anim.SetTrigger("Dead");
+            ControlPlayer(false);
+             playerDead = true;
+        }
+    }
+
+    public void Respawn(Transform _respawnPosition)
+    {
+        anim.SetTrigger("Respawn");
+        canMove = true;
+        playerDead = false;
+        gameObject.transform.position = _respawnPosition.position;
     }
 
     public void JumpMushroom()

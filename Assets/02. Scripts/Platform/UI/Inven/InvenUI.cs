@@ -15,8 +15,9 @@ public class InvenUI : Singleton<InvenUI>
     public ItemSlot[] itemSlots;
     public Text aumText;
     public Transform itemSlotsTransform;
-    public EquipSlot[] equipSlots;
     public Transform equipSlotsTransform;
+    public Transform tabSlotsTransform;
+    public EquipSlot[] equipSlots;
     public ItemTypes itemTypeEnum = ItemTypes.Con;
     public ItemInfoUI itemInfoUI;
     public GameObject itemInfoObject;
@@ -34,7 +35,7 @@ public class InvenUI : Singleton<InvenUI>
     {
         itemSlots = itemSlotsTransform.GetComponentsInChildren<ItemSlot>();
         equipSlots = equipSlotsTransform.GetComponentsInChildren<EquipSlot>();
-        invenTabSlots = GetComponentsInChildren<InvenTabSlot>();
+        invenTabSlots = tabSlotsTransform.GetComponentsInChildren<InvenTabSlot>();
         StartCoroutine("LoadingItemList");
     }
 
