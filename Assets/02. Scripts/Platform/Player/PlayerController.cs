@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float ySpeed;
     [SerializeField] private float jumpGravity = 1.5f;
     [SerializeField] private float fallGravity = 2.5f;
+    [SerializeField] private ParticleSystem playerHitParticle;
 
     private float moveDir;
     private float jumpTime  = 0f;
@@ -126,6 +127,7 @@ public class PlayerController : MonoBehaviour
     public void Hit()
     {
         rb.AddForce(hitForce, ForceMode2D.Impulse);
+        playerHitParticle.Play();
     }
 
     public void Dead()
