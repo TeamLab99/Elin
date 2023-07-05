@@ -18,7 +18,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
     [SerializeField] List<BattleCard> myCards;
     [SerializeField] ECardState eCardState;
     [SerializeField] int maxCost;
-    [SerializeField] float maxCostTime;
+    [SerializeField] float costRecoverySpeed;
     [SerializeField] MagicSO magicSO;
     [SerializeField] TMP_Text costTMP;
     [SerializeField] TMP_Text maxCostTMP;
@@ -48,6 +48,12 @@ public class BattleCardManager : Singleton<BattleCardManager>
         costTMP = costImg[0];
         maxCostTMP = costImg[1];
         TextUpdate();
+    }
+
+    public void SetStat(float maxCost, float costRecovery)
+    {
+        this.maxCost = (int)maxCost;
+        costRecoverySpeed = costRecovery;
     }
 
     public DeckCard PopCard()
@@ -94,7 +100,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
         SetupCardBuffer();
         BattleTurnManager.OnAddCard += AddCard;
         cost = maxCost;
-        curCostTIme = maxCostTime;
+        curCostTIme = costRecoverySpeed;
         //BattleTurnManager.EndDrawPhase += EndDrawPhase;
     }
 
@@ -159,7 +165,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
             {
                 cost++;
                 TextUpdate();
-                curCostTIme = maxCostTime;
+                curCostTIme = costRecoverySpeed;
             }
         }
 

@@ -49,6 +49,7 @@ public class BattleGameManager : Singleton<BattleGameManager>
         BattleMagicManager.instance.SetEntites(player.GetComponent<BattlePlayer>(), monster.GetComponent<BattleMonster>());
         MobSkillManager.instance.SetEntites(player.GetComponent<BattlePlayer>(), monster.GetComponent<BattleMonster>());
 
+        mainCamera.GetComponent<CamerEffect>().enabled = false;
         player.GetComponent<PlayerController>().ControlPlayer(false);
         player.GetComponent<PlayerController>().anim.SetBool("Walk", false);
         player.GetComponent<PlayerAbilityController>().enabled = false;

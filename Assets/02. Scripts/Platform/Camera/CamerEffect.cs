@@ -17,11 +17,11 @@ public class CamerEffect : Singleton<CamerEffect>
     public Transform player;
     public float lerpTime;
     public CamerEffectType camerEffectType;
-  
+
     private Vector3 targetCamPos;
     private Vector3 offSet;
 
-    private float currentTime=0f;
+    private float currentTime = 0f;
     private bool onCamera = true;
 
     private void Awake()
@@ -33,6 +33,7 @@ public class CamerEffect : Singleton<CamerEffect>
     void Update()
     {
         targetCamPos = target.position;
+        targetCamPos.y += 5f;
         targetCamPos.z = -10f;
         switch (camerEffectType)
         {
@@ -60,11 +61,6 @@ public class CamerEffect : Singleton<CamerEffect>
             case CamerEffectType.GameMode: // 게임 들어갈 때 카메라 효과
                 break;
         }
-
-        if (Input.GetKeyDown(KeyCode.P))
-            ChangeLateFollowCamerMode();
-        if (Input.GetKeyDown(KeyCode.O))
-            ChangeGotoCameraMode();
     }
 
     public void ChangeLateFollowCamerMode() // 나무에서 떨어질때
@@ -82,10 +78,10 @@ public class CamerEffect : Singleton<CamerEffect>
     }
 
     public void ChangeFollowCameraMode()
-    {   
+    {
         currentTime = 0f;
         target = player;
-        onCamera=true;
+        onCamera = true;
         camerEffectType = CamerEffectType.FollowPlayer;
         PlatformEventManager.instance.ControlPlayerMove(true);
     }

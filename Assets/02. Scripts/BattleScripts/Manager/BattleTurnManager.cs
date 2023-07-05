@@ -24,6 +24,7 @@ public class BattleTurnManager : Singleton<BattleTurnManager>
 
     public IEnumerator StartGameCo(GameObject ui,BattleMonster monster,BattlePlayer player,float time = 0.5f)
     {
+        player.SetStat(PlayerStatManager.instance.playerStatData);
         isLoading = true;
         delay05 = new WaitForSeconds(time);
         yield return delay05;
