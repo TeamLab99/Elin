@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
 
     public void JumpMushroom()
     {
-        rb.velocity = new Vector2(rb.velocity.x, 40);
+        rb.velocity = new Vector2(rb.velocity.x, 24);
     }
 
     public void SetJumpGravity()

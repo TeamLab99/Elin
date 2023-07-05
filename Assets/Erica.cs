@@ -5,6 +5,7 @@ using UnityEngine;
 public class Erica : MonoBehaviour
 {
     [SerializeField] GameObject player;
+    [SerializeField] GameObject infoUI;
     bool isEnter;
     bool isDialogue;
 
@@ -18,11 +19,15 @@ public class Erica : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         isEnter = true;
+        if (collision.gameObject.CompareTag("Player"))
+            infoUI.SetActive(true);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         isEnter = false;
+        if (collision.gameObject.CompareTag("Player"))
+            infoUI.SetActive(false);
     }
 
     private void Update()

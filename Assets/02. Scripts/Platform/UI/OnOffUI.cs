@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnOffUI : MonoBehaviour
+public class OnOffUI : Singleton<OnOffUI>
 { 
     [SerializeField] GameObject statObject;
     [SerializeField] GameObject invenObject;
+    public GameObject endingObject;
     public bool onBattlePage;
     bool statActivate = false;
     bool invenActivate = false;

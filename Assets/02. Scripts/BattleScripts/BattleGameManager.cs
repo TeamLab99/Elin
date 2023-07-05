@@ -63,8 +63,7 @@ public class BattleGameManager : Singleton<BattleGameManager>
 
     public void GameOver()
     {
-        Time.timeScale = 0f;
-        Debug.Log("게임 오버");
+        OnOffUI.instance.endingObject.SetActive(true);
     }
 
     public void Win()
