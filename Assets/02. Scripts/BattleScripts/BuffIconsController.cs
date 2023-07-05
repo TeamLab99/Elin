@@ -27,6 +27,7 @@ public class BuffIconsController : Singleton<BuffIconsController>
 
     List<SkillIcon> playerIconsList = new List<SkillIcon>();
     List<SkillIcon> monsterIconsList = new List<SkillIcon>();
+    float saveFillData;
 
     private void Start()
     {
@@ -97,7 +98,7 @@ public class BuffIconsController : Singleton<BuffIconsController>
             {
                 if (icons[i].isFull == true)
                 {
-                    icons[i].buff.ChangeIcon(icons[i - 1]);
+                    icons[i].buff.ChangeIcon(icons[i - 1], icons[i].coolTimeImage.fillAmount);
 
                     icons[i].IconImage.sprite = null;
                     icons[i].amountText.text = "";

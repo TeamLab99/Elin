@@ -49,10 +49,11 @@ public abstract class BuffDebuffMagic : MonoBehaviour
         Managers.Pool.Push(GetComponent<Poolable>());
     }
 
-    public void ChangeIcon(SkillIcon icon)
+    public void ChangeIcon(SkillIcon prevIcon, float fill)
     {
-        this.icon = icon;
+        icon = prevIcon;
         IconInit();
+        icon.coolTimeImage.fillAmount = fill;
     }
 
     public void TimeUpdate()

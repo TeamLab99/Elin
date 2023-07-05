@@ -328,7 +328,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35526247}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f711597edb108743af7b2af22e8b580, type: 3}
   m_Name: 
@@ -21992,7 +21992,6 @@ MonoBehaviour:
   battleBuffDebuff: {fileID: 0}
   attackSpeed: 5
   skillCount: 5
-  monsterState: 1
   player: {fileID: 0}
   gaugeIcon: {fileID: -1161415325, guid: d3a8789646db08c4590ab7d3c46e5b04, type: 3}
 --- !u!1 &1087349319

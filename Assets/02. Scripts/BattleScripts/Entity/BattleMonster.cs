@@ -10,7 +10,6 @@ public class BattleMonster : BattleEntity
 {
     [SerializeField] protected float attackSpeed;
     [SerializeField] protected int skillCount;
-    [SerializeField] EMonsterState monsterState;
     [SerializeField] protected BattlePlayer player;
     [SerializeField] Sprite gaugeIcon;
 
@@ -23,8 +22,6 @@ public class BattleMonster : BattleEntity
     protected BattleGaugeIconAnimation iconAnimation;
 
     protected WaitForSeconds delay = new WaitForSeconds(0.5f);
-
-    enum EMonsterState { Stop, Idle, Attack, Skill };
 
     public override void Init()
     {
@@ -41,7 +38,7 @@ public class BattleMonster : BattleEntity
     {
         yield return new WaitForEndOfFrame();
         hpBar = GameObject.FindGameObjectsWithTag(tagName)[1].GetComponent<Image>();
-        hpTMP = GameObject.FindGameObjectsWithTag("HpText")[0].GetComponent<TMP_Text>();
+        hpTMP = GameObject.FindGameObjectsWithTag("HpText")[1].GetComponent<TMP_Text>();
         gauge = GameObject.FindGameObjectWithTag("Gauge").GetComponent<Image>();
         iconAnimation = GameObject.FindGameObjectWithTag("Battle_GaugeIcon").GetComponent<BattleGaugeIconAnimation>();
         

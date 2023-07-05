@@ -22,7 +22,7 @@ public class BattlePlayer : BattleEntity
     {
         yield return new WaitForEndOfFrame();
         hpBar = GameObject.FindGameObjectsWithTag(tagName)[0].GetComponent<Image>();
-        hpTMP = GameObject.FindGameObjectsWithTag("HpText")[1].GetComponent<TMP_Text>();
+        hpTMP = GameObject.FindGameObjectsWithTag("HpText")[0].GetComponent<TMP_Text>();
         HpTextUpdate();
     }
 

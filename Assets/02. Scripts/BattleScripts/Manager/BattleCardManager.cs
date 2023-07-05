@@ -33,7 +33,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
     bool isSelected;
     bool isCardActivating;
     bool isMonsterAttack;
-    
+
     int cost;
     float curCostTIme;
 
@@ -95,7 +95,6 @@ public class BattleCardManager : Singleton<BattleCardManager>
         BattleTurnManager.OnAddCard += AddCard;
         cost = maxCost;
         curCostTIme = maxCostTime;
-        StartCoroutine(GetCost());
         //BattleTurnManager.EndDrawPhase += EndDrawPhase;
     }
 
@@ -108,7 +107,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
 
     public void CreatePoolCard()
     {
-        Managers.Pool.CreatePool(cardPrefab,10);
+        Managers.Pool.CreatePool(cardPrefab, 10);
     }
 
     void TextUpdate()
@@ -137,14 +136,14 @@ public class BattleCardManager : Singleton<BattleCardManager>
         for (int i = 0; i < myCards.Count; i++)
         {
             var targetCard = myCards[i];
-            targetCard?.GetComponent<Order>().SetOriginOrder(myCards.Count-i);
+            targetCard?.GetComponent<Order>().SetOriginOrder(myCards.Count - i);
         }
     }
 
-/*    void EndDrawPhase()
-    {
-        // 5장 드로우가 끝나고 실행될 함수
-    }*/
+    /*    void EndDrawPhase()
+        {
+            // 5장 드로우가 끝나고 실행될 함수
+        }*/
 
     void Update()
     {
@@ -256,7 +255,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
         if (isEnlarge)
         {
             Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -6.2f, -10f);
-            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one*0.35f), false);
+            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 0.35f), false);
             isSelected = isEnlarge;
         }
         else
@@ -327,7 +326,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
             else if (objCount == 4)
             {
                 float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(objLerps[i] - 0.5f, 2));
-                curve = height >= 0 ? curve : -curve; 
+                curve = height >= 0 ? curve : -curve;
                 targetPos.y += curve;
                 targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]);
 
@@ -359,6 +358,10 @@ public class BattleCardManager : Singleton<BattleCardManager>
                 {
                     targetPos.y -= 0.25f;
                 }
+            }
+            else if (objCount < 3)
+            {
+                targetPos.y += 0.3f;
             }
             results.Add(new PRS(targetPos, targetRot, scale));
         }
@@ -429,5 +432,10 @@ public class BattleCardManager : Singleton<BattleCardManager>
 
         else
             eCardState = ECardState.Noting;
+    }
+
+    public void SetActive(bool isOn)
+    {
+        gameObject.SetActive(isOn);
     }
 }
