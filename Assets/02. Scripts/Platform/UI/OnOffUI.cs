@@ -6,21 +6,44 @@ public class OnOffUI : MonoBehaviour
 { 
     [SerializeField] GameObject statObject;
     [SerializeField] GameObject invenObject;
+    public bool onBattlePage;
     bool statActivate = false;
     bool invenActivate = false;
 
+    private void Start()
+    {
+        BattleGameManager.PlatformUIControl += SetBool;
+    }
+
+    private void OnDestroy()
+    {
+        BattleGameManager.PlatformUIControl -= SetBool;
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) && !onBattlePage)
         {
             statActivate = !statActivate;
             statObject.SetActive(statActivate);
         }
 
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) && !onBattlePage)
         {
             invenActivate = !invenActivate;
             invenObject.SetActive(invenActivate);
+        }
+    }
+
+    void SetBool()
+    {
+        if (onBattlePage)
+            onBattlePage = false;
+        else
+        {
+            onBattlePage = true;
+            invenObject.SetActive(false);
+            statObject.SetActive(false);
         }
     }
 }

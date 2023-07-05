@@ -17,7 +17,7 @@ public class BattleGameManager : Singleton<BattleGameManager>
     GameObject battleUI;
     bool isSetting;
 
-    public static  Action PlatformUIControl;
+    public static Action PlatformUIControl;
 
     void Start()
     {
@@ -49,13 +49,10 @@ public class BattleGameManager : Singleton<BattleGameManager>
         BattleMagicManager.instance.SetEntites(player.GetComponent<BattlePlayer>(), monster.GetComponent<BattleMonster>());
         MobSkillManager.instance.SetEntites(player.GetComponent<BattlePlayer>(), monster.GetComponent<BattleMonster>());
 
-        player.GetComponent<PlayerController>().anim.SetBool("Walk", false);
         player.GetComponent<PlayerController>().ControlPlayer(false);
-        player.GetComponent<PlayerController>().rb.constraints = RigidbodyConstraints2D.FreezeAll;
-
-        player.GetComponent<PlayerController>().enabled = false;
+        player.GetComponent<PlayerController>().anim.SetBool("Walk", false);
         player.GetComponent<PlayerAbilityController>().enabled = false;
-        
+
         var targetPos = new Vector3(Mathf.Lerp(player.transform.position.x, mobPos.x, 0.5f), mobPos.y + 5f, -15);
         mainCamera.transform.DOMove(targetPos, 1.5f).SetEase(ease);
 

@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 hitForce = new Vector2(0, 3);
 
     [Header("Control Player")]
-    private bool canMove = true;
+    public bool canMove = true;
     private bool playerDead = false;
     private bool keyDownJump;
     private Color halfColor = Color.white;
@@ -117,14 +117,7 @@ public class PlayerController : MonoBehaviour
         if (!canMove)
         {
             moveDir = 0;
-            while (true)
-            {
-                if (isGround)
-                {
-                    rb.velocity = Vector3.zero;
-                    break;
-                }
-            }
+            rb.velocity = new Vector2(0,rb.velocity.y);
         }
     }
 

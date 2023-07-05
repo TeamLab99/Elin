@@ -22,6 +22,7 @@ public class Squirrel : BattleMonster
         {
             if (skillOverlap < 2)
             {
+                Debug.Log("스킬 발동");
                 StartCoroutine(Skill());
             }
 
@@ -50,8 +51,7 @@ public class Squirrel : BattleMonster
         maxTime = attackSpeed;
         skillOverlap++;
 
-
-        yield return delay;
+        yield return StartCoroutine(MobSkillManager.instance.Broadening());
         EntitiesStateChange(false);
         AnimationControl();
     }

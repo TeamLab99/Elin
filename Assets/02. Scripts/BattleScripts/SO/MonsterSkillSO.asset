@@ -17,4 +17,4 @@ MonoBehaviour:
     name: "\uC0AC\uB098\uC6B4 \uBCC4 \uB2E4\uB78C\uC950"
     normalAttackEffect: {fileID: 5013288351290021617, guid: 4e66e4385ed723649a3a0c1ea0616e9b, type: 3}
     skillEffect:
-    - {fileID: 3880732028345131960, guid: ea05ce5dcd9fd8d4bb0e908716b20cfc, type: 3}
+    - {fileID: 1276520960654167790, guid: 0a06df940f0e62d42beeae3f9fd50173, type: 3}

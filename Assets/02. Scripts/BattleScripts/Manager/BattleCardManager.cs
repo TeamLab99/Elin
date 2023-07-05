@@ -19,7 +19,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
     [SerializeField] ECardState eCardState;
     [SerializeField] int maxCost;
     [SerializeField] float maxCostTime;
-
+    [SerializeField] MagicSO magicSO;
     [SerializeField] TMP_Text costTMP;
     [SerializeField] TMP_Text maxCostTMP;
 
@@ -125,6 +125,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
 
         var card = cardObject.GetComponent<BattleCard>();
         card.Setup(PopCard());
+        card.SetImage(magicSO.items[card.deckCard.index-1].cardImage);
         myCards.Add(card);
 
         SetOriginOrder();
@@ -169,7 +170,9 @@ public class BattleCardManager : Singleton<BattleCardManager>
         if (eCardState == ECardState.CanUseCard)
         {
             if (Input.GetKeyDown(KeyCode.A))
+            {
                 ChoiceCard(0);
+            }
             else if (Input.GetKeyDown(KeyCode.S))
                 ChoiceCard(1);
             else if (Input.GetKeyDown(KeyCode.D))
@@ -199,7 +202,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
 
         if (selectCard == myCards[index])
         {
-            SelectAndEnlarge(selectCard, true);
+            SelectAndEnlarge(selectCard, false);
             return;
         }
         else
@@ -254,8 +257,8 @@ public class BattleCardManager : Singleton<BattleCardManager>
 
         if (isEnlarge)
         {
-            Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -6.2f, -10f);
-            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 0.35f), false);
+            Vector3 enlargePos = new Vector3(316.7f, -5.25f, -10f);
+            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 0.2f), false);
             isSelected = isEnlarge;
         }
         else
@@ -271,7 +274,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
     IEnumerator CardAlignment()
     {
         List<PRS> originCardPRSs = new List<PRS>();
-        originCardPRSs = RoundAlignment(cardLeft, cardRight, myCards.Count, 0.75f, Vector3.one * 0.25f);
+        originCardPRSs = RoundAlignment(cardLeft, cardRight, myCards.Count, 1f, Vector3.one * 0.25f);
 
         for (int i = 0; i < myCards.Count; i++)
         {
@@ -316,7 +319,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
 
                 if (i == 0 || i == 2)
                 {
-                    targetPos.y -= 1f;
+                    targetPos.y -= 0.75f;
                 }
                 else
                 {
@@ -332,11 +335,11 @@ public class BattleCardManager : Singleton<BattleCardManager>
 
                 if (i == 0 || i == 3)
                 {
-                    targetPos.y -= 1f;
+                    targetPos.y -= 0.75f;
                 }
                 else
                 {
-                    targetPos.y -= 0.5f;
+                    targetPos.y -= 0.4f;
                 }
             }
             else if (objCount == 5)
@@ -348,20 +351,25 @@ public class BattleCardManager : Singleton<BattleCardManager>
 
                 if (i == 0 || i == 4)
                 {
-                    targetPos.y -= 1f;
+                    targetPos.y -= 0.8f;
                 }
                 else if (i == 1 || i == 3)
                 {
-                    targetPos.y -= 0.5f;
+                    targetPos.y -= 0.49f;
                 }
                 else
                 {
-                    targetPos.y -= 0.25f;
+                    targetPos.y -= 0.35f;
                 }
             }
-            else if (objCount < 3)
+            else if (objCount <= 2)
             {
-                targetPos.y += 0.3f;
+                float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(objLerps[i] - 0.5f, 2));
+                curve = height >= 0 ? curve : -curve; //위에서 높이에 제곱을 해버리면 무조건 양수기 때문에 높이가 음수라면 커브도 음수로 변경
+                targetPos.y += curve;
+                targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]); //구형을 그리면서 Lerp
+
+                targetPos.y -= 0.6f;
             }
             results.Add(new PRS(targetPos, targetRot, scale));
         }

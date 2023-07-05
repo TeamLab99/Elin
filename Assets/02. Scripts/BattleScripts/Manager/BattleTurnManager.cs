@@ -27,6 +27,7 @@ public class BattleTurnManager : Singleton<BattleTurnManager>
         isLoading = true;
         delay05 = new WaitForSeconds(time);
         yield return delay05;
+        player.GetComponent<PlayerController>().enabled = false;
 
         ui.SetActive(true);
         BattleGameManager.PlatformUIControl?.Invoke();
@@ -45,7 +46,7 @@ public class BattleTurnManager : Singleton<BattleTurnManager>
         BattleGameManager.instance.Notification("전투 시작!");
         BattleCardManager.instance.SetKey();
         yield return delay05;
-
+        
         monster.enabled = true;
         player.enabled = true;
 
