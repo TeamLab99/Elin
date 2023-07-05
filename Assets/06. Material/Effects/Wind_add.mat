@@ -82,10 +82,10 @@ Material:
     - _Color_1: {r: 1, g: 1, b: 1, a: 0}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _Offset: {r: 0.06, g: 0, b: 0, a: 0}
-    - _Offset_1: {r: 0, g: 0.06, b: 0, a: 0}
+    - _Offset_1: {r: 0, g: 0.05, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Tiling: {r: 1.8, g: 0.5, b: 0, a: 0}
-    - _Tiling_1: {r: 1, g: 0.55, b: 0, a: 0}
+    - _Tiling: {r: 1.8, g: 0.53, b: 0, a: 0}
+    - _Tiling_1: {r: 1.53, g: 0.43, b: 0, a: 0}
     - _tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3940705531508445958

@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Object/New Folder.meta
 guid: a4348b20d3fa63d44afeb937196bc888
 folderAsset: yes
 DefaultImporter:
+========
+guid: 9538962ed921dc24e920537a6d51816e
+PrefabImporter:
+>>>>>>>> 0aa733760520469b5cb7844ebc0f6c50e6d1b851:Assets/04. Prefab/Effects/Platformer/Dust/Squrriel_Run.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
