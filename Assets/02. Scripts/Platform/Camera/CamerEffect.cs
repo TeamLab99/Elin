@@ -16,7 +16,6 @@ public class CamerEffect : Singleton<CamerEffect>
     public Transform apple;
     public Transform player;
     public float lerpTime;
-    public float smoothSpeed;
     public CamerEffectType camerEffectType;
   
     private Vector3 targetCamPos;
@@ -71,6 +70,7 @@ public class CamerEffect : Singleton<CamerEffect>
     public void ChangeLateFollowCamerMode() // 나무에서 떨어질때
     {
         camerEffectType = CamerEffectType.LateFollowPlayer;
+        PlatformEventManager.instance.ControlPlayerMove(false);
     }
 
     public void ChangeGotoCameraMode() // 나무 위의 사과를 비출 때
@@ -78,12 +78,15 @@ public class CamerEffect : Singleton<CamerEffect>
         currentTime = 0f;
         target = apple;
         camerEffectType = CamerEffectType.GotoTarget;
+        PlatformEventManager.instance.ControlPlayerMove(false);
     }
+
     public void ChangeFollowCameraMode()
-    {
+    {   
         currentTime = 0f;
         target = player;
         onCamera=true;
         camerEffectType = CamerEffectType.FollowPlayer;
+        PlatformEventManager.instance.ControlPlayerMove(true);
     }
 }

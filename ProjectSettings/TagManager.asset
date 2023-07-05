@@ -29,6 +29,7 @@ TagManager:
   - Cost
   - HpBar
   - HpText
+  - Branch
   layers:
   - Default
   - TransparentFX

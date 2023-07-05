@@ -1,12 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        //SceneLoader.instance.LoadSceneAddtive(2);
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void LoadStatScene() // 게임씬
+    {
+        SceneManager.LoadScene("MainGame");
+    }
+
+    public void LoadGameScene() // 시작씬
+    {
+        SceneManager.LoadScene("StartScene");
     }
 }

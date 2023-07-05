@@ -368,7 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd620eb3405e03429c18a90e9c88f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sellItemsID: 6500000066000000
+  sellItemsID: 65000000
   introduceBox: {fileID: 2986512806744836774}
   storeObject: {fileID: 0}
   sellList: []
