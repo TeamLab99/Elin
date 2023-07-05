@@ -72,7 +72,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
-    - _Noise_scale: 5.27
+    - _Noise_scale: 1.55
     - _Power: 1.81
     - _QueueControl: 0
     - _QueueOffset: 0
