@@ -12,12 +12,14 @@ public class OnOffUI : MonoBehaviour
 
     private void Start()
     {
-        BattleGameManager.PlatformUIControl += SetBool;
+        BattleGameManager.PlatformUIControlForBattle += SetBool;
+        BattleGameManager.PlatformUIControlForDialouge += SetBool;
     }
 
     private void OnDestroy()
     {
-        BattleGameManager.PlatformUIControl -= SetBool;
+        BattleGameManager.PlatformUIControlForBattle -= SetBool;
+        BattleGameManager.PlatformUIControlForDialouge -= SetBool;
     }
 
     void Update()

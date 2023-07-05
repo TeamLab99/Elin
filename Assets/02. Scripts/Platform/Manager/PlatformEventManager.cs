@@ -16,6 +16,11 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
         playerController = player.GetComponent<PlayerController>();
     }
 
+    private void Start()
+    {
+        DialogueManager.instance.dialogueRunner.onDialogueComplete.AddListener(AppearPlatformEvent);
+    }
+
     public void AppearPlatformEvent()
     {
         appearPlatform.SetActive(true);
