@@ -17,7 +17,7 @@ public class BattleGameManager : Singleton<BattleGameManager>
     GameObject battleUI;
     bool isSetting;
 
-    public static event Action PlatformUIControl;
+    public static  Action PlatformUIControl;
 
     void Start()
     {
@@ -60,7 +60,6 @@ public class BattleGameManager : Singleton<BattleGameManager>
         mainCamera.transform.DOMove(targetPos, 1.5f).SetEase(ease);
 
         StartCoroutine(BattleTurnManager.instance.StartGameCo(battleUI, monster.GetComponent<BattleMonster>(), player.GetComponent<BattlePlayer>(), 2f));
-        PlatformUIControl?.Invoke();
     }
 
     public void GameOver()

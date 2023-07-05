@@ -7,10 +7,12 @@ using DG.Tweening;
 public class PlatformUIAnimation : MonoBehaviour
 {
     [SerializeField] Vector3 targetPos;
+    Rect originRect;
 
     private void Start()
     {
         BattleGameManager.PlatformUIControl+= ActiveOn;
+        originRect = GetComponent<RectTransform>().rect;
     }
     private void OnDestroy()
     {
@@ -18,6 +20,6 @@ public class PlatformUIAnimation : MonoBehaviour
     }
     public void ActiveOn()
     {
-        transform.DOMove(targetPos, 1f).OnComplete(() => gameObject.SetActive(false));
+        GetComponent<RectTransform>().DOAnchorPos(targetPos, 2f).OnComplete(() => gameObject.SetActive(false));
     }
 }

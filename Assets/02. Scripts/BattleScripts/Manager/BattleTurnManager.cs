@@ -29,6 +29,7 @@ public class BattleTurnManager : Singleton<BattleTurnManager>
         yield return delay05;
 
         ui.SetActive(true);
+        BattleGameManager.PlatformUIControl?.Invoke();
 
         StartCoroutine(BattleCardManager.instance.GetCost());
 
