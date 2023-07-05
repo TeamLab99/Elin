@@ -10,15 +10,15 @@ public class PlatformMonster : MonoBehaviour
     [SerializeField] protected int lookDir;
     [SerializeField] protected Transform recognitionPos;
     [SerializeField] protected LayerMask playerLayer;
+    [SerializeField] protected ParticleSystem findParticle;
+
     protected RaycastHit2D playerHit;
     protected Animator anim;
     protected bool findPlayer = false;
-    
     
     protected virtual void Awake()
     {
         anim = GetComponent<Animator>();
     }
-
 
 }

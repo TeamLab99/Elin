@@ -11,7 +11,7 @@ public class PlatformSquirrel : PlatformMonster
     private void Update()
     {
         CheckNearPlayer();
-        RunAway();
+        FindPlayer();
     }
 
     private void CheckNearPlayer()
@@ -19,24 +19,30 @@ public class PlatformSquirrel : PlatformMonster
         playerHit = Physics2D.Raycast(recognitionPos.position, lookDir * Vector2.right, recognitionRange, playerLayer);
     }
 
-    private void RunAway()
+    private void FindPlayer()
     {
         if (playerHit)
         {
             PlatformEventManager.instance.ControlPlayerMove(false);
-            apple.SetActive(false);
-            spr.flipX = true;
-            rb.velocity = new Vector2(speed, rb.velocity.y);
-            anim.SetBool("Walk", true);
-            Invoke("Dissapear", 2f);
+            findParticle.Play();
+            Invoke("RunAway", 1f);
         }
     }
 
-    private void Dissapear()
+    private void RunAway()
+    {
+        apple.SetActive(false);
+        spr.flipX = true;
+        rb.velocity = new Vector2(speed, rb.velocity.y);
+        anim.SetBool("Walk", true);
+        Invoke("Dissapear", 2f);
+    }
+
+    private void  Dissapear()
     {
         PlatformEventManager.instance.ControlPlayerMove(true);
         gameObject.SetActive(false);
-    }    
+    }
 
     private void OnDrawGizmos()
     {
