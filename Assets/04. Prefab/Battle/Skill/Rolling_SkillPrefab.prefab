@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillEffect: {fileID: 8120468848698764000}
-  skilIcon: {fileID: 21300000, guid: e50a027ce781c6d4bbeffb804c08ef0d, type: 3}
+  skilIcon: {fileID: 132721767, guid: 83919390f241a0b44a090e826ae587ae, type: 3}
 --- !u!1001 &4105982108857508676
 PrefabInstance:
   m_ObjectHideFlags: 0

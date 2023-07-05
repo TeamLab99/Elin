@@ -2,69 +2,85 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using DG.Tweening;
 
 
 public class BattleMonster : BattleEntity
 {
-    [SerializeField] int attackSpeed;
-    [SerializeField] int skillCount;
-    [SerializeField] EMonsterState monsterState;
-    [SerializeField] BattlePlayer player;
-    float maxTime;
-    float curTime;
+    [SerializeField] protected float attackSpeed;
+    [SerializeField] protected int skillCount;
+    [SerializeField] protected BattlePlayer player;
+    [SerializeField] Sprite gaugeIcon;
+
+    protected float maxTime;
+    protected float curTime;
+    protected int count;
     bool stopGauge;
 
     Image gauge;
-    WaitForSeconds delay = new WaitForSeconds(0.0001f);
+    protected BattleGaugeIconAnimation iconAnimation;
 
-    enum EMonsterState { Stop, Idle, Attack, Skill };
+    protected WaitForSeconds delay = new WaitForSeconds(0.5f);
 
     public override void Init()
     {
+        delay = new WaitForSeconds(Time.deltaTime);
         maxTime = attackSpeed;
         curTime = maxTime;
+        count = skillCount;
         battleBuffDebuff = gameObject.AddComponent<BattleBuffManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<BattlePlayer>();
-        StartCoroutine(GetGaugeUI());
+        StartCoroutine(GetGaugeUI("HpBar"));
     }
 
-    public IEnumerator GetGaugeUI()
+    public override IEnumerator GetGaugeUI(string tagName)
     {
         yield return new WaitForEndOfFrame();
+        hpBar = GameObject.FindGameObjectsWithTag(tagName)[1].GetComponent<Image>();
+        hpTMP = GameObject.FindGameObjectsWithTag("HpText")[1].GetComponent<TMP_Text>();
         gauge = GameObject.FindGameObjectWithTag("Gauge").GetComponent<Image>();
+        iconAnimation = GameObject.FindGameObjectWithTag("Battle_GaugeIcon").GetComponent<BattleGaugeIconAnimation>();
+        
+        iconAnimation.SetIcon(gaugeIcon);
+        iconAnimation.SetPlayTime(attackSpeed);
+        iconAnimation.Animation(maxTime);
+
+        HpTextUpdate();
+
         StartCoroutine(GaugeTimer());
     }
 
     protected virtual IEnumerator GaugeTimer()
     {
-        gauge.fillAmount = curTime / maxTime;
-
-        if (!stopGauge)
+        while (true)
         {
-            curTime -= Time.deltaTime;
-
-            if (curTime <= 0)
+            if (!stopGauge)
             {
-                StartCoroutine(MonsterPattern());
-                curTime = maxTime;
-            }
 
+                gauge.fillAmount = curTime / maxTime;
+                curTime -= Time.deltaTime;
+
+
+                if (curTime <= 0)
+                {
+                    StartCoroutine(MonsterPattern(skillCount));
+                }
+            }
+            yield return new WaitForEndOfFrame();
         }
-        yield return delay;
-        StartCoroutine(GaugeTimer());
     }
 
-    protected virtual IEnumerator MonsterPattern()
+    protected virtual IEnumerator MonsterPattern(int skillCount)
     {
         EntitiesStateChange(true);
-        gameObject.transform.DOScale(Vector3.one,0.5f).SetRelative().SetEase(Ease.Flash, 2,0);
+        gameObject.transform.DOScale(Vector3.one, 0.5f).SetRelative().SetEase(Ease.Flash, 2, 0);
         Attack(player);
         EntitiesStateChange(false);
         yield return null;
     }
-    
-    void EntitiesStateChange(bool isBool)
+
+    protected void EntitiesStateChange(bool isBool)
     {
         BattleCardManager.EffectPlayBack.Invoke(isBool);
         BattleCardManager.instance.DontUseCard(isBool);

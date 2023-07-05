@@ -12,6 +12,8 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
 
     [SerializeField] MagicSO magic;
 
+    WaitForSeconds delay05 = new WaitForSeconds(0.5f);
+
     public void SetEntites(BattlePlayer player, BattleMonster monster)
     {
         this.player = player;
@@ -26,7 +28,7 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
                 Rolling(card);
                 break;
             case "박치기":
-                HeadButt(card);
+                StartCoroutine(HeadButt(card));
                 break;
             case "재생":
                 Heal(card);
@@ -103,18 +105,21 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
     }
     #endregion
 
-    public void HeadButt(DeckCard card)
+    public IEnumerator HeadButt(DeckCard card)
     {
         if (!GetRandom(card.attackProbability))
-            return;
+            yield break;
 
         var skillEffect = magic.items[card.index - 1].skillEffect;
 
         var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
-        effect.transform.position = monster.gameObject.transform.position + Vector3.up * 0.5f;
+        effect.transform.position = monster.gameObject.transform.position + Vector3.up*0.5f;
 
         player.transform.DOMoveX(5f, 0.3f).SetRelative().SetEase(Ease.Flash, 2, 0);
         player.MagicAttack(monster, card.amount);
+
+        yield return delay05;
+        Managers.Pool.Push(effect);
     }
 
     public bool GetRandom(float probability)

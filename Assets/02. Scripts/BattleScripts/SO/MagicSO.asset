@@ -16,12 +16,16 @@ MonoBehaviour:
   - id: 1
     name: "\uAD6C\uB974\uAE30"
     skillEffect: {fileID: 4105982107856548525, guid: 884fbe287d67c9a4bbb0939eaf7243d2, type: 3}
+    cardImage: {fileID: -601701915, guid: adcc88cf6cf14a349aae0d853b8c801a, type: 3}
   - id: 2
     name: "\uBC15\uCE58\uAE30"
     skillEffect: {fileID: 4978609732441752155, guid: a123de21992980e40947c2ca2ea6f50c, type: 3}
+    cardImage: {fileID: 231629281, guid: adcc88cf6cf14a349aae0d853b8c801a, type: 3}
   - id: 3
     name: "\uC7AC\uC0DD"
     skillEffect: {fileID: 6040202953078129332, guid: f68e43f0d6966dc4491cb69a17fafcbb, type: 3}
+    cardImage: {fileID: -387944304, guid: a251c4ad49f460e4a86498bcdedc0b56, type: 3}
   - id: 4
     name: "\uBC84\uD2F0\uAE30"
     skillEffect: {fileID: 6848092154663536722, guid: 6d39b720ba38cdd48bd94d0997bd8251, type: 3}
+    cardImage: {fileID: 1817357002, guid: adcc88cf6cf14a349aae0d853b8c801a, type: 3}

@@ -1,50 +1,64 @@
-/*using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using Random = UnityEngine.Random;
 
-public class MobSkillManager : MonoBehaviour
+public class MobSkillManager : Singleton<MobSkillManager>
 {
-    public static MobSkillManager Inst { get; private set; }
-    void Awake() => Inst = this;
+    BattlePlayer player;
+    BattleMonster monster;
 
-    Monster monster;
-    Player player;
-    int random;
+    [SerializeField] MonsterSO monsterSO;
+    WaitForSeconds delay05 = new WaitForSeconds(0.5f);
 
-    public void SetEntites(Player player, Monster monster)
+
+    public void SetEntites(BattlePlayer player, BattleMonster monster)
     {
         this.player = player;
         this.monster = monster;
     }
 
-    public void UseSkill(int index)
+    public IEnumerator CallNormalAttackEffect(int index)
+    {
+        var normalAttack = monsterSO.items[index-1].normalAttackEffect;
+
+        var effect = Managers.Pool.Pop(normalAttack, player.transform.Find("PlayerEffects"));
+        effect.transform.position = player.gameObject.transform.position;
+
+        yield return delay05;
+        Managers.Pool.Push(effect);
+    }
+
+    public void CallSkill(int index, float probability)
     {
         switch (index)
         {
-            case 1: AttackSpeedUp(); break;
-            default: break;
+            case 1:
+                Broadening();
+                break;
+            default:
+                Debug.Log("존재하지 않는 .");
+                break;
         }
     }
 
-    public void AttackSpeedUp()
+    public void Broadening()
     {
-        if (monster.GetAttackSpeed() > 1f)
-        {
-            EffectManager.Inst.MobSkillEfc();
-            monster.SetAttackSpeed(monster.GetAttackSpeed()-0.5f);
-        }
-        else
-            return;
+
     }
 
-    public void CriticalAttack()
+    public bool GetRandom(float probability)
     {
-        random = Random.Range(0, 10);
-        if (random == 9)
+        float percentage = probability / 100;
+        float rate = 100 - (100 * percentage);
+        int tmp = (int)Random.Range(0, 100);
+
+        if (tmp <= rate - 1)
         {
-            monster.ATK *= 2f;
-            Debug.Log("치명타 터짐");
+            return false;
         }
+        return true;
     }
 }
-*/

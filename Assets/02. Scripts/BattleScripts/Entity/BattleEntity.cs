@@ -1,27 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
 public abstract class BattleEntity : MonoBehaviour
 {
-    [SerializeField] TMP_Text hpTMP;
     [SerializeField] protected float maxHp;
     [SerializeField] public float attack;
+    protected TMP_Text hpTMP;
 
     public BattleBuffManager battleBuffDebuff;
     protected float hp;
+    protected Image hpBar;
 
     public abstract void Init();
     public abstract void TimerControl(bool isStop);
+
+    public virtual IEnumerator GetGaugeUI(string tagName)
+    {
+        yield return new WaitForEndOfFrame();
+        HpTextUpdate();
+    }
 
     private void Start()
     {
         BattleCardManager.EffectPlayBack += TimerControl;
         hp = maxHp;
         Init();
-        HpTextUpdate();
     }
 
     private void OnDestroy()
@@ -31,7 +38,9 @@ public abstract class BattleEntity : MonoBehaviour
 
     protected void HpTextUpdate()
     {
-        hpTMP.text = hp.ToString();
+        hpTMP.text = hp.ToString() + " / " + maxHp.ToString();
+
+        hpBar.fillAmount = hp / maxHp;
     }
 
     public virtual void Attack(BattleEntity entity)
@@ -48,6 +57,7 @@ public abstract class BattleEntity : MonoBehaviour
         else
         {
             hp = 0;
+            BattleGameManager.instance.GameOver();
         }
         HpTextUpdate();
     }

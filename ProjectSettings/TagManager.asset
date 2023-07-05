@@ -14,17 +14,21 @@ TagManager:
   - Spike
   - Cards
   - Mob
-  - NPC
   - EfcIcon
   - Absorbable
   - PlayerEgo
   - DownPlatform
-  - DL
   - Gauge
   - PlatformUI
   - WaterElement
   - NormalProjectile
   - WaterProjectile
+  - Battle_UI
+  - Battle_Monster
+  - Battle_GaugeIcon
+  - Cost
+  - HpBar
+  - HpText
   layers:
   - Default
   - TransparentFX

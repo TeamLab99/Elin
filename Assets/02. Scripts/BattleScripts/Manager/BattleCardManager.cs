@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using TMPro;
 using Random = UnityEngine.Random;
 
 public class BattleCardManager : Singleton<BattleCardManager>
@@ -16,6 +17,11 @@ public class BattleCardManager : Singleton<BattleCardManager>
     [SerializeField] Transform cardRight;
     [SerializeField] List<BattleCard> myCards;
     [SerializeField] ECardState eCardState;
+    [SerializeField] int maxCost;
+    [SerializeField] float maxCostTime;
+
+    [SerializeField] TMP_Text costTMP;
+    [SerializeField] TMP_Text maxCostTMP;
 
     Dictionary<int, DeckCard> deckCards;
     Dictionary<int, UnlockCard> unlockCards;
@@ -28,8 +34,21 @@ public class BattleCardManager : Singleton<BattleCardManager>
     bool isCardActivating;
     bool isMonsterAttack;
 
+    int cost;
+    float curCostTIme;
+
     // 카드 사용 시 몬스터에게 알려줄 이벤트
     public static Action<bool> EffectPlayBack;
+
+    public IEnumerator GetCost()
+    {
+        yield return new WaitForEndOfFrame();
+        var costImg = GameObject.FindGameObjectWithTag("Cost").GetComponentsInChildren<TMP_Text>();
+
+        costTMP = costImg[0];
+        maxCostTMP = costImg[1];
+        TextUpdate();
+    }
 
     public DeckCard PopCard()
     {
@@ -74,6 +93,8 @@ public class BattleCardManager : Singleton<BattleCardManager>
     {
         SetupCardBuffer();
         BattleTurnManager.OnAddCard += AddCard;
+        cost = maxCost;
+        curCostTIme = maxCostTime;
         //BattleTurnManager.EndDrawPhase += EndDrawPhase;
     }
 
@@ -83,9 +104,16 @@ public class BattleCardManager : Singleton<BattleCardManager>
         //BattleTurnManager.EndDrawPhase -= EndDrawPhase;
     }
 
+
     public void CreatePoolCard()
     {
-        Managers.Pool.CreatePool(cardPrefab,10);
+        Managers.Pool.CreatePool(cardPrefab, 10);
+    }
+
+    void TextUpdate()
+    {
+        maxCostTMP.text = maxCost.ToString();
+        costTMP.text = cost.ToString();
     }
 
     void AddCard()
@@ -108,19 +136,32 @@ public class BattleCardManager : Singleton<BattleCardManager>
         for (int i = 0; i < myCards.Count; i++)
         {
             var targetCard = myCards[i];
-            targetCard?.GetComponent<Order>().SetOriginOrder(myCards.Count-i);
+            targetCard?.GetComponent<Order>().SetOriginOrder(myCards.Count - i);
         }
     }
 
-/*    void EndDrawPhase()
-    {
-        // 5장 드로우가 끝나고 실행될 함수
-    }*/
+    /*    void EndDrawPhase()
+        {
+            // 5장 드로우가 끝나고 실행될 함수
+        }*/
 
     void Update()
     {
         SetEcardState();
         InputKey();
+
+        if (cost < maxCost)
+        {
+            curCostTIme -= Time.deltaTime;
+
+            if (curCostTIme <= 0)
+            {
+                cost++;
+                TextUpdate();
+                curCostTIme = maxCostTime;
+            }
+        }
+
     }
 
     void InputKey()
@@ -143,9 +184,9 @@ public class BattleCardManager : Singleton<BattleCardManager>
             else if (Input.GetKeyDown(KeyCode.RightArrow))
                 ChoiceCardWithKeyboard(1);
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && !isMonsterAttack)
             {
-                if (isSelected)
+                if (isSelected && cost - selectCard?.deckCard.cost > -1)
                     StartCoroutine(UseCard());
             }
         }
@@ -213,8 +254,8 @@ public class BattleCardManager : Singleton<BattleCardManager>
 
         if (isEnlarge)
         {
-            Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -6.8f, -10f);
-            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 1.1f), false);
+            Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -6.2f, -10f);
+            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 0.35f), false);
             isSelected = isEnlarge;
         }
         else
@@ -230,7 +271,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
     IEnumerator CardAlignment()
     {
         List<PRS> originCardPRSs = new List<PRS>();
-        originCardPRSs = RoundAlignment(cardLeft, cardRight, myCards.Count, 0.5f, Vector3.one * 1);
+        originCardPRSs = RoundAlignment(cardLeft, cardRight, myCards.Count, 0.75f, Vector3.one * 0.25f);
 
         for (int i = 0; i < myCards.Count; i++)
         {
@@ -265,12 +306,62 @@ public class BattleCardManager : Singleton<BattleCardManager>
         {
             var targetPos = Vector3.Lerp(leftTr.position, rightTr.position, objLerps[i]);
             var targetRot = Utils.QI;
-            if (objCount >= 4)
+
+            if (objCount == 3)
+            {
+                float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(objLerps[i] - 0.5f, 2));
+                curve = height >= 0 ? curve : -curve; //위에서 높이에 제곱을 해버리면 무조건 양수기 때문에 높이가 음수라면 커브도 음수로 변경
+                targetPos.y += curve;
+                targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]); //구형을 그리면서 Lerp
+
+                if (i == 0 || i == 2)
+                {
+                    targetPos.y -= 1f;
+                }
+                else
+                {
+                    targetPos.y -= 0.5f;
+                }
+            }
+            else if (objCount == 4)
             {
                 float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(objLerps[i] - 0.5f, 2));
                 curve = height >= 0 ? curve : -curve;
                 targetPos.y += curve;
                 targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]);
+
+                if (i == 0 || i == 3)
+                {
+                    targetPos.y -= 1f;
+                }
+                else
+                {
+                    targetPos.y -= 0.5f;
+                }
+            }
+            else if (objCount == 5)
+            {
+                float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(objLerps[i] - 0.5f, 2));
+                curve = height >= 0 ? curve : -curve; //위에서 높이에 제곱을 해버리면 무조건 양수기 때문에 높이가 음수라면 커브도 음수로 변경
+                targetPos.y += curve;
+                targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]); //구형을 그리면서 Lerp
+
+                if (i == 0 || i == 4)
+                {
+                    targetPos.y -= 1f;
+                }
+                else if (i == 1 || i == 3)
+                {
+                    targetPos.y -= 0.5f;
+                }
+                else
+                {
+                    targetPos.y -= 0.25f;
+                }
+            }
+            else if (objCount < 3)
+            {
+                targetPos.y += 0.3f;
             }
             results.Add(new PRS(targetPos, targetRot, scale));
         }
@@ -285,6 +376,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
         EnlargeCard(true, selectCard);
         EffectPlayBack?.Invoke(true);
         myCards.Remove(selectCard);
+
 
         yield return StartCoroutine(selectCard.MoveTransformCoroutine(new PRS(cardUseTrasnform.position, Utils.QI, selectCard.originPRS.scale), true, 0.5f));
         BattleMagicManager.instance.CallMagic(selectCard.deckCard);
@@ -306,6 +398,9 @@ public class BattleCardManager : Singleton<BattleCardManager>
             StartCoroutine(BattleTurnManager.instance.ReDrawCards());
         }
 
+        cost -= selectCard.deckCard.cost;
+        TextUpdate();
+
         isCardActivating = false;
         EffectPlayBack?.Invoke(false);
         selectCard = null;
@@ -326,7 +421,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
 
     void SetEcardState()
     {
-        if (BattleTurnManager.instance.isLoading || isMonsterAttack)
+        if (BattleTurnManager.instance.isLoading)
             eCardState = ECardState.Loading;
 
         else if (isCardActivating)
@@ -337,5 +432,10 @@ public class BattleCardManager : Singleton<BattleCardManager>
 
         else
             eCardState = ECardState.Noting;
+    }
+
+    public void SetActive(bool isOn)
+    {
+        gameObject.SetActive(isOn);
     }
 }

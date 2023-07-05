@@ -22,7 +22,7 @@ public class Defense : BuffDebuffMagic, IMagic
             if (!isTimerStop)
                 time -= 1f;
 
-            icon.countText.text = time.ToString();
+            icon.coolTimeImage.fillAmount -= 0.1f;
         }
         isEnd = true;
         Delete();
@@ -58,5 +58,11 @@ public class Defense : BuffDebuffMagic, IMagic
 
         // 삭제
         Delete();
+    }
+
+    public override void IconInit()
+    {
+        base.IconInit();
+        icon.amountText.text = amount.ToString();
     }
 }

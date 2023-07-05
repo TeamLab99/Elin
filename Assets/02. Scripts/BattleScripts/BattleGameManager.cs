@@ -43,16 +43,23 @@ public class BattleGameManager : Singleton<BattleGameManager>
     {
         BattleCardManager.instance.CreatePoolCard();
         BattleMagicManager.instance.SetEntites(player.GetComponent<BattlePlayer>(), monster.GetComponent<BattleMonster>());
+        MobSkillManager.instance.SetEntites(player.GetComponent<BattlePlayer>(), monster.GetComponent<BattleMonster>());
 
         player.GetComponent<Player_Move>().rb.constraints = RigidbodyConstraints2D.FreezeAll;
         player.GetComponent<Player_Move>().enabled = false;
         mainCamera.GetComponent<Camera_Follow>().enabled = false;
 
-        var targetPos = new Vector3(Mathf.Lerp(player.transform.position.x, mobPos.x, 0.5f), mobPos.y, -15);
+        var targetPos = new Vector3(Mathf.Lerp(player.transform.position.x, mobPos.x, 0.5f), mobPos.y + 1f, -15);
         mainCamera.transform.DOMove(targetPos, 1.5f).SetEase(ease);
 
-        StartCoroutine(BattleTurnManager.instance.StartGameCo(battleUI, monster.GetComponent<BattleMonster>(), 2f));
-        
+        StartCoroutine(BattleTurnManager.instance.StartGameCo(battleUI, monster.GetComponent<BattleMonster>(), player.GetComponent<BattlePlayer>(), 2f));
+
+    }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0f;
+        Debug.Log("게임 오버");
     }
 
     public void Win()

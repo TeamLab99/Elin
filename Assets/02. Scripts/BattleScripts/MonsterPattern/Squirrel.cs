@@ -3,29 +3,61 @@ using Random = UnityEngine.Random;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 
 public class Squirrel : BattleMonster
 {
-/*    protected override IEnumerator MonsterPattern()
+    int skillOverlap = 0;
+
+    protected override IEnumerator MonsterPattern(int skillCount)
     {
         if (count > 0)
         {
             curTime = maxTime;
-
-            StartCoroutine(AttackOfMonster());
+            StartCoroutine(Attack());
             count--;
         }
-        else if (count == 0)
+        else
         {
-            if (maxTime > 1f)
+            if (skillOverlap < 2)
             {
-                UseSkill(skillindex);
-                maxTime = attackSpeed;
+                StartCoroutine(Skill());
             }
+
             count = skillCount;
         }
-
         yield return null;
-    }*/
+    }
+
+    public IEnumerator Attack()
+    {
+        EntitiesStateChange(true);
+        //gameObject.transform.DOScale(Vector3.one, 0.5f).SetRelative().SetEase(Ease.Flash, 2, 0);
+
+        yield return StartCoroutine(MobSkillManager.instance.CallNormalAttackEffect(1));
+        Attack(player);
+        EntitiesStateChange(false);
+        AnimationControl();
+    }
+
+    public IEnumerator Skill()
+    {
+        EntitiesStateChange(true);
+
+        attackSpeed -= 0.5f;
+        iconAnimation.SetPlayTime(attackSpeed);
+        maxTime = attackSpeed;
+        skillOverlap++;
+
+
+        yield return delay;
+        EntitiesStateChange(false);
+        AnimationControl();
+    }
+
+    public void AnimationControl()
+    {
+        iconAnimation.Animation(maxTime);
+    }
 }
