@@ -68,7 +68,7 @@ Material:
     - _Cull: 2
     - _DstBlend: 1
     - _EnableExternalAlpha: 0
-    - _Power: 17.4
+    - _Power: 12.9
     - _Power_1: 11.35
     - _QueueControl: 0
     - _QueueOffset: 0
