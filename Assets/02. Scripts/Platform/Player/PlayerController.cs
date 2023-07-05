@@ -117,14 +117,7 @@ public class PlayerController : MonoBehaviour
         if (!canMove)
         {
             moveDir = 0;
-            while (true)
-            {
-                if (isGround)
-                {
-                    rb.velocity = Vector3.zero;
-                    break;
-                }
-            }
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
     }
 

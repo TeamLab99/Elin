@@ -9,11 +9,12 @@ public class Apple : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Invoke("DissappearApple", 1f);
+            Invoke("DisappearApple", 1f);
+            PlatformEventManager.instance.FallEvent();
         }
     }
 
-    private void DissapearApple()
+   private void DisappearApple()
     {
         gameObject.SetActive(false);
     }
