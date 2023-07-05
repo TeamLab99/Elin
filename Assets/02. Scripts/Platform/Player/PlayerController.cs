@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("컴포넌트")]
-    Rigidbody2D rb;
-    [SerializeField] Animator anim;
+    public Rigidbody2D rb;
+    [SerializeField] public Animator anim;
     [SerializeField] SpriteRenderer spr;
 
     [Header("땅 검출")]
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fallGravity = 2.5f;
     [SerializeField] private ParticleSystem playerHitParticle;
 
-    private float moveDir;
+    public float moveDir;
     private float jumpTime  = 0f;
     private float chargeTime = 0.2f;
     private bool isJump = false;

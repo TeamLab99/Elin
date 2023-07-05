@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 // 치트, UI, 게임 스타트, 오버
 public class BattleGameManager : Singleton<BattleGameManager>
 {
     [SerializeField] NotificationPanel notificationPanel;
+    [SerializeField] PlatformUIAnimation platformUI;
     [SerializeField] GameObject mainCamera;
     [SerializeField] GameObject player;
     [SerializeField] GameObject monster;
@@ -14,6 +16,8 @@ public class BattleGameManager : Singleton<BattleGameManager>
 
     GameObject battleUI;
     bool isSetting;
+
+    public static event Action PlatformUIControl;
 
     void Start()
     {
@@ -45,15 +49,18 @@ public class BattleGameManager : Singleton<BattleGameManager>
         BattleMagicManager.instance.SetEntites(player.GetComponent<BattlePlayer>(), monster.GetComponent<BattleMonster>());
         MobSkillManager.instance.SetEntites(player.GetComponent<BattlePlayer>(), monster.GetComponent<BattleMonster>());
 
-        player.GetComponent<Player_Move>().rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        player.GetComponent<Player_Move>().enabled = false;
-        mainCamera.GetComponent<Camera_Follow>().enabled = false;
+        player.GetComponent<PlayerController>().anim.SetBool("Walk", false);
+        player.GetComponent<PlayerController>().ControlPlayer(false);
+        player.GetComponent<PlayerController>().rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
-        var targetPos = new Vector3(Mathf.Lerp(player.transform.position.x, mobPos.x, 0.5f), mobPos.y + 1f, -15);
+        player.GetComponent<PlayerController>().enabled = false;
+        player.GetComponent<PlayerAbilityController>().enabled = false;
+        
+        var targetPos = new Vector3(Mathf.Lerp(player.transform.position.x, mobPos.x, 0.5f), mobPos.y + 5f, -15);
         mainCamera.transform.DOMove(targetPos, 1.5f).SetEase(ease);
 
         StartCoroutine(BattleTurnManager.instance.StartGameCo(battleUI, monster.GetComponent<BattleMonster>(), player.GetComponent<BattlePlayer>(), 2f));
-
+        PlatformUIControl?.Invoke();
     }
 
     public void GameOver()
