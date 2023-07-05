@@ -115,6 +115,7 @@ public class EnhanceUI : Singleton<EnhanceUI>
                     playerStatData.costRecoverySpeed += enhanceStatFigure[(int)EnhanceStat.CostRecovery];
                     break;
             }
+            PlayerStatManager.instance.ApplicationStat();
             enhanceBtns[btnIndex].SetUpFigure();
             enhanceDecisionUI.SetActive(false);
             enhanceCompleteUI.SetActive(true);

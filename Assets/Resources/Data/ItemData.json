@@ -5,10 +5,10 @@
       "itemType": "Con",
       "itemEffect": "plusHP",
       "itemFigure": "10",
-      "itemName": "사과",
+      "itemName": "하급 포션",
       "itemDescription": [
-        "황폐한 숲에서 자라는 사과로",
-        "플레이어의 체력을 10 회복시켜줍니다."
+        "어디서나 구할 수 있는",
+        "기본적인 포션입니다."
       ],
       "buyPrice": "50",
       "sellPrice": "30"

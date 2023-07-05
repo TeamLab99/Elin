@@ -4,18 +4,28 @@ using UnityEngine;
 
 public class Crystal : MonoBehaviour
 {
+    Animator anim;
     public bool isCharge = false;
     public bool bothCharge = false;
     public Door door;
+
+    protected void Awake()
+    {
+        anim = GetComponent<Animator>();    
+    }
+
     public void ActionPuzzle()
     {
         if (bothCharge)
         {
             door.BothOpenDoor();
+            anim.SetBool("Active", true);
             StartCoroutine("TurnOffCrystal");
         }
-        else
+        else {
             door.OpenDoor();
+            anim.SetBool("Active", true);
+        }
     }
 
     public IEnumerator TurnOffCrystal()
@@ -24,6 +34,7 @@ public class Crystal : MonoBehaviour
         if (!door.bothCharge)
         {
             isCharge = false;
+            anim.SetBool("Active", false);
             door.crystalCnt -= 1;
         }
     }

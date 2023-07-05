@@ -15,7 +15,7 @@ public class ItemInfoUI : MonoBehaviour
     public void ChangeItemInfo(Items _itemDatas, int _itemIdx)
     {
         itemDescription.text = _itemDatas.itemDescription;
-        itemEffect.text = _itemDatas.itemEffect + "를 올려줍니다.";
+        itemEffect.text =  "플레이어의 체력을 10 올려줍니다.";
         itemName.text = _itemDatas.itemName;
         itemIcon.sprite = _itemDatas.itemIcon;
         holdItemInfo = _itemDatas;
