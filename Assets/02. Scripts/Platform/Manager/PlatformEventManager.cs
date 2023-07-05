@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlatformEventManager : Singleton<PlatformEventManager>
 {
+    [SerializeField] GameObject appearPlatform;
     GameObject player;
     GameObject brokeBranch;
     PlayerController playerController;
@@ -13,6 +14,11 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
         player = GameObject.FindGameObjectWithTag("Player");
         brokeBranch = GameObject.FindGameObjectWithTag("Branch");
         playerController = player.GetComponent<PlayerController>();
+    }
+
+    public void AppearPlatformEvent()
+    {
+        appearPlatform.SetActive(true);
     }
 
     public void SeeAppleEvent()

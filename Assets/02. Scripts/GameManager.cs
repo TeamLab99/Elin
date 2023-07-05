@@ -10,13 +10,18 @@ public class GameManager : Singleton<GameManager>
         DontDestroyOnLoad(gameObject);
     }
 
-    public void LoadStatScene() // 게임씬
+    public void LoadGameScene() 
     {
         SceneManager.LoadScene("MainGame");
     }
 
-    public void LoadGameScene() // 시작씬
+    public void LoadStartScene() 
     {
         SceneManager.LoadScene("StartScene");
+    }
+
+   public void ExitGame()
+    {
+        Application.Quit();
     }
 }
