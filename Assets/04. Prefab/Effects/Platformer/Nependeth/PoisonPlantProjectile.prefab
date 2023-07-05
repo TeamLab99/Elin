@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8684039374444314088}
-  - component: {fileID: 4733906318300822659}
   - component: {fileID: 1713135802192498944}
   - component: {fileID: 150501395441017423}
+  - component: {fileID: 4578897600021512233}
   m_Layer: 10
   m_Name: PoisonPlantProjectile
   m_TagString: Untagged
@@ -36,24 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4733906318300822659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 420585442973486776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbe099661e4c0d54fabf103b3f191463, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  damage: 0
-  projectileHead: {fileID: 99755025190794399}
-  projectileHit: {fileID: 6449506862183212974}
-  projectileParent: {fileID: 420585442973486776}
-  projectileType: 0
 --- !u!50 &1713135802192498944
 Rigidbody2D:
   serializedVersion: 4
@@ -101,6 +83,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.4}
   m_EdgeRadius: 0
+--- !u!114 &4578897600021512233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420585442973486776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 355ef206dd9aef4458cf5e1d4d1a863e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  damage: 10
+  projectileHead: {fileID: 99755025190794399}
+  projectileHit: {fileID: 6449506862183212974}
+  projectileParent: {fileID: 420585442973486776}
+  projectileType: 0
 --- !u!1001 &8102436529107628424
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -203,6 +203,18 @@ PrefabInstance:
       propertyPath: projectileParent
       value: 
       objectReference: {fileID: 420585442973486776}
+    - target: {fileID: 8921319432690371030, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
+      propertyPath: m_Flip.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921319432690371030, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
+      propertyPath: m_Flip.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921319432690371030, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
+      propertyPath: m_AllowRoll
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8921319432690371031, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
       propertyPath: m_Name
       value: Nependeath_Projectile
@@ -233,15 +245,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8921319432690371032, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8921319432690371032, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8921319432690371032, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8921319432690371032, guid: a28c476b53cdb804da3e1936e84e6f51, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

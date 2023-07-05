@@ -14589,7 +14589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7363635502578161477}
   m_Layer: 0
-  m_Name: Bubble_hit
+  m_Name: Bubble_Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

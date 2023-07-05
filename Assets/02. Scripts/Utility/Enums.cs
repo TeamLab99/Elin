@@ -76,6 +76,14 @@ public enum EProjectileType
     Fire =2
 }
 
+public enum EnhanceStat
+{
+    Health=0,
+    Attack=1,
+    MaxCost=2,
+    CostRecovery=3,
+    None=4
+}
 public enum EUiAnimation
 {
     Gauge,

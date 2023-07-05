@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class PlayerAbilityController : MonoBehaviour
 {
     public ParticleSystem[] playerAbsorptionParticle;
-
+    public ParticleSystem waterElementParticle;
+    public ParticleSystem splitPlayerParticle;
     AbilityUI abilityUI;
     [SerializeField] PlayerController playerController;
     [SerializeField] SpriteRenderer spr;
@@ -84,6 +85,7 @@ public class PlayerAbilityController : MonoBehaviour
                 seperateDirection = ESeperateDirection.Left;
             }
             isSeparated = true;
+            splitPlayerParticle.Play();
             anim.SetTrigger("Split");
             Invoke("DestroySeperationPlayer", 15f);
         }
@@ -92,6 +94,7 @@ public class PlayerAbilityController : MonoBehaviour
     private void DestroySeperationPlayer()
     {
         isSeparated = false;
+        alterEgoPlayer.SetActive(false);
         seperateDirection = ESeperateDirection.None;
     }
 
@@ -112,6 +115,7 @@ public class PlayerAbilityController : MonoBehaviour
             {
                 if (collider.CompareTag("WaterElement"))
                 {
+                    waterElementParticle.Play();
                     element = EProjectileType.Water;
                     abilityUI.ChangeElementType(EProjectileType.Water);
                     return;

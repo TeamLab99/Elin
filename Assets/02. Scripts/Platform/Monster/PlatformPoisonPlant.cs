@@ -26,7 +26,7 @@ public class PlatformPoisonPlant : PlatformMonster
 
     private void FindPlayer()
     {
-        if (playerHit && !isAttacking)
+        if (playerHit && !isAttacking && !PlayerStatManager.instance.playerDead)
         {
             anim.SetTrigger("Attack");
             isAttacking = true;

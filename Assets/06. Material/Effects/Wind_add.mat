@@ -68,7 +68,7 @@ Material:
     - _Cull: 2
     - _DstBlend: 1
     - _EnableExternalAlpha: 0
-    - _Power: 6
+    - _Power: 17.4
     - _Power_1: 11.35
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -78,7 +78,7 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _Color: {r: 1, g: 0, b: 0, a: 1}
+    - _Color: {r: 1, g: 0, b: 0.011765003, a: 1}
     - _Color_1: {r: 1, g: 1, b: 1, a: 0}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _Offset: {r: 0.06, g: 0, b: 0, a: 0}

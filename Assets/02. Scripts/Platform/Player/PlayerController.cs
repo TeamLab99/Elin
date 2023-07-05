@@ -18,22 +18,28 @@ public class PlayerController : MonoBehaviour
     [Header("움직임")]
     [SerializeField] private float xSpeed; 
     [SerializeField] private float ySpeed;
-    [SerializeField] private float jumpGravity = 1.8f;
+    [SerializeField] private float jumpGravity = 1.5f;
     [SerializeField] private float fallGravity = 2.5f;
+    [SerializeField] private ParticleSystem playerHitParticle;
 
     private float moveDir;
     private float jumpTime  = 0f;
     private float chargeTime = 0.2f;
     private bool isJump = false;
-  
+    private Vector2 hitForce = new Vector2(0, 3);
 
     [Header("Control Player")]
     private bool canMove = true;
+    private bool playerDead = false;
     private bool keyDownJump;
+    private Color halfColor = Color.white;
+    private Color defaultColor;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        defaultColor = spr.color;
+        halfColor.a = 0.5f;
     }
 
     private void Update()
@@ -75,7 +81,11 @@ public class PlayerController : MonoBehaviour
     private void CheckGround()
     {
         if (Physics2D.OverlapBox(footPos.position, boxSize, 0f, groundLayer))
+        {
             isGround = true;
+            SetJumpGravity();
+        }
+            
         else
             isGround = false;
     }
@@ -118,10 +128,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Hit()
+    {
+        spr.color = halfColor;
+        Invoke("ReturnSpriteColor", 2f);
+        rb.AddForce(hitForce, ForceMode2D.Impulse);
+        playerHitParticle.Play();
+    }
+
+    public void ReturnSpriteColor()
+    {
+        spr.color = defaultColor;
+    }
+
     public void Dead()
     {
-        anim.SetTrigger("Dead");
-        Debug.Log("죽었습니다.");
+        if (!playerDead)
+        {
+            anim.SetTrigger("Dead");
+            ControlPlayer(false);
+             playerDead = true;
+        }
+    }
+
+    public void Respawn(Transform _respawnPosition)
+    {
+        anim.SetTrigger("Respawn");
+        canMove = true;
+        playerDead = false;
+        gameObject.transform.position = _respawnPosition.position;
     }
 
     public void JumpMushroom()

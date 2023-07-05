@@ -63,6 +63,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 605493767
+    locked: 0
+  - name: Christal
+    uniqueID: 1958785803
+    locked: 0
+  - name: mapobj
+    uniqueID: 1105952019
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

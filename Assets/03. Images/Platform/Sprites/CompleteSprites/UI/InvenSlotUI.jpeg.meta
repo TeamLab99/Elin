@@ -1,0 +1,468 @@
+fileFormatVersion: 2
+guid: d3461ca1babe56d46995646fb970e579
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: InvenSlotUI_3
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1500
+        width: 157
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c717bf071d0d3e64ebde200785187bf8
+      internalID: 120606915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvenSlotUI_4
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 1500
+        width: 405
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb1f4e8b7f643834fbcea9cf71cf78ac
+      internalID: -1904788904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvenSlotUI_5
+      rect:
+        serializedVersion: 2
+        x: 2717
+        y: 1531
+        width: 33
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cbd57eea6cb5004c95dc9533eeee149
+      internalID: 1395703345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvenSlotUI_6
+      rect:
+        serializedVersion: 2
+        x: 2797
+        y: 1536
+        width: 107
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1af5213128605734dbacb44d3db10bbb
+      internalID: 309283349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvenSlotUI_7
+      rect:
+        serializedVersion: 2
+        x: 3186
+        y: 1526
+        width: 36
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 476856ef4edcb114b8bd5f771eecd18f
+      internalID: -774341522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvenSlotUI_14
+      rect:
+        serializedVersion: 2
+        x: 2745
+        y: 1249
+        width: 206
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6160886f9cdf91547a67ff8dd49f08df
+      internalID: 1106461969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvenSlotUI_16
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1194
+        width: 767
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c88962fa896fc247a5b79c20a62a492
+      internalID: 1130192235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvenSlotUI_36
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 890
+        width: 767
+        height: 209
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfddfb4a7f7459e47ba3785b86212174
+      internalID: 324014341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvenSlotUI_51
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 752
+        width: 259
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0b1c26787942204ea49f5dcc9218bb5
+      internalID: 1259814141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvenSlotUI_52
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 752
+        width: 259
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77c16a3203f3b384ea619d29a6a76bde
+      internalID: 488235511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvenSlotUI_56
+      rect:
+        serializedVersion: 2
+        x: 2617
+        y: 406
+        width: 88
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b3be3843a8024941a582d0a66b703af
+      internalID: -1807659097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvenSlotUI_57
+      rect:
+        serializedVersion: 2
+        x: 2731
+        y: 406
+        width: 963
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab36a1a66e733634fa145b7ce61e2ae1
+      internalID: 2020657089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      InvenSlotUI_46: 260552891
+      InvenSlotUI_17: -1050940115
+      InvenSlotUI_19: 1845989270
+      InvenSlotUI_13: -479137079
+      InvenSlotUI_3: 120606915
+      InvenSlotUI_22: -482809759
+      InvenSlotUI_37: 84602082
+      InvenSlotUI_48: -1035340222
+      InvenSlotUI_42: 2000941684
+      InvenSlotUI_50: 989679328
+      InvenSlotUI_24: -1067573080
+      InvenSlotUI_28: 521641847
+      InvenSlotUI_29: -169571583
+      InvenSlotUI_12: 2043908483
+      InvenSlotUI_52: 488235511
+      InvenSlotUI_41: -593505559
+      InvenSlotUI_55: 615803630
+      InvenSlotUI_39: -1471991310
+      InvenSlotUI_34: 1558706860
+      InvenSlotUI_47: -1314963298
+      InvenSlotUI_57: 2020657089
+      InvenSlotUI_11: 1894972511
+      InvenSlotUI_15: -1951568125
+      InvenSlotUI_20: 1509049846
+      InvenSlotUI_38: 663839910
+      InvenSlotUI_40: -1866565937
+      InvenSlotUI_0: -2008545120
+      InvenSlotUI_2: 1804984674
+      InvenSlotUI_30: -1270021608
+      InvenSlotUI_56: -1807659097
+      InvenSlotUI_21: 1990886003
+      InvenSlotUI_31: 2111038803
+      InvenSlotUI_5: 1395703345
+      InvenSlotUI_14: 1106461969
+      InvenSlotUI_6: 309283349
+      InvenSlotUI_1: 1201331457
+      InvenSlotUI_16: 1130192235
+      InvenSlotUI_44: -1816500969
+      InvenSlotUI_43: 389592715
+      InvenSlotUI_9: 493037876
+      InvenSlotUI_27: 614750529
+      InvenSlotUI_10: -417787100
+      InvenSlotUI_49: 51224926
+      InvenSlotUI_32: 1451736930
+      InvenSlotUI_54: 500283127
+      InvenSlotUI_26: 2035348320
+      InvenSlotUI_36: 324014341
+      InvenSlotUI_23: -1185118672
+      InvenSlotUI_18: 374843446
+      InvenSlotUI_25: -1082543182
+      InvenSlotUI_33: 1951237685
+      InvenSlotUI_45: 1002542368
+      InvenSlotUI_8: -1085908836
+      InvenSlotUI_51: 1259814141
+      InvenSlotUI_4: -1904788904
+      InvenSlotUI_7: -774341522
+      InvenSlotUI_53: -1993079874
+      InvenSlotUI_35: -2024618749
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
