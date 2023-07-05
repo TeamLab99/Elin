@@ -31,7 +31,7 @@ public class BattleTurnManager : Singleton<BattleTurnManager>
         player.GetComponent<PlayerController>().enabled = false;
 
         ui.SetActive(true);
-        BattleGameManager.PlatformUIControl?.Invoke();
+        BattleGameManager.PlatformUIControlForBattle?.Invoke();
 
         StartCoroutine(BattleCardManager.instance.GetCost());
 
