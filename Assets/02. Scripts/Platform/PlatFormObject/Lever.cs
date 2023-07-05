@@ -5,6 +5,7 @@ using UnityEngine;
 public class Lever : MonoBehaviour
 {
     public GameObject pullInformation;
+    public Erica erica;
     public Bridge bridge;
     Animator anim;
     bool collidePlayer = false;
@@ -46,5 +47,6 @@ public class Lever : MonoBehaviour
     public void ActiveLever()
     {
         bridge.LayBridge();
+        erica.SetIndex(1);
     }
 }

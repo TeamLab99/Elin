@@ -17,7 +17,8 @@ public class BattleGameManager : Singleton<BattleGameManager>
     GameObject battleUI;
     bool isSetting;
 
-    public static Action PlatformUIControl;
+    public static Action PlatformUIControlForBattle;
+    public static Action PlatformUIControlForDialouge;
 
     void Start()
     {
