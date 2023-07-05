@@ -35,4 +35,13 @@ public class BattlePlayer : BattleEntity
     {
         entity.TakeDamage(value);
     }
+
+    public void SetStat(PlayerStatData data)
+    {
+        hp = data.currentHP;
+        maxHp = data.maxHP;
+        attack = data.attackPower;
+
+        BattleCardManager.instance.SetStat(data.maxCost, data.costRecoverySpeed);
+    }
 }

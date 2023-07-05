@@ -69,6 +69,11 @@ public class BattleCard : MonoBehaviour
         keyTMP.text = keycode;
     }
 
+    public void SetImage(Sprite sprite)
+    {
+        GetComponent<SpriteRenderer>().sprite = sprite;
+    }
+
     void OnDisable()
     {
         GetComponent<SpriteRenderer>().color =Color.white;
