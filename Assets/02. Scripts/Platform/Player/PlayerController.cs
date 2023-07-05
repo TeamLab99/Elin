@@ -21,13 +21,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpGravity = 1.5f;
     [SerializeField] private float fallGravity = 2.5f;
     [SerializeField] private ParticleSystem playerHitParticle;
-
     public float moveDir;
-    private float jumpTime  = 0f;
-    private float chargeTime = 0.2f;
-    private bool isJump = false;
     private Vector2 hitForce = new Vector2(0, 3);
-
+  
     [Header("Control Player")]
     private bool canMove = true;
     private bool playerDead = false;
@@ -59,6 +55,7 @@ public class PlayerController : MonoBehaviour
         moveDir = Input.GetAxisRaw("Horizontal");
         keyDownJump = Input.GetKeyDown(KeyCode.Space);
     }
+    
 
     private void PlayerAnimation()
     {
@@ -85,7 +82,6 @@ public class PlayerController : MonoBehaviour
             isGround = true;
             SetJumpGravity();
         }
-            
         else
             isGround = false;
     }
@@ -96,7 +92,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Walk()
-    {
+    { 
         if (isGround && moveDir != 0)
         {
             anim.SetBool("Walk", true);
@@ -108,7 +104,9 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         if (keyDownJump && isGround)
+        {
             rb.velocity = new Vector2(rb.velocity.x, 10);
+        }
     }
 
     public void ControlPlayer(bool _canMove)
