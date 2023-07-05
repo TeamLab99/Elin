@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class BuffDebuffMagic : MonoBehaviour
 {
     [SerializeField] GameObject skillEffect;
-    [SerializeField] Sprite skilIcon;
+    [SerializeField] protected Sprite skilIcon;
 
     protected DeckCard card;
     protected BattleBuffManager buffManager;

@@ -44,9 +44,9 @@ public class BuffIconsController : Singleton<BuffIconsController>
 
             playerIconsList.Add(new SkillIcon(image, amount,cool));
 
-            var mobImage = playerBuffObjects[i].transform.GetChild(0).GetComponent<Image>();
-            var mobCool = playerBuffObjects[i].transform.GetChild(1).GetComponent<Image>();
-            var mobAmount = playerBuffObjects[i].transform.GetChild(2).GetComponent<TMP_Text>();
+            var mobImage = monsterBuffObjects[i].transform.GetChild(0).GetComponent<Image>();
+            var mobCool = monsterBuffObjects[i].transform.GetChild(1).GetComponent<Image>();
+            var mobAmount = monsterBuffObjects[i].transform.GetChild(2).GetComponent<TMP_Text>();
 
             monsterIconsList.Add(new SkillIcon(mobImage, mobAmount, mobCool));
         }

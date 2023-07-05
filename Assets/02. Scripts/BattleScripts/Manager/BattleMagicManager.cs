@@ -9,6 +9,7 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
 {
     BattlePlayer player;
     BattleMonster monster;
+    [SerializeField]Camera mainCamera;
 
     [SerializeField] MagicSO magic;
 
@@ -115,7 +116,8 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
         var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
         effect.transform.position = monster.gameObject.transform.position + Vector3.up*0.5f;
 
-        player.transform.DOMoveX(5f, 0.3f).SetRelative().SetEase(Ease.Flash, 2, 0);
+        //player.transform.DOMoveX(5f, 0.3f).SetRelative().SetEase(Ease.Flash, 2, 0);
+        mainCamera.DOShakePosition(0.3f,2);
         player.MagicAttack(monster, card.amount);
 
         yield return delay05;

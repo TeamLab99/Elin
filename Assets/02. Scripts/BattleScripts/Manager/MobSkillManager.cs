@@ -31,12 +31,12 @@ public class MobSkillManager : Singleton<MobSkillManager>
         Managers.Pool.Push(effect);
     }
 
-    public void CallSkill(int index, float probability)
+    public void CallSkill(int index, float probability = 100)
     {
         switch (index)
         {
             case 1:
-                Broadening();
+                StartCoroutine(Broadening());
                 break;
             default:
                 Debug.Log("존재하지 않는 .");
@@ -44,9 +44,29 @@ public class MobSkillManager : Singleton<MobSkillManager>
         }
     }
 
-    public void Broadening()
+    public IEnumerator Broadening()
     {
+        var skillEffect = monsterSO.items[0].skillEffect[0];
+        var monsterBuffList = monster.battleBuffDebuff.buffDebuffList;
 
+        if (monsterBuffList.Find(item => item is Angry_Monster))
+        {
+            var skill = monsterBuffList.Find(item => item is Angry_Monster);
+            ((Angry_Monster)skill).TextUpdate();
+
+            var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+            effect.transform.position = monster.gameObject.transform.position;
+        }
+        else
+        {
+            var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+            effect.transform.position = monster.gameObject.transform.position;
+
+            var buff = effect.GetComponent<BuffDebuffMagic>();
+            monsterBuffList.Add(buff);
+            buff.ConnectBuffManager(monster.battleBuffDebuff, BuffIconsController.instance.GetBuffIconInfo(false));
+        }
+        yield return delay05;
     }
 
     public bool GetRandom(float probability)

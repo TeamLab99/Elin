@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerStatManager : Singleton<PlayerStatManager>
 {
-    [SerializeField] PlayerStatData playerStatData;
+    [SerializeField] public PlayerStatData playerStatData;
 
     private HPUI hpUI;
     private StatUI statUI;
