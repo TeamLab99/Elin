@@ -486,9 +486,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 396228872, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -50.4
+    - target: {fileID: 2123199416, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -42.2
       objectReference: {fileID: 0}
     - target: {fileID: 2427034913259480718, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
       propertyPath: m_RootOrder
@@ -537,6 +537,10 @@ PrefabInstance:
     - target: {fileID: 3252322094903695410, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
       propertyPath: m_Name
       value: MapObject (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319227991368724723, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 61.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
@@ -592,7 +596,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 80
+  field of view: 85
   orthographic: 0
   orthographic size: 5.006914
   m_Depth: -1
@@ -618,7 +622,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1933582143}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 309.3, y: -3.3, z: -10}
+  m_LocalPosition: {x: 47.2, y: -4.9, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -956,17 +960,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1181800365510028534, guid: 4abefa2cbdcbf6c47aa7f30c45a98ba7, type: 3}
+      propertyPath: InitialModule.rotation3D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181800365510028534, guid: 4abefa2cbdcbf6c47aa7f30c45a98ba7, type: 3}
+      propertyPath: InitialModule.startRotation.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181800365510028534, guid: 4abefa2cbdcbf6c47aa7f30c45a98ba7, type: 3}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181800365510028534, guid: 4abefa2cbdcbf6c47aa7f30c45a98ba7, type: 3}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6258081781327789000, guid: 4abefa2cbdcbf6c47aa7f30c45a98ba7, type: 3}
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6258081781327789000, guid: 4abefa2cbdcbf6c47aa7f30c45a98ba7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 285.3
+      value: 312.6
       objectReference: {fileID: 0}
     - target: {fileID: 6258081781327789000, guid: 4abefa2cbdcbf6c47aa7f30c45a98ba7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.9
+      value: -5.7
       objectReference: {fileID: 0}
     - target: {fileID: 6258081781327789000, guid: 4abefa2cbdcbf6c47aa7f30c45a98ba7, type: 3}
       propertyPath: m_LocalPosition.z
