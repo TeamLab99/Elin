@@ -12,6 +12,8 @@ public class Erica : MonoBehaviour
 
     int dialougeIndex = 0;
 
+    public bool ericaEnd;
+
     private void Start()
     {
         DialogueManager.instance.dialogueRunner.onDialogueComplete.AddListener(SetTrue);
@@ -67,8 +69,11 @@ public class Erica : MonoBehaviour
 
     void SetTrue()
     {
-        Debug.Log("실행됨");
-        SetPlayerControl(true);
+        if (!ericaEnd)
+        {
+            Debug.Log("실행됨");
+            SetPlayerControl(true);
+        }
     }
 
     void SetPlayerControl(bool isBool)
