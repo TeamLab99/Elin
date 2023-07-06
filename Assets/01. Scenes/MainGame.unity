@@ -13335,6 +13335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2146283089}
   infoUI: {fileID: 1557630680}
+  erica: {fileID: 903448920}
   dialougeIndex: 0
 --- !u!1001 &1489780913
 PrefabInstance:
@@ -13347,6 +13348,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2146283089}
+    - target: {fileID: 2634727593961207335, guid: bacecd886a8578348ba5c249ff22e659, type: 3}
+      propertyPath: merchant
+      value: 
+      objectReference: {fileID: 1488496432}
     - target: {fileID: 5292691443904899716, guid: bacecd886a8578348ba5c249ff22e659, type: 3}
       propertyPath: m_Name
       value: Erica
@@ -36844,7 +36849,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2146283089}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 144.7, y: 3, z: 0}
+  m_LocalPosition: {x: 125, y: 3, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
