@@ -6,11 +6,18 @@ public class MerchantDialogue : MonoBehaviour
 {
     [SerializeField] GameObject player;
     [SerializeField] GameObject infoUI;
-    bool isQuestClear;
+    [SerializeField] Erica erica;
+
     bool isEnter;
     bool isDialogue;
 
     public int dialougeIndex;
+
+    private void Start()
+    {
+        DialogueManager.instance.dialogueRunner.onDialogueComplete.AddListener(SetTrue);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         isEnter = true;
@@ -43,14 +50,47 @@ public class MerchantDialogue : MonoBehaviour
         switch (index)
         {
             case 0:
-                DialogueManager.instance.dialogueRunner.StartDialogue("MerChant");
+                DialogueManager.instance.dialogueRunner.StartDialogue("Merchant");
+                erica.SetIndex(2);
                 break;
             case 1:
-                DialogueManager.instance.dialogueRunner.StartDialogue("MerChant2");
+                DialogueManager.instance.dialogueRunner.StartDialogue("Merchant2");
+                GetComponent<Merchant>().isQuestClear = true;
                 break;
         }
 
         isDialogue = true;
-        //SetPlayerControl(false);
+        SetPlayerControl(false);
+    }
+
+    void SetPlayerControl(bool isBool)
+    {
+        if (isBool)
+        {
+            player.GetComponent<PlayerAbilityController>().enabled = true;
+            player.GetComponent<PlayerController>().ControlPlayer(true);
+            BattleGameManager.PlatformUIControlForDialouge?.Invoke();
+
+        }
+        else
+        {
+            player.GetComponent<PlayerController>().ControlPlayer(false);
+            player.GetComponent<PlayerController>().anim.SetBool("Walk", false);
+            player.GetComponent<PlayerAbilityController>().enabled = false;
+
+            BattleGameManager.PlatformUIControlForDialouge?.Invoke();
+        }
+    }
+
+    void SetTrue()
+    {
+        Debug.Log("실행됨");
+        SetPlayerControl(true);
+    }
+
+    public void SetIndex(int index)
+    {
+        dialougeIndex = index;
+        isDialogue = false;
     }
 }

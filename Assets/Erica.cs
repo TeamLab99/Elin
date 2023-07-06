@@ -6,6 +6,7 @@ public class Erica : MonoBehaviour
 {
     [SerializeField] GameObject player;
     [SerializeField] GameObject infoUI;
+    [SerializeField] MerchantDialogue merchant;
     bool isEnter;
     bool isDialogue;
 
@@ -56,6 +57,7 @@ public class Erica : MonoBehaviour
             case 2:
                 DialogueManager.instance.dialogueRunner.StartDialogue("Erica3");
                 ItemManager.instance.EarnAum();
+                merchant.SetIndex(1);
                 break;
         }
 
