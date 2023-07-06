@@ -9,6 +9,7 @@ public class Merchant : MonoBehaviour
     [SerializeField] GameObject storeObject;
 
     private bool isOpenMerchantUI = false;
+    public bool isQuestClear = false;
     public List<Items>sellList = new List<Items>();
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,7 +20,7 @@ public class Merchant : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(Input.GetKey(KeyCode.X) && !isOpenMerchantUI)
+        if(Input.GetKey(KeyCode.X) && !isOpenMerchantUI && isQuestClear)
         {
             if (collision.gameObject.CompareTag("Player"))
             {

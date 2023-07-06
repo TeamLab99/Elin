@@ -53,6 +53,10 @@ public class Erica : MonoBehaviour
             case 1:
                 DialogueManager.instance.dialogueRunner.StartDialogue("Erica2");
                 break;
+            case 2:
+                DialogueManager.instance.dialogueRunner.StartDialogue("Erica3");
+                ItemManager.instance.EarnAum();
+                break;
         }
 
         isDialogue = true;
@@ -61,7 +65,7 @@ public class Erica : MonoBehaviour
 
     void SetTrue()
     {
-
+        Debug.Log("실행됨");
         SetPlayerControl(true);
     }
 
