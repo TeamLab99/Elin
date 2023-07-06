@@ -58,7 +58,7 @@ public class Erica : MonoBehaviour
                 break;
             case 2:
                 DialogueManager.instance.dialogueRunner.StartDialogue("Erica3");
-                ItemManager.instance.EarnAum();
+                //ItemManager.instance.EarnAum();
                 merchant.SetIndex(1);
                 break;
         }
