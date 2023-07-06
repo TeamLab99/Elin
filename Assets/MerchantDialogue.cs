@@ -56,6 +56,7 @@ public class MerchantDialogue : MonoBehaviour
             case 1:
                 DialogueManager.instance.dialogueRunner.StartDialogue("Merchant2");
                 GetComponent<Merchant>().isQuestClear = true;
+                erica.ericaEnd = true;
                 break;
         }
 
