@@ -47,17 +47,15 @@ public class Squirrel : BattleMonster
         EntitiesStateChange(true);
 
         attackSpeed -= 0.5f;
-        iconAnimation.SetPlayTime(attackSpeed);
         maxTime = attackSpeed;
         skillOverlap++;
 
         yield return StartCoroutine(MobSkillManager.instance.Broadening());
         EntitiesStateChange(false);
-        AnimationControl();
     }
 
     public void AnimationControl()
     {
-        iconAnimation.Animation(maxTime);
+        iconAnimation.Animation(1);
     }
 }
