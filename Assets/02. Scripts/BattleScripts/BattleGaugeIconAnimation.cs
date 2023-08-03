@@ -16,7 +16,6 @@ public class BattleGaugeIconAnimation : MonoBehaviour
     Vector2 originalPos;
     Vector3 pointRot;
     Vector3 quaternion;
-    float playTime;
 
     Sequence sequence;
 
@@ -46,10 +45,7 @@ public class BattleGaugeIconAnimation : MonoBehaviour
 
     public void Animation(float time)
     {
-        sequence = DOTween.Sequence();
-        sequence
-            .OnStart(() => { Reset(); })
-            .Append(rectTr.DOAnchorPosX(point.anchoredPosition.x, time).SetEase(Ease.Linear));
+        rectTr.anchoredPosition = new Vector2(Mathf.Lerp(point.anchoredPosition.x, originalPos.x, time),0);
     }
 
 
@@ -78,10 +74,5 @@ public class BattleGaugeIconAnimation : MonoBehaviour
     public void SetIcon(Sprite sprite)
     {
         icon.sprite = sprite;
-    }
-
-    public void SetPlayTime(float time)
-    {
-        playTime = time;
     }
 }

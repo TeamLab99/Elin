@@ -47,7 +47,6 @@ public class Squirrel : BattleMonster
         EntitiesStateChange(true);
 
         attackSpeed -= 0.5f;
-        iconAnimation.SetPlayTime(attackSpeed);
         maxTime = attackSpeed;
         skillOverlap++;
 

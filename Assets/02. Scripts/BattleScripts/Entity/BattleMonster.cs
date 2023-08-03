@@ -43,7 +43,6 @@ public class BattleMonster : BattleEntity
         iconAnimation = GameObject.FindGameObjectWithTag("Battle_GaugeIcon").GetComponent<BattleGaugeIconAnimation>();
         
         iconAnimation.SetIcon(gaugeIcon);
-        iconAnimation.SetPlayTime(attackSpeed);
         iconAnimation.Animation(maxTime);
 
         HpTextUpdate();
@@ -59,6 +58,7 @@ public class BattleMonster : BattleEntity
             {
 
                 gauge.fillAmount = curTime / maxTime;
+                iconAnimation.Animation(gauge.fillAmount);
                 curTime -= Time.deltaTime;
 
 
