@@ -45,7 +45,7 @@ public class BattleGaugeIconAnimation : MonoBehaviour
 
     public void Animation(float time)
     {
-        rectTr.anchoredPosition = new Vector2(Mathf.Lerp(point.anchoredPosition.x, originalPos.x, time),0);
+        rectTr.anchoredPosition = new Vector2(Mathf.Lerp(point.anchoredPosition.x, originalPos.x, time),originalPos.y);
     }
 
 

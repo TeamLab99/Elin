@@ -52,11 +52,10 @@ public class Squirrel : BattleMonster
 
         yield return StartCoroutine(MobSkillManager.instance.Broadening());
         EntitiesStateChange(false);
-        AnimationControl();
     }
 
     public void AnimationControl()
     {
-        iconAnimation.Animation(maxTime);
+        iconAnimation.Animation(1);
     }
 }
