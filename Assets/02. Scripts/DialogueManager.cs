@@ -24,16 +24,19 @@ public class DialogueManager : Singleton<DialogueManager>
     public LineView lineView;
     public DialogueRunner dialogueRunner;
 
-    Sequence sequence;
-
     void Awake()
     {
+        dialogueRunner = FindObjectOfType<DialogueRunner>();
 /*        dic_IMG = new Dictionary<string, Sprite>();
         dialogueRunner.AddCommandHandler<string>("change_img", ChageImages);*/
         /*        dialogueRunner.AddCommandHandler<string>("play_bgm", PlayBGM);
                 dialogueRunner.AddCommandHandler<string>("play_sfx", PlaySFX);
                 dialogueRunner.AddCommandHandler<string>("stop_bgm", StopBGM);*/
+    }
 
+    public void StartDialogue(string title)
+    {
+        dialogueRunner.StartDialogue(title);
     }
 
     void Start()
