@@ -41380,7 +41380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3579681405068720530, guid: 333a63a83d04722429580d5ba930533c, type: 3}
       propertyPath: startNode
-      value: Erica
+      value: Erica4
       objectReference: {fileID: 0}
     - target: {fileID: 3579681405068720530, guid: 333a63a83d04722429580d5ba930533c, type: 3}
       propertyPath: yarnProject
@@ -41388,7 +41388,7 @@ PrefabInstance:
       objectReference: {fileID: 7545569452688597077, guid: 247a8b67976afc549a2cfc8b1af86a62, type: 3}
     - target: {fileID: 3579681405068720530, guid: 333a63a83d04722429580d5ba930533c, type: 3}
       propertyPath: startAutomatically
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3579681405068720530, guid: 333a63a83d04722429580d5ba930533c, type: 3}
       propertyPath: dialogueViews.Array.size
