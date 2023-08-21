@@ -18,7 +18,7 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
 
     private void Start()
     {
-        DialogueManager.instance.dialogueRunner.onDialogueComplete.AddListener(AppearPlatformEvent);
+        DialogueManager.Instance.runner.onDialogueComplete.AddListener(AppearPlatformEvent);
     }
 
     public void AppearPlatformEvent()

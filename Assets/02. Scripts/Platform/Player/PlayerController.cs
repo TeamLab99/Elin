@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         defaultColor = spr.color;
         halfColor.a = 0.5f;
+        Managers.Input.PlayerMoveAction -= ControlPlayer;
+        Managers.Input.PlayerMoveAction += ControlPlayer;
     }
 
     private void Update()

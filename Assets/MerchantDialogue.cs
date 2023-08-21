@@ -15,7 +15,7 @@ public class MerchantDialogue : MonoBehaviour
 
     private void Start()
     {
-        DialogueManager.instance.dialogueRunner.onDialogueComplete.AddListener(SetTrue);
+        DialogueManager.Instance.runner.onDialogueComplete.AddListener(SetTrue);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -41,7 +41,7 @@ public class MerchantDialogue : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isEnter && isDialogue)
         {
-            DialogueManager.instance.lineView.UserRequestedViewAdvancement();
+            //DialogueManager.Instance.lineView.UserRequestedViewAdvancement();
         }
     }
 
@@ -50,11 +50,11 @@ public class MerchantDialogue : MonoBehaviour
         switch (index)
         {
             case 0:
-                DialogueManager.instance.dialogueRunner.StartDialogue("Merchant");
+                DialogueManager.Instance.runner.StartDialogue("Merchant");
                 erica.SetIndex(2);
                 break;
             case 1:
-                DialogueManager.instance.dialogueRunner.StartDialogue("Merchant2");
+                DialogueManager.Instance.runner.StartDialogue("Merchant2");
                 GetComponent<Merchant>().isQuestClear = true;
                 erica.ericaEnd = true;
                 break;
