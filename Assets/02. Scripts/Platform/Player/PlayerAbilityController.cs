@@ -17,6 +17,7 @@ public class PlayerAbilityController : MonoBehaviour
     GameObject alterEgoProjectile;
     GameObject playerProjectile;
 
+    public bool canControll { get; set; } = true;
     private int currentAbilityState = 0; 
     private int playerDir = 1; 
     private bool isSeparated = false;  
@@ -28,24 +29,34 @@ public class PlayerAbilityController : MonoBehaviour
     private void Awake()
     {
         abilityUI = FindObjectOfType<AbilityUI>();
+        Managers.Input.PlayerMoveAction -= ControlPlayer;
+        Managers.Input.PlayerMoveAction += ControlPlayer;
+    }
+
+    public void ControlPlayer(bool _canControl)
+    {
+        canControll = _canControl;
     }
 
     private void Update()
     {
-        KeyInput();
-        CheckDirection();
-        switch (currentAbilityState)
+        if (canControll)
         {
-            case 0:
-                HandleSeparation();
-                break;
-            case 1:
-                HandleAbsorption();
-                break;
-            case 2:
-                HandleProjectile();
-                break;
-        } 
+            KeyInput();
+            CheckDirection();
+            switch (currentAbilityState)
+            {
+                case 0:
+                    HandleSeparation();
+                    break;
+                case 1:
+                    HandleAbsorption();
+                    break;
+                case 2:
+                    HandleProjectile();
+                    break;
+            }
+        }
     }
     private void KeyInput()
     {

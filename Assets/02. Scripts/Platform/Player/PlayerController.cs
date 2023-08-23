@@ -23,9 +23,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ParticleSystem playerHitParticle;
     public float moveDir;
     private Vector2 hitForce = new Vector2(0, 3);
-  
+
+    public bool canControll { get; set; } = true;
+
     [Header("Control Player")]
-    private bool canMove = true;
     private bool playerDead = false;
     private bool keyDownJump;
     private Color halfColor = Color.white;
@@ -42,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (canMove)
+        if (canControll)
         {
             MoveKeyInput();
             Jump();
@@ -113,8 +114,8 @@ public class PlayerController : MonoBehaviour
 
     public void ControlPlayer(bool _canMove)
     {
-        canMove = _canMove;
-        if (!canMove)
+        canControll = _canMove;
+        if (!canControll)
         {
             moveDir = 0;
             rb.velocity = new Vector2(0, rb.velocity.y);
@@ -147,7 +148,7 @@ public class PlayerController : MonoBehaviour
     public void Respawn(Transform _respawnPosition)
     {
         anim.SetTrigger("Respawn");
-        canMove = true;
+        canControll = true;
         playerDead = false;
         gameObject.transform.position = _respawnPosition.position;
     }
