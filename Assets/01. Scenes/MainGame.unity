@@ -353,6 +353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startCardCount: 5
+  animator: {fileID: 330358581}
   isLoading: 1
   myTurn: 0
 --- !u!1 &49636621
@@ -2935,6 +2936,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 35.137077, y: 15.029879}
   m_EdgeRadius: 0
+--- !u!95 &330358581 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7657585647637744915, guid: f1f1bea4d90b39842abc4c6a55592727, type: 3}
+  m_PrefabInstance: {fileID: 916972644}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &334260288
 GameObject:
   m_ObjectHideFlags: 0
@@ -19055,6 +19061,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 421511610, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
+      propertyPath: m_ColliderPaths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 421511610, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -25042,6 +25052,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: 42a22cac6cc3d32449cd8c16f3134631, type: 2}
+    - target: {fileID: 893976415, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
+      propertyPath: m_ColliderPaths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 893976416, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
       propertyPath: m_Material
       value: 
@@ -25266,6 +25280,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapObjects
       objectReference: {fileID: 0}
+    - target: {fileID: 3252322094903695410, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3433408736047330537, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -25300,6 +25318,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6795965368814905704, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
       propertyPath: m_UsedByEffector
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6795965368814905704, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
+      propertyPath: m_ColliderPaths.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6795965368814905704, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
@@ -36794,6 +36816,10 @@ PrefabInstance:
       propertyPath: m_UsedByEffector
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6795965368990952649, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
+      propertyPath: m_ColliderPaths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7304821724442475562, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -40952,7 +40978,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2146283089}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 112.35, y: -1.86, z: 0}
+  m_LocalPosition: {x: 281.4, y: -1.86, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
