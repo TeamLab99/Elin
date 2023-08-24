@@ -5,25 +5,13 @@ using UnityEngine.UI;
 using Yarn.Unity;
 using Yarn;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : Singleton<DialogueManager>
 {
-    static DialogueManager dialogueManager;
     public DialogueRunner runner;
-    public static DialogueManager Instance { get { return dialogueManager; } }
     private void Awake()
     {
-        if (dialogueManager==null)
-        {
-            GameObject go = GameObject.Find("DialogueManager");
-            if (go == null)
-            {
-                go = new GameObject { name = "@DialogueManager" };
-                go.AddComponent<DialogueManager>();
-            }
-            dialogueManager = go.GetComponent<DialogueManager>();
-            if (runner == null)
-                runner = FindObjectOfType<DialogueRunner>();
-        }
+        if (runner == null)
+            runner = FindObjectOfType<DialogueRunner>();
         InitFunction();
     }
 

@@ -16,7 +16,7 @@ public class Erica : MonoBehaviour
 
     private void Start()
     {
-        DialogueManager.Instance.runner.onDialogueComplete.AddListener(SetTrue);
+        DialogueManager.instance.runner.onDialogueComplete.AddListener(SetTrue);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -35,12 +35,12 @@ public class Erica : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X) && isEnter && !DialogueManager.Instance.runner.IsDialogueRunning)
+        if (Input.GetKeyDown(KeyCode.X) && isEnter && !DialogueManager.instance.runner.IsDialogueRunning)
         {
             if (!isDialogue)
                 ChooseDialogue(dialougeIndex);
             else
-                DialogueManager.Instance.StartDialogue("talkAgain");
+                DialogueManager.instance.StartDialogue("talkAgain");
         }
 
         
@@ -56,13 +56,13 @@ public class Erica : MonoBehaviour
         switch (index)
         {
             case 0:
-                DialogueManager.Instance.StartDialogue("Erica");
+                DialogueManager.instance.StartDialogue("Erica");
                 break;
             case 1:
-                DialogueManager.Instance.StartDialogue("Erica2");
+                DialogueManager.instance.StartDialogue("Erica2");
                 break;
             case 2:
-                DialogueManager.Instance.StartDialogue("Erica3");
+                DialogueManager.instance.StartDialogue("Erica3");
                 //ItemManager.instance.EarnAum();
                 merchant.SetIndex(1);
                 break;

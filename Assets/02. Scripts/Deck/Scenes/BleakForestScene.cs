@@ -8,7 +8,7 @@ public class BleakForestScene : BaseScene
     void Start()
     {
         SceneType = EScene.BleakForest;
-        DialogueManager.Instance.StartDialogue("Erica4");
+        DialogueManager.instance.StartDialogue("Erica4");
     }
 
     public override void Clear() { }

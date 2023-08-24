@@ -38,4 +38,9 @@ public class PlayerRespawnManager : Singleton<PlayerRespawnManager>
     {
         respawnPos = _position;
     }
+
+    public void Clear()
+    {
+
+    }
 }

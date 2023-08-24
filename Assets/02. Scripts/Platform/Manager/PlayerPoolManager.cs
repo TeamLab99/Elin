@@ -21,7 +21,6 @@ public class PlayerPoolManager : Singleton<PlayerPoolManager>
         for (int i = 0; i < projectilePools.Length; i++)
         {
             projectilePools[i] = new List<GameObject>();
-
         }
         for (int i = 0; i < alterEgoPools.Length; i++)
         {
@@ -87,5 +86,10 @@ public class PlayerPoolManager : Singleton<PlayerPoolManager>
             monsterAttackPools[idx].Add(select); // 리스트에 추가시켜준다.
         }
         return select;
+    }
+
+    public void Clear()
+    {
+
     }
 }
