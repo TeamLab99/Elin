@@ -26,10 +26,16 @@ public class DialogueManager : Singleton<DialogueManager>
         
         runner.onDialogueComplete.AddListener(() => { Managers.Input.PlayerMoveControl(true); Debug.Log("작동중입니다."); });
         runner.AddCommandHandler("Test", Test);
+        runner.AddCommandHandler<string, int>("Quest", AcceptQuest);
     }
 
     public void Test()
     {
         Debug.Log("테스트중입니다.");
+    }
+
+    public void AcceptQuest<T>(string questType, T detail)
+    {
+        QuestManager.instance.Quest(questType, detail);
     }
 }
