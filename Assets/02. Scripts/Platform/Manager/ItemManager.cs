@@ -141,4 +141,9 @@ public class ItemManager : Singleton<ItemManager>
         InvenUI.instance.SetAum();
         StoreUI.instance.SetAum();
     }
+
+    public void Clear()
+    {
+
+    }
 }

@@ -33,6 +33,7 @@ public class Squirrel : BattleMonster
 
     public IEnumerator Attack()
     {
+        BattleTurnManager.instance.ChangeAnim(EMonsterState.Attack);
         EntitiesStateChange(true);
         //gameObject.transform.DOScale(Vector3.one, 0.5f).SetRelative().SetEase(Ease.Flash, 2, 0);
 
@@ -40,10 +41,12 @@ public class Squirrel : BattleMonster
         Attack(player);
         EntitiesStateChange(false);
         AnimationControl();
+        BattleTurnManager.instance.ChangeAnim(EMonsterState.Idle);
     }
 
     public IEnumerator Skill()
     {
+        BattleTurnManager.instance.ChangeAnim(EMonsterState.Skill);
         EntitiesStateChange(true);
 
         attackSpeed -= 0.5f;
@@ -52,6 +55,7 @@ public class Squirrel : BattleMonster
 
         yield return StartCoroutine(MobSkillManager.instance.Broadening());
         EntitiesStateChange(false);
+        BattleTurnManager.instance.ChangeAnim(EMonsterState.Idle);
     }
 
     public void AnimationControl()

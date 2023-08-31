@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class InputManager
 {
     public Action KeyAction = null;
+    public Action<bool> PlayerMoveAction = null;
     public Action<EMouseEvent> MouseAction = null;
 
     bool _pressed = false;
@@ -40,5 +41,10 @@ public class InputManager
     {
         KeyAction = null;
         MouseAction = null;
+    }
+
+    public void PlayerMoveControl(bool canMove)
+    {
+        PlayerMoveAction.Invoke(canMove);
     }
 }

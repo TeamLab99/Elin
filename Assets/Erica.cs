@@ -16,7 +16,7 @@ public class Erica : MonoBehaviour
 
     private void Start()
     {
-        DialogueManager.instance.dialogueRunner.onDialogueComplete.AddListener(SetTrue);
+        DialogueManager.instance.runner.onDialogueComplete.AddListener(SetTrue);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -35,14 +35,19 @@ public class Erica : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X) && isEnter && !isDialogue)
+        if (Input.GetKeyDown(KeyCode.X) && isEnter && !DialogueManager.instance.runner.IsDialogueRunning)
         {
-            ChooseDialogue(dialougeIndex);
+            if (!isDialogue)
+                ChooseDialogue(dialougeIndex);
+            else
+                DialogueManager.instance.StartDialogue("talkAgain");
         }
+
+        
 
         if (Input.GetKeyDown(KeyCode.Space) && isEnter && isDialogue)
         {
-            DialogueManager.instance.lineView.UserRequestedViewAdvancement();
+           // DialogueManager.Instance.lineView.UserRequestedViewAdvancement();
         }
     }
 
@@ -51,13 +56,13 @@ public class Erica : MonoBehaviour
         switch (index)
         {
             case 0:
-                DialogueManager.instance.dialogueRunner.StartDialogue("Erica");
+                DialogueManager.instance.StartDialogue("Erica");
                 break;
             case 1:
-                DialogueManager.instance.dialogueRunner.StartDialogue("Erica2");
+                DialogueManager.instance.StartDialogue("Erica2");
                 break;
             case 2:
-                DialogueManager.instance.dialogueRunner.StartDialogue("Erica3");
+                DialogueManager.instance.StartDialogue("Erica3");
                 //ItemManager.instance.EarnAum();
                 merchant.SetIndex(1);
                 break;
@@ -87,7 +92,6 @@ public class Erica : MonoBehaviour
         }
         else
         {
-            player.GetComponent<PlayerController>().ControlPlayer(false);
             player.GetComponent<PlayerController>().anim.SetBool("Walk", false);
             player.GetComponent<PlayerAbilityController>().enabled = false;
 

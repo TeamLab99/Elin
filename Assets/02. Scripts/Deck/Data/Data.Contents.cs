@@ -101,12 +101,15 @@ public class ItemData : ILoader<int, Items>
     public Dictionary<int, Items> MakeDict()
     {
         Dictionary<int, Items> dict = new Dictionary<int, Items>();
+        Debug.Log(itemList.Count);
         foreach (Items item in itemList)
         {
             string iconPath = "Data/Items/" + item.itemID.ToString(); // 아이콘 이미지의 전체 경로
             item.itemIcon = Resources.Load<Sprite>(iconPath);
+            
             dict.Add(item.itemID, item);
         }
+        Debug.Log(dict.Count);
         return dict;
     }
 }

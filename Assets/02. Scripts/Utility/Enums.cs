@@ -7,8 +7,15 @@ public enum EUILayer
 
 public enum EScene
 {
+    LogIn,
+    BleakForest,
+    GreenForest_one,
+    GreenForest_two,
+    GreenForest_three,
+    HideOut,
     Unknown,
-    DeckCreator
+    DeckCreator,
+
 }
 
 public enum ESound

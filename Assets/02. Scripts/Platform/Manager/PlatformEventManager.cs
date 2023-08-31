@@ -18,7 +18,7 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
 
     private void Start()
     {
-        DialogueManager.instance.dialogueRunner.onDialogueComplete.AddListener(AppearPlatformEvent);
+        DialogueManager.instance.runner.onDialogueComplete.AddListener(AppearPlatformEvent);
     }
 
     public void AppearPlatformEvent()
@@ -40,5 +40,10 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
     public void ControlPlayerMove(bool _control)
     {
         playerController.ControlPlayer(_control);
+    }
+
+    public void Clear()
+    {
+
     }
 }
