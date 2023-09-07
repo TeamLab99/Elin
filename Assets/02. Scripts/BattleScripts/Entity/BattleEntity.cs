@@ -48,7 +48,7 @@ public abstract class BattleEntity : MonoBehaviour
         entity.TakeDamage(attack);
     }
 
-    public void TakeDamage(float value)
+    public virtual void TakeDamage(float value)
     {
         if (hp - value > 0)
         {
@@ -57,6 +57,7 @@ public abstract class BattleEntity : MonoBehaviour
         else
         {
             hp = 0;
+            BattleTurnManager.instance.ChangeAnim(EMonsterState.Death);
             BattleGameManager.instance.GameOver();
         }
         HpTextUpdate();
