@@ -66,6 +66,11 @@ public class BattleGameManager : Singleton<BattleGameManager>
         OnOffUI.instance.endingObject.SetActive(true);
     }
 
+    public void MonsterUpgrade()
+    {
+        // 힘들 때
+    }
+
     public void Win()
     {
         player.GetComponent<Player_Move>().enabled = true;
