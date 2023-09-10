@@ -9,7 +9,8 @@ public enum EMonsterState
     Idle,
     Attack,
     Hit,
-    Skill
+    Skill,
+    Death
 }
 
 
@@ -96,6 +97,9 @@ public class BattleTurnManager : Singleton<BattleTurnManager>
                 break;
             case EMonsterState.Skill:
                 animator.SetBool("isSkill", true);
+                break;
+            case EMonsterState.Death:
+                animator.SetBool("Death", true);
                 break;
         }
     }

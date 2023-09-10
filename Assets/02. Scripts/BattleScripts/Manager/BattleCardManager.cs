@@ -264,23 +264,71 @@ public class BattleCardManager : Singleton<BattleCardManager>
         if (isEnlarge)
         {
             Vector3 enlargePos = new Vector3(316.7f, -5.25f, -10f);
-            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 0.2f), false);
+            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 0.25f), true, 0.15f);
             isSelected = isEnlarge;
+            OtherCardsMove(card, true);
         }
         else
         {
-            card.MoveTransform(card.originPRS, false);
+            card.MoveTransform(card.originPRS, true, 0.15f);
             isSelected = isEnlarge;
+            OtherCardsMove(card, false);
         }
 
         card.GetComponent<Order>().SetMostFrontOrder(isEnlarge);
 
     }
 
+    void OtherCardsMove(BattleCard card, bool isMove)
+    {
+        if (isSelected == isMove)
+            return;
+
+        int index = myCards.FindIndex(x => x == card);
+
+        if (isMove)
+        {
+            if (index == myCards.Count - 1)
+            {
+                for (int i = 0; i < index; i++)
+                {
+                    myCards[i].MoveTransform(new PRS(myCards[i].originPRS.pos + Vector3.right * -1f, myCards[i].originPRS.rot, Vector3.one * 0.1f), true, 0.15f);
+                }
+            }
+            else if (index == 0)
+            {
+                for (int i = 1; i < myCards.Count; i++)
+                {
+                    myCards[i].MoveTransform(new PRS(myCards[i].originPRS.pos + Vector3.right * 1f, myCards[i].originPRS.rot, Vector3.one * 0.1f), true, 0.15f);
+                }
+            }
+            else
+            {
+                for (int i = index + 1; i < myCards.Count; i++)
+                {
+                    myCards[i].MoveTransform(new PRS(myCards[i].originPRS.pos + Vector3.right * 1f, myCards[i].originPRS.rot, Vector3.one * 0.1f), true, 0.15f);
+                }
+
+                for (int i = index - 1; i >= 0; i--)
+                {
+                    myCards[i].MoveTransform(new PRS(myCards[i].originPRS.pos + Vector3.right * -1f, myCards[i].originPRS.rot, Vector3.one * 0.1f), true, 0.15f);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < myCards.Count; i++)
+            {
+                myCards[i].MoveTransform(myCards[i].originPRS, true, 0.15f);
+            }
+        }
+
+    }
+
     IEnumerator CardAlignment()
     {
         List<PRS> originCardPRSs = new List<PRS>();
-        originCardPRSs = RoundAlignment(cardLeft, cardRight, myCards.Count, 1f, Vector3.one * 0.25f);
+        originCardPRSs = RoundAlignment(cardLeft, cardRight, myCards.Count, 1f, Vector3.one * 0.35f);
 
         for (int i = 0; i < myCards.Count; i++)
         {
@@ -392,7 +440,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
         myCards.Remove(selectCard);
 
 
-        yield return StartCoroutine(selectCard.MoveTransformCoroutine(new PRS(cardUseTrasnform.position, Utils.QI, selectCard.originPRS.scale), true, 0.5f));
+        yield return StartCoroutine(selectCard.MoveTransformCoroutine(new PRS(cardUseTrasnform.position, Utils.QI, Vector3.one * 0.35f), true, 0.5f));
         BattleMagicManager.instance.CallMagic(selectCard.deckCard);
         selectCard.DOKill();
         Managers.Pool.Push(selectCard.GetComponent<Poolable>());
