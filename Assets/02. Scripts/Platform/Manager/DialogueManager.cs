@@ -23,7 +23,6 @@ public class DialogueManager : Singleton<DialogueManager>
 
     public void InitFunction()
     {
-        
         runner.onDialogueComplete.AddListener(() => { Managers.Input.PlayerMoveControl(true); Debug.Log("작동중입니다."); });
         runner.AddCommandHandler("Test", Test);
         runner.AddCommandHandler<string, int>("Quest", AcceptQuest);
