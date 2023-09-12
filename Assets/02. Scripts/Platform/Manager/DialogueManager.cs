@@ -8,6 +8,8 @@ using Yarn;
 public class DialogueManager : Singleton<DialogueManager>
 {
     public DialogueRunner runner;
+    public Image characterImage;
+    public Dictionary<string,Sprite> spritesDic = new Dictionary<string, Sprite>();
     private void Awake()
     {
         if (runner == null)
@@ -26,6 +28,7 @@ public class DialogueManager : Singleton<DialogueManager>
         runner.onDialogueComplete.AddListener(() => { Managers.Input.PlayerMoveControl(true); Debug.Log("작동중입니다."); });
         runner.AddCommandHandler("Test", Test);
         runner.AddCommandHandler<string, int>("Quest", AcceptQuest);
+        runner.AddCommandHandler<string>("Act", SetActor); // 이미지 추가
     }
 
     public void Test()
@@ -36,5 +39,20 @@ public class DialogueManager : Singleton<DialogueManager>
     public void AcceptQuest<T>(string questType, T detail)
     {
         QuestManager.instance.Quest(questType, detail);
+    }
+
+    public void SetActor(string _actorName)
+    {
+        if (!spritesDic.ContainsKey(_actorName))
+        {
+           characterImage.sprite = Managers.Resource.Load<Sprite>(_actorName);
+            if (Managers.Resource.Load<Sprite>(_actorName) == null)
+                return;
+            spritesDic.Add(_actorName, characterImage.sprite);
+        }
+        else
+        {
+            characterImage.sprite = spritesDic[_actorName];
+        }
     }
 }
