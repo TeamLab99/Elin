@@ -7,6 +7,7 @@ public enum CamerEffectType
     FollowPlayer,
     LateFollowPlayer,
     GotoTarget,
+    FirstEnd,
     GameMode
 }
 
@@ -17,6 +18,7 @@ public class CamerEffect : Singleton<CamerEffect>
     public Transform player;
     public float lerpTime;
     public CamerEffectType camerEffectType;
+    public Transform collisionTf { get; set; }
 
     private Vector3 targetCamPos;
     private Vector3 offSet;
@@ -57,6 +59,9 @@ public class CamerEffect : Singleton<CamerEffect>
                 if (onCamera)
                     Invoke("ChangeFollowCameraMode", 3f);
                 onCamera = false;
+                break;
+            case CamerEffectType.FirstEnd:
+                transform.position = collisionTf.position;
                 break;
             case CamerEffectType.GameMode: // 게임 들어갈 때 카메라 효과
                 break;
