@@ -361,6 +361,7 @@ GameObject:
   - component: {fileID: 2045900005991835212}
   - component: {fileID: 2045900005991835211}
   - component: {fileID: 2045900005991835210}
+  - component: {fileID: -7289923056100780339}
   m_Layer: 0
   m_Name: NightMareSquirrel
   m_TagString: Untagged
@@ -426,7 +427,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 18b39ce7286fe1c459556c524ed2fe57, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -505,6 +506,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-7289923056100780339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045900005991835209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5788a62a35626a4a87510e0b48c1342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 0
+  attack: 0
+  battleBuffDebuff: {fileID: 0}
+  attackSpeed: 0
+  skillCount: 0
+  player: {fileID: 0}
+  gaugeIcon: {fileID: 0}
 --- !u!1 &2045900006043075139
 GameObject:
   m_ObjectHideFlags: 0

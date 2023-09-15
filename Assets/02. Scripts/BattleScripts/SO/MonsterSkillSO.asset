@@ -18,3 +18,8 @@ MonoBehaviour:
     normalAttackEffect: {fileID: 5013288351290021617, guid: 4e66e4385ed723649a3a0c1ea0616e9b, type: 3}
     skillEffect:
     - {fileID: 1276520960654167790, guid: 0a06df940f0e62d42beeae3f9fd50173, type: 3}
+  - id: 1
+    name: "\uC0AC\uB098\uC6B4 \uBCC4 \uB2E4\uB78C\uC950"
+    normalAttackEffect: {fileID: 6775307413567116100, guid: fbed00e94c7e0a9478c964b81f3e53ab, type: 3}
+    skillEffect:
+    - {fileID: 6775307413567116100, guid: fbed00e94c7e0a9478c964b81f3e53ab, type: 3}
