@@ -11,14 +11,23 @@ public class BattleGameManager : Singleton<BattleGameManager>
     [SerializeField] PlatformUIAnimation platformUI;
     [SerializeField] GameObject mainCamera;
     [SerializeField] GameObject player;
+    [SerializeField] Animator animator;
     [SerializeField] GameObject monster;
+    [SerializeField] GameObject nightmarePrefab;
+    [SerializeField] Transform monstersTr;
     [SerializeField] Ease ease;
 
     GameObject battleUI;
     bool isSetting;
+    bool isAnimState;
 
     public static Action PlatformUIControlForBattle;
     public static Action PlatformUIControlForDialouge;
+
+    public void SetMonster(GameObject monster)
+    {
+        this.monster = monster;
+    }
 
     void Start()
     {
@@ -89,4 +98,42 @@ public class BattleGameManager : Singleton<BattleGameManager>
     {
         notificationPanel.Show(message);
     }
+
+    public void ChangeAnim(EMonsterState monsterState)
+    {
+        switch (monsterState)
+        {
+            case EMonsterState.Idle:
+                animator.SetBool("isHit", false);
+                animator.SetBool("isSkill", false);
+                animator.SetBool("isAttack", false);
+                break;
+            case EMonsterState.Attack:
+                animator.SetBool("isAttack", true);
+                break;
+            case EMonsterState.Hit:
+                animator.SetBool("isHit", true);
+                break;
+            case EMonsterState.Skill:
+                animator.SetBool("isSkill", true);
+                break;
+            case EMonsterState.Death:
+                animator.SetBool("Death", true);
+                break;
+        }
+    }
+
+    public IEnumerator isDeadMotionEnd()
+    {
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
+        monster.GetComponent<Squirrel>().Revolution();
+    }
+
+    public void GenerateNightmare()
+    {
+        var pos = monster.transform.position;
+        monster = Instantiate(nightmarePrefab, monstersTr);
+        monster.transform.position = pos;
+    }
+
 }

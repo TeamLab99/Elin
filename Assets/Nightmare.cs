@@ -5,10 +5,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-
-public class Squirrel : BattleMonster
+public class Nightmare : BattleMonster
 {
     int skillOverlap = 0;
+
+    public override void Init()
+    {
+        //iconAnimation.SetIcon(gaugeIcon);
+        ConnectInspector();
+        delay = new WaitForSeconds(Time.deltaTime);
+        maxTime = attackSpeed;
+        curTime = maxTime;
+        count = skillCount;
+        battleBuffDebuff = gameObject.AddComponent<BattleBuffManager>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<BattlePlayer>();
+        StartCoroutine(GetGaugeUI("HpBar"));
+
+        FadeIn();
+    }
 
     protected override IEnumerator MonsterPattern(int skillCount)
     {
@@ -78,23 +92,21 @@ public class Squirrel : BattleMonster
         HpTextUpdate();
     }
 
-    public void Revolution()
+    public void ConnectInspector()
     {
-        EntitiesStateChange(true);
-        TimerControl(true);
-        iconAnimation.TImerControl(false);
-        StopCoroutine(GaugeTimer());
-        StartCoroutine(MobSkillManager.instance.Revolution());
+        BattleGameManager.instance.SetMonster(this.gameObject);
+        BattleMagicManager.instance.SetMonster(this);
+        MobSkillManager.instance.SetMonster(this);
     }
 
-    public void FadeOut()
+    public void FadeIn()
     {
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(GetComponent<SpriteRenderer>().DOFade(0, 1f))
+        sequence.Append(GetComponent<SpriteRenderer>().DOFade(1, 1f))
             .OnComplete(() =>
             {
-                BattleGameManager.instance.GenerateNightmare();
+                // 코스트, 체력, 게이지 회복 및 시작
             });
-        
+
     }
 }

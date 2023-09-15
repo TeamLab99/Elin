@@ -353,7 +353,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startCardCount: 5
-  animator: {fileID: 330358581}
   isLoading: 1
   myTurn: 0
 --- !u!1 &49636621
@@ -1613,30 +1612,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175128784}
   m_CullTransparentMesh: 1
---- !u!1 &179561025 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6795965368990952653, guid: c8f8d3987df803d49baeb0e33a498433, type: 3}
-  m_PrefabInstance: {fileID: 1691675723}
-  m_PrefabAsset: {fileID: 0}
---- !u!251 &179561032
-PlatformEffector2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 179561025}
-  m_Enabled: 1
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RotationalOffset: 0
-  m_UseOneWay: 1
-  m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
-  m_UseSideFriction: 0
-  m_UseSideBounce: 0
-  m_SideArc: 1
 --- !u!1001 &190944563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2879,25 +2854,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7657585647637742316, guid: f1f1bea4d90b39842abc4c6a55592727, type: 3}
   m_PrefabInstance: {fileID: 916972644}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &330358578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330358576}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f5a6556ff1086443a9bda9776453866, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 5
-  attack: 25
-  battleBuffDebuff: {fileID: 0}
-  attackSpeed: 3
-  skillCount: 1
-  player: {fileID: 2146283095}
-  gaugeIcon: {fileID: -1161415325, guid: d3a8789646db08c4590ab7d3c46e5b04, type: 3}
 --- !u!114 &330358579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2941,6 +2897,25 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 7657585647637744915, guid: f1f1bea4d90b39842abc4c6a55592727, type: 3}
   m_PrefabInstance: {fileID: 916972644}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &330358584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330358576}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f5a6556ff1086443a9bda9776453866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 5
+  attack: 5
+  battleBuffDebuff: {fileID: 0}
+  attackSpeed: 3
+  skillCount: 2
+  player: {fileID: 2146283095}
+  gaugeIcon: {fileID: -1161415325, guid: d3a8789646db08c4590ab7d3c46e5b04, type: 3}
 --- !u!1 &334260288
 GameObject:
   m_ObjectHideFlags: 0
@@ -5637,7 +5612,10 @@ MonoBehaviour:
   platformUI: {fileID: 0}
   mainCamera: {fileID: 1933582143}
   player: {fileID: 2146283089}
+  animator: {fileID: 330358581}
   monster: {fileID: 330358576}
+  nightmarePrefab: {fileID: 2045900005991835209, guid: 1ac0af79f3048d942aebbaf046c6f3b5, type: 3}
+  monstersTr: {fileID: 236924362}
   ease: 7
 --- !u!1001 &568214655
 PrefabInstance:
@@ -7598,6 +7576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runner: {fileID: 0}
+  characterImage: {fileID: 0}
 --- !u!1001 &873501093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8229,7 +8208,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1296877194}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!251 &910730550
 PlatformEffector2D:

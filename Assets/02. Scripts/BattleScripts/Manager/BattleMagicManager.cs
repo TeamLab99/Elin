@@ -21,6 +21,11 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
         this.monster = monster;
     }
 
+    public void SetMonster(BattleMonster monster)
+    {
+        this.monster = monster;
+    }
+
     public void CallMagic(DeckCard card)
     {
         switch (card.cardName)
@@ -119,11 +124,11 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
         //player.transform.DOMoveX(5f, 0.3f).SetRelative().SetEase(Ease.Flash, 2, 0);
         mainCamera.DOShakePosition(0.3f,2);
         player.MagicAttack(monster, card.amount);
-        BattleTurnManager.instance.ChangeAnim(EMonsterState.Hit);
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Hit);
 
         yield return delay05;
         Managers.Pool.Push(effect);
-        BattleTurnManager.instance.ChangeAnim(EMonsterState.Idle);
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
     }
 
     public bool GetRandom(float probability)

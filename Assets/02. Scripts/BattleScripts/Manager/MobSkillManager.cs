@@ -20,6 +20,11 @@ public class MobSkillManager : Singleton<MobSkillManager>
         this.monster = monster;
     }
 
+    public void SetMonster(BattleMonster monster)
+    {
+        this.monster = monster;
+    }
+
     public IEnumerator CallNormalAttackEffect(int index)
     {
         var normalAttack = monsterSO.items[index-1].normalAttackEffect;
@@ -67,6 +72,21 @@ public class MobSkillManager : Singleton<MobSkillManager>
             buff.ConnectBuffManager(monster.battleBuffDebuff, BuffIconsController.instance.GetBuffIconInfo(false));
         }
         yield return delay05;
+    }
+
+    public IEnumerator Revolution()
+    {
+        var skillEffect = monsterSO.items[1].skillEffect[0];
+
+        var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+        effect.transform.position = monster.gameObject.transform.position;
+
+        Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+        Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+        Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+        yield return delay05;
+        Managers.Pool.Push(effect);
+        monster.GetComponent<Squirrel>().FadeOut();
     }
 
     public bool GetRandom(float probability)
