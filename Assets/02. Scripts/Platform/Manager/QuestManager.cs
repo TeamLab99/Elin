@@ -26,4 +26,9 @@ public class QuestManager : Singleton<QuestManager>
                 break;
         }
     }
+
+    public void DoneQuest()
+    {
+
+    }
 }
