@@ -9,6 +9,7 @@ public class Lever : MonoBehaviour
     Animator anim;
     bool collidePlayer = false;
     bool pullLever = false;
+    public bool questLever = true;
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -46,5 +47,7 @@ public class Lever : MonoBehaviour
     public void ActiveLever()
     {
         bridge.LayBridge();
+        if (questLever)
+            DialogueManager.instance.ClearQuest("Erica");
     }
 }

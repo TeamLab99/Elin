@@ -20,7 +20,6 @@ public enum EMonsterState
 public class BattleTurnManager : Singleton<BattleTurnManager>
 {
     [SerializeField] [Tooltip("시작 카드 개수를 정합니다.")] int startCardCount = 5;
-    [SerializeField] Animator animator;
 
     [Header("Properties")]
     public bool isLoading; // 카드 사용 방지, 몬스터 공격 방지
@@ -80,27 +79,4 @@ public class BattleTurnManager : Singleton<BattleTurnManager>
         isLoading = false;
     }
 
-    public void ChangeAnim(EMonsterState monsterState)
-    {
-        switch (monsterState)
-        {
-            case EMonsterState.Idle:
-                animator.SetBool("isHit", false);
-                animator.SetBool("isSkill", false);
-                animator.SetBool("isAttack", false);
-                break;
-            case EMonsterState.Attack:
-                animator.SetBool("isAttack", true);
-                break;
-            case EMonsterState.Hit:
-                animator.SetBool("isHit", true);
-                break;
-            case EMonsterState.Skill:
-                animator.SetBool("isSkill", true);
-                break;
-            case EMonsterState.Death:
-                animator.SetBool("Death", true);
-                break;
-        }
-    }
 }

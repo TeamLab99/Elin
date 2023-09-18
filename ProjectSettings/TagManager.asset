@@ -30,6 +30,7 @@ TagManager:
   - HpBar
   - HpText
   - Branch
+  - MonsterUI
   layers:
   - Default
   - TransparentFX

@@ -11,4 +11,9 @@ ScriptedImporter:
   LastImportHadImplicitStringIDs: 1
   LastImportHadAnyStrings: 1
   isSuccessfullyParsed: 1
-  parseErrorMessages: []
+  parseErrorMessages:
+  - '18:0: Error: More than one node is named Erica2
+
+    title: Erica2
+
+'

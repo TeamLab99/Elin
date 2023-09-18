@@ -234,8 +234,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      TitleBtn_5: -1999236434
       TitleBtn_6: 2032361097
-      TitleBtn_2: -315168693
       TitleBtn_1: -802023844
       TitleBtn_4: -80931462
       TitleBtn_3: -2084370592
@@ -243,7 +243,7 @@ TextureImporter:
       TitleBtn_9: -846740169
       TitleBtn_7: 448338352
       TitleBtn_8: 1985081109
-      TitleBtn_5: -1999236434
+      TitleBtn_2: -315168693
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

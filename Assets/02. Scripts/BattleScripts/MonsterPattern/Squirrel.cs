@@ -33,7 +33,7 @@ public class Squirrel : BattleMonster
 
     public IEnumerator Attack()
     {
-        BattleTurnManager.instance.ChangeAnim(EMonsterState.Attack);
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Attack);
         EntitiesStateChange(true);
         //gameObject.transform.DOScale(Vector3.one, 0.5f).SetRelative().SetEase(Ease.Flash, 2, 0);
 
@@ -41,12 +41,12 @@ public class Squirrel : BattleMonster
         Attack(player);
         EntitiesStateChange(false);
         AnimationControl();
-        BattleTurnManager.instance.ChangeAnim(EMonsterState.Idle);
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
     }
 
     public IEnumerator Skill()
     {
-        BattleTurnManager.instance.ChangeAnim(EMonsterState.Skill);
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Skill);
         EntitiesStateChange(true);
 
         attackSpeed -= 0.5f;
@@ -55,11 +55,46 @@ public class Squirrel : BattleMonster
 
         yield return StartCoroutine(MobSkillManager.instance.Broadening());
         EntitiesStateChange(false);
-        BattleTurnManager.instance.ChangeAnim(EMonsterState.Idle);
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
     }
 
     public void AnimationControl()
     {
         iconAnimation.Animation(1);
+    }
+
+    public override void TakeDamage(float value)
+    {
+        if (hp - value > 0)
+        {
+            hp -= value;
+        }
+        else
+        {
+            hp = 0;
+            BattleGameManager.instance.ChangeAnim(EMonsterState.Death);
+            StartCoroutine(BattleGameManager.instance.isDeadMotionEnd());
+        }
+        HpTextUpdate();
+    }
+
+    public void Revolution()
+    {
+        EntitiesStateChange(true);
+        TimerControl(true);
+        iconAnimation.TImerControl(false);
+        StopCoroutine(GaugeTimer());
+        StartCoroutine(MobSkillManager.instance.Revolution());
+    }
+
+    public void FadeOut()
+    {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(GetComponent<SpriteRenderer>().DOFade(0, 1f))
+            .OnComplete(() =>
+            {
+                BattleGameManager.instance.GenerateNightmare();
+            });
+        
     }
 }

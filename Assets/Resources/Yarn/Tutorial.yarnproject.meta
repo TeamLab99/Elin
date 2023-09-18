@@ -9,9 +9,18 @@ ScriptedImporter:
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 053561912b1654d80a424bb0696a74ae, type: 3}
   sourceScripts:
-  - {fileID: 6391573757903218779, guid: 286d7762e824c12499af6954972e80fe, type: 3}
   - {fileID: 6391573757903218779, guid: b41d24dc1bf8afa4d8a784e252233b5a, type: 3}
-  compileErrors: []
+  compileErrors:
+  - '18:0: Error: More than one node is named Erica2
+
+    title: Erica2
+
+'
+  - '20:0: Error: More than one node is named Erica2
+
+    title: Erica2
+
+'
   serializedDeclarations: []
   defaultLanguage: ko-KR
   languagesToSourceAssets: []
