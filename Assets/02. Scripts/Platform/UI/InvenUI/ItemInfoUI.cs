@@ -35,6 +35,7 @@ public class ItemInfoUI : MonoBehaviour
                 ResetItemInfo();
                 break;
             default:
+                DialogueManager.instance.ClearQuest("Erica");
                 if (holdItemInfo.itemCnt == 1)
                 {
                     ItemManager.instance.UseItem(holdItemInfo.itemID);

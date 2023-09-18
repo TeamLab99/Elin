@@ -29,5 +29,6 @@ public class Erica : MonoBehaviour
         {
             DialogueManager.instance.StartDialogue(npcName);
         }
+            
     }
 }

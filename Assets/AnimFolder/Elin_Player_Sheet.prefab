@@ -459,9 +459,11 @@ GameObject:
   - component: {fileID: 5584409208397225605}
   - component: {fileID: 5584409208397225606}
   - component: {fileID: 5584409208397225607}
+  - component: {fileID: 1832437542}
+  - component: {fileID: 1832437548}
   m_Layer: 0
   m_Name: Elin_Player_Sheet
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -525,7 +527,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 70a7db40a8bbda84ab426e0a99790403, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 32.43, y: 25.715977}
@@ -570,8 +572,8 @@ MonoBehaviour:
   - {fileID: 5584409206922889094}
   - {fileID: 5584409207823225512}
   m_Bounds:
-    m_Center: {x: -0.20985413, y: -0.64500904, z: 0}
-    m_Extent: {x: 3.2937355, y: 7.4439487, z: 0}
+    m_Center: {x: -0.20988464, y: -0.64500904, z: 0}
+    m_Extent: {x: 3.2937355, y: 7.4439497, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -595,6 +597,43 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!50 &1832437542
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584409208397225600}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 3.5
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!70 &1832437548
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584409208397225600}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.645009}
+  m_Size: {x: 4, y: 14.887897}
+  m_Direction: 0
 --- !u!1 &5584409208435239557
 GameObject:
   m_ObjectHideFlags: 0

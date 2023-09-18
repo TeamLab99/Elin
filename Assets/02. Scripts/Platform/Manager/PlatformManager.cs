@@ -25,7 +25,6 @@ public class PlatformManager : MonoBehaviour
     public void Clear()
     {
         ItemManager.instance.Clear();
-        PlatformEventManager.instance.Clear();
         PlayerPoolManager.instance.Clear();
         PlayerRespawnManager.instance.Clear();
     }
