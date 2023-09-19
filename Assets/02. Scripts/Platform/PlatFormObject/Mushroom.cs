@@ -19,7 +19,6 @@ public class Mushroom : MonoBehaviour
             anim.SetTrigger("AddForce");
             if(playerController == null)
                 playerController = collision.gameObject.GetComponent<PlayerController>();
-            playerController.JumpMushroom();
         }
     }
 
