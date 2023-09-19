@@ -16,14 +16,6 @@ public class ItemManager : Singleton<ItemManager>
         SetUpItemDataBase();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            EarnAum();
-        }
-    }
-
     private void SetUpItemDataBase()
     {
         allItemDataBase = Managers.Data.ItemDict;
@@ -138,12 +130,5 @@ public class ItemManager : Singleton<ItemManager>
     public void EarnAum(int _earn=1000)
     {
         Aum += _earn;
-        InvenUI.instance.SetAum();
-        StoreUI.instance.SetAum();
-    }
-
-    public void Clear()
-    {
-
     }
 }

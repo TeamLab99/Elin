@@ -7,31 +7,20 @@ public class Merchant : MonoBehaviour
     [SerializeField] int[] sellItemsID;
     [SerializeField] GameObject introduceBox;
     [SerializeField] GameObject storeObject;
-
-    private bool isOpenMerchantUI = false;
-    public bool isQuestClear = false;
+   
     public List<Items>sellList = new List<Items>();
+    private bool isEnter = false;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
     {
-        if(collision.gameObject.CompareTag("Player") && isQuestClear)
-            introduceBox.SetActive(true);
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if(Input.GetKey(KeyCode.X) && !isOpenMerchantUI && isQuestClear)
+        if(isEnter && Input.GetKeyDown(KeyCode.X))
         {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                SetSellItemList();
-                storeObject.SetActive(true);
-                isOpenMerchantUI = true;
-                introduceBox.SetActive(false);
-            }      
+            SetSellItemList();
+            StoreUI.instance.SetAum();
+            storeObject.SetActive(true);
+            Managers.Input.PlayerMoveControl(false);
         }
     }
-
     public void SetSellItemList()
     {
         sellList.Clear();
@@ -42,13 +31,20 @@ public class Merchant : MonoBehaviour
         StoreUI.instance.ShowSellItems(sellList);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            isEnter = true;
+            introduceBox.SetActive(true);
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            isOpenMerchantUI = false;
-            storeObject.SetActive(false);
-            StoreUI.instance.ClearSellItems();
+            isEnter = false;
             introduceBox.SetActive(false);
         }
     }

@@ -33,10 +33,18 @@ public class DialogueManager : Singleton<DialogueManager>
 
     public void InitFunction()
     {
-        runner.onDialogueComplete.AddListener(() => { Managers.Input.PlayerMoveControl(true); }); // 대화 종료시
+        runner.onDialogueComplete.AddListener(() => { Managers.Input.PlayerMoveControl(true); OffCharacterImage(); }); // 대화 종료시
         runner.AddCommandHandler<string, string>("Act", SetActor); // 이미지 추가
         runner.AddCommandHandler<string>("Next", NextDialogue); // 다음 대화로 변경
         runner.AddCommandHandler("Event", SetEvent); // 이벤트 발생
+        runner.AddCommandHandler<int>("Earn", EarnAum);
+
+    }
+
+    public void OffCharacterImage()
+    {
+        characterImages[0].gameObject.SetActive(false);
+        characterImages[1].gameObject.SetActive(false);
     }
 
     public void SetActor(string _actorName, string _expression)
@@ -97,5 +105,9 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         characterImages[0].gameObject.SetActive(false);
         characterImages[1].gameObject.SetActive(false);
+    }
+    public void EarnAum(int aum = 1000)
+    {
+        ItemManager.instance.EarnAum(aum);
     }
 }

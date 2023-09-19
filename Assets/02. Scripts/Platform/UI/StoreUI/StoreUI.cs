@@ -53,6 +53,7 @@ public class StoreUI : Singleton<StoreUI>
         {
             ClearSellItems();
             storeObject.SetActive(false);
+            Managers.Input.PlayerMoveControl(true);
         }
     }
 

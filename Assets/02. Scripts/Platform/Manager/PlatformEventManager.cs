@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlatformEventManager : Singleton<PlatformEventManager>
 {
     [SerializeField] GameObject appearPlatform;
+    [SerializeField] GameObject movePlatform;
+    [SerializeField] GameObject enhanceUI;
     GameObject player;
     GameObject brokeBranch;
     PlayerController playerController;
@@ -30,12 +32,17 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
                 DialogueManager.instance.StartDialogue("plusText");
                 break;
             case 2:
-                SeeAppleEvent();
+                movePlatform.GetComponent<MovePlatform>().movePlatform = true;
                 break;
             case 3:
-                FallEvent();
+                SeeAppleEvent();
                 break;
             case 4:
+                FallEvent();
+                break;
+            case 5:
+                enhanceUI.SetActive(true);
+                DialogueManager.instance.EarnAum();
                 break;
         }
     }

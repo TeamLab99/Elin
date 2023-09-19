@@ -35,6 +35,7 @@ public class OnOffUI : Singleton<OnOffUI>
         {
             invenActivate = !invenActivate;
             invenObject.SetActive(invenActivate);
+            InvenUI.instance.SetAum();
         }
     }
 
