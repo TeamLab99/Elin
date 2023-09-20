@@ -7,12 +7,14 @@ public class Lever : MonoBehaviour
     public GameObject pullInformation;
     public Bridge bridge;
     Animator anim;
+    Lever lever;
     bool collidePlayer = false;
     bool pullLever = false;
-    public bool questLever = true;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        lever = GetComponent<Lever>();
     }
 
     private void Update()
@@ -23,6 +25,8 @@ public class Lever : MonoBehaviour
             {
                 anim.SetBool("Active", true);
                 pullLever = true;
+                ActiveLever();
+                lever.enabled=false;
             }
         }
     }
@@ -47,7 +51,7 @@ public class Lever : MonoBehaviour
     public void ActiveLever()
     {
         bridge.LayBridge();
-        if (questLever)
-            DialogueManager.instance.ClearQuest("Erica");
+        PlatformEventManager.instance.SetEvent();
+        DialogueManager.instance.ClearQuest("Erica");
     }
 }

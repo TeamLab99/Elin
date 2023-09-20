@@ -6,7 +6,7 @@ public class Door : MonoBehaviour
 {
     public int crystalCnt = 0;
     public bool bothCharge = false;
-
+    
     Animator anim;
     private void Awake()
     {
@@ -25,6 +25,7 @@ public class Door : MonoBehaviour
         {
             bothCharge = true;
             anim.SetBool("Active", true);
+            DialogueManager.instance.NextDialogue("Erica");
         }
     }
 }

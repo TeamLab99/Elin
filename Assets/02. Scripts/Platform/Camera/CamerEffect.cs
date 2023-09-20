@@ -7,7 +7,6 @@ public enum CamerEffectType
     FollowPlayer,
     LateFollowPlayer,
     GotoTarget,
-    FirstEnd,
     GameMode
 }
 
@@ -60,9 +59,6 @@ public class CamerEffect : Singleton<CamerEffect>
                     Invoke("ChangeFollowCameraMode", 3f);
                 onCamera = false;
                 break;
-            case CamerEffectType.FirstEnd:
-                transform.position = collisionTf.position;
-                break;
             case CamerEffectType.GameMode: // 게임 들어갈 때 카메라 효과
                 break;
         }
@@ -71,7 +67,7 @@ public class CamerEffect : Singleton<CamerEffect>
     public void ChangeLateFollowCamerMode() // 나무에서 떨어질때
     {
         camerEffectType = CamerEffectType.LateFollowPlayer;
-        PlatformEventManager.instance.ControlPlayerMove(false);
+        Managers.Input.PlayerMoveControl(false);
     }
 
     public void ChangeGotoCameraMode() // 나무 위의 사과를 비출 때
@@ -79,7 +75,7 @@ public class CamerEffect : Singleton<CamerEffect>
         currentTime = 0f;
         target = apple;
         camerEffectType = CamerEffectType.GotoTarget;
-        PlatformEventManager.instance.ControlPlayerMove(false);
+        Managers.Input.PlayerMoveControl(false);
     }
 
     public void ChangeFollowCameraMode()
@@ -88,6 +84,6 @@ public class CamerEffect : Singleton<CamerEffect>
         target = player;
         onCamera = true;
         camerEffectType = CamerEffectType.FollowPlayer;
-        PlatformEventManager.instance.ControlPlayerMove(true);
+        Managers.Input.PlayerMoveControl(true);
     }
 }

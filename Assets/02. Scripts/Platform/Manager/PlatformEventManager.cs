@@ -5,9 +5,13 @@ using UnityEngine;
 public class PlatformEventManager : Singleton<PlatformEventManager>
 {
     [SerializeField] GameObject appearPlatform;
+    [SerializeField] GameObject movePlatform;
+    [SerializeField] GameObject enhanceUI;
     GameObject player;
     GameObject brokeBranch;
     PlayerController playerController;
+    bool onceAppear = false;
+    int idx = -1;
 
     private void Awake()
     {
@@ -16,9 +20,31 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
         playerController = player.GetComponent<PlayerController>();
     }
 
-    private void Start()
+    public void SetEvent()
     {
-        DialogueManager.instance.runner.onDialogueComplete.AddListener(AppearPlatformEvent);
+        idx += 1;
+        switch (idx)
+        {
+            case 0:
+                AppearPlatformEvent();
+                break;
+            case 1:
+                DialogueManager.instance.StartDialogue("plusText");
+                break;
+            case 2:
+                movePlatform.GetComponent<MovePlatform>().movePlatform = true;
+                break;
+            case 3:
+                SeeAppleEvent();
+                break;
+            case 4:
+                FallEvent();
+                break;
+            case 5:
+                enhanceUI.SetActive(true);
+                DialogueManager.instance.EarnAum();
+                break;
+        }
     }
 
     public void AppearPlatformEvent()
@@ -35,15 +61,5 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
     {
         brokeBranch.SetActive(false);
         CamerEffect.instance.ChangeLateFollowCamerMode();
-    }
-
-    public void ControlPlayerMove(bool _control)
-    {
-        playerController.ControlPlayer(_control);
-    }
-
-    public void Clear()
-    {
-
     }
 }

@@ -11,7 +11,7 @@ public class ItemInfoUI : MonoBehaviour
     [SerializeField] Image itemIcon;
     Items holdItemInfo;
     int itemIdx;
-
+    bool onceQuest = true;
     public void ChangeItemInfo(Items _itemDatas, int _itemIdx)
     {
         itemDescription.text = _itemDatas.itemDescription;
@@ -35,6 +35,11 @@ public class ItemInfoUI : MonoBehaviour
                 ResetItemInfo();
                 break;
             default:
+                if (onceQuest)
+                {
+                    DialogueManager.instance.ClearQuest("Erica");
+                    onceQuest = false;
+                }
                 if (holdItemInfo.itemCnt == 1)
                 {
                     ItemManager.instance.UseItem(holdItemInfo.itemID);

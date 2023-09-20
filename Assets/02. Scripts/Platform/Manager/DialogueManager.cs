@@ -8,7 +8,7 @@ using Yarn;
 public class DialogueManager : Singleton<DialogueManager>
 {
     public DialogueRunner runner;
-    public Image characterImage;
+    public Image[] characterImages;
     public Dictionary<string,Sprite> spritesDic = new Dictionary<string, Sprite>();
     public Dictionary<string, int> dialogueIdx = new Dictionary<string, int>();
     private void Awake()
@@ -20,6 +20,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
     public void StartDialogue(string title)
     {
+        PlatformManager.Instance.OnOffUI();
         runner.StartDialogue(LoadDialouge(title));
         Managers.Input.PlayerMoveControl(false);
     }
@@ -33,41 +34,51 @@ public class DialogueManager : Singleton<DialogueManager>
 
     public void InitFunction()
     {
-        runner.onDialogueComplete.AddListener(() => { Managers.Input.PlayerMoveControl(true); Debug.Log("작동중입니다."); });
-        runner.AddCommandHandler<string, int>("Quest", AcceptQuest);
-        runner.AddCommandHandler<string>("Act", SetActor); // 이미지 추가
-        runner.AddCommandHandler<string>("Clear", ClearQuest); // 퀘스트 완료 or 다음 텍스트
-        runner.AddCommandHandler<string>("Next", NextDialogue);
+        runner.onDialogueComplete.AddListener(() => { Managers.Input.PlayerMoveControl(true); 
+            OffCharacterImage(); PlatformManager.Instance.OnOffUI();}); // 대화 종료시
+        runner.AddCommandHandler<string, string>("Act", SetActor); // 이미지 추가
+        runner.AddCommandHandler<string>("Next", NextDialogue); // 다음 대화로 변경
+        runner.AddCommandHandler("Event", SetEvent); // 이벤트 발생
+        runner.AddCommandHandler<int>("Earn", EarnAum);
+
     }
 
-    public void AcceptQuest<T>(string questType, T detail)
+    public void OffCharacterImage()
     {
-        QuestManager.instance.Quest(questType, detail);
+        characterImages[0].gameObject.SetActive(false);
+        characterImages[1].gameObject.SetActive(false);
     }
 
-    public void SetActor(string _actorName)
+    public void SetActor(string _actorName, string _expression)
     {
-        if (!spritesDic.ContainsKey(_actorName))
+        string findSource = _actorName + _expression;
+        if (!spritesDic.ContainsKey(findSource))
+            spritesDic.Add(findSource, Managers.Resource.Load<Sprite>("Sprites/" + findSource));
+        ChooseActiveImage(spritesDic[findSource], _actorName);
+    }
+
+    public void ChooseActiveImage(Sprite image, string name)
+    {
+        if (!characterImages[0].gameObject.activeSelf)
         {
-           characterImage.sprite = Managers.Resource.Load<Sprite>(_actorName);
-            if (Managers.Resource.Load<Sprite>(_actorName) == null)
-                return;
-            spritesDic.Add(_actorName, characterImage.sprite);
-        }
-        else
-        {
-            characterImage.sprite = spritesDic[_actorName];
-        }
-    }
-
-    public void ClearQuest(string questNpcName)
-    {
-        if (!dialogueIdx.ContainsKey(questNpcName))
+            characterImages[0].gameObject.SetActive(true);
+            characterImages[0].sprite = image;
+            characterImages[0].gameObject.name = name;
             return;
-        if (dialogueIdx[questNpcName]%2==0)
-            dialogueIdx[questNpcName] += 2;
-        else
-            dialogueIdx[questNpcName] += 1;
+        }
+
+        if (characterImages[0].gameObject.name == name)
+        {
+            characterImages[0].sprite = image;
+            return;
+        }
+
+        if (!characterImages[1].gameObject.activeSelf)
+        {
+            characterImages[1].gameObject.SetActive(true);
+            characterImages[1].sprite = image;
+            characterImages[1].gameObject.name = name;
+        }
     }
 
     public void NextDialogue(string questNpcName)
@@ -75,5 +86,32 @@ public class DialogueManager : Singleton<DialogueManager>
         if (!dialogueIdx.ContainsKey(questNpcName))
             return;
         dialogueIdx[questNpcName] += 1;
+    }
+
+    public void SetEvent()
+    {
+        PlatformEventManager.instance.SetEvent();
+    }
+
+    public void ClearQuest(string questNpcName)
+    {
+        if (!dialogueIdx.ContainsKey(questNpcName))
+            return;
+        if (dialogueIdx[questNpcName] % 2 == 0)
+            dialogueIdx[questNpcName] += 2;
+        else
+            dialogueIdx[questNpcName] += 1;
+    }
+
+    
+
+    public void OffDialogueImage()
+    {
+        characterImages[0].gameObject.SetActive(false);
+        characterImages[1].gameObject.SetActive(false);
+    }
+    public void EarnAum(int aum = 1000)
+    {
+        ItemManager.instance.EarnAum(aum);
     }
 }

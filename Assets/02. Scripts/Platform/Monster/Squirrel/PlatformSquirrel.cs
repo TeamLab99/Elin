@@ -23,7 +23,7 @@ public class PlatformSquirrel : PlatformMonster
     {
         if (playerHit)
         {
-            PlatformEventManager.instance.ControlPlayerMove(false);
+            Managers.Input.PlayerMoveControl(false);
             findParticle.Play();
             Invoke("RunAway", 1f);
         }
@@ -40,7 +40,7 @@ public class PlatformSquirrel : PlatformMonster
 
     private void  Dissapear()
     {
-        PlatformEventManager.instance.ControlPlayerMove(true);
+        Managers.Input.PlayerMoveControl(true);
         gameObject.SetActive(false);
     }
 
