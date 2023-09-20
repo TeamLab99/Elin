@@ -20,6 +20,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
     public void StartDialogue(string title)
     {
+        PlatformManager.Instance.OnOffUI();
         runner.StartDialogue(LoadDialouge(title));
         Managers.Input.PlayerMoveControl(false);
     }
@@ -33,7 +34,8 @@ public class DialogueManager : Singleton<DialogueManager>
 
     public void InitFunction()
     {
-        runner.onDialogueComplete.AddListener(() => { Managers.Input.PlayerMoveControl(true); OffCharacterImage(); }); // 대화 종료시
+        runner.onDialogueComplete.AddListener(() => { Managers.Input.PlayerMoveControl(true); 
+            OffCharacterImage(); PlatformManager.Instance.OnOffUI();}); // 대화 종료시
         runner.AddCommandHandler<string, string>("Act", SetActor); // 이미지 추가
         runner.AddCommandHandler<string>("Next", NextDialogue); // 다음 대화로 변경
         runner.AddCommandHandler("Event", SetEvent); // 이벤트 발생
@@ -51,8 +53,32 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         string findSource = _actorName + _expression;
         if (!spritesDic.ContainsKey(findSource))
-            spritesDic.Add(findSource, Managers.Resource.Load<Sprite>(findSource));
+            spritesDic.Add(findSource, Managers.Resource.Load<Sprite>("Sprites/" + findSource));
         ChooseActiveImage(spritesDic[findSource], _actorName);
+    }
+
+    public void ChooseActiveImage(Sprite image, string name)
+    {
+        if (!characterImages[0].gameObject.activeSelf)
+        {
+            characterImages[0].gameObject.SetActive(true);
+            characterImages[0].sprite = image;
+            characterImages[0].gameObject.name = name;
+            return;
+        }
+
+        if (characterImages[0].gameObject.name == name)
+        {
+            characterImages[0].sprite = image;
+            return;
+        }
+
+        if (!characterImages[1].gameObject.activeSelf)
+        {
+            characterImages[1].gameObject.SetActive(true);
+            characterImages[1].sprite = image;
+            characterImages[1].gameObject.name = name;
+        }
     }
 
     public void NextDialogue(string questNpcName)
@@ -77,29 +103,7 @@ public class DialogueManager : Singleton<DialogueManager>
             dialogueIdx[questNpcName] += 1;
     }
 
-    public void ChooseActiveImage(Sprite image, string name)
-    {
-        if (!characterImages[0].gameObject.activeSelf)
-        {
-            characterImages[0].gameObject.SetActive(true);
-            characterImages[0].sprite = image;
-            characterImages[0].gameObject.name = name;
-            return;
-        }
-
-        if (characterImages[0].gameObject.name==name)
-        {
-            characterImages[0].sprite = image;
-            return;
-        }
-
-        if(!characterImages[1].gameObject.activeSelf)
-        {
-            characterImages[1].gameObject.SetActive(true);
-            characterImages[1].sprite = image;
-            characterImages[1].gameObject.name = name;
-        }
-    }
+    
 
     public void OffDialogueImage()
     {

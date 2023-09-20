@@ -275,6 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512174742733e284b864366f24f19ca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  platformUI: {fileID: 0}
 --- !u!1 &32941884
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,6 +998,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1832437542, guid: 554f3829ff432bd4a992b93150bb647c, type: 3}
+      propertyPath: m_GravityScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5584409208397225600, guid: 554f3829ff432bd4a992b93150bb647c, type: 3}
       propertyPath: m_Name
       value: Elin_Player_Sheet
@@ -13075,7 +13080,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1096405977
 Transform:
   m_ObjectHideFlags: 0
@@ -39392,12 +39397,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
-  groundCheckDistance: 2
+  groundCheckDistance: 2.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  xSpeed: 5
-  ySpeed: 5
+  xSpeed: 10
+  ySpeed: 10
   playerHitParticle: {fileID: 1014765984}
 --- !u!4 &1985375269 stripped
 Transform:

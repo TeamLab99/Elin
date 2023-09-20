@@ -6,6 +6,7 @@ public class PlatformManager : MonoBehaviour
 {
     static PlatformManager platformManager;
     public static PlatformManager Instance { get { return platformManager; } }
+    public GameObject platformUI;
 
     private void Awake()
     {
@@ -20,6 +21,16 @@ public class PlatformManager : MonoBehaviour
             platformManager = go.GetComponent<PlatformManager>();
             DontDestroyOnLoad(go);
         }
+    }
+
+    public void OnOffUI()
+    {
+        if (platformUI == null)
+            platformUI = GameObject.FindGameObjectWithTag("PlatformUI");
+        if (platformUI.activeSelf)
+            platformUI.SetActive(false);
+        else
+            platformUI.SetActive(true);
     }
 
     public void Clear()
