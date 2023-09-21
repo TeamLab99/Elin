@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
+    SpriteRenderer spr;
     public Animator anim;
 
     [Header("땅 검출")]
@@ -14,7 +15,8 @@ public class PlayerController : MonoBehaviour
     
     [Header("움직임")]
     private float xInput;
-    private bool facingRight = true;
+    private bool facingRight=true;
+    public bool FacingRight { get { return facingRight; } }
     [SerializeField] private float xSpeed; 
     [SerializeField] private float ySpeed;
     [SerializeField] private ParticleSystem playerHitParticle;
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        spr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         Managers.Input.PlayerMoveAction -= ControlPlayer;
         Managers.Input.PlayerMoveAction += ControlPlayer;
@@ -73,15 +76,18 @@ public class PlayerController : MonoBehaviour
 
     private void FlipPlayer()
     {
-        if (rb.velocity.x > 0 && !facingRight)
-            Flip();
-        else if (rb.velocity.x < 0 && facingRight)
-            Flip();
+        if (rb.velocity.x > 0)
+            spr.flipX = true;
+        else if (rb.velocity.x < 0)
+            spr.flipX = false;
+        CheckDir();
     }
-    void Flip()
+    void CheckDir()
     {
-        facingRight = !facingRight;
-        transform.Rotate(0, 180, 0);
+        if (spr.flipX)
+            facingRight = true;
+        else
+            facingRight = false;
     }
 
     public void ControlPlayer(bool _canMove) // PlayerMoveAction 이벤트의 함수

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAlterEgoAnimationController : MonoBehaviour
 {
     Animator anim;
-    [SerializeField] ParticleSystem[] destroyParticle;
+    [SerializeField] ParticleSystem destroyParticle;
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -13,13 +13,14 @@ public class PlayerAlterEgoAnimationController : MonoBehaviour
 
     public void ShootProjectile()
     {
-        anim.SetTrigger("Split");
+        anim.SetTrigger("launch");
+        Invoke("DestroyParticle", 0.2f);
+        Invoke("DestroyAlterEgo", 0.5f);
     }
 
-    public void DestroyAlterEgoEffect()
+    public void DestroyParticle()
     {
-        destroyParticle[0].Play();
-        destroyParticle[1].Play();
+        destroyParticle.Play();
     }
 
     public void DestroyAlterEgo()

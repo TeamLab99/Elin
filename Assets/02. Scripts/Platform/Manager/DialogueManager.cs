@@ -40,7 +40,7 @@ public class DialogueManager : Singleton<DialogueManager>
         runner.AddCommandHandler<string>("Next", NextDialogue); // 다음 대화로 변경
         runner.AddCommandHandler("Event", SetEvent); // 이벤트 발생
         runner.AddCommandHandler<int>("Earn", EarnAum);
-
+        runner.AddCommandHandler("EricaTf", EricaSpawn);
     }
 
     public void OffCharacterImage()
@@ -113,5 +113,10 @@ public class DialogueManager : Singleton<DialogueManager>
     public void EarnAum(int aum = 1000)
     {
         ItemManager.instance.EarnAum(aum);
+    }
+
+    public void EricaSpawn()
+    {
+        PlatformEventManager.instance.EricaSpawn();
     }
 }

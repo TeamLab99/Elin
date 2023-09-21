@@ -7,11 +7,11 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
     [SerializeField] GameObject appearPlatform;
     [SerializeField] GameObject movePlatform;
     [SerializeField] GameObject enhanceUI;
+    [SerializeField] Vector2 ericaSpawnPos;
     GameObject player;
     GameObject brokeBranch;
     PlayerController playerController;
     int idx = -1;
-
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -60,5 +60,11 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
     {
         brokeBranch.SetActive(false);
         CamerEffect.instance.ChangeLateFollowCamerMode();
+    }
+
+    public void EricaSpawn()
+    {
+        GameObject erica = GameObject.Find("Erica");
+        erica.transform.position = ericaSpawnPos;
     }
 }
