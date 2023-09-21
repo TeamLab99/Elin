@@ -10,7 +10,6 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
     GameObject player;
     GameObject brokeBranch;
     PlayerController playerController;
-    bool onceAppear = false;
     int idx = -1;
 
     private void Awake()

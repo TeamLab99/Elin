@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public Animator anim;
 
     [Header("땅 검출")]
-    private bool isGrounded;
+    private bool grounded;
     [SerializeField] float groundCheckDistance;
     [SerializeField] LayerMask groundLayer;
     
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
             Movement();
         }
         CollisionChecks();
-        //PlayerAnimation();
+        PlayerAnimation();
         FlipPlayer();
     }
 
@@ -55,20 +55,20 @@ public class PlayerController : MonoBehaviour
     }
     private void Jump()
     {
-        if (isGrounded)
+        if (grounded)
             rb.velocity = new Vector2(rb.velocity.x, 10);
     }
 
     private void CollisionChecks()
     {
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
+        grounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
     }
     private void PlayerAnimation()
     {
-        bool isMoving = rb.velocity.x != 0; //isMoving = (rb.velocity.x != 0) ? true : false;
+        bool walk = rb.velocity.x != 0; //walk = (rb.velocity.x != 0) ? true : false;
         anim.SetFloat("yVelocity", rb.velocity.y);
-        anim.SetBool("isMoving", isMoving);
-        anim.SetBool("isGrounded", isGrounded);
+        anim.SetBool("walk", walk);
+        anim.SetBool("grounded", grounded);
     }
 
     private void FlipPlayer()
@@ -103,9 +103,9 @@ public class PlayerController : MonoBehaviour
     {
         if (!playerDead)
         {
-            //anim.SetTrigger("Dead");
+            anim.SetTrigger("dead");
             ControlPlayer(false);
-             playerDead = true;
+            playerDead = true;
         }
     }
 
