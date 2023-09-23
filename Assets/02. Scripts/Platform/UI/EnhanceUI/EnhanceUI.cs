@@ -19,7 +19,7 @@ public class EnhanceUI : Singleton<EnhanceUI>
     public Text aumText;
     public Text warningText;
 
-    private string warningMessage = "아움이 부족합니다.";
+    //private string warningMessage = "아움이 부족합니다.";
     private string defaultMessage = "업그레이드 하시겠습니까?";
     private int btnIndex;
     private bool canUpgrade=true;
@@ -93,39 +93,46 @@ public class EnhanceUI : Singleton<EnhanceUI>
 
     public void SelectDecisionEnhanceUI()
     {
+        /*
         if(ItemManager.instance.LoadAum()>= selectStatEnhancePrice)
         {
-            ItemManager.instance.UseAum(selectStatEnhancePrice);
-            switch (enhanceStat)
-            {
-                case EnhanceStat.Health:
-                    playerStatData.enhanceHpStep += 1;
-                    playerStatData.maxHP += enhanceStatFigure[(int)EnhanceStat.Health];
-                    break;
-                case EnhanceStat.Attack:
-                    playerStatData.enhanceAtkStep += 1;
-                    playerStatData.attackPower += enhanceStatFigure[(int)EnhanceStat.Attack];
-                    break;
-                case EnhanceStat.MaxCost:
-                    playerStatData.enhanceCostStep += 1;
-                    playerStatData.maxCost += enhanceStatFigure[(int)EnhanceStat.MaxCost];
-                    break;
-                case EnhanceStat.CostRecovery:
-                    playerStatData.enhanceRecoveryStep += 1;
-                    playerStatData.costRecoverySpeed += enhanceStatFigure[(int)EnhanceStat.CostRecovery];
-                    break;
-            }
-            PlayerStatManager.instance.ApplicationStat();
-            enhanceBtns[btnIndex].SetUpFigure();
-            enhanceDecisionUI.SetActive(false);
-            enhanceCompleteUI.SetActive(true);
-            aumText.text = ItemManager.instance.LoadAum().ToString();
+            //ItemManager.instance.UseAum(selectStatEnhancePrice);    
         }
         else
         {
             warningText.text = warningMessage;
             return;
+        }*/
+        switch (enhanceStat)
+        {
+            case EnhanceStat.Health:
+                playerStatData.enhanceHpStep += 1;
+                playerStatData.maxHP += enhanceStatFigure[(int)EnhanceStat.Health];
+                playerStatData.currentHP += enhanceStatFigure[(int)EnhanceStat.Health];
+                enhanceBtns[(int)EnhanceStat.Health].GetComponent<Button>().interactable = false;
+                enhanceBtns[(int)EnhanceStat.Health].GetComponent<EnhanceBtn>().enabled = false;
+                    break;
+            case EnhanceStat.Attack:
+                playerStatData.enhanceAtkStep += 1;
+                playerStatData.attackPower += enhanceStatFigure[(int)EnhanceStat.Attack];
+                enhanceBtns[(int)EnhanceStat.Attack].GetComponent<Button>().interactable = false;
+                enhanceBtns[(int)EnhanceStat.Attack].GetComponent<EnhanceBtn>().enabled = false;
+                break;
+            case EnhanceStat.MaxCost:
+                playerStatData.enhanceCostStep += 1;
+                playerStatData.maxCost += enhanceStatFigure[(int)EnhanceStat.MaxCost];
+                break;
+            case EnhanceStat.CostRecovery:
+                playerStatData.enhanceRecoveryStep += 1;
+                playerStatData.costRecoverySpeed += enhanceStatFigure[(int)EnhanceStat.CostRecovery];
+                break;
         }
+        CheckUpgrade();
+        PlayerStatManager.instance.ApplicationStat();
+        enhanceBtns[btnIndex].SetUpFigure();
+        enhanceDecisionUI.SetActive(false);
+        enhanceCompleteUI.SetActive(true);
+        aumText.text = ItemManager.instance.LoadAum().ToString();
     }
 
     public void ExitDecisionEnhanceUI()
@@ -141,5 +148,11 @@ public class EnhanceUI : Singleton<EnhanceUI>
     public void OnEnable()
     {
         aumText.text = ItemManager.instance.LoadAum().ToString(); 
+    }
+
+    public void CheckUpgrade()
+    {
+        if (playerStatData.enhanceAtkStep == 1 && playerStatData.enhanceHpStep == 1)
+            PlatformEventManager.instance.SetEvent();
     }
 }

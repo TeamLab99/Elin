@@ -7,11 +7,12 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
     [SerializeField] GameObject appearPlatform;
     [SerializeField] GameObject movePlatform;
     [SerializeField] GameObject enhanceUI;
-    [SerializeField] Vector2 ericaSpawnPos;
+    [SerializeField] Vector3[] ericaSpawnPos;
     GameObject player;
     GameObject brokeBranch;
     PlayerController playerController;
     int idx = -1;
+    int ericaTf = 0;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -40,8 +41,12 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
                 FallEvent();
                 break;
             case 5:
+                NextEricaDialogue();
                 enhanceUI.SetActive(true);
-                DialogueManager.instance.EarnAum();
+                break;
+            case 6:
+                enhanceUI.SetActive(false);
+                NextEricaDialogue();
                 break;
         }
     }
@@ -64,7 +69,16 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
 
     public void EricaSpawn()
     {
+        if (ericaSpawnPos[ericaTf] == null)
+            return;
         GameObject erica = GameObject.Find("Erica");
-        erica.transform.position = ericaSpawnPos;
+        erica.transform.position = ericaSpawnPos[ericaTf];
+        ericaTf += 1;
+    }
+
+    public void NextEricaDialogue()
+    {
+        DialogueManager.instance.NextDialogue("Erica");
+        DialogueManager.instance.StartDialogue("Erica");
     }
 }

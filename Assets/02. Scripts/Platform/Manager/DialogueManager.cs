@@ -118,5 +118,5 @@ public class DialogueManager : Singleton<DialogueManager>
     public void EricaSpawn()
     {
         PlatformEventManager.instance.EricaSpawn();
-    }
+    } 
 }

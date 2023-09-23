@@ -115,14 +115,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ShowDeadUI()
-    {
-        PlayerRespawnManager.instance.ShowGameOverUI();
-    }
-
     public void Respawn(Transform _respawnPosition)
     {
-        anim.SetTrigger("Respawn");
+        anim.SetTrigger("live");
         canControll = true;
         playerDead = false;
         gameObject.transform.position = _respawnPosition.position;
