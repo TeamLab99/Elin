@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Angry_Monster : BuffDebuffMagic
+public class Fear : BuffDebuffMagic
 {
     public override IEnumerator Timer()
     {
@@ -18,7 +18,7 @@ public class Angry_Monster : BuffDebuffMagic
         icon.isFull = true;
         icon.buff = this;
 
-        TextUpdate(1);
+        TextUpdate();
     }
 
     public override void Delete()
@@ -31,18 +31,9 @@ public class Angry_Monster : BuffDebuffMagic
         amount = 0;
     }
 
-    public void TextUpdate(int count)
+    public void TextUpdate()
     {
-        if (amount == 0)
-        {
-            amount = 1;
-            icon.amountText.text = amount.ToString();
-
-        }
-        else if (amount < count)
-        {
-            amount++;
-            icon.amountText.text = amount.ToString();
-        }
+        amount++;
+        icon.amountText.text = amount.ToString();
     }
 }

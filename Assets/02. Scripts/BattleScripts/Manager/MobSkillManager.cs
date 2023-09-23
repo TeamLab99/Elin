@@ -27,7 +27,7 @@ public class MobSkillManager : Singleton<MobSkillManager>
 
     public IEnumerator CallNormalAttackEffect(int index)
     {
-        var normalAttack = monsterSO.items[index-1].normalAttackEffect;
+        var normalAttack = monsterSO.items[index - 1].normalAttackEffect;
 
         var effect = Managers.Pool.Pop(normalAttack, player.transform.Find("PlayerEffects"));
         effect.transform.position = player.gameObject.transform.position;
@@ -43,6 +43,9 @@ public class MobSkillManager : Singleton<MobSkillManager>
             case 1:
                 StartCoroutine(Broadening());
                 break;
+            case 2:
+                StartCoroutine(Broadening_NightMare());
+                break;
             default:
                 Debug.Log("존재하지 않는 .");
                 break;
@@ -57,7 +60,7 @@ public class MobSkillManager : Singleton<MobSkillManager>
         if (monsterBuffList.Find(item => item is Angry_Monster))
         {
             var skill = monsterBuffList.Find(item => item is Angry_Monster);
-            ((Angry_Monster)skill).TextUpdate();
+            ((Angry_Monster)skill).TextUpdate(2);
 
             var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
             effect.transform.position = monster.gameObject.transform.position;
@@ -74,20 +77,56 @@ public class MobSkillManager : Singleton<MobSkillManager>
         yield return delay05;
     }
 
-    public IEnumerator Revolution()
+    public IEnumerator Broadening_NightMare()
     {
-        var skillEffect = monsterSO.items[1].skillEffect[0];
+        var skillEffect = monsterSO.items[0].skillEffect[0];
+        var monsterBuffList = monster.battleBuffDebuff.buffDebuffList;
 
-        var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
-        effect.transform.position = monster.gameObject.transform.position;
+        if (monsterBuffList.Find(item => item is Angry_Monster))
+        {
+            var skill = monsterBuffList.Find(item => item is Angry_Monster);
+            ((Angry_Monster)skill).TextUpdate(4);
 
-        Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
-        Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
-        Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+            var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+            effect.transform.position = monster.gameObject.transform.position;
+        }
+        else
+        {
+            var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+            effect.transform.position = monster.gameObject.transform.position;
+
+            var buff = effect.GetComponent<BuffDebuffMagic>();
+            monsterBuffList.Add(buff);
+            buff.ConnectBuffManager(monster.battleBuffDebuff, BuffIconsController.instance.GetBuffIconInfo(false));
+        }
         yield return delay05;
-        Managers.Pool.Push(effect);
-        monster.GetComponent<Squirrel>().FadeOut();
     }
+
+    public IEnumerator Fear()
+    {
+        var skillEffect = monsterSO.items[3].skillEffect[0];
+        var playerbuffList = player.battleBuffDebuff.buffDebuffList;
+
+        if (playerbuffList.Find(item => item is Fear))
+        {
+            var skill = playerbuffList.Find(item => item is Fear);
+            ((Fear)skill).TextUpdate();
+
+            var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+            effect.transform.position = player.gameObject.transform.position;
+        }
+        else
+        {
+            var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+            effect.transform.position = player.gameObject.transform.position;
+
+            var buff = effect.GetComponent<BuffDebuffMagic>();
+            playerbuffList.Add(buff);
+            buff.ConnectBuffManager(player.battleBuffDebuff, BuffIconsController.instance.GetBuffIconInfo(true));
+        }
+        yield return delay05;
+    }
+
 
     public bool GetRandom(float probability)
     {

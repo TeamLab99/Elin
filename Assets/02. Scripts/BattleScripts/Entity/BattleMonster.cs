@@ -23,12 +23,25 @@ public class BattleMonster : BattleEntity
 
     protected WaitForSeconds delay = new WaitForSeconds(0.5f);
 
+    private void Start()
+    {
+        BattleCardManager.EffectPlayBack += TimerControl;
+
+        Init();
+    }
+
+    private void OnDestroy()
+    {
+        BattleCardManager.EffectPlayBack -= TimerControl;
+    }
+
     public override void Init()
     {
         delay = new WaitForSeconds(Time.deltaTime);
         maxTime = attackSpeed;
         curTime = maxTime;
         count = skillCount;
+        hp = maxHp;
         battleBuffDebuff = gameObject.AddComponent<BattleBuffManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<BattlePlayer>();
         StartCoroutine(GetGaugeUI("HpBar"));

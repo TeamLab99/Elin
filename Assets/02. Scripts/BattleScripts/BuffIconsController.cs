@@ -42,7 +42,7 @@ public class BuffIconsController : Singleton<BuffIconsController>
             var cool = playerBuffObjects[i].transform.GetChild(1).GetComponent<Image>();
             var amount = playerBuffObjects[i].transform.GetChild(2).GetComponent<TMP_Text>();
 
-            playerIconsList.Add(new SkillIcon(image, amount,cool));
+            playerIconsList.Add(new SkillIcon(image, amount, cool));
 
             var mobImage = monsterBuffObjects[i].transform.GetChild(0).GetComponent<Image>();
             var mobCool = monsterBuffObjects[i].transform.GetChild(1).GetComponent<Image>();
@@ -81,6 +81,29 @@ public class BuffIconsController : Singleton<BuffIconsController>
                 CheckNextBuff(monsterIconsList, icon);
             else
                 return;
+        }
+    }
+
+    public void ClearIconInf()
+    {
+        for (int i = 0; i < playerIconsList.Count; i++)
+        {
+            SkillIcon item = playerIconsList[i];
+            // 데이터 초기화
+            item.IconImage.sprite = null;
+            item.amountText.text = "";
+            item.isFull = false;
+            item.coolTimeImage.fillAmount = 0f;
+        }
+
+        for (int i = 0; i < monsterIconsList.Count; i++)
+        {
+            SkillIcon item = monsterIconsList[i];
+            // 데이터 초기화
+            item.IconImage.sprite = null;
+            item.amountText.text = "";
+            item.isFull = false;
+            item.coolTimeImage.fillAmount = 0f;
         }
     }
 

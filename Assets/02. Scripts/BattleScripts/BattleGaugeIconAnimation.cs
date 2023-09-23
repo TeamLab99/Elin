@@ -21,7 +21,7 @@ public class BattleGaugeIconAnimation : MonoBehaviour
 
     void Start()
     {
-        BattleCardManager.EffectPlayBack += TImerControl;
+        BattleCardManager.EffectPlayBack += TimerControl;
         rectTr = GetComponent<RectTransform>();
         originalPos = GetComponent<RectTransform>().anchoredPosition;
         pointRot = new Vector3(0, 0, 20);
@@ -31,7 +31,7 @@ public class BattleGaugeIconAnimation : MonoBehaviour
     }
     private void OnDestroy()
     {
-        BattleCardManager.EffectPlayBack -= TImerControl;
+        BattleCardManager.EffectPlayBack -= TimerControl;
     }
 
     IEnumerator ChangeRotation()
@@ -54,7 +54,7 @@ public class BattleGaugeIconAnimation : MonoBehaviour
         GetComponent<RectTransform>().anchoredPosition = originalPos;
     }
 
-    public void TImerControl(bool isStop)
+    public void TimerControl(bool isStop)
     {
         if (isStop)
         {
