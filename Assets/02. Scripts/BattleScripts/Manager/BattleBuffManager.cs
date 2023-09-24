@@ -29,6 +29,7 @@ public class BattleBuffManager : MonoBehaviour
 
     public float CheckDamageImpactBuff(float value)
     {
+        
         if (buffDebuffList.Exists(x => x is Rolling))
         {
             buffDebuffList.Find(x => x is Rolling).Delete();

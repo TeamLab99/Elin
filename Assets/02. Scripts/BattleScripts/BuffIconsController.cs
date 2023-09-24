@@ -59,28 +59,16 @@ public class BuffIconsController : Singleton<BuffIconsController>
         return iconList.Find(x => x.isFull == false);
     }
 
-    public void DeleteIconInfo(SkillIcon icon)
+    public void DeleteIconInfo(SkillIcon target)
     {
-        // 데이터 초기화
-        icon.IconImage.sprite = null;
-        icon.amountText.text = "";
-        icon.isFull = false;
-        icon.coolTimeImage.fillAmount = 0f;
-
         // 누구의 버프 리스트에 있었는가 확인
-        if (playerIconsList.Contains(icon))
+        if (playerIconsList.Contains(target))
         {
-            if (playerIconsList.Exists(x => x.isFull == true))
-                CheckNextBuff(playerIconsList, icon);
-            else
-                return;
+                CheckNextBuff(playerIconsList, target);
         }
         else
         {
-            if (monsterIconsList.Exists(x => x.isFull == true))
-                CheckNextBuff(monsterIconsList, icon);
-            else
-                return;
+                CheckNextBuff(monsterIconsList, target);
         }
     }
 
@@ -107,17 +95,22 @@ public class BuffIconsController : Singleton<BuffIconsController>
         }
     }
 
-    void CheckNextBuff(List<SkillIcon> icons, SkillIcon target)
+    void CheckNextBuff(List<SkillIcon> icons, SkillIcon targetIcon)
     {
+        // 데이터 초기화
+        targetIcon.IconImage.sprite = null;
+        targetIcon.amountText.text = "";
+        targetIcon.isFull = false;
+        targetIcon.coolTimeImage.fillAmount = 0f;
         // 초기화된 버프 뒤에 있는 버프들 중 가장 첫번째의 활성화가 되어있는 요소의 인덱스
 
         // 모든 활성화 되어있는 것들 중에 찾는 것이므로 바꿔야함. 맨 앞에께 true면 그거 가져옴 뒤에거가 필요
-        var activationIndex = icons.FindIndex(x => x.isFull == true);
-        var targetIndex = icons.FindIndex(x => x == target);
+        var targetIndex = icons.FindIndex(x => x == targetIcon);
+        var nextIndex = targetIndex+1;
 
-        if (activationIndex > targetIndex)
+        if (icons[nextIndex].isFull == true)
         {
-            for (int i = activationIndex; i < icons.Count; i++)
+            for (int i = nextIndex; i < icons.Count; i++)
             {
                 if (icons[i].isFull == true)
                 {

@@ -60,14 +60,17 @@ public class Nightmare : BattleMonster
 
         var choice = Random.Range(0, 3);
 
-        choice = 2;
+        choice = 3;
         switch (choice)
         {
             case 1:
                 yield return StartCoroutine(Broadening());
                 break;
             case 2:
-                yield return StartCoroutine(MobSkillManager.instance.Fear());
+                yield return StartCoroutine(Fear());
+                break;
+            case 3:
+                yield return StartCoroutine(Valley());
                 break;
             default:
                 break;
@@ -92,6 +95,12 @@ public class Nightmare : BattleMonster
     {
         attack += 1f;
         yield return StartCoroutine(MobSkillManager.instance.Fear());
+    }
+
+    public IEnumerator Valley()
+    {
+        BattleCardManager.instance.CardsCostUp();
+        yield return StartCoroutine(MobSkillManager.instance.Valley());
     }
 
     public void AnimationControl()

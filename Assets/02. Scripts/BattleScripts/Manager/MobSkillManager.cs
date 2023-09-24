@@ -118,12 +118,32 @@ public class MobSkillManager : Singleton<MobSkillManager>
         else
         {
             var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
-            effect.transform.position = player.gameObject.transform.position;
+            effect.transform.position = player.gameObject.transform.position + Vector3.up * 2f;
 
             var buff = effect.GetComponent<BuffDebuffMagic>();
             playerbuffList.Add(buff);
             buff.ConnectBuffManager(player.battleBuffDebuff, BuffIconsController.instance.GetBuffIconInfo(true));
         }
+        yield return delay05;
+    }
+
+    public IEnumerator Valley()
+    {
+        var skillEffect = monsterSO.items[4].skillEffect[0];
+        var stackUpEffect = monsterSO.items[4].normalAttackEffect;
+        var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+
+        effect.transform.position = monster.gameObject.transform.position;
+        List<BattleCard> list = BattleCardManager.instance.GetMyCards();
+
+        // 카드들의 위치에 스택업 이펙트를 생성
+        // List로 스택업 이펙트들을 담고 0.5초 후에 Push 해줘야한다.
+        for (int i = 0; i < list.Count; i++)
+        {
+            BattleCard item = list[i];
+            Managers.Pool.Pop(stackUpEffect, monster.transform.Find("MobEffects")).transform.position = item.transform.position;
+        }
+
         yield return delay05;
     }
 

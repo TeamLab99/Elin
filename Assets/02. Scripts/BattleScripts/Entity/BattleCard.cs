@@ -80,4 +80,10 @@ public class BattleCard : MonoBehaviour
         nameTMP.GetComponent<TMP_Text>().color = Color.white;
         costTMP.GetComponent<TMP_Text>().color = Color.white;
     }
+
+    public void CostUp()
+    {
+        deckCard.cost++;
+        costTMP.text = deckCard.cost.ToString();
+    }
 }
