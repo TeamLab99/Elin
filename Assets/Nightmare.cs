@@ -140,6 +140,5 @@ public class Nightmare : BattleMonster
                 hp = maxHp;
                 EntitiesStateChange(false);
             });
-
     }
 }

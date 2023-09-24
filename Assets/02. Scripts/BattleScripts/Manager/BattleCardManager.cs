@@ -504,9 +504,14 @@ public class BattleCardManager : Singleton<BattleCardManager>
 
     public void CardsCostUp()
     {
-        if (debuffCost< maxCost)
+        if (debuffCost < maxCost-1)
         {
-            myCards.ForEach(x => x.CostUp());
+            for (var index = 0; index < myCards.Count; index++)
+            {
+                var card = myCards[index];
+                if (card.deckCard.cost < 5)
+                    card.CostUp();
+            }
             debuffCost++;
         }
         else
