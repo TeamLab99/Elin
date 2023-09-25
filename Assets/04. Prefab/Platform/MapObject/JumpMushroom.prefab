@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 2149962587555869365}
   - component: {fileID: 2149962587555869364}
   - component: {fileID: 3333584498482882469}
-  - component: {fileID: 8632156360748097579}
+  - component: {fileID: 664763768107082988}
   m_Layer: 0
   m_Name: JumpMushroom
   m_TagString: Untagged
@@ -158,7 +158,7 @@ Transform:
   m_GameObject: {fileID: 2149962587555869367}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.46, y: 0.46, z: 0.092}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.06}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2149962588464593557}
@@ -253,8 +253,8 @@ MonoBehaviour:
   - {fileID: 2149962588471258318}
   - {fileID: 2149962588985360310}
   m_Bounds:
-    m_Center: {x: 0.84090567, y: -1.6208906, z: 0}
-    m_Extent: {x: 4.025, y: 5.19911, z: 0}
+    m_Center: {x: 0.8409362, y: -1.6208916, z: 0}
+    m_Extent: {x: 4.024969, y: 5.199108, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -302,9 +302,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8, y: 3}
+  m_Size: {x: 4, y: 2}
   m_EdgeRadius: 0
---- !u!114 &8632156360748097579
+--- !u!114 &664763768107082988
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -316,6 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7590d256935695647bb357420a79a49c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpForce: 15
 --- !u!1 &2149962587561690674
 GameObject:
   m_ObjectHideFlags: 0
