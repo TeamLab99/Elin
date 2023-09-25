@@ -24,18 +24,6 @@ public abstract class BattleEntity : MonoBehaviour
         HpTextUpdate();
     }
 
-    private void Start()
-    {
-        BattleCardManager.EffectPlayBack += TimerControl;
-        hp = maxHp;
-        Init();
-    }
-
-    private void OnDestroy()
-    {
-        BattleCardManager.EffectPlayBack -= TimerControl;
-    }
-
     protected void HpTextUpdate()
     {
         hpTMP.text = hp.ToString() + " / " + maxHp.ToString();

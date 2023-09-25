@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Random = UnityEngine.Random;
+using System.Linq;
 
 public class BattleMagicManager : Singleton<BattleMagicManager>
 {
@@ -143,4 +144,13 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
         }
         return true;
     }
+
+    public void ClearBuff()
+    {
+        GameObject.FindGameObjectsWithTag("Skill").ToList().ForEach(item => Managers.Pool.Push(item.GetComponent<Poolable>()));
+        player.battleBuffDebuff.ClearBuff();
+        monster.battleBuffDebuff.ClearBuff();
+    }
+
+
 }

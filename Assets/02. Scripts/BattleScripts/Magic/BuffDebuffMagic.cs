@@ -46,7 +46,8 @@ public abstract class BuffDebuffMagic : MonoBehaviour
     public virtual void Delete()
     {
         // 만약 오브젝트 풀링 쓸거면 변수 초기화 여기서 해줘야함
-        Managers.Pool.Push(GetComponent<Poolable>());
+        if(TryGetComponent<Poolable>(out var poolable))
+            Managers.Pool.Push(poolable);
     }
 
     public void ChangeIcon(SkillIcon prevIcon, float fill)

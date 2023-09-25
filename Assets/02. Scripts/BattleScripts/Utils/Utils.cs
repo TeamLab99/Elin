@@ -26,5 +26,17 @@ public class Utils
     // 회전량이 0인 상태 (0,0,0,1)
     public static Quaternion QI => Quaternion.identity;
 
+    public static bool RandomPercent(float percentage)
+    {
+        float probability = percentage / 100;
+        float rate = 100 - (100 * probability);
+        int tmp = (int)Random.Range(0, 100);
+
+        if (tmp <= rate - 1)
+        {
+            return false;
+        }
+        return true;
+    }
 }
 

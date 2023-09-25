@@ -31,7 +31,8 @@ public class Defense : BuffDebuffMagic, IMagic
     public override void Delete()
     {
         StopCoroutine(Timer());
-        Managers.Pool.Push(GetComponent<Poolable>());
+        if (TryGetComponent<Poolable>(out var poolable))
+            Managers.Pool.Push(poolable);
         BuffIconsController.instance.DeleteIconInfo(icon);
         buffManager.buffDebuffList.Remove(this);
     }
