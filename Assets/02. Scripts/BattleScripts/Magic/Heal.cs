@@ -10,7 +10,7 @@ public class Heal : BuffDebuffMagic
         Managers.Data.CardDict.TryGetValue(3, out card);
 
         probability = card.attackProbability;
-        maintime = card.buffMaintainTime;
+        mainTime = card.buffMaintainTime;
         amount = card.amount;
     }
 

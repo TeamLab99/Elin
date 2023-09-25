@@ -35,23 +35,7 @@ public class MobSkillManager : Singleton<MobSkillManager>
         yield return delay05;
         Managers.Pool.Push(effect);
     }
-
-    public void CallSkill(int index, float probability = 100)
-    {
-        switch (index)
-        {
-            case 1:
-                StartCoroutine(Broadening());
-                break;
-            case 2:
-                StartCoroutine(Broadening_NightMare());
-                break;
-            default:
-                Debug.Log("존재하지 않는 .");
-                break;
-        }
-    }
-
+    
     public IEnumerator Broadening()
     {
         var skillEffect = monsterSO.items[0].skillEffect[0];
@@ -130,24 +114,46 @@ public class MobSkillManager : Singleton<MobSkillManager>
     public IEnumerator Valley()
     {
         var skillEffect = monsterSO.items[4].skillEffect[0];
-        var stackUpEffect = monsterSO.items[4].normalAttackEffect;
         var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
 
         effect.transform.position = monster.gameObject.transform.position;
-        List<BattleCard> list = BattleCardManager.instance.GetMyCards();
 
-        // 카드들의 위치에 스택업 이펙트를 생성
-        // List로 스택업 이펙트들을 담고 0.5초 후에 Push 해줘야한다.
-        for (int i = 0; i < list.Count; i++)
+        yield return delay05;
+    }
+    
+    public IEnumerator Rush()
+    {
+        var skillEffect = Managers.Pool.Pop(monsterSO.items[2].skillEffect[0], monster.transform.Find("MobEffects"));
+        var hitEffect = Managers.Pool.Pop(monsterSO.items[2].normalAttackEffect, monster.transform.Find("MobEffects"));
+        var playerbuffList = player.battleBuffDebuff.buffDebuffList;
+        
+        skillEffect.transform.position = monster.gameObject.transform.position;
+        hitEffect.transform.position = player.gameObject.transform.position;
+
+        monster.AttackValue(player, 10f);
+        var stunTime = 2f;
+
+        if (Utils.RandomPercent(30) == true)
         {
-            BattleCard item = list[i];
-            Managers.Pool.Pop(stackUpEffect, monster.transform.Find("MobEffects")).transform.position = item.transform.position;
+            StartCoroutine(monster.GetComponent<Nightmare>().StunPlayer(stunTime));
+
+            if (playerbuffList.Find(item => item is Stun))
+            {
+                var skill = playerbuffList.Find(item => item is Stun);
+                ((Stun)skill).TimeUpdate();
+
+            }
+            else
+            {
+                var buff = skillEffect.GetComponent<BuffDebuffMagic>();
+                playerbuffList.Add(buff);
+                buff.ConnectBuffManager(player.battleBuffDebuff, BuffIconsController.instance.GetBuffIconInfo(true));
+            }
         }
 
         yield return delay05;
     }
-
-
+    
     public bool GetRandom(float probability)
     {
         float percentage = probability / 100;

@@ -9,7 +9,7 @@ public class Defense : BuffDebuffMagic, IMagic
         Managers.Data.CardDict.TryGetValue(4, out card);
 
         probability = card.attackProbability;
-        maintime = card.buffMaintainTime;
+        mainTime = card.buffMaintainTime;
         amount = card.amount;
     }
 
@@ -40,12 +40,12 @@ public class Defense : BuffDebuffMagic, IMagic
     private void OnDisable()
     {
         probability = card.attackProbability;
-        maintime = card.buffMaintainTime;
+        mainTime = card.buffMaintainTime;
         amount = card.amount;
 
         isEnd = false;
         isTimerStop = false;
-        time = maintime;
+        time = mainTime;
     }
 
     void IMagic.DeSpell()

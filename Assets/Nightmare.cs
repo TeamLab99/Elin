@@ -8,7 +8,8 @@ using DG.Tweening;
 public class Nightmare : BattleMonster
 {
     int brodeningOverlapValue = 0;
-
+    private bool isStun;
+    
     public override void Init()
     {
         ConnectInspector();
@@ -40,28 +41,30 @@ public class Nightmare : BattleMonster
 
     public IEnumerator Attack()
     {
-        BattleGameManager.instance.ChangeAnim(EMonsterState.Attack);
+        ChangeAnim(EMonsterState.Attack);
         EntitiesStateChange(true);
         //gameObject.transform.DOScale(Vector3.one, 0.5f).SetRelative().SetEase(Ease.Flash, 2, 0);
 
         yield return StartCoroutine(MobSkillManager.instance.CallNormalAttackEffect(1));
 
         Attack(player);
-        EntitiesStateChange(false);
-        AnimationControl();
+        if(isStun == false)
+            EntitiesStateChange(false);
+        else
+        {
+            GaugeControl(false);
+        }
+        IconAnimationControl();
         
-        BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
+        ChangeAnim(EMonsterState.Idle);
     }
 
     public IEnumerator Skill()
     {
-        BattleGameManager.instance.ChangeAnim(EMonsterState.Skill);
+        ChangeAnim(EMonsterState.Skill);
         EntitiesStateChange(true);
 
-        var choice = Random.Range(0, 3);
-
-        choice = 3;
-        switch (choice)
+        switch (Random.Range(1, 5))
         {
             case 1:
                 yield return StartCoroutine(Broadening());
@@ -72,12 +75,20 @@ public class Nightmare : BattleMonster
             case 3:
                 yield return StartCoroutine(Valley());
                 break;
+            case 4:
+                yield return StartCoroutine(Rush());
+                break;
             default:
                 break;
         }
 
-        EntitiesStateChange(false);
-        BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
+        if(isStun == false)
+            EntitiesStateChange(false);
+        else
+        {
+            GaugeControl(false);
+        }
+        ChangeAnim(EMonsterState.Idle);
     }
 
     public IEnumerator Broadening()
@@ -97,13 +108,27 @@ public class Nightmare : BattleMonster
         yield return StartCoroutine(MobSkillManager.instance.Fear());
     }
 
+    public IEnumerator Rush()
+    {
+        yield return StartCoroutine(MobSkillManager.instance.Rush());
+    }
+    
     public IEnumerator Valley()
     {
         BattleCardManager.instance.CardsCostUp();
         yield return StartCoroutine(MobSkillManager.instance.Valley());
     }
 
-    public void AnimationControl()
+    public IEnumerator StunPlayer(float time = 1f)
+    {
+        isStun = true;
+        BattleCardManager.instance.DontUseCard(true);
+        yield return new WaitForSeconds(time);
+        BattleCardManager.instance.DontUseCard(false);
+        isStun = false;
+    }
+
+    public void IconAnimationControl()
     {
         iconAnimation.Animation(1);
     }

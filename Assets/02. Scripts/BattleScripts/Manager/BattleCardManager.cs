@@ -196,7 +196,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
 
             if (Input.GetKeyDown(KeyCode.Space) && !isMonsterAttack)
             {
-                if (isSelected && cost - selectCard?.deckCard.cost > -1)
+                if (isSelected && cost - selectCard?.currentCost > -1)
                     StartCoroutine(UseCard());
             }
         }
@@ -435,12 +435,12 @@ public class BattleCardManager : Singleton<BattleCardManager>
     {
         if (selectCard == null)
             yield break;
+        
         isCardActivating = true;
         EnlargeCard(true, selectCard);
         EffectPlayBack?.Invoke(true);
         myCards.Remove(selectCard);
-
-
+        
         yield return StartCoroutine(selectCard.MoveTransformCoroutine(new PRS(cardUseTrasnform.position, Utils.QI, Vector3.one * 0.35f), true, 0.5f));
         BattleMagicManager.instance.CallMagic(selectCard.deckCard);
         selectCard.DOKill();
@@ -461,7 +461,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
             StartCoroutine(BattleTurnManager.instance.ReDrawCards());
         }
 
-        cost -= selectCard.deckCard.cost;
+        cost -= selectCard.currentCost;
         TextUpdate();
 
         isCardActivating = false;
@@ -506,12 +506,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
     {
         if (debuffCost < maxCost-1)
         {
-            for (var index = 0; index < myCards.Count; index++)
-            {
-                var card = myCards[index];
-                if (card.deckCard.cost < 5)
-                    card.CostUp();
-            }
+            myCards.ForEach(x => x.CostUp());
             debuffCost++;
         }
         else

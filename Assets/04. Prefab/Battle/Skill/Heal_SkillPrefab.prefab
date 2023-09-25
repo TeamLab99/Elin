@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5197631038915745326}
   - component: {fileID: 1144650480802105254}
+  - component: {fileID: -2196380567538148517}
   m_Layer: 0
   m_Name: Heal_SkillPrefab
   m_TagString: Skill
@@ -47,6 +48,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillEffect: {fileID: 328013627397236108}
   skilIcon: {fileID: 0}
+--- !u!114 &-2196380567538148517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6040202953078129332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 265a4630b61f8264b8a8beb3b092a6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4866922590634841539
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -27,6 +27,7 @@ public class BattleGameManager : Singleton<BattleGameManager>
     public void SetMonster(GameObject monster)
     {
         this.monster = monster;
+        animator = monster.GetComponent<Animator>();
     }
 
     void Start()

@@ -526,6 +526,7 @@ MonoBehaviour:
   skillCount: 1
   player: {fileID: 0}
   gaugeIcon: {fileID: -14404281, guid: d3a8789646db08c4590ab7d3c46e5b04, type: 3}
+  animator: {fileID: 2045900005991835210}
 --- !u!1 &2045900006043075139
 GameObject:
   m_ObjectHideFlags: 0
