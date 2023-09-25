@@ -72,7 +72,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7821392073070440690}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -192,6 +192,7 @@ MonoBehaviour:
   appearPlatform: {fileID: 0}
   movePlatform: {fileID: 0}
   enhanceUI: {fileID: 0}
+  gameEndingUI: {fileID: 0}
   ericaSpawnPos:
   - {x: 8899.3125, y: 7.71e-43, z: 0.00000067199846}
   - {x: 0.000042963962, y: -1.1589676e+20, z: 7.65e-43}

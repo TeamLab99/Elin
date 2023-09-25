@@ -5468,6 +5468,7 @@ GameObject:
   - component: {fileID: 2358287205047771107}
   - component: {fileID: 2358287205047771105}
   - component: {fileID: 2358287205047771104}
+  - component: {fileID: 784453508}
   m_Layer: 3
   m_Name: Elin
   m_TagString: Player
@@ -5580,8 +5581,8 @@ MonoBehaviour:
   - {fileID: 2358287204101916398}
   - {fileID: 2358287205554590656}
   m_Bounds:
-    m_Center: {x: -0.20987582, y: -0.6450095, z: 0}
-    m_Extent: {x: 3.293733, y: 7.443949, z: 0}
+    m_Center: {x: -0.20988536, y: -0.64501, z: 0}
+    m_Extent: {x: 3.2937362, y: 7.4439487, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -5637,7 +5638,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 42a22cac6cc3d32449cd8c16f3134631, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -5679,6 +5680,21 @@ MonoBehaviour:
   - {fileID: 7523139011680232719}
   waterElementParticle: {fileID: 2097745912271098072}
   splitPlayerParticle: {fileID: 2097745912271098072}
+--- !u!114 &784453508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2358287205047771112}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f711597edb108743af7b2af22e8b580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 50
+  attack: 0
+  battleBuffDebuff: {fileID: 0}
 --- !u!1 &2358287205056863495
 GameObject:
   m_ObjectHideFlags: 0

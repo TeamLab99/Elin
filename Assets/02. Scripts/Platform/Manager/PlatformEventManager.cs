@@ -7,6 +7,7 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
     [SerializeField] GameObject appearPlatform;
     [SerializeField] GameObject movePlatform;
     [SerializeField] GameObject enhanceUI;
+    [SerializeField] GameObject gameEndingUI;
     [SerializeField] Vector3[] ericaSpawnPos;
     GameObject player;
     GameObject brokeBranch;
@@ -48,6 +49,11 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
                 enhanceUI.SetActive(false);
                 NextEricaDialogue();
                 break;
+            case 7:
+                gameEndingUI.SetActive(true);
+                break;
+            default:
+                break;
         }
     }
 
@@ -81,4 +87,5 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
         DialogueManager.instance.NextDialogue("Erica");
         DialogueManager.instance.StartDialogue("Erica");
     }
+
 }
