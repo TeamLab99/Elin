@@ -31,9 +31,11 @@ public class Rolling : BuffDebuffMagic, IMagic
     public override void Delete()
     {
         StopCoroutine(Timer());
-        Managers.Pool.Push(GetComponent<Poolable>());
         BuffIconsController.instance.DeleteIconInfo(icon);
         buffManager.buffDebuffList.Remove(this);
+
+        if (TryGetComponent<Poolable>(out var poolable))
+            Managers.Pool.Push(poolable);
     }
 
     private void OnDisable()

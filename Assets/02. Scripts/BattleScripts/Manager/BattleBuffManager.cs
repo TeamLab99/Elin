@@ -16,8 +16,20 @@ public class BattleBuffManager : MonoBehaviour
         buffDebuffList.Remove(magic);
     }
 
+    public void ClearBuff()
+    {
+        for (int i = 0; i < buffDebuffList.Count; i++)
+        {
+            var item = buffDebuffList[i];
+            item.Delete();
+        }    
+        BuffIconsController.instance.ClearIconInf();
+        buffDebuffList.Clear();
+    }
+
     public float CheckDamageImpactBuff(float value)
     {
+        
         if (buffDebuffList.Exists(x => x is Rolling))
         {
             buffDebuffList.Find(x => x is Rolling).Delete();

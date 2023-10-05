@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-
 public class Squirrel : BattleMonster
 {
     int skillOverlap = 0;
@@ -24,9 +23,15 @@ public class Squirrel : BattleMonster
             {
                 Debug.Log("스킬 발동");
                 StartCoroutine(Skill());
+                count = skillCount;
+                curTime = maxTime;
             }
-
-            count = skillCount;
+            else
+            {
+                count = skillCount;
+                curTime = maxTime;
+                StartCoroutine(Attack());
+            }
         }
         yield return null;
     }
@@ -80,21 +85,22 @@ public class Squirrel : BattleMonster
 
     public void Revolution()
     {
+        BattleMagicManager.instance.ClearBuff();
         EntitiesStateChange(true);
         TimerControl(true);
-        iconAnimation.TImerControl(false);
-        StopCoroutine(GaugeTimer());
-        StartCoroutine(MobSkillManager.instance.Revolution());
+        iconAnimation.TimerControl(true);
+        StopAllCoroutines();
+        FadeOut();
     }
 
     public void FadeOut()
     {
         Sequence sequence = DOTween.Sequence();
         sequence.Append(GetComponent<SpriteRenderer>().DOFade(0, 1f))
+        .AppendInterval(0.5f)
             .OnComplete(() =>
             {
                 BattleGameManager.instance.GenerateNightmare();
             });
-        
     }
 }

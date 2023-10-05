@@ -7,19 +7,16 @@ using DG.Tweening;
 
 public class Nightmare : BattleMonster
 {
-    int skillOverlap = 0;
+    int brodeningOverlapValue = 0;
 
     public override void Init()
     {
-        //iconAnimation.SetIcon(gaugeIcon);
         ConnectInspector();
+
         delay = new WaitForSeconds(Time.deltaTime);
         maxTime = attackSpeed;
         curTime = maxTime;
         count = skillCount;
-        battleBuffDebuff = gameObject.AddComponent<BattleBuffManager>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<BattlePlayer>();
-        StartCoroutine(GetGaugeUI("HpBar"));
 
         FadeIn();
     }
@@ -28,19 +25,15 @@ public class Nightmare : BattleMonster
     {
         if (count > 0)
         {
+            count--;
             curTime = maxTime;
             StartCoroutine(Attack());
-            count--;
         }
         else
         {
-            if (skillOverlap < 2)
-            {
-                Debug.Log("스킬 발동");
-                StartCoroutine(Skill());
-            }
-
+            StartCoroutine(Skill());
             count = skillCount;
+            curTime = maxTime;
         }
         yield return null;
     }
@@ -52,9 +45,11 @@ public class Nightmare : BattleMonster
         //gameObject.transform.DOScale(Vector3.one, 0.5f).SetRelative().SetEase(Ease.Flash, 2, 0);
 
         yield return StartCoroutine(MobSkillManager.instance.CallNormalAttackEffect(1));
+
         Attack(player);
         EntitiesStateChange(false);
         AnimationControl();
+        
         BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
     }
 
@@ -63,13 +58,49 @@ public class Nightmare : BattleMonster
         BattleGameManager.instance.ChangeAnim(EMonsterState.Skill);
         EntitiesStateChange(true);
 
-        attackSpeed -= 0.5f;
-        maxTime = attackSpeed;
-        skillOverlap++;
+        var choice = Random.Range(0, 3);
 
-        yield return StartCoroutine(MobSkillManager.instance.Broadening());
+        choice = 3;
+        switch (choice)
+        {
+            case 1:
+                yield return StartCoroutine(Broadening());
+                break;
+            case 2:
+                yield return StartCoroutine(Fear());
+                break;
+            case 3:
+                yield return StartCoroutine(Valley());
+                break;
+            default:
+                break;
+        }
+
         EntitiesStateChange(false);
         BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
+    }
+
+    public IEnumerator Broadening()
+    {
+        if (brodeningOverlapValue < 4)
+        {
+            attackSpeed -= 0.5f;
+            maxTime = attackSpeed;
+            brodeningOverlapValue++;
+            yield return StartCoroutine(MobSkillManager.instance.Broadening_NightMare());
+        }
+    }
+
+    public IEnumerator Fear()
+    {
+        attack += 1f;
+        yield return StartCoroutine(MobSkillManager.instance.Fear());
+    }
+
+    public IEnumerator Valley()
+    {
+        BattleCardManager.instance.CardsCostUp();
+        yield return StartCoroutine(MobSkillManager.instance.Valley());
     }
 
     public void AnimationControl()
@@ -86,8 +117,6 @@ public class Nightmare : BattleMonster
         else
         {
             hp = 0;
-            BattleGameManager.instance.ChangeAnim(EMonsterState.Death);
-            StartCoroutine(BattleGameManager.instance.isDeadMotionEnd());
         }
         HpTextUpdate();
     }
@@ -97,6 +126,8 @@ public class Nightmare : BattleMonster
         BattleGameManager.instance.SetMonster(this.gameObject);
         BattleMagicManager.instance.SetMonster(this);
         MobSkillManager.instance.SetMonster(this);
+        battleBuffDebuff = gameObject.AddComponent<BattleBuffManager>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<BattlePlayer>();
     }
 
     public void FadeIn()
@@ -105,8 +136,9 @@ public class Nightmare : BattleMonster
         sequence.Append(GetComponent<SpriteRenderer>().DOFade(1, 1f))
             .OnComplete(() =>
             {
-                // 코스트, 체력, 게이지 회복 및 시작
+                StartCoroutine(GetGaugeUI("HpBar"));
+                hp = maxHp;
+                EntitiesStateChange(false);
             });
-
     }
 }

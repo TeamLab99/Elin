@@ -5,7 +5,8 @@ using UnityEngine;
 public class Mushroom : MonoBehaviour
 {
     Animator anim;
-    PlayerController playerController;
+    Rigidbody2D playerRb;
+    public float jumpForce;
 
     private void Awake()
     {
@@ -17,8 +18,9 @@ public class Mushroom : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             anim.SetTrigger("AddForce");
-            if(playerController == null)
-                playerController = collision.gameObject.GetComponent<PlayerController>();
+            if(playerRb == null)
+                playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            playerRb.velocity = new Vector2(playerRb.velocity.x, jumpForce);            
         }
     }
 

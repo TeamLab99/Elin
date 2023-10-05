@@ -35,6 +35,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
     bool isMonsterAttack;
 
     int cost;
+    int debuffCost;
     float curCostTIme;
 
     // 카드 사용 시 몬스터에게 알려줄 이벤트
@@ -499,5 +500,26 @@ public class BattleCardManager : Singleton<BattleCardManager>
     public void SetActive(bool isOn)
     {
         gameObject.SetActive(isOn);
+    }
+
+    public void CardsCostUp()
+    {
+        if (debuffCost < maxCost-1)
+        {
+            for (var index = 0; index < myCards.Count; index++)
+            {
+                var card = myCards[index];
+                if (card.deckCard.cost < 5)
+                    card.CostUp();
+            }
+            debuffCost++;
+        }
+        else
+            return;
+    }
+
+    public List<BattleCard> GetMyCards()
+    {
+        return myCards;
     }
 }
