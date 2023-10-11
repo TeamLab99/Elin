@@ -21,7 +21,8 @@ public class Stun : BuffDebuffMagic, IMagic
             {
                 time -= 1f;
                 
-                icon.coolTimeImage.fillAmount -= 0.5f;
+                if(icon!=null)
+                    icon.coolTimeImage.fillAmount -= 0.5f;
             }
 
         }
@@ -41,7 +42,9 @@ public class Stun : BuffDebuffMagic, IMagic
     {
         StopCoroutine(Timer());
         BuffIconsController.instance.DeleteIconInfo(icon);
-        buffManager.buffDebuffList.Remove(this);
+        
+        if(buffManager!=null)
+            buffManager.buffDebuffList.Remove(this);
 
         if (TryGetComponent<Poolable>(out var poolable))
             Managers.Pool.Push(poolable);

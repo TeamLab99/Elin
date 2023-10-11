@@ -97,6 +97,10 @@ public class BuffIconsController : Singleton<BuffIconsController>
 
     void CheckNextBuff(List<SkillIcon> icons, SkillIcon targetIcon)
     {
+        if(targetIcon == null)
+        {
+            return;
+        }
         // 데이터 초기화
         targetIcon.IconImage.sprite = null;
         targetIcon.amountText.text = "";

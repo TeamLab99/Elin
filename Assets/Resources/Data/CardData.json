@@ -26,7 +26,7 @@
       "element": "None",
       "type": "A",
       "cost": 1,
-      "percent": 15,
+      "percent": 50,
       "attackCode": "ATK_HEADBUTT",
       "buffCode": null,
       "debuffCode": null,
@@ -36,7 +36,7 @@
       "buffMaintainTime": null,
       "debuffProbability": null,
       "debuffMaintainTime": null,
-      "amount": 5,
+      "amount": 50,
       "descryption": "적에게 달려 들어 20의 피해를 준다. / 공격력과 무관하게 일정한 데미지를 주는 카드"
     },
     {

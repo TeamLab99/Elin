@@ -154,6 +154,40 @@ public class MobSkillManager : Singleton<MobSkillManager>
         yield return delay05;
     }
     
+    public IEnumerator Drain()
+    {
+        var skillEffect = monsterSO.items[5].skillEffect[0];
+        var monsterBuffList = monster.battleBuffDebuff.buffDebuffList;
+
+        if (monsterBuffList.Find(item => item is Drain))
+        {
+            var skill = monsterBuffList.Find(item => item is Drain);
+            
+            ((Drain)skill).TextUpdate(10);
+
+            var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+            effect.transform.position = monster.gameObject.transform.position;
+            
+            if (((Drain)skill).GetAmount() == true)
+            {
+                monster.GetComponent<Nightmare>().DrainHeal();
+                monster.GetComponent<Nightmare>().SetIsDrain(false);
+                ((Drain)skill).Delete();
+            }
+        }
+        else
+        {
+            var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+            effect.transform.position = monster.gameObject.transform.position;
+
+            var buff = effect.GetComponent<BuffDebuffMagic>();
+            
+            monsterBuffList.Add(buff);
+            buff.ConnectBuffManager(monster.battleBuffDebuff, BuffIconsController.instance.GetBuffIconInfo(false));
+        }
+        yield return delay05;
+    }
+    
     public bool GetRandom(float probability)
     {
         float percentage = probability / 100;
@@ -165,5 +199,10 @@ public class MobSkillManager : Singleton<MobSkillManager>
             return false;
         }
         return true;
+    }
+
+    public void MonsterAttackSpeedDown()
+    {
+        monster.GetComponent<Nightmare>().AttackSpeedDown();
     }
 }

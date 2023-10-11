@@ -38,3 +38,8 @@ MonoBehaviour:
     normalAttackEffect: {fileID: 5440521268376290842, guid: fa4d7183e0915314d96fcdc6cd80d085, type: 3}
     skillEffect:
     - {fileID: 1520657897141709283, guid: 3d7e6493d61f79447aa22f3cbc10647e, type: 3}
+  - id: 6
+    name: NightMare_Drain
+    normalAttackEffect: {fileID: 3319012900010134448, guid: ecf9f3608ee100e47aef3365c13e4e40, type: 3}
+    skillEffect:
+    - {fileID: 3319012900010134448, guid: ecf9f3608ee100e47aef3365c13e4e40, type: 3}
