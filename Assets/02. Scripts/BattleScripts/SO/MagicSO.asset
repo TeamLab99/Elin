@@ -16,16 +16,30 @@ MonoBehaviour:
   - id: 1
     name: "\uAD6C\uB974\uAE30"
     skillEffect: {fileID: 4105982107856548525, guid: 884fbe287d67c9a4bbb0939eaf7243d2, type: 3}
+    hitEffect: {fileID: 0}
     cardImage: {fileID: 796836433, guid: 1521aeac145e2f641bf47e215a62edb4, type: 3}
   - id: 2
     name: "\uBC15\uCE58\uAE30"
     skillEffect: {fileID: 4978609732441752155, guid: a123de21992980e40947c2ca2ea6f50c, type: 3}
+    hitEffect: {fileID: 0}
     cardImage: {fileID: -329256160, guid: 1521aeac145e2f641bf47e215a62edb4, type: 3}
   - id: 3
     name: "\uC7AC\uC0DD"
     skillEffect: {fileID: 6040202953078129332, guid: f68e43f0d6966dc4491cb69a17fafcbb, type: 3}
+    hitEffect: {fileID: 0}
     cardImage: {fileID: 146565600, guid: 1521aeac145e2f641bf47e215a62edb4, type: 3}
   - id: 4
     name: "\uBC84\uD2F0\uAE30"
     skillEffect: {fileID: 6848092154663536722, guid: 6d39b720ba38cdd48bd94d0997bd8251, type: 3}
+    hitEffect: {fileID: 0}
     cardImage: {fileID: -486508178, guid: 1521aeac145e2f641bf47e215a62edb4, type: 3}
+  - id: 5
+    name: "\uBB3C\uAC70\uD488"
+    skillEffect: {fileID: 8376547790674624608, guid: 1dcdf8352ffb943479a858efc409b8dc, type: 3}
+    hitEffect: {fileID: 1931990964153509862, guid: f299091c60cc41040b333dd6700c3554, type: 3}
+    cardImage: {fileID: -14134896, guid: d157d8db81102c642bc4e99af50a18ca, type: 3}
+  - id: 6
+    name: "\uBD88\uD2F0"
+    skillEffect: {fileID: 4944982154089079424, guid: 1eba4401bd09d944aba8c91e98becb4b, type: 3}
+    hitEffect: {fileID: 1110024571314101498, guid: 0710fbb107fe0174baf02bde27d94dc2, type: 3}
+    cardImage: {fileID: -1566745823, guid: d157d8db81102c642bc4e99af50a18ca, type: 3}

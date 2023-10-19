@@ -5,6 +5,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+public enum EMonsterSkill
+{
+    Random,
+    Broadening,
+    Fear,
+    Valley,
+    Rush
+}
+
 public class Nightmare : BattleMonster
 {
     int brodeningOverlapValue = 0;
@@ -12,6 +21,7 @@ public class Nightmare : BattleMonster
     private bool isDrain;
     private bool isWall;
     private int drainStack = 0;
+    [SerializeField] private EMonsterSkill _monsterSkill;
 
     public override void Init()
     {
@@ -106,24 +116,8 @@ public class Nightmare : BattleMonster
         ChangeAnim(EMonsterState.Skill);
         EntitiesStateChange(true);
 
-        switch (Random.Range(1, 5))
-        {
-            case 1:
-                yield return StartCoroutine(Broadening());
-                break;
-            case 2:
-                yield return StartCoroutine(Fear());
-                break;
-            case 3:
-                yield return StartCoroutine(Valley());
-                break;
-            case 4:
-                yield return StartCoroutine(Rush());
-                break;
-            default:
-                break;
-        }
-
+        yield return StartCoroutine(RandomLogic());
+        
         if (isStun == false)
             EntitiesStateChange(false);
         else
@@ -240,5 +234,49 @@ public class Nightmare : BattleMonster
     {
         isWall= true;
         isStun= true;
+    }
+
+    IEnumerator RandomLogic()
+    {
+        if (_monsterSkill == EMonsterSkill.Random)
+        {
+            switch (Random.Range(1, 5))
+            {
+                case 1:
+                    yield return StartCoroutine(Broadening());
+                    break;
+                case 2:
+                    yield return StartCoroutine(Fear());
+                    break;
+                case 3:
+                    yield return StartCoroutine(Valley());
+                    break;
+                case 4:
+                    yield return StartCoroutine(Rush());
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            switch (_monsterSkill)
+            {
+                case EMonsterSkill.Broadening:
+                    yield return StartCoroutine(Broadening());
+                    break;
+                case EMonsterSkill.Fear:
+                    yield return StartCoroutine(Fear());
+                    break;
+                case EMonsterSkill.Valley:
+                    yield return StartCoroutine(Valley());
+                    break;
+                case EMonsterSkill.Rush:
+                    yield return StartCoroutine(Rush());
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

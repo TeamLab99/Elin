@@ -441,7 +441,7 @@ public class BattleCardManager : Singleton<BattleCardManager>
         EffectPlayBack?.Invoke(true);
         myCards.Remove(selectCard);
         
-        yield return StartCoroutine(selectCard.MoveTransformCoroutine(new PRS(cardUseTrasnform.position, Utils.QI, Vector3.one * 0.35f), true, 0.5f));
+        yield return StartCoroutine(selectCard.MoveTransformCoroutine(new PRS(cardUseTrasnform.position, Utils.QI, Vector3.one * 0.35f), true, 0.25f));
         BattleMagicManager.instance.CallMagic(selectCard.deckCard);
         selectCard.DOKill();
         Managers.Pool.Push(selectCard.GetComponent<Poolable>());

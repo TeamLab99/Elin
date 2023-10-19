@@ -52,7 +52,7 @@ public class BattleCard : MonoBehaviour
             sequence
                 .Append(transform.DOMove(prs.pos, dotweenTime))
                 .Join(transform.DORotateQuaternion(prs.rot, dotweenTime))
-                .Join(transform.DOScale(prs.scale, dotweenTime))
+                .Join(transform.DOScale(0f, dotweenTime))
                 .Join(GetComponent<SpriteRenderer>().DOFade(0, dotweenTime))
                 .Join(nameTMP.GetComponent<TMP_Text>().DOFade(0, dotweenTime))
                 .Join(costTMP.GetComponent<TMP_Text>().DOFade(0, dotweenTime));
