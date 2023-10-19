@@ -34,15 +34,13 @@ public class CamerEffect : Singleton<CamerEffect>
     void Update()
     {
         targetCamPos = target.position;
-        targetCamPos.y += 5f;
-        targetCamPos.z = -10f;
         switch (camerEffectType)
         {
             case CamerEffectType.FollowPlayer: // 디폴트
                 currentTime += Time.deltaTime;
                 if (currentTime >= lerpTime)
                     currentTime = lerpTime;
-                transform.position = Vector3.Lerp(transform.position, targetCamPos, currentTime / lerpTime);
+                transform.position = Vector3.Lerp(transform.position, targetCamPos-offSet, currentTime / lerpTime);
                 break;
             case CamerEffectType.GotoTarget:
                 currentTime += Time.deltaTime;

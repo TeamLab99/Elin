@@ -107,6 +107,7 @@ public class PlayerAbilityController : MonoBehaviour
     {
         CancelInvoke("DestroySeperationPlayer");
         isSeparated = false;
+        alterEgoPlayer.SetActive(false);
         seperateDirection = ESeperateDirection.None;
     }
 
