@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
     }
     private void PlayerAnimation()
     {
-        bool walk = rb.velocity.x != 0; //walk = (rb.velocity.x != 0) ? true : false;
+        bool walk = Mathf.Abs(rb.velocity.x) >= 0.1f; //walk = (rb.velocity.x != 0) ? true : false;
         anim.SetFloat("yVelocity", rb.velocity.y);
         anim.SetBool("walk", walk);
         anim.SetBool("grounded", grounded);
@@ -76,9 +76,9 @@ public class PlayerController : MonoBehaviour
 
     private void FlipPlayer()
     {
-        if (rb.velocity.x > 0)
+        if (rb.velocity.x > 0.1f)
             spr.flipX = true;
-        else if (rb.velocity.x < 0)
+        else if (rb.velocity.x < -0.1f)
             spr.flipX = false;
         CheckDir();
     }
@@ -92,7 +92,9 @@ public class PlayerController : MonoBehaviour
 
     public void ControlPlayer(bool _canMove) // PlayerMoveAction 이벤트의 함수
     {
+        anim.CrossFade("Idle", 0f);
         canControll = _canMove;
+        
         if (!canControll)
         {
             xInput = 0;
