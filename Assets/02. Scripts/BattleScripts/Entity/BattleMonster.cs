@@ -13,6 +13,8 @@ public class BattleMonster : BattleEntity
     [SerializeField] protected BattlePlayer player;
     [SerializeField] protected Sprite gaugeIcon;
 
+    [SerializeField] protected Animator animator;
+
     protected float maxTime;
     protected float curTime;
     protected int count;
@@ -94,10 +96,20 @@ public class BattleMonster : BattleEntity
         yield return null;
     }
 
-    protected void EntitiesStateChange(bool isBool)
+    public void EntitiesStateChange(bool isBool)
     {
         BattleCardManager.EffectPlayBack.Invoke(isBool);
         BattleCardManager.instance.DontUseCard(isBool);
+    }
+
+    public void GaugeControl(bool _active)
+    {
+        BattleCardManager.EffectPlayBack.Invoke(_active);
+    }
+
+    public void DontUseCard(bool _active)
+    {
+        BattleCardManager.instance.DontUseCard(_active);
     }
 
     public void StartBattle()
@@ -113,5 +125,37 @@ public class BattleMonster : BattleEntity
     public override void Attack(BattleEntity entity)
     {
         entity.TakeDamage(entity.battleBuffDebuff.CheckDamageImpactBuff(attack));
+    }
+
+    public void AttackValue(BattleEntity entity, float value)
+    {
+        entity.TakeDamage(entity.battleBuffDebuff.CheckDamageImpactBuff(value));
+    }
+
+        public void ChangeAnim(EMonsterState monsterState)
+    {
+        switch (monsterState)
+        {
+            case EMonsterState.Idle:
+            if(animator.GetBool("isHit") == true)
+                animator.SetBool("isHit", false);
+            if (animator.GetBool("isSkill") == true)  
+                animator.SetBool("isSkill", false);
+            if(animator.GetBool("isAttack") == true)
+                animator.SetBool("isAttack", false);
+                break;
+            case EMonsterState.Attack:
+                animator.SetBool("isAttack", true);
+                break;
+            case EMonsterState.Hit:
+                animator.SetBool("isHit", true);
+                break;
+            case EMonsterState.Skill:
+                animator.SetBool("isSkill", true);
+                break;
+            case EMonsterState.Death:
+                animator.SetBool("Death", true);
+                break;
+        }
     }
 }

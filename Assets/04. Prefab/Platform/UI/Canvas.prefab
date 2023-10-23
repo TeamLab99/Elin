@@ -7144,7 +7144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatData: {fileID: 11400000, guid: de13dcf4a8b7ee84d8bf229bf18c6d23, type: 2}
-  slider: {fileID: 1657289694390219890}
 --- !u!1 &1657289694395376828
 GameObject:
   m_ObjectHideFlags: 0
