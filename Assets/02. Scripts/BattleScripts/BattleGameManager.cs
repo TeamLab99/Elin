@@ -62,7 +62,6 @@ public class BattleGameManager : Singleton<BattleGameManager>
 
         mainCamera.GetComponent<CamerEffect>().enabled = false;
         player.GetComponent<PlayerController>().ControlPlayer(false);
-        player.GetComponent<PlayerController>().anim.SetBool("Walk", false);
 
         var targetPos = new Vector3(Mathf.Lerp(player.transform.position.x, mobPos.x, 0.5f), mobPos.y + 5f, -150);
         mainCamera.transform.DOMove(targetPos, 1.5f).SetEase(ease);
