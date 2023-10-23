@@ -46,7 +46,7 @@ public class CamerEffect : Singleton<CamerEffect>
                 currentTime += Time.deltaTime;
                 if (currentTime >= lerpTime)
                     currentTime = lerpTime;
-                transform.position = Vector3.Lerp(transform.position, targetCamPos, currentTime / lerpTime);
+                transform.position = Vector3.Lerp(transform.position, targetCamPos-offSet, currentTime / lerpTime);
                 if (onCamera)
                     Invoke("ChangeFollowCameraMode", 3f);
                 onCamera = false;
