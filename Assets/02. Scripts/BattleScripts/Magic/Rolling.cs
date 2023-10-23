@@ -9,7 +9,7 @@ public class Rolling : BuffDebuffMagic, IMagic
         Managers.Data.CardDict.TryGetValue(1, out card);
 
         probability = card.attackProbability;
-        maintime = card.buffMaintainTime;
+        mainTime = card.buffMaintainTime;
         amount = card.amount;
     }
 
@@ -20,9 +20,10 @@ public class Rolling : BuffDebuffMagic, IMagic
             yield return oneSec;
 
             if (!isTimerStop)
+            {
                 time -= 1f;
-
-            icon.coolTimeImage.fillAmount -= 0.33f;
+                icon.coolTimeImage.fillAmount -= 0.33f;
+            }
         }
         isEnd = true;
         Delete();
@@ -41,12 +42,12 @@ public class Rolling : BuffDebuffMagic, IMagic
     private void OnDisable()
     {
         probability = card.attackProbability;
-        maintime = card.buffMaintainTime;
+        mainTime = card.buffMaintainTime;
         amount = card.amount;
 
         isEnd = false;
         isTimerStop = false;
-        time = maintime;
+        time = mainTime;
     }
 
     void IMagic.DeSpell()

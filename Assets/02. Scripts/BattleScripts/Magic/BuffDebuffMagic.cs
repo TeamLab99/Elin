@@ -17,7 +17,7 @@ public abstract class BuffDebuffMagic : MonoBehaviour
 
     protected float percent;
     protected float probability;
-    protected float maintime;
+    protected float mainTime;
     protected float time;
 
     protected int amount;
@@ -31,7 +31,7 @@ public abstract class BuffDebuffMagic : MonoBehaviour
 
     private void OnEnable()
     {
-        time = maintime;
+        time = mainTime;
         StartCoroutine(Timer());
         // 이펙트 재생
         skillEffect.SetActive(true);
@@ -59,7 +59,7 @@ public abstract class BuffDebuffMagic : MonoBehaviour
 
     public void TimeUpdate()
     {
-        time = maintime;
+        time = mainTime;
         icon.coolTimeImage.fillAmount = 1f;
         //icon.countText.text = time.ToString();
         // 이펙트 재생 OnAwake

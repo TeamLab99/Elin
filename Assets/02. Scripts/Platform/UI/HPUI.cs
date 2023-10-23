@@ -6,7 +6,7 @@ public class HPUI : MonoBehaviour
 {
     [SerializeField] PlayerStatData playerStatData;
     
-    public Slider slider;
+    private Slider slider;
     
     private void Awake()
     {

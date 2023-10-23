@@ -482,7 +482,7 @@ MonoBehaviour:
   - {fileID: 2045900006043075140}
   - {fileID: 2045900006970291874}
   m_Bounds:
-    m_Center: {x: 0.14786339, y: 2.0894387, z: 0}
+    m_Center: {x: 0.14786315, y: 2.0894384, z: 0}
     m_Extent: {x: 3.5195422, y: 2.5153112, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -522,10 +522,12 @@ MonoBehaviour:
   maxHp: 200
   attack: 1
   battleBuffDebuff: {fileID: 0}
-  attackSpeed: 2
+  attackSpeed: 1
   skillCount: 1
   player: {fileID: 0}
   gaugeIcon: {fileID: -14404281, guid: d3a8789646db08c4590ab7d3c46e5b04, type: 3}
+  animator: {fileID: 2045900005991835210}
+  _monsterSkill: 3
 --- !u!1 &2045900006043075139
 GameObject:
   m_ObjectHideFlags: 0

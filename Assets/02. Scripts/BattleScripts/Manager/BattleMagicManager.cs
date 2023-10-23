@@ -43,6 +43,12 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
             case "버티기":
                 Defense(card);
                 break;
+            case "물거품":
+                StartCoroutine(Bubble(card));
+                break;
+            case "불티":
+                StartCoroutine(Spark(card));
+                break;
             default:
                 Debug.Log("존재하지 않는 마법입니다.");
                 break;
@@ -122,13 +128,51 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
         var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
         effect.transform.position = monster.gameObject.transform.position + Vector3.up*0.5f;
 
-        //player.transform.DOMoveX(5f, 0.3f).SetRelative().SetEase(Ease.Flash, 2, 0);
+        player.transform.DOMoveX(5f, 0.3f).SetRelative().SetEase(Ease.Flash, 2, 0);
         mainCamera.DOShakePosition(0.3f,2);
         player.MagicAttack(monster, card.amount);
         BattleGameManager.instance.ChangeAnim(EMonsterState.Hit);
 
         yield return delay05;
         Managers.Pool.Push(effect);
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
+    }
+    
+    public IEnumerator Bubble(DeckCard card)
+    {
+        var skillEffect = magic.items[card.index - 1].skillEffect;
+
+        var startEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+        startEfc.transform.position = player.gameObject.transform.position + Vector3.up*0.5f;
+        
+        skillEffect = magic.items[card.index - 1].hitEffect;
+        
+        var hitEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("PlayerEffects"));
+        hitEfc.transform.position = monster.gameObject.transform.position + Vector3.up*0.5f;
+        
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Hit);
+
+        yield return delay05;
+        Managers.Pool.Push(startEfc);
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
+    }
+    
+    public IEnumerator Spark(DeckCard card)
+    {
+        var skillEffect = magic.items[card.index - 1].skillEffect;
+
+        var startEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+        startEfc.transform.position = player.gameObject.transform.position + Vector3.up*0.5f;
+        
+        skillEffect = magic.items[card.index - 1].hitEffect;
+        
+        var hitEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("PlayerEffects"));
+        hitEfc.transform.position = monster.gameObject.transform.position + Vector3.up*0.5f;
+        
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Hit);
+
+        yield return delay05;
+        Managers.Pool.Push(startEfc);
         BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
     }
 

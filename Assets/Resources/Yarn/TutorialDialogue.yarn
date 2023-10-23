@@ -45,6 +45,7 @@ tags:
 에리카 : 무슨 일이 생기면 다시 와주세요.
 에리카 : 한동안은 여기에 있을 거에요.
 <<Next Erica>>
+<<EricaTf>>
 ===
 
 title: Erica3
@@ -101,7 +102,6 @@ tags:
 title: Erica8
 tags:
 ---
-<<EricaTf>>
 <<Act Erica Q>>
 에리카 : 방금 그건... 별다람쥐인가요...? 이상하군요...
 <<Act Erica H>>
@@ -164,7 +164,6 @@ tags:
 <<Act Erica B>>
 에리카 : ...어나요!
 에리카 : ...요!
-<<Event>>
 ===
 
 title: plusText0

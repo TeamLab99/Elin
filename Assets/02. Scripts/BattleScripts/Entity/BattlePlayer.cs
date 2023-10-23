@@ -6,6 +6,10 @@ using TMPro;
 
 public class BattlePlayer : BattleEntity
 {
+    
+    bool scriptOnce = false;
+    private int count;
+    
     private void Start()
     {
         hp = maxHp;
@@ -44,4 +48,25 @@ public class BattlePlayer : BattleEntity
 
         BattleCardManager.instance.SetStat(data.maxCost, data.costRecoverySpeed);
     }
+    
+    public virtual void TakeDamage(float value)
+    {
+        if (hp - value < 11)
+        {
+            //넘을 수 없는 벽 시작
+            BattleCardManager.instance.DontUseCard(true);
+            MobSkillManager.instance.MonsterAttackSpeedDown();
+        }
+        else if (hp - value > 10)
+        {
+            hp -= value;
+        }
+        else if (hp - value <= 0)
+        {
+            hp = 0;
+            // 죽음
+        }
+        HpTextUpdate();
+    }
+    
 }

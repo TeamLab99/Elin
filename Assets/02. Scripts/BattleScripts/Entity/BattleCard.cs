@@ -11,17 +11,20 @@ public class BattleCard : MonoBehaviour
     [SerializeField] TMP_Text nameTMP;
     [SerializeField] TMP_Text keyTMP;
     [SerializeField] TMP_Text costTMP;
-
+    [SerializeField] GameObject costUpEffect;
+    
     public DeckCard deckCard;
     public PRS originPRS;
-
+    public int currentCost;
+    
     public void Setup(DeckCard deckCard)
     {
         this.deckCard = deckCard;
+        currentCost=this.deckCard.cost;
         // 데이터 베이스 이미지 연결 선행 작업 필요
         // magicSprite.sprite = deckCard.image
         nameTMP.text = deckCard.cardName;
-        costTMP.text = deckCard.cost.ToString();
+        costTMP.text = currentCost.ToString();
     }
 
     public void MoveTransform(PRS prs, bool useDotween, float dotweenTime = 0)
@@ -49,7 +52,7 @@ public class BattleCard : MonoBehaviour
             sequence
                 .Append(transform.DOMove(prs.pos, dotweenTime))
                 .Join(transform.DORotateQuaternion(prs.rot, dotweenTime))
-                .Join(transform.DOScale(prs.scale, dotweenTime))
+                .Join(transform.DOScale(0f, dotweenTime))
                 .Join(GetComponent<SpriteRenderer>().DOFade(0, dotweenTime))
                 .Join(nameTMP.GetComponent<TMP_Text>().DOFade(0, dotweenTime))
                 .Join(costTMP.GetComponent<TMP_Text>().DOFade(0, dotweenTime));
@@ -83,7 +86,15 @@ public class BattleCard : MonoBehaviour
 
     public void CostUp()
     {
-        deckCard.cost++;
-        costTMP.text = deckCard.cost.ToString();
+        StartCoroutine(StackUpEffect());
+        currentCost++;
+        costTMP.text = currentCost.ToString();
+    }
+
+    IEnumerator StackUpEffect()
+    {
+        costUpEffect.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        costUpEffect.SetActive(false);
     }
 }

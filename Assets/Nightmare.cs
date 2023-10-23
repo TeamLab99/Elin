@@ -5,9 +5,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+public enum EMonsterSkill
+{
+    Random,
+    Broadening,
+    Fear,
+    Valley,
+    Rush
+}
+
 public class Nightmare : BattleMonster
 {
     int brodeningOverlapValue = 0;
+    private bool isStun;
+    private bool isDrain;
+    private bool isWall;
+    private int drainStack = 0;
+    [SerializeField] private EMonsterSkill _monsterSkill;
 
     public override void Init()
     {
@@ -23,10 +37,20 @@ public class Nightmare : BattleMonster
 
     protected override IEnumerator MonsterPattern(int skillCount)
     {
+        if (isDrain)
+        {
+            yield return StartCoroutine(Drain());
+            curTime = maxTime;
+            count = skillCount;
+            yield return null;
+        }
+
+
         if (count > 0)
         {
             count--;
             curTime = maxTime;
+
             StartCoroutine(Attack());
         }
         else
@@ -35,49 +59,73 @@ public class Nightmare : BattleMonster
             count = skillCount;
             curTime = maxTime;
         }
+
         yield return null;
     }
 
     public IEnumerator Attack()
     {
-        BattleGameManager.instance.ChangeAnim(EMonsterState.Attack);
+        ChangeAnim(EMonsterState.Attack);
         EntitiesStateChange(true);
         //gameObject.transform.DOScale(Vector3.one, 0.5f).SetRelative().SetEase(Ease.Flash, 2, 0);
 
+        if (isWall == true)
+        {
+            if(attackSpeed > 1)
+                attackSpeed -= 0.5f;
+            maxTime = attackSpeed;
+        }
+        
+        
         yield return StartCoroutine(MobSkillManager.instance.CallNormalAttackEffect(1));
 
         Attack(player);
-        EntitiesStateChange(false);
-        AnimationControl();
-        
-        BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
+        if (isStun == false)
+            EntitiesStateChange(false);
+        else
+        {
+            GaugeControl(false);
+        }
+
+        IconAnimationControl();
+
+        ChangeAnim(EMonsterState.Idle);
+    }
+
+    public IEnumerator Drain()
+    {
+        ChangeAnim(EMonsterState.Skill);
+        EntitiesStateChange(true);
+
+        yield return StartCoroutine(MobSkillManager.instance.Drain());
+
+        if (isStun == false)
+            EntitiesStateChange(false);
+        else
+        {
+            GaugeControl(false);
+        }
+
+        IconAnimationControl();
+
+        ChangeAnim(EMonsterState.Idle);
     }
 
     public IEnumerator Skill()
     {
-        BattleGameManager.instance.ChangeAnim(EMonsterState.Skill);
+        ChangeAnim(EMonsterState.Skill);
         EntitiesStateChange(true);
 
-        var choice = Random.Range(0, 3);
-
-        choice = 3;
-        switch (choice)
+        yield return StartCoroutine(RandomLogic());
+        
+        if (isStun == false)
+            EntitiesStateChange(false);
+        else
         {
-            case 1:
-                yield return StartCoroutine(Broadening());
-                break;
-            case 2:
-                yield return StartCoroutine(Fear());
-                break;
-            case 3:
-                yield return StartCoroutine(Valley());
-                break;
-            default:
-                break;
+            GaugeControl(false);
         }
 
-        EntitiesStateChange(false);
-        BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
+        ChangeAnim(EMonsterState.Idle);
     }
 
     public IEnumerator Broadening()
@@ -97,27 +145,56 @@ public class Nightmare : BattleMonster
         yield return StartCoroutine(MobSkillManager.instance.Fear());
     }
 
+    public IEnumerator Rush()
+    {
+        yield return StartCoroutine(MobSkillManager.instance.Rush());
+    }
+
     public IEnumerator Valley()
     {
         BattleCardManager.instance.CardsCostUp();
         yield return StartCoroutine(MobSkillManager.instance.Valley());
     }
 
-    public void AnimationControl()
+    public IEnumerator StunPlayer(float time = 1f)
+    {
+        isStun = true;
+        BattleCardManager.instance.DontUseCard(true);
+        yield return new WaitForSeconds(time);
+        BattleCardManager.instance.DontUseCard(false);
+        isStun = false;
+    }
+
+    public void IconAnimationControl()
     {
         iconAnimation.Animation(1);
     }
 
     public override void TakeDamage(float value)
     {
-        if (hp - value > 0)
+        if (hp - value <= maxHp * 0.4)
+        {
+            isDrain = false;
+            //넘을 수 없는 벽 시작
+            isWall= true;
+            isStun= true;
+            BattleCardManager.instance.DontUseCard(true);
+        }
+        else if (hp - value <= maxHp * 0.7)
         {
             hp -= value;
+            isDrain = true;
         }
-        else
+        else if (hp - value > 0)
+        {
+            hp -= value;
+            isDrain = false;
+        }
+        else if (hp - value <= 0)
         {
             hp = 0;
         }
+
         HpTextUpdate();
     }
 
@@ -140,5 +217,66 @@ public class Nightmare : BattleMonster
                 hp = maxHp;
                 EntitiesStateChange(false);
             });
+    }
+
+    public void DrainHeal()
+    {
+        hp = maxHp;
+        HpTextUpdate();
+    }
+
+    public void SetIsDrain(bool _set)
+    {
+        isDrain=_set;
+    }
+    
+    public void AttackSpeedDown()
+    {
+        isWall= true;
+        isStun= true;
+    }
+
+    IEnumerator RandomLogic()
+    {
+        if (_monsterSkill == EMonsterSkill.Random)
+        {
+            switch (Random.Range(1, 5))
+            {
+                case 1:
+                    yield return StartCoroutine(Broadening());
+                    break;
+                case 2:
+                    yield return StartCoroutine(Fear());
+                    break;
+                case 3:
+                    yield return StartCoroutine(Valley());
+                    break;
+                case 4:
+                    yield return StartCoroutine(Rush());
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            switch (_monsterSkill)
+            {
+                case EMonsterSkill.Broadening:
+                    yield return StartCoroutine(Broadening());
+                    break;
+                case EMonsterSkill.Fear:
+                    yield return StartCoroutine(Fear());
+                    break;
+                case EMonsterSkill.Valley:
+                    yield return StartCoroutine(Valley());
+                    break;
+                case EMonsterSkill.Rush:
+                    yield return StartCoroutine(Rush());
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
