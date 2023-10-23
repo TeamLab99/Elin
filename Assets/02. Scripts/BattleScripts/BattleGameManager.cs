@@ -126,6 +126,7 @@ public class BattleGameManager : Singleton<BattleGameManager>
     {
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
         monster.GetComponent<Squirrel>().Revolution();
+        DialogueManager.instance.StartDialogue("Erica"); //대화 불러오기 Erica8 불러옴
     }
 
     public void GenerateNightmare()

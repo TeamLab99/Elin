@@ -41,6 +41,8 @@ public class DialogueManager : Singleton<DialogueManager>
         runner.AddCommandHandler("Event", SetEvent); // 이벤트 발생
         runner.AddCommandHandler<int>("Earn", EarnAum);
         runner.AddCommandHandler("EricaTf", EricaSpawn);
+        runner.AddCommandHandler("ResumeBattle", ResumeBattle);
+        runner.AddCommandHandler("PauseBattle", PauseBattle);
     }
 
     public void OffCharacterImage()
@@ -119,4 +121,16 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         PlatformEventManager.instance.EricaSpawn();
     } 
+
+    public void PauseBattle()
+    {
+        BattleCardManager.EffectPlayBack.Invoke(true);
+        BattleCardManager.instance.DontUseCard(true);
+    }
+
+    public void ResumeBattle()
+    {
+        BattleCardManager.EffectPlayBack.Invoke(false);
+        BattleCardManager.instance.DontUseCard(false);
+    }
 }

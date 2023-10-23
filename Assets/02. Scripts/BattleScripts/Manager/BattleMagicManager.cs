@@ -8,8 +8,8 @@ using System.Linq;
 
 public class BattleMagicManager : Singleton<BattleMagicManager>
 {
-    BattlePlayer player;
-    BattleMonster monster;
+    public BattlePlayer player;
+    public BattleMonster monster;
     [SerializeField]Camera mainCamera;
 
     [SerializeField] MagicSO magic;

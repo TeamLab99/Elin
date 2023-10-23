@@ -123,30 +123,37 @@ tags:
 에리카 : 대체 이 앞에 무엇이 기다리고 있는 건지...
 에리카 : 게속해서 나아가죠.
 <<EricaTf>>
+<<Next Erica>>
 ===
 
 title: Erica10
 tags:
 ---
 <<Act Erica H>>
+<<PauseBattle>>
 에리카 : 이토록 끔찍한 기운이라니...!
 에리카 : 조심해서 싸우도록 해요!
+<<ResumeBattle>>
 ===
 
 title: Erica11
 tags:
 ---
 <<Act Erica H>>
+<<PauseBattle>>
 에리카 : 어떻게든 방해를 해야해요!
 에리카 : 저 괴물이 딛고 서 있는 지면을 공격한다면...
+<<ResumeBattle>>
 ===
 
 title: Erica12
 tags:
 ---
 <<Act Erica H>>
+<<PauseBattle>>
 에리카 : 왜 쓰러지지 않는 거지!
 에리카 : 버텨요!
+<<ResumeBattle>>
 ===
 
 title: Erica13
