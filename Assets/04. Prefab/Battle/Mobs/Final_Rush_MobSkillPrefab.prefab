@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2229456224067842054}
   - component: {fileID: 4767512836679759488}
   m_Layer: 0
-  m_Name: Final_Rush_MobSkillPrefab_MobSkillPrefab
+  m_Name: Final_Rush_MobSkillPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

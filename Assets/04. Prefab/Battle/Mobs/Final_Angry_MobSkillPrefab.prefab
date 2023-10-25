@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1276520960654167789}
   - component: {fileID: 1276520960654167788}
   m_Layer: 0
-  m_Name: Angry_MobSkillPrefab
+  m_Name: Final_Angry_MobSkillPrefab
   m_TagString: Skill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
