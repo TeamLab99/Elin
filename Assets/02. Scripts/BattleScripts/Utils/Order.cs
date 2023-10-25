@@ -50,7 +50,5 @@ public class Order : MonoBehaviour
             renderer.sortingLayerName = sortingLayerName;
             renderer.sortingOrder = mulOrder + 1;
         }
-
-        middleRenderers.Last().sortingOrder = mulOrder + 2; // 가장 앞에 있는 애는 +2
     }
 }

@@ -490,12 +490,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backRenderers:
   - {fileID: 4060142598591651223}
+  - {fileID: 5007551055800093725}
   middleRenderers:
   - {fileID: 4060142598773736774}
   - {fileID: 4060142600191928619}
   - {fileID: 4356761433790202474}
   - {fileID: 1769006818646625522}
-  - {fileID: 5007551055800093725}
   - {fileID: 8860622536113072116}
   sortingLayerName: Card
 --- !u!1 &4060142598773736772
@@ -809,6 +809,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 17
       objectReference: {fileID: 0}
+    - target: {fileID: 7863013143430010238, guid: 0dcf1cf71a83f8c4d84500b23996376b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7863013143834285344, guid: 0dcf1cf71a83f8c4d84500b23996376b, type: 3}
       propertyPath: m_Name
       value: Final_Valley_Stackup_MobSkillPrefab2
@@ -816,6 +820,10 @@ PrefabInstance:
     - target: {fileID: 7863013143834285344, guid: 0dcf1cf71a83f8c4d84500b23996376b, type: 3}
       propertyPath: m_Layer
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863013143834285344, guid: 0dcf1cf71a83f8c4d84500b23996376b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7863013143834285346, guid: 0dcf1cf71a83f8c4d84500b23996376b, type: 3}
       propertyPath: m_RootOrder
@@ -861,7 +869,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8453023304571700020, guid: 0dcf1cf71a83f8c4d84500b23996376b, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453023304571700020, guid: 0dcf1cf71a83f8c4d84500b23996376b, type: 3}
+      propertyPath: stopAction
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8790795232537097504, guid: 0dcf1cf71a83f8c4d84500b23996376b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0dcf1cf71a83f8c4d84500b23996376b, type: 3}
 --- !u!1 &5007551054326205517 stripped
 GameObject:

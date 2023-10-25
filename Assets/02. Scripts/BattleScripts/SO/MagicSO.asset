@@ -15,13 +15,13 @@ MonoBehaviour:
   items:
   - id: 1
     name: "\uAD6C\uB974\uAE30"
-    skillEffect: {fileID: 7863013143834285344, guid: 397b6f9fef8fae74e93495868f691f9b, type: 3}
+    skillEffect: {fileID: 4105982107856548525, guid: 884fbe287d67c9a4bbb0939eaf7243d2, type: 3}
     hitEffect: {fileID: 0}
     cardImage: {fileID: 796836433, guid: 1521aeac145e2f641bf47e215a62edb4, type: 3}
   - id: 2
     name: "\uBC15\uCE58\uAE30"
     skillEffect: {fileID: 4978609732441752155, guid: a852d56ffae31ae458e556f1ce674b9b, type: 3}
-    hitEffect: {fileID: 0}
+    hitEffect: {fileID: 4978609732441752155, guid: a852d56ffae31ae458e556f1ce674b9b, type: 3}
     cardImage: {fileID: -329256160, guid: 1521aeac145e2f641bf47e215a62edb4, type: 3}
   - id: 3
     name: "\uC7AC\uC0DD"
@@ -30,16 +30,16 @@ MonoBehaviour:
     cardImage: {fileID: 146565600, guid: 1521aeac145e2f641bf47e215a62edb4, type: 3}
   - id: 4
     name: "\uBC84\uD2F0\uAE30"
-    skillEffect: {fileID: 6848092154663536722, guid: 6d39b720ba38cdd48bd94d0997bd8251, type: 3}
+    skillEffect: {fileID: 6848092154663536722, guid: d1feb00cab3d3cf4abcb12b554fc4c36, type: 3}
     hitEffect: {fileID: 0}
     cardImage: {fileID: -486508178, guid: 1521aeac145e2f641bf47e215a62edb4, type: 3}
   - id: 5
     name: "\uBB3C\uAC70\uD488"
-    skillEffect: {fileID: 2933573270124050180, guid: 205374d266029284c81e42d1b30722a9, type: 3}
-    hitEffect: {fileID: 2679634400124456926, guid: 25fbaa4ce7633b743a72df940d52d468, type: 3}
+    skillEffect: {fileID: 4978609732441752155, guid: c42a8f8f1715bda40b9cbbe4b5107942, type: 3}
+    hitEffect: {fileID: 9038626652008676446, guid: 732fe56a76fb7ec488e6e7f8a8dc2aa8, type: 3}
     cardImage: {fileID: -14134896, guid: d157d8db81102c642bc4e99af50a18ca, type: 3}
   - id: 6
     name: "\uBD88\uD2F0"
-    skillEffect: {fileID: 2933573270124050180, guid: 205374d266029284c81e42d1b30722a9, type: 3}
-    hitEffect: {fileID: 1110024571314101498, guid: 0710fbb107fe0174baf02bde27d94dc2, type: 3}
+    skillEffect: {fileID: 4978609732441752155, guid: 80db829f34e59be46951fb9b4c3e9bdf, type: 3}
+    hitEffect: {fileID: 8320639579381975968, guid: 419cb629186b0894698bef429a214d97, type: 3}
     cardImage: {fileID: -1566745823, guid: d157d8db81102c642bc4e99af50a18ca, type: 3}
