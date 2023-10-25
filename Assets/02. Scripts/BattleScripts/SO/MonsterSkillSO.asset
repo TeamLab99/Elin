@@ -15,7 +15,7 @@ MonoBehaviour:
   items:
   - id: 1
     name: "\uC0AC\uB098\uC6B4 \uBCC4 \uB2E4\uB78C\uC950"
-    normalAttackEffect: {fileID: 308446645427938502, guid: 38a291e1fe306f34797dabaf73bcd12a, type: 3}
+    normalAttackEffect: {fileID: 8121715996750255825, guid: 8ecc84b3b48092d4182da94795f87b20, type: 3}
     skillEffect:
     - {fileID: 1276520960654167790, guid: 0a06df940f0e62d42beeae3f9fd50173, type: 3}
   - id: 2
@@ -30,9 +30,9 @@ MonoBehaviour:
     - {fileID: 3411786772655240060, guid: cd5a76304be673d4a8ae3301fe45c7e0, type: 3}
   - id: 4
     name: NightMare_Fear
-    normalAttackEffect: {fileID: 7300263802790129627, guid: d4fbf7d7c18994a478a2bd4e031482f3, type: 3}
+    normalAttackEffect: {fileID: 1276520960654167790, guid: 5e4257b65a6a4274a9d19d59d52d8cac, type: 3}
     skillEffect:
-    - {fileID: 7300263802790129627, guid: d4fbf7d7c18994a478a2bd4e031482f3, type: 3}
+    - {fileID: 1276520960654167790, guid: 5e4257b65a6a4274a9d19d59d52d8cac, type: 3}
   - id: 5
     name: NightMare_Valley
     normalAttackEffect: {fileID: 5440521268376290842, guid: fa4d7183e0915314d96fcdc6cd80d085, type: 3}

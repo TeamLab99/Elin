@@ -124,9 +124,14 @@ public class BattleGameManager : Singleton<BattleGameManager>
 
     public IEnumerator isDeadMotionEnd()
     {
-        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
+        yield return new WaitForSeconds(1f);
         monster.GetComponent<Squirrel>().Revolution();
-        DialogueManager.instance.StartDialogue("Erica"); //대화 불러오기 Erica8 불러옴
+
+        GenerateNightmare();
+        yield return new WaitForSeconds(1.5f);
+        DialogueManager.instance.BattleDialogue();
+
+        //DialogueManager.instance.StartDialogue("Erica"); //대화 불러오기 Erica8 불러옴
     }
 
     public void GenerateNightmare()
