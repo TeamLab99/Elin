@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3797013918936726394}
-  - component: {fileID: -2932802299809098613}
   m_Layer: 0
   m_Name: Shot_Boss
   m_TagString: Untagged
@@ -24,9 +23,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3797013918936726395}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.038877457, y: 0.4121165, z: 1.3085504}
-  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_LocalScale: {x: 14.81, y: 14.81, z: 14.81}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3797013919890059559}
@@ -35,20 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-2932802299809098613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3797013918936726395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8f80c8d2eba3364ea163ee1e31ad8b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillEffect: {fileID: 0}
-  skilIcon: {fileID: 552273035, guid: a251c4ad49f460e4a86498bcdedc0b56, type: 3}
 --- !u!1 &3797013919890059552
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,8 +61,8 @@ Transform:
   m_GameObject: {fileID: 3797013919890059552}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 4.9000006, y: 4.9000006, z: 4.9000006}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3797013918936726394}
   m_RootOrder: 0
@@ -4973,8 +4958,8 @@ Transform:
   m_GameObject: {fileID: 3972374169325200716}
   m_LocalRotation: {x: 0, y: 0.8791085, z: 0, w: 0.47662187}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.4579227, y: 2.4579227, z: 2.4579227}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 12.28, y: 12.28, z: 12.28}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3797013918936726394}
   m_RootOrder: 1
@@ -9861,8 +9846,8 @@ Transform:
   m_GameObject: {fileID: 4104034298391894329}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 4.9000006, y: 4.9000006, z: 4.9000006}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3797013918936726394}
   m_RootOrder: 2

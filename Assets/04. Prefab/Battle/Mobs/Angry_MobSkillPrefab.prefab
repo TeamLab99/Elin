@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1276520960654167789
 Transform:
   m_ObjectHideFlags: 0
@@ -57,6 +57,10 @@ PrefabInstance:
     - target: {fileID: 6889992309289559752, guid: a9e10519c177afa48926a176b052e57e, type: 3}
       propertyPath: m_Name
       value: Fixed_Buff_Angrysqqurriel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6889992309289559752, guid: a9e10519c177afa48926a176b052e57e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6889992309289559755, guid: a9e10519c177afa48926a176b052e57e, type: 3}
       propertyPath: m_RootOrder

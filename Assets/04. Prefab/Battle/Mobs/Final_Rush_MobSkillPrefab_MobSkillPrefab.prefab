@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2229456224067842054}
   - component: {fileID: 4767512836679759488}
   m_Layer: 0
-  m_Name: Rush_MobSkillPrefab
+  m_Name: Final_Rush_MobSkillPrefab_MobSkillPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,18 +59,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3797013918936726394, guid: 932ef05c60297624bb856cc8cb36ff4d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 15.000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797013918936726394, guid: 932ef05c60297624bb856cc8cb36ff4d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 15.000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797013918936726394, guid: 932ef05c60297624bb856cc8cb36ff4d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 15.000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797013918936726394, guid: 932ef05c60297624bb856cc8cb36ff4d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.038877457
       objectReference: {fileID: 0}
@@ -114,8 +102,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shot_Boss
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -2932802299809098613, guid: 932ef05c60297624bb856cc8cb36ff4d, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 932ef05c60297624bb856cc8cb36ff4d, type: 3}
 --- !u!1 &1052746068024745298 stripped
 GameObject:
