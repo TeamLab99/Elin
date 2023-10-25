@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2457501168009167198}
   - component: {fileID: 6265922864881708974}
   m_Layer: 0
-  m_Name: Final_HIT_Bossskill 1
+  m_Name: Final_HIT_Bossskill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
