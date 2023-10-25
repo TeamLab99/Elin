@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4105982107856548523}
   - component: {fileID: 4105982107856548522}
   m_Layer: 0
-  m_Name: Rolling_SkillPrefab
+  m_Name: Final_Rolling_SkillPrefab
   m_TagString: Skill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
