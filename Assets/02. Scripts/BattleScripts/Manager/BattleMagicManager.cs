@@ -49,6 +49,21 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
             case "불티":
                 StartCoroutine(Spark(card));
                 break;
+            case "물초":
+                StartCoroutine(WaterWeed(card));
+                break;
+            case "물대포":
+                StartCoroutine(WaterStream(card));
+                break;
+            case "여우비":
+                FoxRain(card);
+                break;
+            case "낫족제비":
+                StartCoroutine(Wind(card));
+                break;
+            case "울림":
+                StartCoroutine(EarthQuake(card));
+                break;
             default:
                 Debug.Log("존재하지 않는 마법입니다.");
                 break;
@@ -162,12 +177,12 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
         var skillEffect = magic.items[card.index - 1].skillEffect;
 
         var startEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
-        startEfc.transform.position = player.gameObject.transform.position + Vector3.up*0.5f;
+        startEfc.transform.position = player.gameObject.transform.position;
         
         skillEffect = magic.items[card.index - 1].hitEffect;
         
         var hitEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("PlayerEffects"));
-        hitEfc.transform.position = monster.gameObject.transform.position + Vector3.up*0.5f;
+        hitEfc.transform.position = monster.gameObject.transform.position;
         
         BattleGameManager.instance.ChangeAnim(EMonsterState.Hit);
 
@@ -175,6 +190,90 @@ public class BattleMagicManager : Singleton<BattleMagicManager>
         Managers.Pool.Push(startEfc);
         BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
     }
+    
+    public IEnumerator WaterStream(DeckCard card)
+    {
+        var skillEffect = magic.items[card.index - 1].skillEffect;
+
+        var startEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+        startEfc.transform.position = player.gameObject.transform.position;
+        
+        skillEffect = magic.items[card.index - 1].hitEffect;
+        
+        var hitEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("PlayerEffects"));
+        hitEfc.transform.position = monster.gameObject.transform.position;
+        
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Hit);
+
+        yield return delay05;
+        Managers.Pool.Push(startEfc);
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
+    }
+    
+    public IEnumerator Wind(DeckCard card)
+    {
+        var skillEffect = magic.items[card.index - 1].skillEffect;
+
+        var startEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+        startEfc.transform.position = player.gameObject.transform.position;
+        
+        skillEffect = magic.items[card.index - 1].hitEffect;
+        
+        var hitEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("PlayerEffects"));
+        hitEfc.transform.position = monster.gameObject.transform.position;
+        ;
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Hit);
+
+        yield return delay05;
+        Managers.Pool.Push(startEfc);
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
+    }
+    
+    public IEnumerator EarthQuake(DeckCard card)
+    {
+        var skillEffect = magic.items[card.index - 1].skillEffect;
+
+        var startEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+        startEfc.transform.position = player.gameObject.transform.position;
+        
+        skillEffect = magic.items[card.index - 1].hitEffect;
+        
+        var hitEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("PlayerEffects"));
+        hitEfc.transform.position = monster.gameObject.transform.position;
+        
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Hit);
+
+        yield return delay05;
+        Managers.Pool.Push(startEfc);
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
+    }
+    
+    public IEnumerator WaterWeed(DeckCard card)
+    {
+        var skillEffect = magic.items[card.index - 1].skillEffect;
+
+        var startEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
+        startEfc.transform.position = monster.gameObject.transform.position;
+        
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Hit);
+
+        yield return delay05;
+        Managers.Pool.Push(startEfc);
+        BattleGameManager.instance.ChangeAnim(EMonsterState.Idle);
+    }
+    
+    public void FoxRain(DeckCard card)
+    {
+        // if (!GetRandom(card.buffProbability))
+        //     return;
+
+        var skillEffect = magic.items[card.index - 1].skillEffect;
+
+        var effect = Managers.Pool.Pop(skillEffect, player.transform.Find("PlayerEffects"));
+        effect.transform.position = player.gameObject.transform.position;
+        
+    }
+    
 
     public bool GetRandom(float probability)
     {
