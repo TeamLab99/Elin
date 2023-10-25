@@ -42,7 +42,7 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
 
     public void ApplicationStat()
     {
-        hpUI.UpdateHPFigure();
+        UpdateHp();
         statUI.UpdateStatFigure();
     }
 
@@ -53,7 +53,7 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
         playerStatData.maxCost += _maxCost;
         playerStatData.costRecoverySpeed += _recoverySpeed;
         statUI.UpdateStatFigure();
-        hpUI.UpdateHPFigure();
+        UpdateHp();
     }
 
     public void HealPlayer(int _heal)
@@ -62,7 +62,7 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
             playerStatData.currentHP = playerStatData.maxHP;
         else
             playerStatData.currentHP += _heal;
-        hpUI.UpdateHPFigure();
+        UpdateHp();
     }
 
     public void DamagePlayer(int _damage)
@@ -82,7 +82,7 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
                 playerStatData.currentHP -= _damage;
                 playerController.Hit();
             }
-            hpUI.UpdateHPFigure();
+            UpdateHp();
         }
     }
 
@@ -100,8 +100,13 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
         else
             playerStatData.currentHP = playerStatData.maxHP / 2;
         playerController.Respawn(_respawnPosition);
-        hpUI.UpdateHPFigure();
+        UpdateHp();
     }
 
-
+    public void UpdateHp()
+    {
+        if (hpUI == null)
+            return;
+        hpUI.UpdateHPFigure();
+    }
 }
