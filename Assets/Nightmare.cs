@@ -205,17 +205,19 @@ public class Nightmare : BattleMonster
         MobSkillManager.instance.SetMonster(this);
         battleBuffDebuff = gameObject.AddComponent<BattleBuffManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<BattlePlayer>();
+        EntitiesStateChange(true);
+        BattleCardManager.instance.DontUseCard(true);
     }
 
     public void FadeIn()
     {
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(GetComponent<SpriteRenderer>().DOFade(1, 1f))
+        sequence.Append(GetComponent<SpriteRenderer>().DOFade(1, 1.5f))
             .OnComplete(() =>
             {
                 StartCoroutine(GetGaugeUI("HpBar"));
                 hp = maxHp;
-                EntitiesStateChange(false);
+                gauge.fillAmount = 1f;
             });
     }
 

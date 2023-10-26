@@ -97,7 +97,7 @@ public class MobSkillManager : Singleton<MobSkillManager>
             ((Fear)skill).TextUpdate();
 
             var effect = Managers.Pool.Pop(skillEffect, monster.transform.Find("MobEffects"));
-            effect.transform.position = player.gameObject.transform.position;
+            effect.transform.position = player.gameObject.transform.position + Vector3.up * 2f;
         }
         else
         {

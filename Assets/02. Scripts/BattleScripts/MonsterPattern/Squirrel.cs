@@ -89,7 +89,7 @@ public class Squirrel : BattleMonster
         EntitiesStateChange(true);
         TimerControl(true);
         iconAnimation.TimerControl(true);
-        StopAllCoroutines();
+        //StopAllCoroutines();
         FadeOut();
     }
 
@@ -97,10 +97,10 @@ public class Squirrel : BattleMonster
     {
         Sequence sequence = DOTween.Sequence();
         sequence.Append(GetComponent<SpriteRenderer>().DOFade(0, 1f))
-        .AppendInterval(0.5f)
+        .AppendInterval(1f)
             .OnComplete(() =>
             {
-                BattleGameManager.instance.GenerateNightmare();
+                Destroy(this);
             });
     }
 }

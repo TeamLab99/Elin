@@ -9,8 +9,9 @@ public class DialogueManager : Singleton<DialogueManager>
 {
     public DialogueRunner runner;
     public Image[] characterImages;
-    public Dictionary<string,Sprite> spritesDic = new Dictionary<string, Sprite>();
+    public Dictionary<string, Sprite> spritesDic = new Dictionary<string, Sprite>();
     public Dictionary<string, int> dialogueIdx = new Dictionary<string, int>();
+
     private void Awake()
     {
         if (runner == null)
@@ -34,8 +35,12 @@ public class DialogueManager : Singleton<DialogueManager>
 
     public void InitFunction()
     {
-        runner.onDialogueComplete.AddListener(() => { Managers.Input.PlayerMoveControl(true); 
-            OffCharacterImage(); PlatformManager.Instance.OnOffUI();}); // 대화 종료시
+        runner.onDialogueComplete.AddListener(() =>
+        {
+            Managers.Input.PlayerMoveControl(true);
+            OffCharacterImage();
+            PlatformManager.Instance.OnOffUI();
+        }); // 대화 종료시
         runner.AddCommandHandler<string, string>("Act", SetActor); // 이미지 추가
         runner.AddCommandHandler<string>("Next", NextDialogue); // 다음 대화로 변경
         runner.AddCommandHandler("Event", SetEvent); // 이벤트 발생
@@ -43,6 +48,7 @@ public class DialogueManager : Singleton<DialogueManager>
         runner.AddCommandHandler("EricaTf", EricaSpawn);
         runner.AddCommandHandler("ResumeBattle", ResumeBattle);
         runner.AddCommandHandler("PauseBattle", PauseBattle);
+        runner.AddCommandHandler("GenerateNightmare", GenerateNightmare);
     }
 
     public void OffCharacterImage()
@@ -105,13 +111,13 @@ public class DialogueManager : Singleton<DialogueManager>
             dialogueIdx[questNpcName] += 1;
     }
 
-    
 
     public void OffDialogueImage()
     {
         characterImages[0].gameObject.SetActive(false);
         characterImages[1].gameObject.SetActive(false);
     }
+
     public void EarnAum(int aum = 1000)
     {
         ItemManager.instance.EarnAum(aum);
@@ -120,7 +126,7 @@ public class DialogueManager : Singleton<DialogueManager>
     public void EricaSpawn()
     {
         PlatformEventManager.instance.EricaSpawn();
-    } 
+    }
 
     public void PauseBattle()
     {
@@ -132,5 +138,17 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         BattleCardManager.EffectPlayBack.Invoke(false);
         BattleCardManager.instance.DontUseCard(false);
+    }
+
+    public void GenerateNightmare()
+    {
+        BattleGameManager.instance.GenerateNightmare();
+    }
+
+    public void BattleDialogue()
+    {
+        PlatformManager.Instance.OnOffUI();
+        runner.StartDialogue("Erica10");
+        Managers.Input.PlayerMoveControl(false);
     }
 }

@@ -20,7 +20,7 @@ public class BattleMonster : BattleEntity
     protected int count;
     bool stopGauge;
 
-    Image gauge;
+    protected Image gauge;
     protected BattleGaugeIconAnimation iconAnimation;
 
     protected WaitForSeconds delay = new WaitForSeconds(0.5f);

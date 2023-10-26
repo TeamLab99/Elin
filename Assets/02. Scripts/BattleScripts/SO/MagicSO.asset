@@ -17,29 +17,66 @@ MonoBehaviour:
     name: "\uAD6C\uB974\uAE30"
     skillEffect: {fileID: 4105982107856548525, guid: 884fbe287d67c9a4bbb0939eaf7243d2, type: 3}
     hitEffect: {fileID: 0}
+    buffEffect: {fileID: 0}
     cardImage: {fileID: 796836433, guid: 1521aeac145e2f641bf47e215a62edb4, type: 3}
   - id: 2
     name: "\uBC15\uCE58\uAE30"
     skillEffect: {fileID: 4978609732441752155, guid: a852d56ffae31ae458e556f1ce674b9b, type: 3}
-    hitEffect: {fileID: 0}
+    hitEffect: {fileID: 4978609732441752155, guid: a852d56ffae31ae458e556f1ce674b9b, type: 3}
+    buffEffect: {fileID: 0}
     cardImage: {fileID: -329256160, guid: 1521aeac145e2f641bf47e215a62edb4, type: 3}
   - id: 3
     name: "\uC7AC\uC0DD"
     skillEffect: {fileID: 6040202953078129332, guid: 33bb6cd2466280f468cf10c10c83f140, type: 3}
     hitEffect: {fileID: 0}
+    buffEffect: {fileID: 0}
     cardImage: {fileID: 146565600, guid: 1521aeac145e2f641bf47e215a62edb4, type: 3}
   - id: 4
     name: "\uBC84\uD2F0\uAE30"
     skillEffect: {fileID: 6848092154663536722, guid: d1feb00cab3d3cf4abcb12b554fc4c36, type: 3}
     hitEffect: {fileID: 0}
+    buffEffect: {fileID: 0}
     cardImage: {fileID: -486508178, guid: 1521aeac145e2f641bf47e215a62edb4, type: 3}
   - id: 5
     name: "\uBB3C\uAC70\uD488"
-    skillEffect: {fileID: 2162230970508282722, guid: 0be7637ca7b66b34dafb1ea876e05f92, type: 3}
-    hitEffect: {fileID: 5820767255430281754, guid: 4a7be9a3f6c7f63439ba56eef46d4832, type: 3}
+    skillEffect: {fileID: 4978609732441752155, guid: c42a8f8f1715bda40b9cbbe4b5107942, type: 3}
+    hitEffect: {fileID: 9038626652008676446, guid: 732fe56a76fb7ec488e6e7f8a8dc2aa8, type: 3}
+    buffEffect: {fileID: 8683899181595416263, guid: 3f3ff67dba0b93b4c91de52c9cb3a114, type: 3}
+
     cardImage: {fileID: -14134896, guid: d157d8db81102c642bc4e99af50a18ca, type: 3}
   - id: 6
     name: "\uBD88\uD2F0"
-    skillEffect: {fileID: 2933573270124050180, guid: 205374d266029284c81e42d1b30722a9, type: 3}
-    hitEffect: {fileID: 1110024571314101498, guid: 0710fbb107fe0174baf02bde27d94dc2, type: 3}
+    skillEffect: {fileID: 4978609732441752155, guid: 80db829f34e59be46951fb9b4c3e9bdf, type: 3}
+    hitEffect: {fileID: 8320639579381975968, guid: 419cb629186b0894698bef429a214d97, type: 3}
+    buffEffect: {fileID: 8683899181595416263, guid: 3f3ff67dba0b93b4c91de52c9cb3a114, type: 3}
     cardImage: {fileID: -1566745823, guid: d157d8db81102c642bc4e99af50a18ca, type: 3}
+  - id: 7
+    name: "\uBB3C\uCD08"
+    skillEffect: {fileID: 8700113233295357013, guid: 37580cd1470370748a2ea66866b74b95, type: 3}
+    hitEffect: {fileID: 0}
+    buffEffect: {fileID: 8683899181595416263, guid: 3f3ff67dba0b93b4c91de52c9cb3a114, type: 3}
+    cardImage: {fileID: -1404643164, guid: f2db3cf3cb928324da6f3cc86b908d10, type: 3}
+  - id: 8
+    name: "\uBB3C\uB300\uD3EC"
+    skillEffect: {fileID: 2162230970508282722, guid: 0be7637ca7b66b34dafb1ea876e05f92, type: 3}
+    hitEffect: {fileID: 5820767255430281754, guid: 4a7be9a3f6c7f63439ba56eef46d4832, type: 3}
+    buffEffect: {fileID: 0}
+    cardImage: {fileID: 325626156, guid: 42416be4286b86c428a187b7446dfb99, type: 3}
+  - id: 9
+    name: "\uC5EC\uC6B0\uBE44"
+    skillEffect: {fileID: 6531912757647282249, guid: c2263a79cee6716488e44a8de959f13b, type: 3}
+    hitEffect: {fileID: 0}
+    buffEffect: {fileID: 8683899181595416263, guid: 3f3ff67dba0b93b4c91de52c9cb3a114, type: 3}
+    cardImage: {fileID: -734090929, guid: f2db3cf3cb928324da6f3cc86b908d10, type: 3}
+  - id: 10
+    name: "\uB0AB\uC871\uC81C\uBE44"
+    skillEffect: {fileID: 6156124692487734080, guid: 1ea459447f6da4c468fd9c57d319ece3, type: 3}
+    hitEffect: {fileID: 752577645872419617, guid: 8e089382cfa3c4045906d69cac1ca157, type: 3}
+    buffEffect: {fileID: 0}
+    cardImage: {fileID: 515259874, guid: d157d8db81102c642bc4e99af50a18ca, type: 3}
+  - id: 11
+    name: "\uC6B8\uB9BC"
+    skillEffect: {fileID: 2933573270124050180, guid: 205374d266029284c81e42d1b30722a9, type: 3}
+    hitEffect: {fileID: 2679634400124456926, guid: 25fbaa4ce7633b743a72df940d52d468, type: 3}
+    buffEffect: {fileID: 0}
+    cardImage: {fileID: -147008436, guid: d157d8db81102c642bc4e99af50a18ca, type: 3}
