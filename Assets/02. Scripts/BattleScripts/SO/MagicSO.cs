@@ -13,6 +13,7 @@ public class MagicResources
     public string name;
     public GameObject skillEffect;
     public GameObject hitEffect;
+    public GameObject buffEffect;
     public Sprite cardImage;
 }
 

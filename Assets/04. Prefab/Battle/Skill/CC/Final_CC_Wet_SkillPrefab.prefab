@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4310188100847091879}
+  - component: {fileID: 3755240259792225503}
   m_Layer: 0
   m_Name: Final_CC_Wet_SkillPrefab
   m_TagString: Untagged
@@ -32,6 +33,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3755240259792225503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8683899181595416263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537105bbed6b025438806d751f474352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillEffect: {fileID: 8630756958773053088}
+  skilIcon: {fileID: -1623863789, guid: f2db3cf3cb928324da6f3cc86b908d10, type: 3}
 --- !u!1001 &8576225442145022963
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92,5 +107,10 @@ PrefabInstance:
 --- !u!4 &6803572580175462929 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2985880708239258082, guid: b3678d8e3f8c5c4438d28dfbf363da58, type: 3}
+  m_PrefabInstance: {fileID: 8576225442145022963}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8630756958773053088 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 54681050766292307, guid: b3678d8e3f8c5c4438d28dfbf363da58, type: 3}
   m_PrefabInstance: {fileID: 8576225442145022963}
   m_PrefabAsset: {fileID: 0}

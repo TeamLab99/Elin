@@ -82,7 +82,7 @@
       "element": "Water",
       "type": "AD",
       "cost": 1,
-      "percent": 20,
+      "percent": 80,
       "attackCode": "ATK_BUBBLE",
       "buffCode": null,
       "debuffCode": "DBF_BUBBLE",
@@ -90,7 +90,7 @@
       "attackPercent": "70",
       "buffProbability": null,
       "buffMaintainTime": null,
-      "debuffProbability": "10",
+      "debuffProbability": "30",
       "debuffMaintainTime": "15",
       "amount": null,
       "descryption": "적에게 공격력의 70%만큼의 데미지를 주고 10%의 확률로 젖음 디버프를 건다."
