@@ -35,7 +35,7 @@ MonoBehaviour:
     - {fileID: 1276520960654167790, guid: 5e4257b65a6a4274a9d19d59d52d8cac, type: 3}
   - id: 5
     name: NightMare_Valley
-    normalAttackEffect: {fileID: 5440521268376290842, guid: fa4d7183e0915314d96fcdc6cd80d085, type: 3}
+    normalAttackEffect: {fileID: 7863013143834285344, guid: 0dcf1cf71a83f8c4d84500b23996376b, type: 3}
     skillEffect:
     - {fileID: 1520657897141709283, guid: 3d7e6493d61f79447aa22f3cbc10647e, type: 3}
   - id: 6
