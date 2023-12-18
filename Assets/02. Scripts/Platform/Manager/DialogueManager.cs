@@ -48,7 +48,7 @@ public class DialogueManager : Singleton<DialogueManager>
         runner.AddCommandHandler("EricaTf", EricaSpawn);
         runner.AddCommandHandler("ResumeBattle", ResumeBattle);
         runner.AddCommandHandler("PauseBattle", PauseBattle);
-        runner.AddCommandHandler("GenerateNightmare", GenerateNightmare);
+        runner.AddCommandHandler("StartNightmareBattle", StartNightmareBattle);
     }
 
     public void OffCharacterImage()
@@ -128,16 +128,23 @@ public class DialogueManager : Singleton<DialogueManager>
         PlatformEventManager.instance.EricaSpawn();
     }
 
+    public void StartNightmareBattle()
+    {
+        BattleManager.instance.StartNightmareBattle();
+    }
+
     public void PauseBattle()
     {
         CardManager.EffectPlayBack.Invoke(true);
         CardManager.instance.DontUseCard(true);
+        Time.timeScale=0;
     }
 
     public void ResumeBattle()
     {
         CardManager.EffectPlayBack.Invoke(false);
         CardManager.instance.DontUseCard(false);
+        Time.timeScale=1;
     }
 
     public void GenerateNightmare()
