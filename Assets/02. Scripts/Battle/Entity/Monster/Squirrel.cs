@@ -8,6 +8,7 @@ using DG.Tweening;
 public class Squirrel : Monster
 {
     int skillOverlap = 0;
+    bool isDead;
 
     protected override IEnumerator MonsterPattern(int skillCount)
     {
@@ -41,7 +42,6 @@ public class Squirrel : Monster
     {
         ChangeAnim(EMonsterState.Attack);
         EntitiesStateChange(true);
-        //gameObject.transform.DOScale(Vector3.one, 0.5f).SetRelative().SetEase(Ease.Flash, 2, 0);
 
         yield return StartCoroutine(MobSkillManager.instance.CallNormalAttackEffect(1));
         Attack(player);
@@ -70,13 +70,17 @@ public class Squirrel : Monster
     }
 
     public override void TakeDamage(float value)
-    {
+    {  
+        if(isDead == true)
+            return;
+
         if (hp - value > 0)
         {
             hp -= value;
         }
         else
         {
+            isDead = true;
             hp = 0;
             ChangeAnim(EMonsterState.Death);
             StartCoroutine(Dead());

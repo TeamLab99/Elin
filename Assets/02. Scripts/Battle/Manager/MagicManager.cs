@@ -201,12 +201,12 @@ public class MagicManager : Singleton<MagicManager>
             if((skill as Wet).GetCount() == true)
             {
                 // 익수
+                playerBuffList.Remove(skill);
+                skill.Delete();
+
                 buff = magic.items[6].buffEffect;
                 var effect = Managers.Pool.Pop(buff, monster.transform.Find("MobEffects"));
                 effect.transform.position = monster.gameObject.transform.position;
-
-                playerBuffList.Remove(skill);
-                skill.Delete();
                 
                 var drown = effect.GetComponent<BuffDebuffMagic>();
                 playerBuffList.Add(drown);
