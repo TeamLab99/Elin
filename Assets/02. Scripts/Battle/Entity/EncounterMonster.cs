@@ -10,7 +10,7 @@ public class EncounterMonster : MonoBehaviour
     {
         if (!isFirstMeet && collision.tag == "Player")
         {
-            DialogueManager.instance.NextDialogue("Erica"); // Erica7-8이동
+            //DialogueManager.instance.NextDialogue("Erica"); // Erica7-8이동
 
             if (isNightMare)
             {

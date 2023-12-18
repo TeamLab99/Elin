@@ -33,18 +33,23 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
                 break;
             case 2:
                 movePlatform.GetComponent<MovePlatform>().movePlatform = true;
+                Debug.Log(idx);
                 break;
             case 3:
                 SeeAppleEvent();
+                Debug.Log(idx);
                 break;
             case 4:
                 FallEvent();
+                Debug.Log(idx);
                 break;
             case 5:
-                NextEricaDialogue();
+                //NextEricaDialogue();
+                Debug.Log(idx);
                 enhanceUI.SetActive(true);
                 break;
             case 6:
+                Debug.Log(idx);
                 enhanceUI.SetActive(false);
                 NextEricaDialogue();
                 break;

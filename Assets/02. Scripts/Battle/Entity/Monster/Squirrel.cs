@@ -122,7 +122,9 @@ public class Squirrel : Monster
         
         yield return new WaitForSeconds(3f);
         BattleManager.instance.ResetCamera();
-        
+        //DialogueManager.instance.SetEvent();
+        DialogueManager.instance.NextDialogue("Erica");
         DialogueManager.instance.StartDialogue("Erica"); //대화 불러오기 Erica8 불러옴
+        Debug.Log("111");   
     }
 }

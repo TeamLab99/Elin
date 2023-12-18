@@ -10,7 +10,7 @@ public class Apple : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Invoke("DisappearApple", 1f);
-            PlatformEventManager.instance.FallEvent();
+            PlatformEventManager.instance.SetEvent();
         }
     }
 
