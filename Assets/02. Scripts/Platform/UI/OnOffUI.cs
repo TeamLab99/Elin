@@ -73,4 +73,8 @@ public class OnOffUI : Singleton<OnOffUI>
         exitActivate = !exitActivate;
         exitObject.SetActive(exitActivate);
     }
+
+    public void GameEnding(){
+        endingObject.SetActive(true);
+    }
 }
