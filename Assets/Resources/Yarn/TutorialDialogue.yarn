@@ -127,10 +127,9 @@ title: Erica10
 tags:
 ---
 <<Act Erica H>>
-<<PauseBattle>>
 에리카 : 이토록 끔찍한 기운이라니...!
 에리카 : 조심해서 싸우도록 해요!
-<<ResumeBattle>>
+<<StartNightmareBattle>>
 ===
 
 title: Erica11

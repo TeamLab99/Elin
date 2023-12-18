@@ -38,6 +38,8 @@ public class Nightmare : Monster
         Init();
         ConnectInspector();
         StartCoroutine(SetState());
+
+        //DialogueManager.instance.NextEricaDialouge("Erica");
     }
 
     protected override IEnumerator MonsterPattern(int skillCount)
@@ -234,6 +236,10 @@ public class Nightmare : Monster
     {
         yield return new WaitForSeconds(2f);
         gauge.fillAmount = 1f;
+    }
+
+    public void BattleStart()
+    {
         StartCoroutine(GaugeTimer());
         EntitiesStateChange(false);
     }
