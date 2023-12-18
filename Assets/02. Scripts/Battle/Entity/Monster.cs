@@ -176,7 +176,7 @@ public class Monster : Entity
     {
         debuffMainTainTime = time;
         maxTime += (maxTime * value);
-        
+        curTime= maxTime;
         while (debuffMainTainTime > 0)
         {
             yield return new WaitForSeconds(1f);
@@ -204,7 +204,7 @@ public class Monster : Entity
         }
     }
 
-    public IEnumerator DrowingDamage(float time)
+    public IEnumerator DrowningDamage(float time)
     {
         lastingDamageMainTainTime = time;
         var damage = maxHp * 0.005f;
@@ -229,11 +229,11 @@ public class Monster : Entity
             StopCoroutine(drowning);
             lastingDamageMainTainTime = 0;
             
-            drowning = StartCoroutine(DrowingDamage(time));
+            drowning = StartCoroutine(DrowningDamage(time));
         }
         else
         {
-            drowning = StartCoroutine(DrowingDamage(time));
+            drowning = StartCoroutine(DrowningDamage(time));
         }
     }
     
