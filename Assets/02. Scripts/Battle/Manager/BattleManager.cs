@@ -155,4 +155,9 @@ public class BattleManager : Singleton<BattleManager>
     {
         mainCamera.GetComponent<CamerEffect>().ChangeFollowCameraMode();
     }
+
+    public void StartNightmareBattle()
+    {
+        monster.GetComponent<Nightmare>().StartBattle();
+    }
 }
