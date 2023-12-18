@@ -74,7 +74,8 @@ public class PlayerStatManager : Singleton<PlayerStatManager>
             {
                 playerStatData.currentHP = 0;
                 playerController.Dead();
-                PlayerRespawnManager.instance.ShowGameOverUI();
+                if(!PlatformEventManager.instance.isEnding)
+                    PlayerRespawnManager.instance.ShowGameOverUI();
                 playerDead = true;
             }
             else

@@ -13,6 +13,7 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
     PlayerController playerController;
     int idx = -1;
     int ericaTf = 0;
+    public bool isEnding = false;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -30,28 +31,33 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
                 break;
             case 1:
                 DialogueManager.instance.StartDialogue("plusText");
+                DialogueManager.instance.NextDialogue("plusText");
                 break;
             case 2:
                 movePlatform.GetComponent<MovePlatform>().movePlatform = true;
-                Debug.Log(idx);
                 break;
             case 3:
                 SeeAppleEvent();
-                Debug.Log(idx);
                 break;
             case 4:
                 FallEvent();
-                Debug.Log(idx);
                 break;
             case 5:
                 //NextEricaDialogue();
-                Debug.Log(idx);
                 enhanceUI.SetActive(true);
                 break;
             case 6:
-                Debug.Log(idx);
                 enhanceUI.SetActive(false);
                 NextEricaDialogue();
+                PlatformEventManager.instance.isEnding = true;
+                break;
+            case 7:
+                //페이드 기능 삽입
+                DialogueManager.instance.StartDialogue("plusText");
+                break;
+            case 8:
+                OnOffUI.instance.GameEnding();
+                
                 break;
         }
     }
