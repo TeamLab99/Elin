@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,13 +26,18 @@ public class PlayerController : MonoBehaviour
     private bool playerDead = false;
     public bool canControll { get; set; } = true;
 
-    private void Awake()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        Managers.Input.PlayerMoveAction -= ControlPlayer;
+        
         Managers.Input.PlayerMoveAction += ControlPlayer;
+    }
+
+    private void OnDestroy()
+    {
+        Managers.Input.PlayerMoveAction -= ControlPlayer;
     }
 
     private void Update()
@@ -100,6 +106,11 @@ public class PlayerController : MonoBehaviour
             xInput = 0;
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
+    }
+    
+    public void SetCanControll(bool _canMove)
+    {
+        canControll = _canMove;
     }
 
     public void Hit()

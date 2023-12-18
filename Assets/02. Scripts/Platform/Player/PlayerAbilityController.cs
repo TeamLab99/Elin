@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,16 +26,20 @@ public class PlayerAbilityController : MonoBehaviour
     private EProjectileType element = EProjectileType.None;
     private ESeperateDirection seperateDirection = ESeperateDirection.None; 
 
-    private void Awake()
+    private void Start()
     {
         abilityUI = FindObjectOfType<AbilityUI>();
         anim = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
-        Managers.Input.PlayerMoveAction -= ControlPlayer;
-        Managers.Input.PlayerMoveAction += ControlPlayer;
+        Managers.Input.PlayerMoveAction += ControlPlayerAbility;
     }
 
-    public void ControlPlayer(bool _canControl)
+    private void OnDestroy()
+    {
+        Managers.Input.PlayerMoveAction -= ControlPlayerAbility;
+    }
+
+    public void ControlPlayerAbility(bool _canControl)
     {
         canControll = _canControl;
     }

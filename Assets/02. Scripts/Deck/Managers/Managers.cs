@@ -6,7 +6,12 @@ using UnityEngine;
 public class Managers : MonoBehaviour
 {
     static Managers s_instance;
-    static Managers Instance { get { Init(); return s_instance; } }
+    static Managers Instance { get {
+        //싱글톤이 없다면 생성해준다.
+        if (s_instance == null)
+            Init();
+        return s_instance;
+    } }
     
     DataManager _data = new DataManager();
     InputManager _input = new InputManager();
@@ -23,10 +28,7 @@ public class Managers : MonoBehaviour
     public static SoundManager Sound { get { return Instance._sound; } }
     public static UIManager UI { get { return Instance._ui; } }
 
-    void Start()
-    {
-        Init();
-    }
+
 
     // 키보드 및 마우스 입력은 계속 검사를 해야하므로
     void Update()

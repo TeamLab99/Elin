@@ -97,3 +97,21 @@ public enum EUiAnimation
     Cost,
     Buff
 }
+
+public enum EMagicType
+{
+    RandomNormal,
+    RandomNightmare,
+    HeadButt,
+    Heal,
+    Rolling,
+    Defense,
+    Bubble,
+    WaterWeed,
+    WaterStream,
+    WaterCannon,
+    FoxRain,
+    Spark,
+    WindCutter,
+    EarthQuake
+}

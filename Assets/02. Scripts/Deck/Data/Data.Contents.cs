@@ -29,6 +29,7 @@ public class DeckCard
     public float debuffMaintainTime;
     public int amount;
     public string description;
+    public string engName;
 }
 
 [Serializable]
@@ -101,7 +102,7 @@ public class ItemData : ILoader<int, Items>
     public Dictionary<int, Items> MakeDict()
     {
         Dictionary<int, Items> dict = new Dictionary<int, Items>();
-        Debug.Log(itemList.Count);
+        //Debug.Log(itemList.Count);
         foreach (Items item in itemList)
         {
             string iconPath = "Data/Items/" + item.itemID.ToString(); // 아이콘 이미지의 전체 경로
@@ -109,7 +110,7 @@ public class ItemData : ILoader<int, Items>
             
             dict.Add(item.itemID, item);
         }
-        Debug.Log(dict.Count);
+        //Debug.Log(dict.Count);
         return dict;
     }
 }

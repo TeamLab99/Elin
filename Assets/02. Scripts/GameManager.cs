@@ -13,6 +13,7 @@ public class GameManager : Singleton<GameManager>
     public void LoadGameScene() 
     {
         SceneManager.LoadScene("MainGame");
+        SceneManager.LoadScene("UIScene", LoadSceneMode.Additive);
     }
 
     public void LoadStartScene() 

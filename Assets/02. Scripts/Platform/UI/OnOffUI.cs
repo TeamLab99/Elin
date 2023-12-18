@@ -14,14 +14,14 @@ public class OnOffUI : Singleton<OnOffUI>
     bool exitActivate = false;
     private void Start()
     {
-        BattleGameManager.PlatformUIControlForBattle += SetBool;
-        BattleGameManager.PlatformUIControlForDialouge += SetBool;
+        BattleManager.PlatformUIControlForBattle += SetBool;
+        BattleManager.PlatformUIControlForDialouge += SetBool;
     }
 
     private void OnDestroy()
     {
-        BattleGameManager.PlatformUIControlForBattle -= SetBool;
-        BattleGameManager.PlatformUIControlForDialouge -= SetBool;
+        BattleManager.PlatformUIControlForBattle -= SetBool;
+        BattleManager.PlatformUIControlForDialouge -= SetBool;
     }
 
     void Update()

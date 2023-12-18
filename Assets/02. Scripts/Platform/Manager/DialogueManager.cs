@@ -130,25 +130,25 @@ public class DialogueManager : Singleton<DialogueManager>
 
     public void PauseBattle()
     {
-        BattleCardManager.EffectPlayBack.Invoke(true);
-        BattleCardManager.instance.DontUseCard(true);
+        CardManager.EffectPlayBack.Invoke(true);
+        CardManager.instance.DontUseCard(true);
     }
 
     public void ResumeBattle()
     {
-        BattleCardManager.EffectPlayBack.Invoke(false);
-        BattleCardManager.instance.DontUseCard(false);
+        CardManager.EffectPlayBack.Invoke(false);
+        CardManager.instance.DontUseCard(false);
     }
 
     public void GenerateNightmare()
     {
-        BattleGameManager.instance.GenerateNightmare();
+        BattleManager.instance.GenerateNightmare();
     }
 
     public void BattleDialogue()
     {
         PlatformManager.Instance.OnOffUI();
-        runner.StartDialogue("Erica10");
+        runner.StartDialogue("Erica8");
         Managers.Input.PlayerMoveControl(false);
     }
 }

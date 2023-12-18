@@ -27,8 +27,8 @@ public class CamerEffect : Singleton<CamerEffect>
 
     private void Awake()
     {
-        offSet = target.position - transform.position;
         target = player;
+        offSet = target.position - transform.position;
     }
 
     void Update()
@@ -78,10 +78,16 @@ public class CamerEffect : Singleton<CamerEffect>
 
     public void ChangeFollowCameraMode()
     {
+        //offSet = target.position - transform.position;
         currentTime = 0f;
         target = player;
         onCamera = true;
         camerEffectType = CamerEffectType.FollowPlayer;
         Managers.Input.PlayerMoveControl(true);
+    }
+    
+    public void StopCamera()
+    {
+        camerEffectType = CamerEffectType.GameMode;
     }
 }

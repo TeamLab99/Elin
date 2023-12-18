@@ -428,7 +428,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 18b39ce7286fe1c459556c524ed2fe57, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -482,8 +482,8 @@ MonoBehaviour:
   - {fileID: 2045900006043075140}
   - {fileID: 2045900006970291874}
   m_Bounds:
-    m_Center: {x: 0.14786339, y: 2.0894387, z: 0}
-    m_Extent: {x: 3.5195422, y: 2.5153112, z: 0}
+    m_Center: {x: 0.14786768, y: 2.0894387, z: 0}
+    m_Extent: {x: 3.5195518, y: 2.515311, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -514,14 +514,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2045900005991835209}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5788a62a35626a4a87510e0b48c1342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 200
   attack: 1
-  battleBuffDebuff: {fileID: 0}
+  buffDebuff: {fileID: 0}
   attackSpeed: 1
   skillCount: 1
   player: {fileID: 0}
