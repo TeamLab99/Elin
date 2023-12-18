@@ -15,7 +15,7 @@ public class CameraEventTrigger : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlatformEventManager.instance.SeeAppleEvent();
+            PlatformEventManager.instance.SetEvent();
             box.enabled = false;
             gameObject.SetActive(false);
         }
