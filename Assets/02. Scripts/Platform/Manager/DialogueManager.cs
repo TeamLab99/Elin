@@ -37,7 +37,8 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         runner.onDialogueComplete.AddListener(() =>
         {
-            Managers.Input.PlayerMoveControl(true);
+            if(!PlatformEventManager.instance.isEnding)
+                Managers.Input.PlayerMoveControl(true);
             OffCharacterImage();
             PlatformManager.Instance.OnOffUI();
         }); // 대화 종료시
@@ -145,11 +146,6 @@ public class DialogueManager : Singleton<DialogueManager>
         CardManager.EffectPlayBack.Invoke(false);
         CardManager.instance.DontUseCard(false);
         Time.timeScale=1;
-    }
-
-    public void GenerateNightmare()
-    {
-        BattleManager.instance.GenerateNightmare();
     }
 
     public void BattleDialogue()

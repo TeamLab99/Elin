@@ -49,7 +49,6 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
             case 6:
                 enhanceUI.SetActive(false);
                 NextEricaDialogue();
-                PlatformEventManager.instance.isEnding = true;
                 break;
             case 7:
                 //페이드 기능 삽입

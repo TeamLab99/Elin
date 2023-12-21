@@ -30,7 +30,6 @@ public class Nightmare : Monster
         curTime = maxTime;
         count = skillCount;
         hp = maxHp;
-
     }
 
     public void SetBattle()
@@ -39,7 +38,8 @@ public class Nightmare : Monster
         ConnectInspector();
         StartCoroutine(SetState());
 
-        //DialogueManager.instance.NextEricaDialouge("Erica");
+        PlatformEventManager.instance.isEnding = true;
+        PlatformEventManager.instance.NextEricaDialogue();
     }
 
     protected override IEnumerator MonsterPattern(int skillCount)
@@ -181,6 +181,7 @@ public class Nightmare : Monster
     {
         if (hp - value <= maxHp * 0.4)
         {
+            PlatformEventManager.instance.NextEricaDialogue();
             isDrain = false;
             //넘을 수 없는 벽 시작
             isWall = true;
@@ -189,6 +190,7 @@ public class Nightmare : Monster
         }
         else if (hp - value <= maxHp * 0.7)
         {
+            PlatformEventManager.instance.NextEricaDialogue();
             hp -= value;
             isDrain = true;
         }
@@ -199,6 +201,7 @@ public class Nightmare : Monster
         }
         else if (hp - value <= 0)
         {
+            PlatformEventManager.instance.NextEricaDialogue();
             hp = 0;
         }
 
