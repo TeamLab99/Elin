@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class OnOffUI : Singleton<OnOffUI>
 { 
     [SerializeField] GameObject statObject;
     [SerializeField] GameObject invenObject;
     [SerializeField] GameObject exitObject;
+    [SerializeField] private Image blackPanel;
+    
     public GameObject endingObject;
     public bool onBattlePage;
     bool statActivate = false;
     bool invenActivate = false;
     bool exitActivate = false;
+
+    private float gauge;
     private void Start()
     {
         BattleManager.PlatformUIControlForBattle += SetBool;
@@ -76,5 +82,16 @@ public class OnOffUI : Singleton<OnOffUI>
 
     public void GameEnding(){
         endingObject.SetActive(true);
+    }
+    
+    public void BlackPanelOn()
+    {
+        blackPanel.gameObject.SetActive(true);
+    }
+    
+    public void FadeIn()
+    {
+        gauge += 0.25f;
+        blackPanel.DOFade(gauge, 2f);
     }
 }

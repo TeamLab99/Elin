@@ -50,6 +50,8 @@ public class DialogueManager : Singleton<DialogueManager>
         runner.AddCommandHandler("ResumeBattle", ResumeBattle);
         runner.AddCommandHandler("PauseBattle", PauseBattle);
         runner.AddCommandHandler("StartNightmareBattle", StartNightmareBattle);
+        runner.AddCommandHandler("BlackPanelOn", BlackPanelOn);
+        runner.AddCommandHandler("FadeIn", FadeIn);
     }
 
     public void OffCharacterImage()
@@ -138,14 +140,14 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         CardManager.EffectPlayBack.Invoke(true);
         CardManager.instance.DontUseCard(true);
-        Time.timeScale=0;
+        MagicManager.instance.monster.TimerControl(true);
     }
 
     public void ResumeBattle()
     {
         CardManager.EffectPlayBack.Invoke(false);
         CardManager.instance.DontUseCard(false);
-        Time.timeScale=1;
+        MagicManager.instance.monster.TimerControl(false);
     }
 
     public void BattleDialogue()
@@ -153,5 +155,15 @@ public class DialogueManager : Singleton<DialogueManager>
         PlatformManager.Instance.OnOffUI();
         runner.StartDialogue("Erica8");
         Managers.Input.PlayerMoveControl(false);
+    }
+    
+    public void BlackPanelOn()
+    {
+        OnOffUI.instance.BlackPanelOn();
+    }
+
+    public void FadeIn()
+    {
+        OnOffUI.instance.FadeIn();
     }
 }

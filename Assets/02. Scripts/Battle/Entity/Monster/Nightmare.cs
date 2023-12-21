@@ -181,12 +181,12 @@ public class Nightmare : Monster
     {
         if (hp - value <= maxHp * 0.4)
         {
-            PlatformEventManager.instance.NextEricaDialogue();
             isDrain = false;
             //넘을 수 없는 벽 시작
             isWall = true;
             isStun = true;
             CardManager.instance.DontUseCard(true);
+            PlatformEventManager.instance.NextEricaDialogue();
         }
         else if (hp - value <= maxHp * 0.7)
         {
@@ -307,4 +307,10 @@ public class Nightmare : Monster
             }
         }
     }
+
+    public bool GetIsWall()
+    {
+        return isWall;
+    }
+    
 }

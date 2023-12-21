@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5528735383419758845}
+  - component: {fileID: 7139557688154813777}
   m_Layer: 0
   m_Name: Final_FoxRain_SkillPrefab
   m_TagString: Untagged
@@ -32,6 +33,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7139557688154813777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6531912757647282249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee7d1e3b57c0b714b8d6e1af28c0bb73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillEffect: {fileID: 4569912837537428555}
+  skilIcon: {fileID: 1544188907, guid: f2db3cf3cb928324da6f3cc86b908d10, type: 3}
 --- !u!1001 &4956121633777370033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -89,6 +104,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d99679055d020147971de43417b14d3, type: 3}
+--- !u!1 &4569912837537428555 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8911561385671374842, guid: 5d99679055d020147971de43417b14d3, type: 3}
+  m_PrefabInstance: {fileID: 4956121633777370033}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4569912837537428662 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8911561385671374599, guid: 5d99679055d020147971de43417b14d3, type: 3}

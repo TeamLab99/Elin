@@ -85,9 +85,7 @@ public class TurnManager : Singleton<TurnManager>
         }
 
         yield return delay035;
-
-
-        BattleManager.instance.Notification("전투 시작!");
+        
         CardManager.instance.SetKey();
         yield return delay05;
         

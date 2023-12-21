@@ -156,10 +156,16 @@ title: Erica13
 tags:
 ---
 <<Act Erica H>>
+<<PauseBattle>>
+<<BlackPanelOn>>
+<<FadeIn>>
 에리카 : 일어나요!
 <<Act Erica B>>
+<<FadeIn>>
 에리카 : ...어나요!
+<<FadeIn>>
 에리카 : ...요!
+<<FadeIn>>
 <<Event>>
 ===
 

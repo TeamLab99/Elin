@@ -22,7 +22,6 @@ public class Squirrel : Monster
         {
             if (skillOverlap < 2)
             {
-                Debug.Log("스킬 발동");
                 StartCoroutine(Skill());
                 count = skillCount;
                 curTime = maxTime;
@@ -71,14 +70,14 @@ public class Squirrel : Monster
 
     public override void TakeDamage(float value)
     {  
-        if(isDead == true)
+        if(isDead)
             return;
 
         if (hp - value > 0)
         {
             hp -= value;
         }
-        else
+        else if (hp - value <= 0)
         {
             isDead = true;
             hp = 0;
@@ -95,7 +94,7 @@ public class Squirrel : Monster
         
         Sequence sequence = DOTween.Sequence();
         sequence.Append(gameObject.transform.DOMoveX(transform.position.x+10f, 2f))
-            .AppendInterval(3f)
+            .AppendInterval(2f)
             .OnComplete(() =>
             {
                 StopAllCoroutines();
@@ -120,11 +119,10 @@ public class Squirrel : Monster
         
         CardManager.instance.DisableCards();
         
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         BattleManager.instance.ResetCamera();
-        //DialogueManager.instance.SetEvent();
+
         DialogueManager.instance.NextDialogue("Erica");
         DialogueManager.instance.StartDialogue("Erica"); //대화 불러오기 Erica8 불러옴
-        Debug.Log("111");   
     }
 }

@@ -29,7 +29,6 @@ public class BuffManager : MonoBehaviour
 
     public float CheckDamageImpactBuff(float value)
     {
-        
         if (buffDebuffList.Exists(x => x is Rolling))
         {
             buffDebuffList.Find(x => x is Rolling).Delete();
@@ -41,6 +40,19 @@ public class BuffManager : MonoBehaviour
 
             value -= 5;
 
+            if (value < 0)
+                value = 0;
+
+            return value;
+        }
+        else if (buffDebuffList.Exists(x => x is EarthShield))
+        {
+            buffDebuffList.Find(x => x is EarthShield).Delete();
+
+            var player = MagicManager.instance.player;
+
+            value -= player.GetLoseHealth();
+            
             if (value < 0)
                 value = 0;
 

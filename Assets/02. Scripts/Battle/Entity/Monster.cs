@@ -21,13 +21,12 @@ public class Monster : Entity
     protected float lastingDamageMainTainTime;
     protected float fireMainTainTime;
     protected float debuffMainTainTime;
-    protected float healMainTainTime;
     bool stopGauge;
     
     private Coroutine downSpeed;
     private Coroutine burn;
     private Coroutine drowning;
-    private Coroutine heal;
+    private Coroutine timer;
 
     protected Image gauge;
     protected BattleGaugeIconAnimation iconAnimation;
@@ -72,7 +71,7 @@ public class Monster : Entity
 
         HpTextUpdate();
 
-        StartCoroutine(GaugeTimer());
+        timer = StartCoroutine(GaugeTimer());
     }
 
     protected virtual IEnumerator GaugeTimer()
@@ -111,6 +110,16 @@ public class Monster : Entity
         CardManager.instance.DontUseCard(isBool);
     }
 
+    public void StopTimer(bool isBool)
+    {
+        if(isBool)
+            StopCoroutine(timer);
+        else
+        {
+            timer = StartCoroutine(GaugeTimer());
+        }
+    }
+
     public void GaugeControl(bool _active)
     {
         CardManager.EffectPlayBack.Invoke(_active);
@@ -123,7 +132,8 @@ public class Monster : Entity
 
     public void StartBattle()
     {
-        StartCoroutine(GaugeTimer());
+        timer = StartCoroutine(GaugeTimer());
+        EntitiesStateChange(false);
     }
 
     public override void TimerControl(bool isStop)
@@ -175,8 +185,10 @@ public class Monster : Entity
     public IEnumerator DownSpeed(float time, float value)
     {
         debuffMainTainTime = time;
-        maxTime += (maxTime * value);
-        curTime= maxTime;
+        maxTime += (maxTime * (value/100));
+        
+        //curTime= maxTime;
+        
         while (debuffMainTainTime > 0)
         {
             yield return new WaitForSeconds(1f);
@@ -241,6 +253,7 @@ public class Monster : Entity
     {
         fireMainTainTime = time;
         var damage = attack * 0.05f;
+        attack -= attack * 0.05f;
         
         if(damage < 1)
             damage = 1;
@@ -267,36 +280,6 @@ public class Monster : Entity
         else
         {
             burn = StartCoroutine(Burn(time));
-        }
-    }
-    
-    public IEnumerator SustainedHeal(float time)
-    {
-        healMainTainTime = time;
-        
-        while (healMainTainTime > 0)
-        {
-            yield return new WaitForSeconds(1f);
-            healMainTainTime -= 1f;
-            Heal(5);
-        }
-        
-        healMainTainTime = 0;
-    }
-    
-    public void HealReset(float time)
-    {
-        if(heal != null)
-        {
-            StopCoroutine(heal);
-
-            healMainTainTime = 0;
-            
-            heal = StartCoroutine(SustainedHeal(time));
-        }
-        else
-        {
-            heal = StartCoroutine(SustainedHeal(time));
         }
     }
 }

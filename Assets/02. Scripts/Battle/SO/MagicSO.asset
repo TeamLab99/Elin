@@ -67,14 +67,14 @@ MonoBehaviour:
     skillEffect: {fileID: 2162230970508282722, guid: 0be7637ca7b66b34dafb1ea876e05f92, type: 3}
     hitEffect: {fileID: 5820767255430281754, guid: 4a7be9a3f6c7f63439ba56eef46d4832, type: 3}
     buffEffect: {fileID: 0}
-    cardImage: {fileID: 1710423544, guid: 0f7122343889c8d4ea481d04b5da3336, type: 3}
+    cardImage: {fileID: 287878179, guid: 0f7122343889c8d4ea481d04b5da3336, type: 3}
     EnglishName: WaterStream
   - id: 9
     name: "\uC5EC\uC6B0\uBE44"
     skillEffect: {fileID: 6531912757647282249, guid: c2263a79cee6716488e44a8de959f13b, type: 3}
     hitEffect: {fileID: 0}
     buffEffect: {fileID: 6531912757647282249, guid: c2263a79cee6716488e44a8de959f13b, type: 3}
-    cardImage: {fileID: -734090929, guid: f2db3cf3cb928324da6f3cc86b908d10, type: 3}
+    cardImage: {fileID: 1549523549, guid: 1c3570da9945d3940817ec6d8d4830d7, type: 3}
     EnglishName: FoxRain
   - id: 10
     name: "\uB0AB\uC871\uC81C\uBE44"

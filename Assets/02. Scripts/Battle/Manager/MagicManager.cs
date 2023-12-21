@@ -172,7 +172,7 @@ public class MagicManager : Singleton<MagicManager>
 
         if (GetRandom(card.debuffProbability))
         {
-            WetBuff(card);
+            WetBuff();
         }
 
         monster.ChangeAnim(EMonsterState.Hit);
@@ -182,23 +182,23 @@ public class MagicManager : Singleton<MagicManager>
         monster.ChangeAnim(EMonsterState.Idle);
     }
 
-    public void WetBuff(DeckCard card)
+    public void WetBuff()
     {
-        var buff = magic.items[card.index - 1].buffEffect;
+        var buff = magic.items[4].buffEffect;
         var playerBuffList = player.buffDebuff.buffDebuffList;
 
         var drowning = playerBuffList.Find(item => item is Drowning);
-        
+
         if (drowning != null)
         {
             return;
         }
-        
+
         var skill = playerBuffList.Find(item => item is Wet);
-            
+
         if (skill != null)
         {
-            if((skill as Wet).GetCount() == true)
+            if ((skill as Wet).GetCount() == true)
             {
                 // 익수
                 playerBuffList.Remove(skill);
@@ -207,7 +207,7 @@ public class MagicManager : Singleton<MagicManager>
                 buff = magic.items[6].buffEffect;
                 var effect = Managers.Pool.Pop(buff, monster.transform.Find("MobEffects"));
                 effect.transform.position = monster.gameObject.transform.position;
-                
+
                 var drown = effect.GetComponent<BuffDebuffMagic>();
                 playerBuffList.Add(drown);
                 drown.ConnectBuffManager(monster.buffDebuff, BuffIconsController.instance.GetBuffIconInfo(false));
@@ -218,10 +218,9 @@ public class MagicManager : Singleton<MagicManager>
             else
             {
                 skill.TimeUpdate();
-                
+
                 monster.DownSpeedReset(15, (skill as Wet).count * 5);
             }
-            
         }
         else
         {
@@ -234,22 +233,10 @@ public class MagicManager : Singleton<MagicManager>
         }
     }
 
-    public void DrowningReset()
-    {
-        var drowning = player.buffDebuff.buffDebuffList.Find(item => item is Drowning);
-        if (drowning != null)
-        {
-            drowning.TimeUpdate();
-            
-            monster.DownSpeedReset(20,15);
-            monster.DrowningReset(20);
-        }
-    }
-    
-
     public IEnumerator Spark(DeckCard card)
     {
         var skillEffect = magic.items[card.index - 1].skillEffect;
+        var monsterBuffList = monster.buffDebuff.buffDebuffList;
 
         var startEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("PlayerEffects"));
         startEfc.transform.position = player.gameObject.transform.position;
@@ -257,6 +244,21 @@ public class MagicManager : Singleton<MagicManager>
         skillEffect = magic.items[card.index - 1].hitEffect;
         var hitEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("PlayerEffects"));
         hitEfc.transform.position = monster.gameObject.transform.position;
+
+        if (monsterBuffList.Find(item => item is Burn))
+        {
+            var skill = monsterBuffList.Find(item => item is Burn);
+            skill.TimeUpdate();
+
+            monster.BurnReset(15);
+        }
+        else
+        {
+            var magic = startEfc.GetComponent<BuffDebuffMagic>();
+            monsterBuffList.Add(magic);
+            magic.ConnectBuffManager(player.buffDebuff, BuffIconsController.instance.GetBuffIconInfo(false));
+            monster.BurnReset(15);
+        }
 
         monster.ChangeAnim(EMonsterState.Hit);
 
@@ -279,7 +281,21 @@ public class MagicManager : Singleton<MagicManager>
         var hitEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("PlayerEffects"));
         hitEfc.transform.position = monster.gameObject.transform.position;
 
-        player.MagicAttack(monster, card.amount);
+        var buffList = player.buffDebuff.buffDebuffList;
+
+        if (buffList.Exists(item => item is Wet))
+        {
+            player.MagicAttack(monster, card.amount * 1.2f);
+        }
+        else if (buffList.Exists(item => item is Drowning))
+        {
+            player.MagicAttack(monster, card.amount * 1.5f);
+        }
+        else
+        {
+            player.MagicAttack(monster, card.amount);
+        }
+
         monster.ChangeAnim(EMonsterState.Hit);
 
         yield return delay05;
@@ -289,27 +305,36 @@ public class MagicManager : Singleton<MagicManager>
 
     public IEnumerator Wind(DeckCard card)
     {
-        var skillEffect = magic.items[card.index - 1].skillEffect;
+        var head = magic.items[card.index - 1].skillEffect;
+        var tail = magic.items[card.index - 1].hitEffect;
 
-        var startEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("PlayerEffects"));
-        startEfc.transform.position = player.gameObject.transform.position;
+        int randomInt = Random.Range(1, 4);
 
-        skillEffect = magic.items[card.index - 1].hitEffect;
 
-        var hitEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("PlayerEffects"));
-        hitEfc.transform.position = monster.gameObject.transform.position;
+        for (int i = 0; i < randomInt; i++)
+        {
+            var startEfc = Managers.Pool.Pop(head, monster.transform.Find("PlayerEffects"));
+            startEfc.transform.position = player.gameObject.transform.position;
 
-        player.MagicAttack(monster, card.amount);
+            var hitEfc = Managers.Pool.Pop(tail, monster.transform.Find("PlayerEffects"));
+            var pos = monster.gameObject.transform.position;
+            pos.y += i * 1f;
+            hitEfc.transform.position = pos;
+
+            player.MagicAttack(monster, card.amount);
+        }
+
         monster.ChangeAnim(EMonsterState.Hit);
 
         yield return delay05;
-        Managers.Pool.Push(startEfc);
+
         monster.ChangeAnim(EMonsterState.Idle);
     }
 
     public IEnumerator EarthQuake(DeckCard card)
     {
         var skillEffect = magic.items[card.index - 1].skillEffect;
+        var playerBuffDebuffList = player.buffDebuff.buffDebuffList;
 
         var startEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("PlayerEffects"));
         startEfc.transform.position = player.gameObject.transform.position;
@@ -318,6 +343,20 @@ public class MagicManager : Singleton<MagicManager>
 
         var hitEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("PlayerEffects"));
         hitEfc.transform.position = monster.gameObject.transform.position;
+
+        if (player.GetLoseHealth() > 0)
+        {
+            if (playerBuffDebuffList.Find(item => item is EarthShield))
+            {
+                var skill = playerBuffDebuffList.Find(item => item is EarthShield);
+                skill.Delete();
+                playerBuffDebuffList.Remove(skill);
+            }
+
+            var buff = startEfc.GetComponent<BuffDebuffMagic>();
+            playerBuffDebuffList.Add(buff);
+            buff.ConnectBuffManager(player.buffDebuff, BuffIconsController.instance.GetBuffIconInfo(true));
+        }
 
         player.MagicAttack(monster, card.amount);
         monster.ChangeAnim(EMonsterState.Hit);
@@ -334,12 +373,37 @@ public class MagicManager : Singleton<MagicManager>
         var startEfc = Managers.Pool.Pop(skillEffect, monster.transform.Find("PlayerEffects"));
         startEfc.transform.position = monster.gameObject.transform.position;
 
-        player.MagicAttack(monster, card.amount);
+        WetReset();
+        DrowningReset();
+
         monster.ChangeAnim(EMonsterState.Hit);
 
         yield return delay05;
         Managers.Pool.Push(startEfc);
         monster.ChangeAnim(EMonsterState.Idle);
+    }
+
+    public void WetReset()
+    {
+        var wet = player.buffDebuff.buffDebuffList.Find(item => item is Wet);
+        if (wet != null)
+        {
+            wet.TimeUpdate();
+
+            monster.DownSpeedReset(15, (wet as Wet).count * 5);
+        }
+    }
+
+    public void DrowningReset()
+    {
+        var drowning = player.buffDebuff.buffDebuffList.Find(item => item is Drowning);
+        if (drowning != null)
+        {
+            drowning.TimeUpdate();
+
+            monster.DownSpeedReset(20, 15);
+            monster.DrowningReset(20);
+        }
     }
 
     public void FoxRain(DeckCard card)
@@ -348,9 +412,27 @@ public class MagicManager : Singleton<MagicManager>
         //     return;
 
         var skillEffect = magic.items[card.index - 1].skillEffect;
+        var playerBuffDebuffList = player.buffDebuff.buffDebuffList;
 
-        var effect = Managers.Pool.Pop(skillEffect, player.transform.Find("PlayerEffects"));
-        effect.transform.position = player.gameObject.transform.position;
+        if (playerBuffDebuffList.Find(item => item is FoxRain))
+        {
+            var skill = playerBuffDebuffList.Find(item => item is FoxRain);
+            skill.TimeUpdate();
+
+            player.HealReset(15);
+        }
+        else
+        {
+            var effect = Managers.Pool.Pop(skillEffect, player.transform.Find("PlayerEffects"));
+            effect.transform.position = player.gameObject.transform.position;
+
+            var magic = effect.GetComponent<BuffDebuffMagic>();
+            playerBuffDebuffList.Add(magic);
+            magic.ConnectBuffManager(player.buffDebuff, BuffIconsController.instance.GetBuffIconInfo(true));
+            player.HealReset(15);
+        }
+
+        WetBuff();
     }
 
 
