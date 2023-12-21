@@ -40,7 +40,7 @@ public class TurnManager : Singleton<TurnManager>
         delay05 = new WaitForSeconds(time);
         yield return delay05;
 
-        ui.SetActive(true);
+        ui?.SetActive(true);
         BattleManager.PlatformUIControlForBattle?.Invoke();
 
         StartCoroutine(CardManager.instance.GetCost());

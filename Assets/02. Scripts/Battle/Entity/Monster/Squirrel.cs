@@ -90,6 +90,8 @@ public class Squirrel : Monster
 
     public void Run()
     {
+        spriteRenderer.flipX=true;
+        transform.position += Vector3.up * 0.9f;
         ChangeAnim(EMonsterState.Run);
         
         Sequence sequence = DOTween.Sequence();

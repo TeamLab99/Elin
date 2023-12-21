@@ -15,6 +15,8 @@ public class Monster : Entity
 
     [SerializeField] protected Animator animator;
 
+    protected SpriteRenderer spriteRenderer;
+
     protected float maxTime;
     protected float curTime;
     protected int count;
@@ -36,7 +38,6 @@ public class Monster : Entity
     private void Start()
     {
         CardManager.EffectPlayBack += TimerControl;
-
         Init();
     }
 
@@ -55,6 +56,8 @@ public class Monster : Entity
         buffDebuff = gameObject.AddComponent<BuffManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         StartCoroutine(GetGaugeUI("HpBar"));
+        spriteRenderer= GetComponent<SpriteRenderer>();
+
     }
 
     public override IEnumerator GetGaugeUI(string tagName)
