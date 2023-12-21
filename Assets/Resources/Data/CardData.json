@@ -96,7 +96,7 @@
       "buffMaintainTime": null,
       "debuffProbability": "90",
       "debuffMaintainTime": "15",
-      "amount": 5,
+      "amount": 20,
       "descryption": "적에게 공격력의 70%만큼의 데미지를 주고 10%의 확률로 젖음 디버프를 건다.",
       "engName": "Bubble"
     },
@@ -116,7 +116,7 @@
       "buffMaintainTime": null,
       "debuffProbability": "10",
       "debuffMaintainTime": "15",
-      "amount": 5,
+      "amount": 20,
       "descryption": "적에게 공격력의 60%만큼의 데미지를 주고 10%의 확률로 화상 디버프를 준다. \n적의 체력이 50% 이하일 때 주는 피해 계수가 80%로 증가",
       "engName": "Spark"
     },
@@ -136,7 +136,7 @@
       "buffMaintainTime": null,
       "debuffProbability": "100",
       "debuffMaintainTime": "15",
-      "amount": 5,
+      "amount": 20,
       "descryption": "적에게 부여된 젖음 및 익수 디버프의 지속 시간을 갱신시킨다.",
         "engName": "WaterWeed"
     },
@@ -156,7 +156,7 @@
       "buffMaintainTime": null,
       "debuffProbability": null,
       "debuffMaintainTime": null,
-      "amount": 5,
+      "amount": 20,
       "descryption": "적에게 공격력의 100%만큼의 데미지를 준다. 적에게 젖음 디버프가 있을 시 계수가 120%, 익수 디버프가 있을 시는 150%가 된다.",
       "engName": "WaterStream"
     },
@@ -166,7 +166,7 @@
       "element": "Water",
       "type": "BD",
       "cost": 4,
-      "percent": 20,
+      "percent": 0,
       "attackCode": null,
       "buffCode": "BUF_FOXRAIN",
       "debuffCode": "DBF_FOXRAIN",
@@ -196,7 +196,7 @@
       "buffMaintainTime": null,
       "debuffProbability": null,
       "debuffMaintainTime": null,
-      "amount": 5,
+      "amount": 10,
       "descryption": "적을 1회~3회 공격해 적에게 각각 공격력의 35%만큼의 데미지를 준다. ",
       "engName": "WindCutter"
     },
@@ -216,7 +216,7 @@
       "buffMaintainTime": "10",
       "debuffProbability": "null.",
       "debuffMaintainTime": "null.",
-      "amount": 5,
+      "amount": 20,
       "descryption": "적에게 공격력의 70%만큼의 데미지를 주고 플레이어는 플레이어의 잃은 체력의 10%만큼의 방어도를 얻는다",
       "engName": "EarthQuake"
     }

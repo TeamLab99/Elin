@@ -7,6 +7,7 @@ using TMPro;
 public class Player : Entity
 {
     private int count;
+    bool endingPhase;
 
     private void Start()
     {
@@ -52,9 +53,9 @@ public class Player : Entity
         if (hp - value < 11)
         {
             //넘을 수 없는 벽 시작
-            if((MagicManager.instance.monster as Nightmare).GetIsWall() == false)
+            if ((MagicManager.instance.monster as Nightmare).GetIsWall() == false)
                 PlatformEventManager.instance.NextEricaDialogue();
-            
+
             CardManager.instance.DontUseCard(true);
             MobSkillManager.instance.MonsterAttackSpeedDown();
         }
@@ -62,13 +63,14 @@ public class Player : Entity
         {
             hp -= value;
         }
-        else if (hp - value <= 0)
+        else if (hp - value <= 0 && endingPhase == false)
         {
             hp = 0;
             // 죽음
             MagicManager.instance.monster.EntitiesStateChange(true);
-            Time.timeScale = 0;
             PlatformEventManager.instance.NextEricaDialogue();
+            BattleManager.instance.GameEnding();
+            endingPhase = true;
         }
 
         HpTextUpdate();
@@ -77,5 +79,10 @@ public class Player : Entity
     public int GetLoseHealth()
     {
         return (int)((maxHp - hp));
+    }
+
+    public void ImmediateDeath()
+    {
+        hp = 0;
     }
 }

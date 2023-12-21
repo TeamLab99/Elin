@@ -37,7 +37,7 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         runner.onDialogueComplete.AddListener(() =>
         {
-            if(!PlatformEventManager.instance.isEnding)
+            if (!PlatformEventManager.instance.isEnding)
                 Managers.Input.PlayerMoveControl(true);
             OffCharacterImage();
             PlatformManager.Instance.OnOffUI();
@@ -52,6 +52,7 @@ public class DialogueManager : Singleton<DialogueManager>
         runner.AddCommandHandler("StartNightmareBattle", StartNightmareBattle);
         runner.AddCommandHandler("BlackPanelOn", BlackPanelOn);
         runner.AddCommandHandler("FadeIn", FadeIn);
+        runner.AddCommandHandler("ImmediateDeath", ImmediateDeath);
     }
 
     public void OffCharacterImage()
@@ -156,10 +157,16 @@ public class DialogueManager : Singleton<DialogueManager>
         runner.StartDialogue("Erica8");
         Managers.Input.PlayerMoveControl(false);
     }
-    
+
+    public void ImmediateDeath()
+    {
+        MagicManager.instance.player.ImmediateDeath();
+    }
+
     public void BlackPanelOn()
     {
         OnOffUI.instance.BlackPanelOn();
+        BattleManager.instance.GameEnding();
     }
 
     public void FadeIn()

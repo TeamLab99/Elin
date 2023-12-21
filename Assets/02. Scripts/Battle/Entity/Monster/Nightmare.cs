@@ -19,6 +19,8 @@ public class Nightmare : Monster
     private bool isStun;
     private bool isDrain;
     private bool isWall;
+    private bool phase1;
+    private bool endingPhase;
     private int drainStack;
     private int brodeningOverlapValue;
     [SerializeField] private EMonsterSkill _monsterSkill;
@@ -179,7 +181,7 @@ public class Nightmare : Monster
 
     public override void TakeDamage(float value)
     {
-        if (hp - value <= maxHp * 0.4)
+        if (hp - value <= maxHp * 0.4 && isWall == false)
         {
             isDrain = false;
             //넘을 수 없는 벽 시작
@@ -188,7 +190,7 @@ public class Nightmare : Monster
             CardManager.instance.DontUseCard(true);
             PlatformEventManager.instance.NextEricaDialogue();
         }
-        else if (hp - value <= maxHp * 0.7)
+        else if (hp - value <= maxHp * 0.7 && isDrain == false)
         {
             PlatformEventManager.instance.NextEricaDialogue();
             hp -= value;
@@ -197,12 +199,13 @@ public class Nightmare : Monster
         else if (hp - value > 0)
         {
             hp -= value;
-            isDrain = false;
+            //isDrain=false;
         }
-        else if (hp - value <= 0)
+        else if (hp - value <= 0 && endingPhase == false)
         {
             PlatformEventManager.instance.NextEricaDialogue();
             hp = 0;
+            endingPhase=true;
         }
 
         HpTextUpdate();

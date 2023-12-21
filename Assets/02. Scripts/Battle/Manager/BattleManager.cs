@@ -160,4 +160,10 @@ public class BattleManager : Singleton<BattleManager>
     {
         monster.GetComponent<Nightmare>().StartBattle();
     }
+
+    public void GameEnding()
+    {
+        battleUI.SetActive(false);
+    }
+
 }
