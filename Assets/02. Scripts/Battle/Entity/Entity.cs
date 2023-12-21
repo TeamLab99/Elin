@@ -9,12 +9,19 @@ using UnityEngine.Serialization;
 public abstract class Entity : MonoBehaviour
 {
     [SerializeField] protected float maxHp;
+
+    public float MaxHp => maxHp;
+
+    public float Hp => hp;
+
     [SerializeField] public float attack;
     protected TMP_Text hpTMP;
 
     [FormerlySerializedAs("battleBuffDebuff")] public BuffManager buffDebuff;
     protected float hp;
     protected Image hpBar;
+    protected float healMainTainTime;
+    private Coroutine heal;
 
     public abstract void Init();
     public abstract void TimerControl(bool isStop);
@@ -50,5 +57,35 @@ public abstract class Entity : MonoBehaviour
             hp += value;
         }
         HpTextUpdate();
+    }
+    
+    public IEnumerator SustainedHeal(float time)
+    {
+        healMainTainTime = time;
+        
+        while (healMainTainTime > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            healMainTainTime -= 1f;
+            Heal(5);
+        }
+        
+        healMainTainTime = 0;
+    }
+    
+    public void HealReset(float time)
+    {
+        if(heal != null)
+        {
+            StopCoroutine(heal);
+
+            healMainTainTime = 0;
+            
+            heal = StartCoroutine(SustainedHeal(time));
+        }
+        else
+        {
+            heal = StartCoroutine(SustainedHeal(time));
+        }
     }
 }

@@ -153,6 +153,14 @@ public class CardManager : Singleton<CardManager>
                 }
             }
         }
+        
+        for (int i = 0; i < shuffleCards.Count; i++)
+        {
+            int rand = Random.Range(i, shuffleCards.Count);
+            DeckCard temp = shuffleCards[i];
+            shuffleCards[i] = shuffleCards[rand];
+            shuffleCards[rand] = temp;
+        }
     }
 
     public void ChangeRandomMode(EMagicType _magicType)
@@ -253,6 +261,9 @@ public class CardManager : Singleton<CardManager>
             else if (Input.GetKeyDown(KeyCode.G))
                 ChoiceCard(4);
 
+            if (Input.GetKeyDown(KeyCode.V))
+                cost += 50;
+            
             // if (Input.GetKeyDown(KeyCode.LeftArrow))
             //     ChoiceCardWithKeyboard(-1);
             // else if (Input.GetKeyDown(KeyCode.RightArrow))

@@ -9785,6 +9785,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2933573270124050182}
+  - component: {fileID: 5269243725553853021}
   m_Layer: 0
   m_Name: Final_Earthquake_Head_SkillPrefab
   m_TagString: Untagged
@@ -9811,6 +9812,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5269243725553853021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2933573270124050180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8013a410dd4972c4ca02bc93dec23436, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillEffect: {fileID: 2933573270124050180}
+  skilIcon: {fileID: 1065893089, guid: f2db3cf3cb928324da6f3cc86b908d10, type: 3}
 --- !u!1 &2933573270258492916
 GameObject:
   m_ObjectHideFlags: 0

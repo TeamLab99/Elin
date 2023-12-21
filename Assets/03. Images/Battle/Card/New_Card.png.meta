@@ -107,12 +107,12 @@ TextureImporter:
       name: New_Card_0
       rect:
         serializedVersion: 2
-        x: 488
-        y: 524
-        width: 834
-        height: 1097
+        x: 210
+        y: 213
+        width: 1051
+        height: 1381
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -125,22 +125,43 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: New_Card_1
+      name: New_Card_2
       rect:
         serializedVersion: 2
-        x: 1578
-        y: 503
-        width: 835
-        height: 1096
+        x: 1534
+        y: 213
+        width: 1052
+        height: 1381
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04983e46b7129604ca261c78fcc3a3bf
-      internalID: 1710423544
+      spriteID: de835e2824b95b347b865818b3cd94e5
+      internalID: 287878179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New_Card_3
+      rect:
+        serializedVersion: 2
+        x: 2723
+        y: 1288
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34ee9a5d7c91e06419e34e36eee0b20f
+      internalID: 1649476627
       vertices: []
       indices: 
       edges: []
@@ -158,6 +179,8 @@ TextureImporter:
     nameFileIdTable:
       New_Card_0: 1920756721
       New_Card_1: 1710423544
+      New_Card_2: 287878179
+      New_Card_3: 1649476627
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

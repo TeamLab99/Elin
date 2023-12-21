@@ -150,16 +150,23 @@ tags:
 에리카 : 왜 쓰러지지 않는 거지!
 에리카 : 버텨요!
 <<ResumeBattle>>
+<<ImmediateDeath>>
 ===
 
 title: Erica13
 tags:
 ---
 <<Act Erica H>>
+<<PauseBattle>>
+<<BlackPanelOn>>
+<<FadeIn>>
 에리카 : 일어나요!
 <<Act Erica B>>
+<<FadeIn>>
 에리카 : ...어나요!
+<<FadeIn>>
 에리카 : ...요!
+<<FadeIn>>
 <<Event>>
 ===
 

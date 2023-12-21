@@ -31,7 +31,6 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
                 break;
             case 1:
                 DialogueManager.instance.StartDialogue("plusText");
-                DialogueManager.instance.NextDialogue("plusText");
                 break;
             case 2:
                 movePlatform.GetComponent<MovePlatform>().movePlatform = true;
@@ -49,10 +48,11 @@ public class PlatformEventManager : Singleton<PlatformEventManager>
             case 6:
                 enhanceUI.SetActive(false);
                 NextEricaDialogue();
-                PlatformEventManager.instance.isEnding = true;
                 break;
             case 7:
                 //페이드 기능 삽입
+                DialogueManager.instance.runner.Stop();
+                DialogueManager.instance.NextDialogue("plusText");
                 DialogueManager.instance.StartDialogue("plusText");
                 break;
             case 8:

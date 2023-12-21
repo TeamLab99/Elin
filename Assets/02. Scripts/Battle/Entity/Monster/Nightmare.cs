@@ -19,6 +19,8 @@ public class Nightmare : Monster
     private bool isStun;
     private bool isDrain;
     private bool isWall;
+    private bool phase1;
+    private bool endingPhase;
     private int drainStack;
     private int brodeningOverlapValue;
     [SerializeField] private EMonsterSkill _monsterSkill;
@@ -30,7 +32,6 @@ public class Nightmare : Monster
         curTime = maxTime;
         count = skillCount;
         hp = maxHp;
-
     }
 
     public void SetBattle()
@@ -39,7 +40,8 @@ public class Nightmare : Monster
         ConnectInspector();
         StartCoroutine(SetState());
 
-        //DialogueManager.instance.NextEricaDialouge("Erica");
+        PlatformEventManager.instance.isEnding = true;
+        PlatformEventManager.instance.NextEricaDialogue();
     }
 
     protected override IEnumerator MonsterPattern(int skillCount)
@@ -179,27 +181,31 @@ public class Nightmare : Monster
 
     public override void TakeDamage(float value)
     {
-        if (hp - value <= maxHp * 0.4)
+        if (hp - value <= maxHp * 0.4 && isWall == false)
         {
             isDrain = false;
             //넘을 수 없는 벽 시작
             isWall = true;
             isStun = true;
             CardManager.instance.DontUseCard(true);
+            PlatformEventManager.instance.NextEricaDialogue();
         }
-        else if (hp - value <= maxHp * 0.7)
+        else if (hp - value <= maxHp * 0.7 && isDrain == false)
         {
+            PlatformEventManager.instance.NextEricaDialogue();
             hp -= value;
             isDrain = true;
         }
         else if (hp - value > 0)
         {
             hp -= value;
-            isDrain = false;
+            //isDrain=false;
         }
-        else if (hp - value <= 0)
+        else if (hp - value <= 0 && endingPhase == false)
         {
+            PlatformEventManager.instance.NextEricaDialogue();
             hp = 0;
+            endingPhase=true;
         }
 
         HpTextUpdate();
@@ -304,4 +310,10 @@ public class Nightmare : Monster
             }
         }
     }
+
+    public bool GetIsWall()
+    {
+        return isWall;
+    }
+    
 }
